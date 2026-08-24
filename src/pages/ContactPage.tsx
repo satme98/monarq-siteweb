@@ -6,7 +6,8 @@ import {
   MessageSquare, 
   Send, 
   ChevronDown,
-  CheckCircle2
+  CheckCircle2,
+  ArrowRight
 } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
 import { FadeUp, SlideLeft, SlideRight, FadeIn } from '../components/Animations';
@@ -58,11 +59,11 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           
           {/* Left: Atmospheric Photo */}
-          <SlideRight className="relative h-[60vh] lg:h-[80vh] w-full overflow-hidden">
+          <SlideRight className="relative h-[60vh] lg:h-[80vh] w-full overflow-hidden group">
             <img 
               src="/images/staggered-story-1.jpg" 
               alt="Intérieur MONARQ" 
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-monarq-ink/30 flex flex-col justify-end p-8 md:p-12">
               <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white font-light mb-4">
@@ -80,45 +81,46 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
             {/* Contact Details List */}
             <div className="space-y-10">
               <div>
-                <h2 className="font-serif text-3xl text-monarq-ink mb-8">Coordonnées</h2>
+                <span className="section-label block mb-3">Informations & Accès</span>
+                <h2 className="font-serif text-3xl sm:text-4xl text-monarq-ink font-semibold mb-8">Coordonnées</h2>
                 
-                <div className="space-y-6">
+                <div className="space-y-8">
                   <div className="flex items-start gap-4">
-                    <MapPin className="w-5 h-5 text-monarq-gold mt-1" />
+                    <MapPin className="w-5 h-5 text-monarq-gold-deep mt-1 flex-shrink-0" />
                     <div>
-                      <p className="font-sans text-sm tracking-widest text-monarq-ink-soft uppercase mb-1">Adresse</p>
-                      <p className="font-sans text-monarq-ink">{siteConfig.fullAddress}</p>
-                      <a href={siteConfig.mapsUrl} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 font-sans text-xs uppercase tracking-widest text-monarq-ink-soft border-b border-monarq-ink-soft hover:text-monarq-ink hover:border-monarq-ink transition-colors pb-0.5">
-                        Itinéraire Google Maps
+                      <p className="font-sans text-xs uppercase tracking-[0.2em] text-monarq-gold-deep font-semibold mb-1">Adresse</p>
+                      <p className="font-sans text-base sm:text-lg text-monarq-ink font-medium">{siteConfig.fullAddress}</p>
+                      <a href={siteConfig.mapsUrl} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 font-sans text-xs uppercase tracking-widest text-monarq-ink-soft border-b border-monarq-gold hover:text-monarq-gold-deep transition-colors pb-0.5 font-semibold">
+                        Itinéraire Google Maps ↗
                       </a>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <Phone className="w-5 h-5 text-monarq-gold mt-1" />
+                    <Phone className="w-5 h-5 text-monarq-gold-deep mt-1 flex-shrink-0" />
                     <div>
-                      <p className="font-sans text-sm tracking-widest text-monarq-ink-soft uppercase mb-1">Téléphone</p>
-                      <a href={`tel:${siteConfig.phone}`} className="font-sans text-monarq-ink hover:text-monarq-gold transition-colors">
+                      <p className="font-sans text-xs uppercase tracking-[0.2em] text-monarq-gold-deep font-semibold mb-1">Téléphone</p>
+                      <a href={`tel:${siteConfig.phone}`} className="font-sans text-base sm:text-lg text-monarq-ink hover:text-monarq-gold-deep transition-colors font-medium">
                         {siteConfig.phoneDisplay}
                       </a>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <MessageSquare className="w-5 h-5 text-monarq-gold mt-1" />
+                    <MessageSquare className="w-5 h-5 text-monarq-gold-deep mt-1 flex-shrink-0" />
                     <div>
-                      <p className="font-sans text-sm tracking-widest text-monarq-ink-soft uppercase mb-1">WhatsApp Direct</p>
-                      <a href={siteConfig.whatsappUrl} target="_blank" rel="noopener noreferrer" className="font-sans text-monarq-ink hover:text-monarq-gold transition-colors">
-                        Démarrer une discussion
+                      <p className="font-sans text-xs uppercase tracking-[0.2em] text-monarq-gold-deep font-semibold mb-1">WhatsApp Direct</p>
+                      <a href={siteConfig.whatsappUrl} target="_blank" rel="noopener noreferrer" className="font-sans text-base sm:text-lg text-monarq-ink hover:text-monarq-gold-deep transition-colors font-medium">
+                        Démarrer une discussion instantanée
                       </a>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <Clock className="w-5 h-5 text-monarq-gold mt-1" />
+                    <Clock className="w-5 h-5 text-monarq-gold-deep mt-1 flex-shrink-0" />
                     <div>
-                      <p className="font-sans text-sm tracking-widest text-monarq-ink-soft uppercase mb-1">Horaires</p>
-                      <p className="font-sans text-monarq-ink">Lundi — Dimanche : 08h00 — 00h00</p>
+                      <p className="font-sans text-xs uppercase tracking-[0.2em] text-monarq-gold-deep font-semibold mb-1">Horaires</p>
+                      <p className="font-sans text-base sm:text-lg text-monarq-ink font-medium">Lundi — Dimanche : 08h00 — 00h00</p>
                     </div>
                   </div>
                 </div>
@@ -127,12 +129,13 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
 
             {/* Minimal Contact Form */}
             <div>
-              <h2 className="font-serif text-3xl text-monarq-ink mb-8">Nous Écrire</h2>
+              <span className="section-label block mb-3">Formulaire</span>
+              <h2 className="font-serif text-3xl sm:text-4xl text-monarq-ink font-semibold mb-8">Nous Écrire</h2>
               {formSubmitted ? (
                 <div className="flex flex-col items-center justify-center text-center py-8 space-y-4">
                   <CheckCircle2 className="w-12 h-12 text-monarq-gold" />
-                  <p className="font-serif text-xl text-monarq-ink">Message envoyé avec succès</p>
-                  <p className="font-sans text-monarq-ink-soft font-light">Notre équipe vous répondra dans les plus brefs délais.</p>
+                  <p className="font-serif text-2xl text-monarq-ink font-semibold">Message envoyé avec succès</p>
+                  <p className="font-sans text-monarq-ink-soft font-normal text-base">Notre équipe vous répondra dans les plus brefs délais.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -143,7 +146,7 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
                       placeholder="Votre Nom"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-transparent border-b border-monarq-line py-3 px-0 font-sans text-sm focus:outline-none focus:border-monarq-gold transition-colors placeholder:text-monarq-ink-soft/60 rounded-none"
+                      className="w-full bg-transparent border-b border-monarq-line py-3.5 px-0 font-sans text-base text-monarq-ink focus:outline-none focus:border-monarq-gold transition-colors placeholder:text-monarq-ink-soft/60 rounded-none"
                     />
                     <input
                       type="text"
@@ -151,14 +154,14 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
                       placeholder="Téléphone ou Email"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-transparent border-b border-monarq-line py-3 px-0 font-sans text-sm focus:outline-none focus:border-monarq-gold transition-colors placeholder:text-monarq-ink-soft/60 rounded-none"
+                      className="w-full bg-transparent border-b border-monarq-line py-3.5 px-0 font-sans text-base text-monarq-ink focus:outline-none focus:border-monarq-gold transition-colors placeholder:text-monarq-ink-soft/60 rounded-none"
                     />
                   </div>
                   
                   <select
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    className="w-full bg-transparent border-b border-monarq-line py-3 px-0 font-sans text-sm focus:outline-none focus:border-monarq-gold transition-colors text-monarq-ink rounded-none appearance-none"
+                    className="w-full bg-transparent border-b border-monarq-line py-3.5 px-0 font-sans text-base focus:outline-none focus:border-monarq-gold transition-colors text-monarq-ink rounded-none appearance-none"
                   >
                     <option value="Renseignement Général">Renseignement Général</option>
                     <option value="Événement Privé / Groupe">Événement Privé / Groupe (10+)</option>
@@ -168,77 +171,77 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
 
                   <textarea
                     required
-                    rows={1}
+                    rows={2}
                     placeholder="Votre Message"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-transparent border-b border-monarq-line py-3 px-0 font-sans text-sm focus:outline-none focus:border-monarq-gold transition-colors placeholder:text-monarq-ink-soft/60 resize-y min-h-[40px] rounded-none"
+                    className="w-full bg-transparent border-b border-monarq-line py-3.5 px-0 font-sans text-base focus:outline-none focus:border-monarq-gold transition-colors text-monarq-ink placeholder:text-monarq-ink-soft/60 resize-y min-h-[50px] rounded-none"
                   />
 
                   <button
                     type="submit"
-                    className="group flex items-center gap-3 font-sans text-sm tracking-[0.2em] uppercase text-monarq-ink hover:text-monarq-gold transition-colors mt-8"
+                    className="group flex items-center gap-3 font-sans text-xs sm:text-sm tracking-[0.22em] uppercase font-semibold text-monarq-ink hover:text-monarq-gold-deep transition-colors mt-8"
                   >
-                    <span>Envoyer</span>
-                    <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    <span>Envoyer le message</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </button>
                 </form>
               )}
             </div>
-
           </SlideLeft>
         </div>
       </section>
 
-      {/* 2. FAQ Section */}
-      <section className="max-w-3xl mx-auto px-6 md:px-12 py-24">
-        <FadeUp className="text-center mb-16">
-          <h2 className="font-serif text-4xl text-monarq-ink mb-4">Questions Fréquentes</h2>
-          <p className="font-sans text-monarq-ink-soft font-light">Tout ce que vous devez savoir pour préparer votre visite.</p>
+      {/* 2. Minimal FAQ Accordion */}
+      <section className="max-w-4xl mx-auto px-6 md:px-12 py-16 md:py-24 border-t border-monarq-line">
+        <FadeUp>
+          <span className="section-label block mb-3 text-center">Foire Aux Questions</span>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold text-center mb-16">
+            Questions Fréquentes
+          </h2>
         </FadeUp>
-
-        <div className="space-y-0 border-t border-monarq-line">
-          {faqs.map((faq, i) => (
-            <FadeUp key={i} delay={i * 0.1}>
-              <button 
-                onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                className="w-full text-left py-6 border-b border-monarq-line flex justify-between items-center group"
-              >
-                <h3 className="font-serif text-xl md:text-2xl text-monarq-ink group-hover:text-monarq-gold transition-colors pr-8">
-                  {faq.q}
-                </h3>
-                <ChevronDown className={`w-5 h-5 text-monarq-ink-soft transition-transform duration-300 ${openFaq === i ? 'rotate-180' : ''}`} />
-              </button>
-              <div 
-                className={`overflow-hidden transition-all duration-500 ease-in-out ${openFaq === i ? 'max-h-40 opacity-100 py-6' : 'max-h-0 opacity-0'}`}
-              >
-                <p className="font-sans text-monarq-ink-soft font-light leading-relaxed pl-4 border-l border-monarq-gold">
-                  {faq.a}
-                </p>
+        
+        <div className="space-y-6">
+          {faqs.map((faq, index) => (
+            <FadeUp key={index} delay={index * 0.1}>
+              <div className="border-b border-monarq-line pb-6">
+                <button
+                  onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                  className="w-full flex items-center justify-between text-left py-2 group focus:outline-none"
+                >
+                  <h3 className="font-serif text-xl sm:text-2xl text-monarq-ink font-semibold group-hover:text-monarq-gold-deep transition-colors">
+                    {faq.q}
+                  </h3>
+                  <ChevronDown className={`w-5 h-5 text-monarq-gold transition-transform duration-300 ${openFaq === index ? 'rotate-180' : ''}`} />
+                </button>
+                {openFaq === index && (
+                  <div className="mt-4 pr-12">
+                    <p className="font-sans text-base sm:text-lg text-monarq-ink-soft font-normal leading-relaxed">
+                      {faq.a}
+                    </p>
+                  </div>
+                )}
               </div>
             </FadeUp>
           ))}
         </div>
       </section>
 
-      {/* 3. Reservation CTA Full Width */}
-      <section className="relative py-32 bg-monarq-paper bg-marble-pattern">
-        <div className="absolute inset-0 bg-monarq-paper/80"></div>
-        <FadeIn className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-8">
-          <h2 className="font-serif text-4xl md:text-5xl text-monarq-ink">
-            Réservez Votre Expérience
+      {/* 3. Bottom Reservation CTA Band */}
+      <section className="w-full bg-marble-pattern border-t border-monarq-line/50 py-24 md:py-32 px-6 text-center">
+        <FadeIn className="max-w-4xl mx-auto space-y-8">
+          <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-monarq-ink font-semibold">
+            Une Table Vous Attend
           </h2>
-          <p className="font-sans text-monarq-ink-soft text-lg font-light max-w-xl mx-auto">
-            Nous avons hâte de vous accueillir. Assurez-vous une table pour partager un moment unique.
+          <p className="font-sans text-base sm:text-lg md:text-xl text-monarq-ink-soft max-w-xl mx-auto leading-relaxed font-light">
+            Pour un moment privilégié à Tanger, réservez votre table en toute simplicité.
           </p>
-          <div className="pt-8">
-            <button
-              onClick={onOpenReservation}
-              className="px-10 py-4 border border-monarq-ink text-monarq-ink hover:bg-monarq-ink hover:text-white transition-colors font-sans text-sm tracking-[0.2em] uppercase"
-            >
-              Réserver une table
-            </button>
-          </div>
+          <button 
+            onClick={onOpenReservation}
+            className="btn-gold px-10 py-4 text-xs uppercase tracking-[0.22em] font-semibold rounded-full shadow-luxury hover:shadow-luxury-lg"
+          >
+            Réserver maintenant
+          </button>
         </FadeIn>
       </section>
 

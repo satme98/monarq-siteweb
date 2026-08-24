@@ -173,28 +173,29 @@ export const StaggerItem: React.FC<{
   );
 };
 
-/** Parallax image wrapper — subtle vertical parallax on scroll */
+/** Parallax image wrapper — fluid vertical parallax on scroll with scale dynamics */
 export const ParallaxImage: React.FC<{
   src: string;
   alt: string;
   className?: string;
   speed?: number;
-}> = ({ src, alt, className = '', speed = 0.15 }) => {
+}> = ({ src, alt, className = '' }) => {
+  const ref = React.useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+  
   return (
-    <motion.div
-      className={`overflow-hidden ${className}`}
-      initial={{ scale: 1.08 }}
-      whileInView={{ scale: 1 }}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 1.2, ease: EASE_MONARCH as unknown as number[] }}
-    >
-      <img
+    <div ref={ref} className={`overflow-hidden relative group ${className}`}>
+      <motion.img
         src={src}
         alt={alt}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 will-change-transform"
+        initial={reduce ? false : { scale: 1.1, y: 15 }}
+        whileInView={{ scale: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.9, ease: EASE_MONARCH as unknown as number[] }}
         loading="lazy"
       />
-    </motion.div>
+    </div>
   );
 };
 

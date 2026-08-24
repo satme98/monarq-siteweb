@@ -19,21 +19,29 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   
   body {
     background-color: #FDFAF5;
-    color: #181512;
+    color: #141210;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-size: 1rem;
     font-weight: 400;
-    line-height: 1.6;
+    line-height: 1.7;
   }
 
   /* Display Titling Serif: Cormorant SC (Small Caps Titling with full French accent/apostrophe support) */
   h1, h2, h3, .font-serif {
     font-family: 'Cormorant SC', 'Cormorant Garamond', 'Bodoni Moda', Georgia, serif;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.03em;
     font-weight: 600;
+  }
+
+  /* Editorial Serif for Quotes & Subtitles */
+  .font-editorial {
+    font-family: 'Cormorant Garamond', 'Bodoni Moda', Georgia, serif;
+    font-weight: 400;
   }
 
   /* Fine French non-breaking space before : ; ? ! */
@@ -47,9 +55,9 @@
     height: auto;
   }
 
-  /* Remove default focus outlines, add custom */
+  /* Focus styling */
   *:focus-visible {
-    outline: 2px solid #A7916C;
+    outline: 2px solid #9E8050;
     outline-offset: 2px;
   }
 }
@@ -122,13 +130,15 @@
 
   /* ── Gold luxury button ── */
   .btn-gold {
-    background: linear-gradient(135deg, #A7916C 0%, #8B6A3D 100%);
+    background: linear-gradient(135deg, #9E8050 0%, #785A2D 100%);
     color: #FFFFFF;
+    font-weight: 600;
+    letter-spacing: 0.2em;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .btn-gold:hover {
-    background: linear-gradient(135deg, #B9A27D 0%, #A07A4A 100%);
-    box-shadow: 0 12px 28px -6px rgba(167, 145, 108, 0.45);
+    background: linear-gradient(135deg, #B29360 0%, #8C6A36 100%);
+    box-shadow: 0 12px 28px -6px rgba(120, 90, 45, 0.45);
     transform: translateY(-1px);
   }
   .btn-gold:active {
@@ -137,37 +147,41 @@
 
   /* ── Dark button ── */
   .btn-dark {
-    background-color: #181512;
+    background-color: #141210;
     color: #FDFAF5;
+    font-weight: 600;
+    letter-spacing: 0.2em;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .btn-dark:hover {
     background-color: #0A0A0A;
-    box-shadow: 0 12px 28px -6px rgba(24, 21, 18, 0.3);
+    box-shadow: 0 12px 28px -6px rgba(20, 18, 16, 0.35);
     transform: translateY(-1px);
   }
 
   /* ── Ghost button ── */
   .btn-ghost {
     background: transparent;
-    border: 1px solid rgba(167, 145, 108, 0.4);
-    color: #181512;
+    border: 1px solid rgba(120, 90, 45, 0.45);
+    color: #141210;
+    font-weight: 600;
+    letter-spacing: 0.2em;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .btn-ghost:hover {
-    border-color: #A7916C;
-    background: rgba(167, 145, 108, 0.08);
+    border-color: #785A2D;
+    background: rgba(158, 128, 80, 0.1);
     transform: translateY(-1px);
   }
 
   /* ── Section label (eyebrow) ── */
   .section-label {
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    font-size: 0.625rem;
+    font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.25em;
-    color: #A7916C;
+    letter-spacing: 0.24em;
+    color: #785A2D;
   }
 
   /* ── Menu item row ── */
@@ -216,6 +230,107 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #A7916C;
   }
+}
+
+/* ── Multi-axis Floating & Drifting Keyframes with Enhanced Speed ── */
+@keyframes float-1 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-24px) translateX(12px) rotate(5deg);
+  }
+  66% {
+    transform: translateY(-10px) translateX(-8px) rotate(-3deg);
+  }
+}
+
+@keyframes float-2 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-28px) translateX(-14px) rotate(-6deg);
+  }
+  66% {
+    transform: translateY(-12px) translateX(10px) rotate(4deg);
+  }
+}
+
+@keyframes float-3 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(22px) translateX(14px) rotate(7deg);
+  }
+  66% {
+    transform: translateY(8px) translateX(-10px) rotate(-4deg);
+  }
+}
+
+@keyframes float-4 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(26px) translateX(-14px) rotate(-6deg);
+  }
+  66% {
+    transform: translateY(12px) translateX(8px) rotate(5deg);
+  }
+}
+
+@keyframes float-5 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) translateX(-12px) rotate(8deg);
+  }
+  66% {
+    transform: translateY(10px) translateX(12px) rotate(-5deg);
+  }
+}
+
+@keyframes float-6 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(22px) translateX(16px) rotate(-7deg);
+  }
+  66% {
+    transform: translateY(-10px) translateX(-8px) rotate(5deg);
+  }
+}
+
+.animate-float {
+  animation: float-1 4.5s ease-in-out infinite;
+}
+
+.animate-float-1 {
+  animation: float-1 4.2s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: float-2 4.8s ease-in-out infinite;
+}
+
+.animate-float-3 {
+  animation: float-3 3.6s ease-in-out infinite;
+}
+
+.animate-float-4 {
+  animation: float-4 4.4s ease-in-out infinite;
+}
+
+.animate-float-5 {
+  animation: float-5 3.9s ease-in-out infinite;
+}
+
+.animate-float-6 {
+  animation: float-6 4.1s ease-in-out infinite;
 }
 
 /* ── Reduced motion ── */

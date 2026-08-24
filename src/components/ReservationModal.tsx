@@ -56,14 +56,14 @@ export const ReservationModal: React.FC<ReservationModalProps> = ({ isOpen, onCl
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-monarq-line bg-monarq-paper-soft/80">
-          <div className="flex items-center gap-3">
-            <img src={siteConfig.logos.seal} alt="MONARQ" className="w-8 h-8" />
+        <div className="flex items-center justify-between p-6 border-b border-monarq-line bg-monarq-paper-soft/90">
+          <div className="flex items-center gap-3.5">
+            <img src={siteConfig.logos.seal} alt="MONARQ" className="w-10 h-10 opacity-90" />
             <div>
-              <h3 className="font-serif text-lg font-bold tracking-wide text-monarq-ink">
+              <h3 className="font-serif text-2xl font-semibold tracking-wide text-monarq-ink">
                 Réserver une Table
               </h3>
-              <p className="text-[11px] uppercase tracking-wider text-monarq-gold-deep">
+              <p className="text-xs uppercase tracking-[0.2em] text-monarq-gold-deep font-semibold">
                 MONARQ Tanger · Service Continu
               </p>
             </div>
@@ -79,10 +79,10 @@ export const ReservationModal: React.FC<ReservationModalProps> = ({ isOpen, onCl
         {/* Content */}
         <div className="p-6">
           {step === 'form' ? (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-monarq-ink-soft mb-1">
+                  <label className="block text-xs font-semibold uppercase tracking-[0.18em] text-monarq-ink-soft mb-1.5">
                     Votre Nom complet *
                   </label>
                   <input
@@ -91,12 +91,12 @@ export const ReservationModal: React.FC<ReservationModalProps> = ({ isOpen, onCl
                     placeholder="Ex: Sarah Bennani"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-lg border border-monarq-line bg-white/90 focus:border-monarq-gold focus:ring-1 focus:ring-monarq-gold text-sm outline-none transition-all"
+                    className="w-full px-3.5 py-2.5 rounded-lg border border-monarq-line bg-white/95 focus:border-monarq-gold focus:ring-1 focus:ring-monarq-gold text-sm text-monarq-ink outline-none transition-all placeholder:text-monarq-ink-soft/50"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-monarq-ink-soft mb-1">
-                    Numéro de Téléphone / WhatsApp *
+                  <label className="block text-xs font-semibold uppercase tracking-[0.18em] text-monarq-ink-soft mb-1.5">
+                    Numéro de Téléphone *
                   </label>
                   <input
                     type="tel"
@@ -104,7 +104,7 @@ export const ReservationModal: React.FC<ReservationModalProps> = ({ isOpen, onCl
                     placeholder="+212 6..."
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-lg border border-monarq-line bg-white/90 focus:border-monarq-gold focus:ring-1 focus:ring-monarq-gold text-sm outline-none transition-all"
+                    className="w-full px-3.5 py-2.5 rounded-lg border border-monarq-line bg-white/95 focus:border-monarq-gold focus:ring-1 focus:ring-monarq-gold text-sm text-monarq-ink outline-none transition-all placeholder:text-monarq-ink-soft/50"
                   />
                 </div>
               </div>
@@ -112,7 +112,7 @@ export const ReservationModal: React.FC<ReservationModalProps> = ({ isOpen, onCl
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-xs font-semibold uppercase tracking-wider text-monarq-ink-soft mb-1 flex items-center gap-1">
-                    <Calendar className="w-3 h-3 text-monarq-gold" />
+                    <Calendar className="w-3.5 h-3.5 text-monarq-gold-deep" />
                     <span>Date *</span>
                   </label>
                   <input
@@ -120,19 +120,19 @@ export const ReservationModal: React.FC<ReservationModalProps> = ({ isOpen, onCl
                     required
                     value={formData.date}
                     onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-monarq-line bg-white/90 focus:border-monarq-gold text-sm outline-none"
+                    className="w-full px-3 py-2.5 rounded-lg border border-monarq-line bg-white/95 focus:border-monarq-gold text-sm text-monarq-ink outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-monarq-ink-soft mb-1 flex items-center gap-1">
-                    <Clock className="w-3 h-3 text-monarq-gold" />
+                  <label className="block text-xs font-semibold uppercase tracking-[0.18em] text-monarq-ink-soft mb-1.5 flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 text-monarq-gold-deep" />
                     <span>Heure *</span>
                   </label>
                   <select
                     value={formData.time}
                     onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-monarq-line bg-white/90 focus:border-monarq-gold text-sm outline-none"
+                    className="w-full px-3 py-2.5 rounded-lg border border-monarq-line bg-white/95 focus:border-monarq-gold text-sm text-monarq-ink outline-none"
                   >
                     <option value="09:00">09:00 — Brunch Matin</option>
                     <option value="10:30">10:30 — Brunch Matin</option>
@@ -146,14 +146,14 @@ export const ReservationModal: React.FC<ReservationModalProps> = ({ isOpen, onCl
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-monarq-ink-soft mb-1 flex items-center gap-1">
-                    <Users className="w-3 h-3 text-monarq-gold" />
+                  <label className="block text-xs font-semibold uppercase tracking-[0.18em] text-monarq-ink-soft mb-1.5 flex items-center gap-1.5">
+                    <Users className="w-3.5 h-3.5 text-monarq-gold-deep" />
                     <span>Convives *</span>
                   </label>
                   <select
                     value={formData.guests}
                     onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-monarq-line bg-white/90 focus:border-monarq-gold text-sm outline-none"
+                    className="w-full px-3 py-2.5 rounded-lg border border-monarq-line bg-white/95 focus:border-monarq-gold text-sm text-monarq-ink outline-none"
                   >
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, '12+ (Groupe)'].map((n) => (
                       <option key={n} value={n}>{n} personne{typeof n === 'number' && n > 1 ? 's' : ''}</option>
@@ -163,23 +163,23 @@ export const ReservationModal: React.FC<ReservationModalProps> = ({ isOpen, onCl
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-monarq-ink-soft mb-1">
+                <label className="block text-xs font-semibold uppercase tracking-[0.18em] text-monarq-ink-soft mb-1.5">
                   Préférence d'Espace
                 </label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 gap-2.5">
                   {[
-                    { id: 'terrasse', label: 'Terrasse Extérieure' },
-                    { id: 'verriere', label: 'Salle Verrière Marbre' },
-                    { id: 'lounge', label: 'Espace Lounge' },
+                    { id: 'terrasse', label: 'Terrasse' },
+                    { id: 'verriere', label: 'Verrière Marbre' },
+                    { id: 'lounge', label: 'Lounge' },
                   ].map((option) => (
                     <button
                       key={option.id}
                       type="button"
                       onClick={() => setFormData({ ...formData, area: option.id })}
-                      className={`py-2 px-2.5 rounded-lg text-xs font-medium border text-center transition-all ${
+                      className={`py-2.5 px-2 rounded-lg text-xs font-semibold border text-center transition-all ${
                         formData.area === option.id
-                          ? 'border-monarq-gold bg-monarq-gold/15 text-monarq-gold-deep font-semibold shadow-sm'
-                          : 'border-monarq-line bg-white/70 text-monarq-ink-soft hover:bg-white'
+                          ? 'border-monarq-gold bg-monarq-gold/15 text-monarq-gold-deep shadow-sm'
+                          : 'border-monarq-line bg-white/80 text-monarq-ink-soft hover:bg-white'
                       }`}
                     >
                       {option.label}
@@ -189,54 +189,54 @@ export const ReservationModal: React.FC<ReservationModalProps> = ({ isOpen, onCl
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-monarq-ink-soft mb-1">
-                  Remarques ou occasions particulières (Optionnel)
+                <label className="block text-xs font-semibold uppercase tracking-[0.18em] text-monarq-ink-soft mb-1.5">
+                  Remarques ou demandes particulières (Optionnel)
                 </label>
                 <textarea
                   rows={2}
                   placeholder="Anniversaire, chaise bébé, intolérances alimentaires..."
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg border border-monarq-line bg-white/90 focus:border-monarq-gold text-xs outline-none"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-monarq-line bg-white/95 focus:border-monarq-gold text-sm text-monarq-ink outline-none placeholder:text-monarq-ink-soft/50"
                 />
               </div>
 
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full py-3.5 rounded-xl btn-gold text-xs uppercase tracking-[0.18em] font-semibold flex items-center justify-center gap-2 shadow-lg"
+                  className="w-full py-4 rounded-xl btn-gold text-xs uppercase tracking-[0.22em] font-semibold flex items-center justify-center gap-2.5 shadow-luxury hover:shadow-luxury-lg"
                 >
                   <MessageSquare className="w-4 h-4" />
                   <span>Confirmer & Envoyer via WhatsApp</span>
                 </button>
-                <p className="text-[11px] text-center text-gray-500 mt-2">
+                <p className="text-xs text-center text-monarq-ink-soft mt-2.5 font-medium">
                   ⚡ Confirmation rapide par notre équipe de salle.
                 </p>
               </div>
             </form>
           ) : (
-            <div className="text-center py-6 space-y-4">
+            <div className="text-center py-6 space-y-5">
               <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto ring-8 ring-emerald-50/50">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
-              <h4 className="font-serif text-xl font-bold text-monarq-ink">
+              <h4 className="font-serif text-2xl sm:text-3xl font-semibold text-monarq-ink">
                 Demande Transmise avec Succès !
               </h4>
-              <p className="text-xs text-monarq-ink-soft max-w-sm mx-auto leading-relaxed">
+              <p className="text-sm text-monarq-ink-soft max-w-sm mx-auto leading-relaxed font-normal">
                 Votre demande a été transmise au service réservation de <strong>MONARQ Tanger</strong>. Notre équipe vous répondra par WhatsApp ou par téléphone dans les meilleurs délais.
               </p>
               <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
                 <button
                   onClick={handleReset}
-                  className="w-full sm:w-auto px-6 py-2.5 rounded-full btn-dark text-xs uppercase tracking-wider font-semibold"
+                  className="w-full sm:w-auto px-7 py-3 rounded-full btn-dark text-xs uppercase tracking-[0.2em] font-semibold"
                 >
                   Fermer
                 </button>
                 <a
                   href={`tel:${siteConfig.phone}`}
-                  className="w-full sm:w-auto px-6 py-2.5 rounded-full border border-monarq-gold text-monarq-gold-deep hover:bg-monarq-gold hover:text-white text-xs uppercase tracking-wider font-semibold transition-colors flex items-center justify-center gap-1.5"
+                  className="w-full sm:w-auto px-7 py-3 rounded-full border border-monarq-gold text-monarq-gold-deep hover:bg-monarq-gold hover:text-white text-xs uppercase tracking-[0.2em] font-semibold transition-colors flex items-center justify-center gap-2"
                 >
-                  <Phone className="w-3.5 h-3.5" />
+                  <Phone className="w-4 h-4" />
                   <span>Appeler Directement</span>
                 </a>
               </div>
