@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════
+   MONARQ TANGER — Design System Foundation
+   
+   IMPORTANT: Perpetua Titling MT does NOT support French
+   accented characters (é, è, ê, à, ù, ç, etc.) nor
+   apostrophes. Facundo is a DEMO font with watermarks.
+   
+   Solution: Use Cormorant Garamond (display serif with
+   full French support) + Plus Jakarta Sans (clean sans).
+   Both loaded via Google Fonts in index.html.
+   ═══════════════════════════════════════════════════════ */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    background-color: #FDFAF5;
+    color: #181512;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  /* Display Titling Serif: Cormorant SC (Small Caps Titling with full French accent/apostrophe support) */
+  h1, h2, h3, .font-serif {
+    font-family: 'Cormorant SC', 'Cormorant Garamond', 'Bodoni Moda', Georgia, serif;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+
+  /* Fine French non-breaking space before : ; ? ! */
+  p, li, span, label, td {
+    word-break: break-word;
+  }
+
+  /* Prevent layout shift from images */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Remove default focus outlines, add custom */
+  *:focus-visible {
+    outline: 2px solid #A7916C;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* ── Realistic Kintsugi Stone / Faux Marble Backgrounds ── */
+  .bg-marble-pattern,
+  .white-section-bg {
+    background-image: 
+      linear-gradient(rgba(253, 250, 245, 0.86), rgba(253, 250, 245, 0.92)),
+      url('/images/kintsugi-marble-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .bg-marble-card {
+    background-image: 
+      linear-gradient(160deg, rgba(255, 255, 255, 0.93), rgba(247, 245, 239, 0.88)),
+      url('/images/kintsugi-marble-card.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .bg-marble-pure {
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.88)),
+      url('/images/kintsugi-marble-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /* ── Ambient Kintsugi Section with Radial Readability Mask ── */
+  .bg-kintsugi-ambient {
+    background-image: 
+      radial-gradient(ellipse at 50% 50%, rgba(253, 250, 245, 0.93) 0%, rgba(253, 250, 245, 0.88) 60%, rgba(253, 250, 245, 0.78) 100%),
+      url('/images/kintsugi-marble-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+  }
+
+  /* ── Double-bezel luxury frame ── */
+  .double-bezel {
+    box-shadow: 
+      0 0 0 1px rgba(167, 145, 108, 0.18),
+      0 0 0 5px rgba(253, 250, 245, 0.95),
+      0 0 0 6px rgba(167, 145, 108, 0.12),
+      0 25px 50px -15px rgba(24, 21, 18, 0.08);
+  }
+
+  /* ── Diamond text divider ── */
+  .diamond-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .diamond-divider::before,
+  .diamond-divider::after {
+    content: '';
+    height: 1px;
+    width: 48px;
+    background: linear-gradient(90deg, transparent, rgba(167, 145, 108, 0.35), transparent);
+  }
+
+  /* ── Gold luxury button ── */
+  .btn-gold {
+    background: linear-gradient(135deg, #A7916C 0%, #8B6A3D 100%);
+    color: #FFFFFF;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-gold:hover {
+    background: linear-gradient(135deg, #B9A27D 0%, #A07A4A 100%);
+    box-shadow: 0 12px 28px -6px rgba(167, 145, 108, 0.45);
+    transform: translateY(-1px);
+  }
+  .btn-gold:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* ── Dark button ── */
+  .btn-dark {
+    background-color: #181512;
+    color: #FDFAF5;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-dark:hover {
+    background-color: #0A0A0A;
+    box-shadow: 0 12px 28px -6px rgba(24, 21, 18, 0.3);
+    transform: translateY(-1px);
+  }
+
+  /* ── Ghost button ── */
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(167, 145, 108, 0.4);
+    color: #181512;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-ghost:hover {
+    border-color: #A7916C;
+    background: rgba(167, 145, 108, 0.08);
+    transform: translateY(-1px);
+  }
+
+  /* ── Section label (eyebrow) ── */
+  .section-label {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: #A7916C;
+  }
+
+  /* ── Menu item row ── */
+  .menu-item-row {
+    position: relative;
+    padding-bottom: 1rem;
+  }
+  .menu-item-row::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: repeating-linear-gradient(
+      to right,
+      rgba(167, 145, 108, 0.2) 0px,
+      rgba(167, 145, 108, 0.2) 2px,
+      transparent 2px,
+      transparent 6px
+    );
+  }
+
+  /* ── No-scrollbar utility ── */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ── Custom scrollbar (desktop) ── */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #FDFAF5;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #D5D0C8;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #A7916C;
+  }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
