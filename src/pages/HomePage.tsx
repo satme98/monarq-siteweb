@@ -212,16 +212,16 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
               <SlideRight className="md:col-span-7">
                 <span className="text-monarq-gold font-serif text-4xl md:text-5xl font-semibold">01</span>
                 <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink mt-2 mb-4 font-semibold">
-                  Le Matin & Grands Brunchs
+                  Le Matin & Petits Déjeuners
                 </h3>
                 <p className="text-base sm:text-[17px] text-monarq-ink-soft leading-relaxed max-w-lg mb-6 font-normal">
-                  Pancakes fondants, œufs pochés à la truffe, jus pressés minute, msemen au miel pur et thés parfumés. De 08 h 00 à 14 h 00.
+                  Viennoiseries dorées, formules tangéroises, jus pressés minute, msemen au miel pur et cafés de spécialité. De 08 h 00 à 12 h 00.
                 </p>
                 <button
                   onClick={() => goTo('menu')}
                   className="text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors inline-flex items-center gap-2.5 group"
                 >
-                  <span>Explorer les brunchs</span>
+                  <span>Découvrir le matin</span>
                   <ArrowRight className="w-4 h-4 text-monarq-gold-deep transition-transform duration-300 group-hover:translate-x-1.5" />
                 </button>
               </SlideRight>
@@ -232,16 +232,16 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
               <SlideLeft className="md:col-span-7 md:order-1">
                 <span className="text-monarq-gold font-serif text-4xl md:text-5xl font-semibold">02</span>
                 <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink mt-2 mb-4 font-semibold">
-                  La Cuisine & Pâtes Fraîches
+                  Les Grands Brunchs Signatures
                 </h3>
                 <p className="text-base sm:text-[17px] text-monarq-ink-soft leading-relaxed max-w-lg mb-6 font-normal">
-                  Penne Monarq aux crevettes piquantes, risottos onctueux au saumon, salades fraîches et carpaccios raffinés. De 12 h 00 à minuit.
+                  Brioches garnies aux crevettes, toasts d'avocat au saumon fumé, œufs pochés, pancakes fondants et plateaux complets. De 08 h 00 à 14 h 00.
                 </p>
                 <button
                   onClick={() => goTo('menu')}
                   className="text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors inline-flex items-center gap-2.5 group"
                 >
-                  <span>Découvrir la cuisine</span>
+                  <span>Explorer les brunchs</span>
                   <ArrowRight className="w-4 h-4 text-monarq-gold-deep transition-transform duration-300 group-hover:translate-x-1.5" />
                 </button>
               </SlideLeft>
@@ -249,7 +249,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 <div className="rounded-2xl overflow-hidden shadow-luxury-lg border border-monarq-gold/25 group">
                   <img 
                     src="/images/moment-cuisine.jpg" 
-                    alt="La cuisine MONARQ" 
+                    alt="Les brunchs signatures MONARQ" 
                     className="w-full h-72 md:h-80 object-cover transition-transform duration-700 ease-monarch group-hover:scale-105" 
                   />
                 </div>
@@ -262,7 +262,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 <div className="rounded-2xl overflow-hidden shadow-luxury-lg border border-monarq-gold/25 group">
                   <img 
                     src="/images/moment-sweet.jpg" 
-                    alt="Le soir chez MONARQ" 
+                    alt="Pâtes et pizzas MONARQ" 
                     className="w-full h-72 md:h-80 object-cover transition-transform duration-700 ease-monarch group-hover:scale-105" 
                   />
                 </div>
@@ -270,16 +270,16 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
               <SlideRight className="md:col-span-7">
                 <span className="text-monarq-gold font-serif text-4xl md:text-5xl font-semibold">03</span>
                 <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink mt-2 mb-4 font-semibold">
-                  Dîners, Pizzas & Grillades
+                  Pâtes & Pizzas
                 </h3>
                 <p className="text-base sm:text-[17px] text-monarq-ink-soft leading-relaxed max-w-lg mb-6 font-normal">
-                  Pizzas au feu de bois, filet pur Black Angus, tajines traditionnels et cocktails signature dans une ambiance feutrée. De 19 h 00 à minuit.
+                  Penne Monarq aux crevettes piquantes, risottos onctueux, pizzas artisanales à la burrata fraîche et saveurs méditerranéennes. De 12 h 00 à minuit.
                 </p>
                 <button
                   onClick={() => goTo('menu')}
                   className="text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors inline-flex items-center gap-2.5 group"
                 >
-                  <span>Voir les grillades</span>
+                  <span>Découvrir les pâtes & pizzas</span>
                   <ArrowRight className="w-4 h-4 text-monarq-gold-deep transition-transform duration-300 group-hover:translate-x-1.5" />
                 </button>
               </SlideRight>
@@ -291,7 +291,24 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
       {/* ═══════════════════════════════════════════════════
           4. SIGNATURE DISHES — Haute Gastronomie Editorial Showcase
           ═══════════════════════════════════════════════════ */}
-      <section className="relative py-28 md:py-36 bg-monarq-paper border-b border-monarq-line/60">
+      <section className="relative py-28 md:py-36 bg-monarq-paper border-b border-monarq-line/60 overflow-hidden">
+        {/* MONARQ Side-Bleed Engraving Background Ornaments */}
+        {/* 1st Image (Gaufre & Coupe Glacée) on Left (Moved Up) */}
+        <img
+          src="/images/ornament-waffle.png"
+          alt=""
+          aria-hidden="true"
+          className="hidden sm:block absolute top-12 md:top-16 lg:top-20 -left-24 md:-left-32 lg:-left-40 xl:-left-48 w-60 md:w-72 lg:w-96 pointer-events-none select-none z-0 mix-blend-multiply opacity-[0.11] filter grayscale contrast-125 sepia-[0.25]"
+        />
+
+        {/* 2nd Image (Crêpes & Baies Gourmandes) on Right (Moved Down) */}
+        <img
+          src="/images/ornament-crepes.png"
+          alt=""
+          aria-hidden="true"
+          className="hidden sm:block absolute bottom-12 md:bottom-16 lg:bottom-20 -right-24 md:-right-32 lg:-right-40 xl:-right-48 w-60 md:w-72 lg:w-96 pointer-events-none select-none z-0 mix-blend-multiply opacity-[0.11] filter grayscale contrast-125 sepia-[0.25]"
+        />
+
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
           {/* Header */}
           <FadeUp>
@@ -391,8 +408,25 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
       {/* ═══════════════════════════════════════════════════
           6. DRONE WALKTHROUGH — Immersive Tanger
           ═══════════════════════════════════════════════════ */}
-      <section className="py-28 md:py-40">
-        <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 space-y-12">
+      <section className="relative py-28 md:py-40 overflow-hidden">
+        {/* MONARQ Side-Bleed Engraving Background Ornaments */}
+        {/* 1st Image (Pizza artisanale & Burger Gourmet) on Left (Moved Up) */}
+        <img
+          src="/images/ornament-pizza-burger.png"
+          alt=""
+          aria-hidden="true"
+          className="hidden sm:block absolute top-12 md:top-16 lg:top-20 -left-28 md:-left-36 lg:-left-44 xl:-left-52 w-64 md:w-80 lg:w-[420px] pointer-events-none select-none z-0 mix-blend-multiply opacity-[0.11] filter grayscale contrast-125 sepia-[0.25]"
+        />
+
+        {/* 2nd Image (Pancakes, Tartine & Œuf Poché Brunch) on Right (Moved Down) */}
+        <img
+          src="/images/ornament-brunch.png"
+          alt=""
+          aria-hidden="true"
+          className="hidden sm:block absolute bottom-12 md:bottom-16 lg:bottom-20 -right-28 md:-right-36 lg:-right-44 xl:-right-52 w-64 md:w-80 lg:w-[420px] pointer-events-none select-none z-0 mix-blend-multiply opacity-[0.11] filter grayscale contrast-125 sepia-[0.25]"
+        />
+
+        <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 space-y-12 relative z-10">
           <FadeUp>
             <div className="text-center max-w-xl mx-auto mb-6">
               <span className="section-label block mb-3">Immersion Virtuelle</span>
