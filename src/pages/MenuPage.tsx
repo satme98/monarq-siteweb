@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Download } from 'lucide-react';
+import { Search, Download, ArrowRight } from 'lucide-react';
 import { menuChapters } from '../data/menuData';
 import { siteConfig } from '../data/siteConfig';
 import { FadeUp, StaggerGroup, StaggerItem, FadeIn } from '../components/Animations';
@@ -123,9 +123,10 @@ export default function MenuPage() {
             <p className="font-serif text-2xl sm:text-3xl text-monarq-ink-soft font-semibold">Aucun résultat ne correspond à votre recherche.</p>
             <button 
               onClick={() => { setSearchQuery(''); setActiveFilter('all'); }}
-              className="mt-6 font-sans text-xs sm:text-sm tracking-widest uppercase border-b-2 border-monarq-gold pb-1 text-monarq-ink hover:text-monarq-gold font-semibold transition-colors"
+              className="mt-6 inline-flex items-center gap-2 font-sans text-xs sm:text-sm tracking-[0.22em] uppercase text-monarq-ink hover:text-monarq-gold-deep font-semibold transition-colors group"
             >
-              Voir toute la carte
+              <span>Voir toute la carte</span>
+              <ArrowRight className="w-4 h-4 text-monarq-gold-deep transition-transform duration-300 group-hover:translate-x-1.5" />
             </button>
           </div>
         ) : (

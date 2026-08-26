@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Calendar, MapPin, Clock, Instagram } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Calendar, MapPin, Clock, Instagram } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { siteConfig } from '../data/siteConfig';
 import { signatureHighlights } from '../data/menuData';
@@ -126,10 +126,10 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 <div className="mt-10">
                   <button
                     onClick={() => goTo('atmosphere')}
-                    className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.22em] font-semibold text-monarq-ink hover:text-monarq-gold-deep transition-colors"
+                    className="group inline-flex items-center gap-2.5 text-xs uppercase tracking-[0.22em] font-semibold text-monarq-ink hover:text-monarq-gold-deep transition-colors"
                   >
                     <span>Découvrir le lieu</span>
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="w-4 h-4 text-monarq-gold-deep transition-transform duration-300 group-hover:translate-x-1.5" />
                   </button>
                 </div>
               </SlideLeft>
@@ -219,10 +219,10 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 </p>
                 <button
                   onClick={() => goTo('menu')}
-                  className="text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors inline-flex items-center gap-2 group"
+                  className="text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors inline-flex items-center gap-2.5 group"
                 >
                   <span>Explorer les brunchs</span>
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="w-4 h-4 text-monarq-gold-deep transition-transform duration-300 group-hover:translate-x-1.5" />
                 </button>
               </SlideRight>
             </div>
@@ -239,10 +239,10 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 </p>
                 <button
                   onClick={() => goTo('menu')}
-                  className="text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors inline-flex items-center gap-2 group"
+                  className="text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors inline-flex items-center gap-2.5 group"
                 >
                   <span>Découvrir la cuisine</span>
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="w-4 h-4 text-monarq-gold-deep transition-transform duration-300 group-hover:translate-x-1.5" />
                 </button>
               </SlideLeft>
               <ScaleReveal className="md:col-span-5 md:order-2">
@@ -277,10 +277,10 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 </p>
                 <button
                   onClick={() => goTo('menu')}
-                  className="text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors inline-flex items-center gap-2 group"
+                  className="text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors inline-flex items-center gap-2.5 group"
                 >
                   <span>Voir les grillades</span>
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="w-4 h-4 text-monarq-gold-deep transition-transform duration-300 group-hover:translate-x-1.5" />
                 </button>
               </SlideRight>
             </div>
@@ -291,155 +291,76 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
       {/* ═══════════════════════════════════════════════════
           4. SIGNATURE DISHES — Haute Gastronomie Editorial Showcase
           ═══════════════════════════════════════════════════ */}
-      <section className="relative py-36 md:py-52 overflow-hidden bg-monarq-paper border-b border-monarq-line/60">
-        {/* Ambient Decorative Gold Swirls in Wide Background */}
-        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-          <svg
-            className="absolute top-0 left-0 -translate-x-1/3 -translate-y-1/3 text-monarq-gold/10"
-            width="750"
-            height="750"
-            viewBox="0 0 600 600"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path
-              d="M515.266 181.33C377.943 51.564 128.537 136.256 50.8123 293.565C-26.9127 450.874 125.728 600 125.728 600"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </svg>
-          <svg
-            className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 text-monarq-gold/10"
-            width="850"
-            height="850"
-            viewBox="0 0 700 700"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path
-              d="M26.8838 528.274C193.934 689.816 480.051 637.218 594.397 451.983C708.742 266.748 543.953 2.22235 543.953 2.22235"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </svg>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-20">
+      <section className="relative py-28 md:py-36 bg-monarq-paper border-b border-monarq-line/60">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
           {/* Header */}
           <FadeUp>
-            <div className="text-center max-w-3xl mx-auto mb-24">
-              <span className="section-label block mb-3 text-monarq-gold">Créations Emblématiques</span>
-              <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-monarq-ink font-semibold tracking-tight leading-tight mb-5">
+            <div className="text-center max-w-3xl mx-auto mb-20">
+              <span className="section-label block mb-3">Créations Emblématiques</span>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold tracking-tight leading-tight mb-4">
                 Les Plats Signatures
               </h2>
+              <div className="diamond-divider my-5">
+                <span className="text-xs uppercase tracking-[0.25em] text-monarq-gold font-serif font-semibold">MONARQ</span>
+              </div>
               <p className="text-base sm:text-lg text-monarq-ink-soft leading-relaxed max-w-xl mx-auto font-light">
                 Une partition gastronomique pensée comme un hommage aux produits nobles et à l'art culinaire tangérois.
               </p>
-              <div className="diamond-divider mt-6">
-                <span className="text-[11px] uppercase tracking-[0.25em] text-monarq-gold font-serif">MONARQ</span>
-              </div>
             </div>
           </FadeUp>
 
-          {/* 3 Signature Cards with Floating Elements Positioned on Wide Periphery */}
-          <div className="relative">
-            {/* Floating Culinary Assets — Spaced far out on the outer margins with active multi-directional drifting */}
-            <img
-              src="https://b.zmtcdn.com/data/o2_assets/316495f4ba2a9c9d9aa97fed9fe61cf71743059024.png"
-              alt="Pizza artisanale"
-              className="absolute -top-20 -right-8 sm:-top-24 sm:-right-16 lg:-top-28 lg:-right-24 w-28 sm:w-36 md:w-44 object-contain animate-float-1 drop-shadow-2xl opacity-80 select-none z-10 pointer-events-none"
-              style={{ animationDelay: '0ms' }}
-            />
-            <img
-              src="https://i.ibb.co/VY2Kjcrr/PASTA-5164.png"
-              alt="Pâtes fraîches"
-              className="absolute -bottom-20 -left-8 sm:-bottom-24 sm:-left-16 lg:-bottom-28 lg:-left-24 w-32 sm:w-40 md:w-52 object-contain animate-float-2 drop-shadow-2xl opacity-80 select-none z-10 pointer-events-none"
-              style={{ animationDelay: '300ms' }}
-            />
-            <img
-              src="https://b.zmtcdn.com/data/o2_assets/70b50e1a48a82437bfa2bed925b862701742892555.png"
-              alt="Basilic frais"
-              className="absolute -top-16 -left-6 sm:-top-20 sm:-left-12 lg:-top-20 lg:-left-16 w-10 sm:w-14 object-contain animate-float-3 opacity-75 select-none z-10 pointer-events-none"
-              style={{ animationDelay: '150ms' }}
-            />
-            <img
-              src="https://b.zmtcdn.com/data/o2_assets/9ef1cc6ecf1d92798507ffad71e9492d1742892584.png"
-              alt="Tomate fraîche"
-              className="absolute -top-16 right-1/4 lg:-top-20 lg:right-1/4 w-8 sm:w-11 object-contain animate-float-4 opacity-75 select-none z-10 pointer-events-none"
-              style={{ animationDelay: '450ms' }}
-            />
-            <img
-              src="https://b.zmtcdn.com/data/o2_assets/9ef1cc6ecf1d92798507ffad71e9492d1742892584.png"
-              alt="Tomate fraîche"
-              className="absolute -bottom-16 -right-6 sm:-bottom-20 sm:-right-12 lg:-bottom-20 lg:-right-16 w-9 sm:w-12 object-contain animate-float-5 opacity-75 select-none z-10 pointer-events-none"
-              style={{ animationDelay: '600ms' }}
-            />
-            <img
-              src="https://b.zmtcdn.com/data/o2_assets/70b50e1a48a82437bfa2bed925b862701742892555.png"
-              alt="Basilic frais"
-              className="absolute -bottom-16 left-1/3 lg:-bottom-20 lg:left-1/3 w-9 sm:w-12 object-contain animate-float-6 opacity-70 select-none z-10 pointer-events-none"
-              style={{ animationDelay: '750ms' }}
-            />
-
-            {/* 3 Signature Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 relative z-20">
-              {signatureHighlights.map((dish, i) => (
-                <FadeUp key={i} delay={i * 0.15}>
-                  <div className="group h-full flex flex-col bg-white/95 backdrop-blur-md rounded-2xl p-7 sm:p-8 border border-monarq-gold/25 shadow-luxury hover:shadow-luxury-lg hover:border-monarq-gold/50 transition-all duration-500">
-                    {/* Image Container with Luxury Bezel */}
-                    <div className="relative rounded-xl overflow-hidden mb-6 h-64 sm:h-72 bg-monarq-paper-soft border border-monarq-line">
-                      <img
-                        src={dish.image}
-                        alt={dish.name}
-                        className="w-full h-full object-cover transition-transform duration-700 ease-monarch group-hover:scale-105"
-                      />
-                      {dish.tag && (
-                        <div className="absolute top-4 left-4 bg-monarq-paper/95 backdrop-blur-md text-monarq-gold-deep text-[10px] uppercase tracking-[0.2em] font-semibold px-3 py-1.5 rounded-full border border-monarq-gold/30 shadow-sm">
-                          {dish.tag}
-                        </div>
-                      )}
-                    </div>
-                    
-                    {/* Content */}
-                    <div className="flex-1 flex flex-col justify-between">
-                      <div>
-                        <span className="text-[11px] uppercase tracking-[0.25em] text-monarq-gold font-semibold block mb-2">
-                          {dish.category}
-                        </span>
-                        <h3 className="font-serif text-2xl sm:text-3xl text-monarq-ink font-semibold mb-4 group-hover:text-monarq-gold-deep transition-colors">
-                          {dish.name}
-                        </h3>
-                        <p className="text-sm text-monarq-ink-soft leading-relaxed font-light">
-                          {dish.description}
-                        </p>
+          {/* 3 Signature Cards Grid — Equal height, fixed 4:3 aspect ratio, line-clamped 3 lines */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 items-stretch relative z-10">
+            {signatureHighlights.map((dish, i) => (
+              <FadeUp key={i} delay={i * 0.15} className="h-full">
+                <div className="group h-full flex flex-col bg-white/95 backdrop-blur-md rounded-2xl p-6 sm:p-7 border border-monarq-gold/25 shadow-luxury hover:shadow-luxury-lg hover:border-monarq-gold/50 transition-all duration-300">
+                  {/* Image Container — Locked 4:3 Aspect Ratio */}
+                  <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden mb-6 bg-monarq-paper-soft border border-monarq-line flex-shrink-0">
+                    <img
+                      src={dish.image}
+                      alt={dish.name}
+                      className="w-full h-full object-cover transition-transform duration-200 ease-out group-hover:scale-[1.03]"
+                    />
+                    {dish.tag && (
+                      <div className="absolute top-3.5 left-3.5 bg-monarq-paper/95 backdrop-blur-md text-monarq-gold-deep text-[10px] uppercase tracking-[0.2em] font-semibold px-3.5 py-1.5 rounded-full border border-monarq-gold/30 shadow-sm">
+                        {dish.tag}
                       </div>
+                    )}
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="flex-1 flex flex-col">
+                    <span className="text-[11px] uppercase tracking-[0.25em] text-monarq-gold-deep font-semibold block mb-1.5 h-4 flex items-center">
+                      {dish.category}
+                    </span>
+                    <h3 className="font-serif text-2xl sm:text-3xl text-monarq-ink font-semibold mb-3 h-9 flex items-center group-hover:text-monarq-gold-deep transition-colors truncate">
+                      {dish.name}
+                    </h3>
+                    <p className="text-sm text-monarq-ink-soft leading-relaxed font-normal line-clamp-3 h-[4.25rem] overflow-hidden">
+                      {dish.description}
+                    </p>
 
-                      {/* Subtle Decorative Gold Accent Line */}
-                      <div className="pt-6 mt-6 border-t border-monarq-line/50 flex items-center justify-between">
-                        <span className="text-[10px] uppercase tracking-[0.2em] text-monarq-ink-muted">
-                          Préparation Minute
-                        </span>
-                        <div className="w-8 h-[1px] bg-monarq-gold/40 group-hover:w-16 group-hover:bg-monarq-gold transition-all duration-500" />
-                      </div>
+                    {/* Hairline Divider + "PRÉPARATION MINUTE" pinned to bottom edge */}
+                    <div className="mt-auto pt-5 border-t border-monarq-line/50 flex items-center justify-between">
+                      <span className="text-[10px] uppercase tracking-[0.2em] text-monarq-ink-muted font-medium">
+                        Préparation Minute
+                      </span>
+                      <div className="w-8 h-[1px] bg-monarq-gold/40 group-hover:w-14 group-hover:bg-monarq-gold transition-all duration-300" />
                     </div>
                   </div>
-                </FadeUp>
-              ))}
-            </div>
+                </div>
+              </FadeUp>
+            ))}
           </div>
 
           {/* Bottom Call to Action */}
-          <FadeUp delay={0.4} className="mt-20 text-center">
+          <FadeUp delay={0.4} className="mt-16 text-center">
             <button
               onClick={() => goTo('menu')}
-              className="inline-flex items-center gap-3 px-9 py-4 rounded-full btn-gold text-xs uppercase tracking-[0.2em] font-semibold shadow-luxury hover:shadow-luxury-lg"
+              className="inline-flex items-center gap-3 px-9 py-4 rounded-full btn-gold text-xs uppercase tracking-[0.2em] font-semibold shadow-luxury hover:shadow-luxury-lg group"
             >
               <span>Consulter la Carte Complète</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 text-white transition-transform duration-300 group-hover:translate-x-1.5" />
             </button>
           </FadeUp>
         </div>
@@ -450,11 +371,11 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
           ═══════════════════════════════════════════════════ */}
       <section className="relative h-[55vh] md:h-[65vh] overflow-hidden">
         <ParallaxImage
-          src="/images/interlude-atmosphere.jpg"
-          alt="Atmosphère MONARQ Tanger"
+          src="/images/monarq-facade-exterior.jpg"
+          alt="Façade extérieure MONARQ Tanger"
           className="absolute inset-0"
         />
-        <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
+        <div className="absolute inset-0 bg-black/55 backdrop-blur-[1px]" />
         <FadeUp className="absolute inset-0 flex items-center justify-center text-center px-6">
           <blockquote className="max-w-2xl">
             <p className="font-editorial italic text-3xl sm:text-4xl md:text-5xl text-white font-normal leading-snug mb-6">
@@ -551,9 +472,10 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 href={siteConfig.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors"
+                className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors"
               >
-                Suivre sur Instagram
+                <span>Suivre sur Instagram</span>
+                <ArrowUpRight className="w-4 h-4 text-monarq-gold transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
             </div>
           </FadeUp>

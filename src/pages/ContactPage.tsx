@@ -7,7 +7,8 @@ import {
   Send, 
   ChevronDown,
   CheckCircle2,
-  ArrowRight
+  ArrowRight,
+  ArrowUpRight
 } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
 import { FadeUp, SlideLeft, SlideRight, FadeIn } from '../components/Animations';
@@ -90,8 +91,9 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
                     <div>
                       <p className="font-sans text-xs uppercase tracking-[0.2em] text-monarq-gold-deep font-semibold mb-1">Adresse</p>
                       <p className="font-sans text-base sm:text-lg text-monarq-ink font-medium">{siteConfig.fullAddress}</p>
-                      <a href={siteConfig.mapsUrl} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 font-sans text-xs uppercase tracking-widest text-monarq-ink-soft border-b border-monarq-gold hover:text-monarq-gold-deep transition-colors pb-0.5 font-semibold">
-                        Itinéraire Google Maps ↗
+                      <a href={siteConfig.mapsUrl} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-1.5 mt-2 font-sans text-xs uppercase tracking-widest text-monarq-gold-deep hover:text-monarq-ink transition-colors font-semibold">
+                        <span>Itinéraire Google Maps</span>
+                        <ArrowUpRight className="w-4 h-4 text-monarq-gold transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </a>
                     </div>
                   </div>
@@ -110,8 +112,9 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
                     <MessageSquare className="w-5 h-5 text-monarq-gold-deep mt-1 flex-shrink-0" />
                     <div>
                       <p className="font-sans text-xs uppercase tracking-[0.2em] text-monarq-gold-deep font-semibold mb-1">WhatsApp Direct</p>
-                      <a href={siteConfig.whatsappUrl} target="_blank" rel="noopener noreferrer" className="font-sans text-base sm:text-lg text-monarq-ink hover:text-monarq-gold-deep transition-colors font-medium">
-                        Démarrer une discussion instantanée
+                      <a href={siteConfig.whatsappUrl} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-1.5 font-sans text-base sm:text-lg text-monarq-ink hover:text-monarq-gold-deep transition-colors font-medium">
+                        <span>Démarrer une discussion instantanée</span>
+                        <ArrowUpRight className="w-4 h-4 text-monarq-gold transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </a>
                     </div>
                   </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Instagram, X } from 'lucide-react';
+import { Instagram, X, ArrowUpRight } from 'lucide-react';
 import { galleryItems } from '../data/galleryData';
 import { siteConfig } from '../data/siteConfig';
 import { FadeUp, StaggerGroup, StaggerItem } from '../components/Animations';
@@ -44,10 +44,11 @@ export default function GalleryPage() {
             href={siteConfig.instagram}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 font-sans text-xs sm:text-sm tracking-[0.22em] uppercase font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors border-b border-monarq-gold/40 hover:border-monarq-ink pb-1"
+            className="group inline-flex items-center gap-2 font-sans text-xs sm:text-sm tracking-[0.22em] uppercase font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors pb-1"
           >
             <Instagram className="w-4 h-4 text-monarq-gold" />
             <span>Découvrir {siteConfig.instagramHandle}</span>
+            <ArrowUpRight className="w-4 h-4 text-monarq-gold transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </FadeUp>
       </section>

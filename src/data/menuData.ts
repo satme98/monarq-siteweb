@@ -375,7 +375,7 @@ export const signatureHighlights = [
     description: "Brioche aux crevettes, avocat, mangue, sauce piquante et oignons, accompagnée d'une omelette, d'une galette de pommes de terre, de fromage emmental, d'un yaourt maison et de pain perdu. Servie avec une boisson chaude au choix et un jus d'orange.",
     price: '99 DH',
     image: '/images/monarq-eggs-benedict-pour.png',
-    tag: 'Signature Brunch',
+    tag: 'SIGNATURE BRUNCH',
   },
   {
     name: 'Monarq poulet',
@@ -383,7 +383,7 @@ export const signatureHighlights = [
     description: 'Penne aux crevettes, sauce piquante maison.',
     price: '92 DH',
     image: '/images/monarq-gourmet-salad.jpg',
-    tag: 'Spécialité 🌶️',
+    tag: 'SPÉCIALITÉ',
   },
   {
     name: 'Burrata',
@@ -391,6 +391,6 @@ export const signatureHighlights = [
     description: 'Sauce tomate, mozzarella, burrata, tomates cerises et basilic.',
     price: '125 DH',
     image: '/images/monarq-carpaccio-cocktails.jpg',
-    tag: 'Prestige',
+    tag: 'PRESTIGE',
   },
 ];
