@@ -3,6 +3,7 @@ import { Search, Download, ArrowRight } from 'lucide-react';
 import { menuChapters } from '../data/menuData';
 import { siteConfig } from '../data/siteConfig';
 import { FadeUp, StaggerGroup, StaggerItem, FadeIn } from '../components/Animations';
+import { SectionEyebrow } from '../components/SectionEyebrow';
 
 export default function MenuPage() {
   const [activeChapter, setActiveChapter] = useState(menuChapters[0].id);
@@ -47,6 +48,7 @@ export default function MenuPage() {
       <section className="relative w-full py-20 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-monarq-paper bg-marble-pattern">
 
         <FadeUp className="relative z-10 text-center max-w-3xl mx-auto space-y-6">
+          <SectionEyebrow>Carte Gastronomique</SectionEyebrow>
           <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl font-semibold tracking-wide uppercase text-monarq-ink">
             Notre Carte
           </h1>

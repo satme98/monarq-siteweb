@@ -14,6 +14,8 @@ import {
   StaggerItem,
   ParallaxImage,
 } from '../components/Animations';
+import { SectionEyebrow } from '../components/SectionEyebrow';
+import { SignatureCarousel } from '../components/SignatureCarousel';
 
 interface HomePageProps {
   setActiveTab: (tab: string) => void;
@@ -32,31 +34,34 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
           1. HERO — Cinematic, editorial, asymmetric
           ═══════════════════════════════════════════════════ */}
       <section className="relative min-h-[100dvh] flex items-end bg-monarq-black overflow-hidden">
-        {/* Background */}
+        {/* Background Image */}
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center md:bg-[center_35%]"
           style={{ backgroundImage: `url('/images/hero-interior.jpg')` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/40" />
+        {/* Directional gradient: Deep dark on left third fading smoothly to the right */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/65 via-50% to-black/20 pointer-events-none" />
+        {/* Subtle bottom-up gradient to anchor controls */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 via-35% to-transparent pointer-events-none" />
 
         {/* Content — pinned bottom-left, editorial alignment */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-16 md:pb-22 pt-32">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-16 md:pb-24 pt-36">
           <div className="max-w-3xl">
             <FadeUp delay={0.2}>
-              <h1 className="font-serif text-display-xl text-white font-semibold leading-[1.08] mb-6">
+              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[64px] text-white font-semibold leading-[1.1] tracking-tight mb-6 max-w-2xl">
                 L'élégance à table,<br />
                 <span className="font-editorial italic font-normal text-monarq-gold-light">du matin au soir.</span>
               </h1>
             </FadeUp>
 
-            <FadeUp delay={0.4}>
-              <p className="text-lg sm:text-xl text-gray-200 font-light leading-relaxed mb-10 max-w-xl">
+            <FadeUp delay={0.35}>
+              <p className="text-base sm:text-lg md:text-[19px] text-gray-200 font-light leading-relaxed mb-10 md:mb-12 max-w-xl">
                 À Tanger, MONARQ réunit brunchs d'exception, cuisine créative et café de spécialité dans un cadre architectural raffiné.
               </p>
             </FadeUp>
 
-            <FadeUp delay={0.6}>
-              <div className="flex flex-wrap items-center gap-4">
+            <FadeUp delay={0.5}>
+              <div className="flex flex-wrap items-center gap-4 mb-14 md:mb-20">
                 <button
                   onClick={() => goTo('menu')}
                   className="px-8 py-3.5 rounded-full btn-gold text-xs uppercase tracking-[0.22em] font-semibold shadow-luxury hover:shadow-luxury-lg"
@@ -76,29 +81,20 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
             </FadeUp>
           </div>
 
-          {/* Compact info strip */}
-          <FadeUp delay={0.8}>
-            <div className="mt-16 pt-6 border-t border-white/15 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs sm:text-sm text-gray-300 font-medium tracking-wide">
+          {/* Dedicated glassmorphic info strip */}
+          <FadeUp delay={0.65}>
+            <div className="inline-flex flex-wrap items-center gap-x-6 gap-y-2.5 px-6 py-3 rounded-full bg-black/45 backdrop-blur-md border border-white/15 text-xs sm:text-sm text-gray-200 font-medium tracking-wide shadow-luxury">
               <span className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-monarq-gold-light" />
-                Ouvert 7j/7 · 08 h 00 — 00 h 00
+                <Clock className="w-4 h-4 text-monarq-gold-light flex-shrink-0" />
+                <span>Ouvert 7j/7 · 08 h 00 — 00 h 00</span>
               </span>
+              <span className="hidden sm:inline w-1 h-1 rounded-full bg-monarq-gold/60" />
               <span className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-monarq-gold-light" />
-                Avenue Marrakech, Tanger
+                <MapPin className="w-4 h-4 text-monarq-gold-light flex-shrink-0" />
+                <span>Avenue Marrakech, Tanger</span>
               </span>
             </div>
           </FadeUp>
-        </div>
-
-        {/* Scroll cue */}
-        <div className="absolute bottom-6 right-8 hidden md:flex flex-col items-center gap-2">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-white/60 rotate-90 origin-center translate-x-3 font-semibold">scroll</span>
-          <motion.div
-            className="w-[1px] h-10 bg-gradient-to-b from-monarq-gold/70 to-transparent"
-            animate={{ scaleY: [0, 1, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          />
         </div>
       </section>
 
@@ -111,7 +107,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
             {/* Text column — left, narrower */}
             <div className="lg:col-span-5 lg:pt-12">
               <SlideLeft>
-                <span className="section-label block mb-4">Le concept</span>
+                <SectionEyebrow align="left">Le Concept</SectionEyebrow>
                 <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold leading-tight mb-8">
                   Une parenthèse royale au cœur de la cité du Détroit.
                 </h2>
@@ -138,33 +134,35 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
             {/* Image composition — right, wider, staggered */}
             <div className="lg:col-span-7 relative">
               <div className="grid grid-cols-12 gap-4">
-                <SlideRight className="col-span-7">
-                  <div className="rounded-2xl overflow-hidden shadow-luxury-lg">
-                    <ParallaxImage
-                      src="/images/story-atmosphere.jpg"
-                      alt="Atmosphère MONARQ Tanger"
-                      className="h-[420px] md:h-[520px]"
-                    />
-                  </div>
-                </SlideRight>
-                <SlideRight delay={0.2} className="col-span-5 pt-16">
-                  <div className="rounded-2xl overflow-hidden shadow-luxury-lg">
-                    <ParallaxImage
-                      src="/images/staggered-story-2.jpg"
-                      alt="Marbre et végétation"
-                      className="h-[320px] md:h-[400px]"
-                    />
-                  </div>
-                  {/* Seal badge */}
-                  <FadeUp delay={0.4}>
-                    <div className="mt-6 flex items-center gap-3">
-                      <img src={siteConfig.logos.seal} alt="" className="w-10 h-10 opacity-75" />
-                      <p className="text-xs uppercase tracking-[0.2em] text-monarq-ink font-semibold">
-                        Fraîcheur & préparations maison
-                      </p>
+                {/* Large main image */}
+                <div className="col-span-8">
+                  <ScaleReveal>
+                    <div className="rounded-2xl overflow-hidden shadow-luxury-lg border border-monarq-gold/25 group">
+                      <img
+                        src="/images/concept-dining.jpg"
+                        alt="Salle de restaurant MONARQ"
+                        className="w-full h-80 sm:h-96 md:h-[480px] object-cover transition-transform duration-700 ease-monarch group-hover:scale-105"
+                      />
                     </div>
-                  </FadeUp>
-                </SlideRight>
+                  </ScaleReveal>
+                </div>
+
+                {/* Secondary overlapping detail image */}
+                <div className="col-span-4 pt-12 sm:pt-20">
+                  <SlideRight delay={0.2}>
+                    <div className="rounded-2xl overflow-hidden shadow-luxury border border-monarq-gold/25 group">
+                      <img
+                        src="/images/concept-terrace.jpg"
+                        alt="Accueil et comptoir MONARQ"
+                        className="w-full h-48 sm:h-64 md:h-80 object-cover transition-transform duration-700 ease-monarch group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="mt-4 p-4 bg-monarq-paper-soft/80 backdrop-blur-sm rounded-xl border border-monarq-gold/20 hidden sm:block">
+                      <p className="font-serif text-xs text-monarq-gold-deep tracking-wider uppercase font-semibold">Tanger, Maroc</p>
+                      <p className="text-[11px] text-monarq-ink-soft mt-0.5 font-normal">À proximité du Palais Municipal</p>
+                    </div>
+                  </SlideRight>
+                </div>
               </div>
             </div>
           </div>
@@ -172,10 +170,10 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
       </section>
 
       {/* ═══════════════════════════════════════════════════
-          3. THREE MOMENTS — Ambient Kintsugi Marble & Marginal Framing
+          3. THREE MOMENTS — Vertical editorial story
           ═══════════════════════════════════════════════════ */}
-      <section className="relative py-28 md:py-40 bg-kintsugi-ambient border-y border-monarq-gold/30 overflow-hidden">
-        {/* Subtle decorative gold corner brackets (Marginal Framing) */}
+      <section className="py-28 md:py-40 bg-monarq-paper-soft relative overflow-hidden">
+        {/* Subtle corner decorative accents */}
         <div className="absolute top-8 left-8 w-10 h-10 border-t border-l border-monarq-gold/40 pointer-events-none hidden lg:block" />
         <div className="absolute top-8 right-8 w-10 h-10 border-t border-r border-monarq-gold/40 pointer-events-none hidden lg:block" />
         <div className="absolute bottom-8 left-8 w-10 h-10 border-b border-l border-monarq-gold/40 pointer-events-none hidden lg:block" />
@@ -184,16 +182,13 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
         <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
           <FadeUp>
             <div className="text-center mb-24">
-              <span className="section-label block mb-3">Rythme & Saveurs</span>
+              <SectionEyebrow>Rythme & Saveurs</SectionEyebrow>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold mb-4">
                 Trois instants d'exception
               </h2>
               <p className="text-base sm:text-lg text-monarq-ink-soft max-w-lg mx-auto font-light leading-relaxed">
                 De la première lueur du jour au dîner sous les étoiles, une partition culinaire pensée pour chaque instant.
               </p>
-              <div className="diamond-divider mt-6">
-                <span className="text-xs uppercase tracking-[0.25em] text-monarq-gold font-serif font-semibold">MONARQ</span>
-              </div>
             </div>
           </FadeUp>
 
@@ -262,7 +257,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 <div className="rounded-2xl overflow-hidden shadow-luxury-lg border border-monarq-gold/25 group">
                   <img 
                     src="/images/moment-sweet.jpg" 
-                    alt="Pâtes et pizzas MONARQ" 
+                    alt="La table gourmande MONARQ" 
                     className="w-full h-72 md:h-80 object-cover transition-transform duration-700 ease-monarch group-hover:scale-105" 
                   />
                 </div>
@@ -270,16 +265,16 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
               <SlideRight className="md:col-span-7">
                 <span className="text-monarq-gold font-serif text-4xl md:text-5xl font-semibold">03</span>
                 <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink mt-2 mb-4 font-semibold">
-                  Pâtes & Pizzas
+                  La Cuisine Gourmande, Pâtes & Pizzas
                 </h3>
                 <p className="text-base sm:text-[17px] text-monarq-ink-soft leading-relaxed max-w-lg mb-6 font-normal">
-                  Penne Monarq aux crevettes piquantes, risottos onctueux, pizzas artisanales à la burrata fraîche et saveurs méditerranéennes. De 12 h 00 à minuit.
+                  Penne Monarq aux crevettes, risottos au saumon, pièces de viande nobles, salades fraîches et pizzas artisanales au feu de bois. De 12 h 00 à minuit.
                 </p>
                 <button
                   onClick={() => goTo('menu')}
                   className="text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors inline-flex items-center gap-2.5 group"
                 >
-                  <span>Découvrir les pâtes & pizzas</span>
+                  <span>Découvrir la cuisine</span>
                   <ArrowRight className="w-4 h-4 text-monarq-gold-deep transition-transform duration-300 group-hover:translate-x-1.5" />
                 </button>
               </SlideRight>
@@ -312,66 +307,26 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
           {/* Header */}
           <FadeUp>
-            <div className="text-center max-w-3xl mx-auto mb-20">
-              <span className="section-label block mb-3">Créations Emblématiques</span>
+            <div className="text-center max-w-3xl mx-auto mb-14">
+              <SectionEyebrow>Créations Emblématiques</SectionEyebrow>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold tracking-tight leading-tight mb-4">
                 Les Plats Signatures
               </h2>
-              <div className="diamond-divider my-5">
-                <span className="text-xs uppercase tracking-[0.25em] text-monarq-gold font-serif font-semibold">MONARQ</span>
-              </div>
               <p className="text-base sm:text-lg text-monarq-ink-soft leading-relaxed max-w-xl mx-auto font-light">
                 Une partition gastronomique pensée comme un hommage aux produits nobles et à l'art culinaire tangérois.
               </p>
             </div>
           </FadeUp>
+        </div>
 
-          {/* 3 Signature Cards Grid — Equal height, fixed 4:3 aspect ratio, line-clamped 3 lines */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 items-stretch relative z-10">
-            {signatureHighlights.map((dish, i) => (
-              <FadeUp key={i} delay={i * 0.15} className="h-full">
-                <div className="group h-full flex flex-col bg-white/95 backdrop-blur-md rounded-2xl p-6 sm:p-7 border border-monarq-gold/25 shadow-luxury hover:shadow-luxury-lg hover:border-monarq-gold/50 transition-all duration-300">
-                  {/* Image Container — Locked 4:3 Aspect Ratio */}
-                  <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden mb-6 bg-monarq-paper-soft border border-monarq-line flex-shrink-0">
-                    <img
-                      src={dish.image}
-                      alt={dish.name}
-                      className="w-full h-full object-cover transition-transform duration-200 ease-out group-hover:scale-[1.03]"
-                    />
-                    {dish.tag && (
-                      <div className="absolute top-3.5 left-3.5 bg-monarq-paper/95 backdrop-blur-md text-monarq-gold-deep text-[10px] uppercase tracking-[0.2em] font-semibold px-3.5 py-1.5 rounded-full border border-monarq-gold/30 shadow-sm">
-                        {dish.tag}
-                      </div>
-                    )}
-                  </div>
-                  
-                  {/* Content */}
-                  <div className="flex-1 flex flex-col">
-                    <span className="text-[11px] uppercase tracking-[0.25em] text-monarq-gold-deep font-semibold block mb-1.5 h-4 flex items-center">
-                      {dish.category}
-                    </span>
-                    <h3 className="font-serif text-2xl sm:text-3xl text-monarq-ink font-semibold mb-3 h-9 flex items-center group-hover:text-monarq-gold-deep transition-colors truncate">
-                      {dish.name}
-                    </h3>
-                    <p className="text-sm text-monarq-ink-soft leading-relaxed font-normal line-clamp-3 h-[4.25rem] overflow-hidden">
-                      {dish.description}
-                    </p>
+        {/* 12 Cards Infinite Carousel */}
+        <div className="relative z-10">
+          <SignatureCarousel onOpenMenu={() => goTo('menu')} />
+        </div>
 
-                    {/* Hairline Divider + "PRÉPARATION MINUTE" pinned to bottom edge */}
-                    <div className="mt-auto pt-5 border-t border-monarq-line/50 flex items-center justify-between">
-                      <span className="text-[10px] uppercase tracking-[0.2em] text-monarq-ink-muted font-medium">
-                        Préparation Minute
-                      </span>
-                      <div className="w-8 h-[1px] bg-monarq-gold/40 group-hover:w-14 group-hover:bg-monarq-gold transition-all duration-300" />
-                    </div>
-                  </div>
-                </div>
-              </FadeUp>
-            ))}
-          </div>
-
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
           {/* Bottom Call to Action */}
-          <FadeUp delay={0.4} className="mt-16 text-center">
+          <FadeUp delay={0.2} className="mt-12 text-center">
             <button
               onClick={() => goTo('menu')}
               className="inline-flex items-center gap-3 px-9 py-4 rounded-full btn-gold text-xs uppercase tracking-[0.2em] font-semibold shadow-luxury hover:shadow-luxury-lg group"
@@ -429,7 +384,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
         <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 space-y-12 relative z-10">
           <FadeUp>
             <div className="text-center max-w-xl mx-auto mb-6">
-              <span className="section-label block mb-3">Immersion Virtuelle</span>
+              <SectionEyebrow>Immersion Virtuelle</SectionEyebrow>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold mb-4">
                 Au Cœur de Tanger
               </h2>
@@ -456,7 +411,8 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
       <section className="relative py-28 md:py-36 overflow-hidden bg-marble-pattern border-y border-monarq-line/50">
         <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 text-center relative z-10">
           <FadeUp>
-            <img src={siteConfig.logos.seal} alt="" className="w-16 h-16 mx-auto mb-8 opacity-80" />
+            <img src={siteConfig.logos.seal} alt="" className="w-16 h-16 mx-auto mb-6 opacity-80" />
+            <SectionEyebrow>Accueil & Réservations</SectionEyebrow>
           </FadeUp>
 
           <FadeUp delay={0.15}>

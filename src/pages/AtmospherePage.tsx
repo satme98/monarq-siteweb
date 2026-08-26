@@ -9,6 +9,7 @@ import {
   StaggerGroup, 
   StaggerItem 
 } from '../components/Animations';
+import { SectionEyebrow } from '../components/SectionEyebrow';
 import { siteConfig } from '../data/siteConfig';
 import { DroneVideoPlayer } from '../components/DroneVideoPlayer';
 
@@ -23,6 +24,7 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
       {/* 1. OPENING */}
       <section className="bg-marble-pattern py-24 md:py-36 px-6 flex flex-col items-center justify-center text-center">
         <FadeUp delay={0.2}>
+          <SectionEyebrow>L'Esprit MONARQ</SectionEyebrow>
           <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-monarq-ink mb-8 leading-tight max-w-5xl font-semibold">
             L'art de recevoir <br/> <span className="font-editorial italic font-normal text-monarq-gold-deep">à la tangéroise</span>
           </h1>
@@ -39,7 +41,7 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
           <div className="lg:col-span-7">
             <SlideLeft>
-              <span className="section-label block mb-4">Architecture & Esprit</span>
+              <SectionEyebrow align="left">Architecture & Esprit</SectionEyebrow>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold mb-10 leading-tight">L'âme du Palais</h2>
               <div className="font-sans text-monarq-ink-soft text-base sm:text-lg md:text-[19px] leading-[1.8] space-y-6 font-normal">
                 <p>
@@ -88,7 +90,7 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
       {/* 4. THREE VALUES */}
       <section className="py-28 md:py-44 px-6 max-w-4xl mx-auto">
         <FadeUp>
-          <span className="section-label block mb-3 text-center">Nos Piliers</span>
+          <SectionEyebrow>Nos Piliers</SectionEyebrow>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold text-center mb-20">Nos Essentiels</h2>
         </FadeUp>
         

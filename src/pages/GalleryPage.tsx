@@ -3,6 +3,7 @@ import { Instagram, X, ArrowUpRight } from 'lucide-react';
 import { galleryItems } from '../data/galleryData';
 import { siteConfig } from '../data/siteConfig';
 import { FadeUp, StaggerGroup, StaggerItem } from '../components/Animations';
+import { SectionEyebrow } from '../components/SectionEyebrow';
 
 export default function GalleryPage() {
   const [activeCategory, setActiveCategory] = useState<string>('all');
@@ -27,7 +28,7 @@ export default function GalleryPage() {
       {/* Editorial Header */}
       <section className="max-w-4xl mx-auto px-6 text-center space-y-8 mb-20">
         <FadeUp>
-          <span className="section-label block mb-3">Portfolio Photographique</span>
+          <SectionEyebrow>Portfolio Photographique</SectionEyebrow>
           <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl font-semibold tracking-wide text-monarq-ink uppercase">
             Galerie Visuelle
           </h1>

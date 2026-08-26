@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
 import { FadeUp, SlideLeft, SlideRight, FadeIn } from '../components/Animations';
+import { SectionEyebrow } from '../components/SectionEyebrow';
 
 interface ContactPageProps {
   onOpenReservation: () => void;
@@ -82,7 +83,7 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
             {/* Contact Details List */}
             <div className="space-y-10">
               <div>
-                <span className="section-label block mb-3">Informations & Accès</span>
+                <SectionEyebrow align="left">Informations & Accès</SectionEyebrow>
                 <h2 className="font-serif text-3xl sm:text-4xl text-monarq-ink font-semibold mb-8">Coordonnées</h2>
                 
                 <div className="space-y-8">
@@ -132,7 +133,7 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
 
             {/* Minimal Contact Form */}
             <div>
-              <span className="section-label block mb-3">Formulaire</span>
+              <SectionEyebrow align="left">Formulaire de Contact</SectionEyebrow>
               <h2 className="font-serif text-3xl sm:text-4xl text-monarq-ink font-semibold mb-8">Nous Écrire</h2>
               {formSubmitted ? (
                 <div className="flex flex-col items-center justify-center text-center py-8 space-y-4">
@@ -198,7 +199,7 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
       {/* 2. Minimal FAQ Accordion */}
       <section className="max-w-4xl mx-auto px-6 md:px-12 py-16 md:py-24 border-t border-monarq-line">
         <FadeUp>
-          <span className="section-label block mb-3 text-center">Foire Aux Questions</span>
+          <SectionEyebrow>Foire Aux Questions</SectionEyebrow>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold text-center mb-16">
             Questions Fréquentes
           </h2>
@@ -232,7 +233,8 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
 
       {/* 3. Bottom Reservation CTA Band */}
       <section className="w-full bg-marble-pattern border-t border-monarq-line/50 py-24 md:py-32 px-6 text-center">
-        <FadeIn className="max-w-4xl mx-auto space-y-8">
+        <FadeIn className="max-w-4xl mx-auto space-y-6">
+          <SectionEyebrow>Réservation Privilégiée</SectionEyebrow>
           <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-monarq-ink font-semibold">
             Une Table Vous Attend
           </h2>
