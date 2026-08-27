@@ -22,11 +22,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
         {/* Brand Rule & Diamond Header Band with Generous Air */}
         <div className="flex items-center justify-center gap-5 pb-20">
           <div className="h-[1px] flex-1 max-w-[160px] bg-gradient-to-r from-transparent to-monarq-gold/50" />
-          <span className="w-1.5 h-1.5 rotate-45 bg-monarq-gold flex-shrink-0 shadow-[0_0_8px_rgba(158,128,80,0.6)]" />
+          <span 
+            className="w-1.5 h-1.5 inline-block bg-monarq-gold flex-shrink-0 shadow-[0_0_8px_rgba(158,128,80,0.6)]" 
+            style={{ transform: 'rotate(45deg)' }} 
+          />
           <span className="text-xs uppercase tracking-[0.32em] font-serif text-monarq-gold-light font-semibold text-center">
             Maison de Gastronomie · Tanger
           </span>
-          <span className="w-1.5 h-1.5 rotate-45 bg-monarq-gold flex-shrink-0 shadow-[0_0_8px_rgba(158,128,80,0.6)]" />
+          <span 
+            className="w-1.5 h-1.5 inline-block bg-monarq-gold flex-shrink-0 shadow-[0_0_8px_rgba(158,128,80,0.6)]" 
+            style={{ transform: 'rotate(45deg)' }} 
+          />
           <div className="h-[1px] flex-1 max-w-[160px] bg-gradient-to-l from-transparent to-monarq-gold/50" />
         </div>
 
@@ -152,7 +158,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
         {/* Bottom Bar with Balanced Spacing */}
         <div className="pt-10 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-gray-400 font-medium">
           <div className="flex items-center gap-2.5">
-            <span className="w-1.5 h-1.5 rotate-45 bg-monarq-gold" />
+            <span 
+              className="w-1.5 h-1.5 inline-block bg-monarq-gold flex-shrink-0 shadow-[0_0_8px_rgba(158,128,80,0.6)]" 
+              style={{ transform: 'rotate(45deg)' }}
+            />
             <p>© {new Date().getFullYear()} MONARQ Tanger. Tous droits réservés.</p>
           </div>
           

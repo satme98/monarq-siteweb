@@ -52,12 +52,14 @@ export const SectionEyebrow: React.FC<SectionEyebrowProps> = ({
 
       {/* Left Diamond */}
       <motion.span 
-        className={`w-1.5 h-1.5 rotate-45 ${diamondColor} flex-shrink-0`}
+        className={`w-1.5 h-1.5 inline-block ${diamondColor} flex-shrink-0 shadow-[0_0_8px_rgba(158,128,80,0.6)]`}
+        style={{ rotate: 45 }}
         variants={{
-          hidden: reduce ? {} : { scale: 0, opacity: 0 },
+          hidden: reduce ? {} : { scale: 0, opacity: 0, rotate: 45 },
           visible: { 
             scale: 1, 
             opacity: 1, 
+            rotate: 45,
             transition: { duration: 0.35, delay: 0.08, ease: EASE_MONARCH as unknown as number[] } 
           }
         }}
@@ -80,12 +82,14 @@ export const SectionEyebrow: React.FC<SectionEyebrowProps> = ({
 
       {/* Right Diamond */}
       <motion.span 
-        className={`w-1.5 h-1.5 rotate-45 ${diamondColor} flex-shrink-0`}
+        className={`w-1.5 h-1.5 inline-block ${diamondColor} flex-shrink-0 shadow-[0_0_8px_rgba(158,128,80,0.6)]`}
+        style={{ rotate: 45 }}
         variants={{
-          hidden: reduce ? {} : { scale: 0, opacity: 0 },
+          hidden: reduce ? {} : { scale: 0, opacity: 0, rotate: 45 },
           visible: { 
             scale: 1, 
             opacity: 1, 
+            rotate: 45,
             transition: { duration: 0.35, delay: 0.08, ease: EASE_MONARCH as unknown as number[] } 
           }
         }}

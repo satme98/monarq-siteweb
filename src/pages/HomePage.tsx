@@ -32,61 +32,70 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
       {/* ═══════════════════════════════════════════════════
           1. HERO — Cinematic, editorial, minimal
           ═══════════════════════════════════════════════════ */}
-      <section className="relative min-h-[100dvh] flex items-center md:items-end bg-monarq-black overflow-hidden">
+      <section className="relative min-h-[100dvh] flex flex-col justify-center md:justify-end bg-monarq-black overflow-hidden">
         {/* Full-width 2-Slide Background Slider */}
         <HeroSlider autoPlayInterval={8000} />
 
-        {/* Content — vertically balanced on mobile, pinned bottom-left on desktop */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 md:pb-24">
-          <div className="max-w-2xl">
+        {/* Content — perfectly centered in available height on mobile, pinned bottom-left on desktop */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-16 sm:pt-20 md:pt-36 pb-6 sm:pb-10 md:pb-24 flex flex-col justify-center flex-grow md:flex-grow-0">
+          <div className="max-w-2xl flex flex-col space-y-3 sm:space-y-4 md:space-y-6">
+            {/* 1 & 2: Headline + Tagline */}
             <FadeUp delay={0.1} duration={0.7}>
-              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[64px] text-white font-semibold leading-[1.1] tracking-tight mb-3 sm:mb-5 drop-shadow-[0_2px_14px_rgba(0,0,0,0.7)]">
-                MONARQ<br />
-                <span className="font-editorial italic font-normal text-monarq-gold-light">Brunch • Pizza • Pâtes</span>
-              </h1>
+              <div>
+                <h1 className="font-serif text-[34px] xs:text-[38px] sm:text-5xl md:text-6xl lg:text-[64px] text-white font-semibold leading-[1.05] tracking-tight drop-shadow-[0_2px_14px_rgba(0,0,0,0.7)]">
+                  MONARQ
+                </h1>
+                <div className="font-editorial italic font-normal text-monarq-gold-light text-[24px] xs:text-[27px] sm:text-4xl md:text-5xl leading-tight mt-0.5 sm:mt-1">
+                  Brunch • Pizza • Pâtes
+                </div>
+              </div>
             </FadeUp>
 
-            <FadeUp delay={0.25} duration={0.65}>
-              <p className="text-sm sm:text-base md:text-lg text-gray-100 font-light leading-relaxed mb-6 sm:mb-8 md:mb-10 max-w-lg drop-shadow-[0_1px_8px_rgba(0,0,0,0.65)]">
+            {/* 3: Subtext */}
+            <FadeUp delay={0.2} duration={0.65}>
+              <p className="text-[13px] xs:text-sm sm:text-base md:text-lg text-gray-100 font-light leading-snug sm:leading-relaxed max-w-md drop-shadow-[0_1px_8px_rgba(0,0,0,0.65)]">
                 Des saveurs simples, gourmandes & authentiques.
               </p>
             </FadeUp>
 
-            <FadeUp delay={0.4} duration={0.6}>
-              <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-8 sm:mb-12 md:mb-20">
+            {/* 4: Action Buttons */}
+            <FadeUp delay={0.3} duration={0.6}>
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-0.5 sm:pt-1">
                 <button
                   onClick={() => goTo('menu')}
-                  className="px-7 sm:px-8 py-3 sm:py-3.5 rounded-full btn-gold text-xs uppercase tracking-[0.22em] font-semibold shadow-luxury hover:shadow-luxury-lg"
+                  className="px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full btn-gold text-xs uppercase tracking-[0.2em] font-semibold shadow-luxury hover:shadow-luxury-lg"
                 >
                   La Carte
                 </button>
                 <button
                   onClick={onOpenReservation}
-                  className="group px-7 sm:px-8 py-3 sm:py-3.5 rounded-full bg-transparent border border-white/40 text-white text-xs uppercase tracking-[0.22em] font-semibold hover:bg-white hover:text-monarq-ink transition-all duration-300"
+                  className="group px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full bg-black/30 sm:bg-transparent border border-white/40 text-white text-xs uppercase tracking-[0.2em] font-semibold hover:bg-white hover:text-monarq-ink transition-all duration-300 backdrop-blur-sm sm:backdrop-blur-none"
                 >
                   <span className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-monarq-gold-light group-hover:text-monarq-ink transition-colors" />
+                    <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-monarq-gold-light group-hover:text-monarq-ink transition-colors" />
                     Réserver
                   </span>
                 </button>
               </div>
             </FadeUp>
-          </div>
 
-          {/* Dedicated glassmorphic info strip */}
-          <FadeUp delay={0.55} duration={0.6}>
-            <div className="inline-flex flex-wrap items-center gap-x-6 gap-y-2.5 px-6 py-3 rounded-full bg-black/45 backdrop-blur-md border border-white/15 text-xs sm:text-sm text-gray-200 font-medium tracking-wide shadow-luxury">
-              <span className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-monarq-gold-light flex-shrink-0" />
-                <span>08 h 00 — 00 h 00 · 7j/7</span>
-              </span>
-              <span className="hidden sm:inline w-1 h-1 rounded-full bg-monarq-gold/60" />
-              <span className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-monarq-gold-light flex-shrink-0" />
-                <span>Avenue Marrakech · Tanger</span>
-              </span>
-            </div>
-          </FadeUp>
+            {/* 5: Dedicated glassmorphic info strip */}
+            <FadeUp delay={0.4} duration={0.6}>
+              <div className="pt-0.5 sm:pt-1">
+                <div className="inline-flex flex-wrap items-center gap-x-4 gap-y-1.5 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-black/55 backdrop-blur-md border border-white/15 text-[11px] sm:text-xs md:text-sm text-gray-200 font-medium tracking-wide shadow-luxury">
+                  <span className="flex items-center gap-1.5 sm:gap-2">
+                    <Clock className="w-3.5 h-3.5 text-monarq-gold-light flex-shrink-0" />
+                    <span>08 h 00 — 00 h 00 · 7j/7</span>
+                  </span>
+                  <span className="hidden sm:inline w-1 h-1 rounded-full bg-monarq-gold/60" />
+                  <span className="flex items-center gap-1.5 sm:gap-2">
+                    <MapPin className="w-3.5 h-3.5 text-monarq-gold-light flex-shrink-0" />
+                    <span>Avenue Marrakech · Tanger</span>
+                  </span>
+                </div>
+              </div>
+            </FadeUp>
+          </div>
         </div>
       </section>
 
