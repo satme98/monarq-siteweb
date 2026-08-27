@@ -45,15 +45,15 @@ export default function MenuPage() {
     <div className="bg-monarq-paper min-h-screen text-monarq-ink pt-24 pb-20">
       
       {/* Hero Section */}
-      <section className="relative w-full py-20 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-monarq-paper bg-marble-pattern">
+      <section className="relative w-full py-16 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-monarq-paper bg-marble-pattern">
 
-        <FadeUp className="relative z-10 text-center max-w-3xl mx-auto space-y-6">
-          <SectionEyebrow>Carte Gastronomique</SectionEyebrow>
-          <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl font-semibold tracking-wide uppercase text-monarq-ink">
-            Notre Carte
+        <FadeUp className="relative z-10 text-center max-w-2xl mx-auto space-y-4">
+          <SectionEyebrow>La Carte</SectionEyebrow>
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold tracking-wide uppercase text-monarq-ink">
+            Notre Menu
           </h1>
-          <p className="font-sans text-monarq-ink-soft text-lg sm:text-xl font-light tracking-wide max-w-xl mx-auto leading-relaxed">
-            Une exploration culinaire où les traditions marocaines rencontrent l'élégance contemporaine.
+          <p className="font-sans text-monarq-ink-soft text-base sm:text-lg font-light tracking-wide max-w-lg mx-auto leading-relaxed">
+            Une sélection de créations signatures et de mets préparés avec des ingrédients de premier choix.
           </p>
         </FadeUp>
       </section>

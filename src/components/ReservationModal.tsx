@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { X, Calendar, Clock, Users, MapPin, CheckCircle2, MessageSquare, Phone } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
+import { EASE_MONARCH } from './Animations';
 
 interface ReservationModalProps {
   isOpen: boolean;
@@ -50,9 +52,20 @@ export const ReservationModal: React.FC<ReservationModalProps> = ({ isOpen, onCl
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
-      <div 
+    <motion.div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3, ease: EASE_MONARCH as unknown as number[] }}
+      onClick={onClose}
+    >
+      <motion.div 
         className="relative w-full max-w-lg bg-monarq-paper rounded-2xl shadow-2xl border border-monarq-gold/40 overflow-hidden text-monarq-ink bg-marble-card"
+        initial={{ opacity: 0, scale: 0.96, y: 12 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.96, y: 12 }}
+        transition={{ duration: 0.32, ease: EASE_MONARCH as unknown as number[] }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -243,7 +256,7 @@ export const ReservationModal: React.FC<ReservationModalProps> = ({ isOpen, onCl
             </div>
           )}
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };

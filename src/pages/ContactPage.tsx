@@ -11,7 +11,7 @@ import {
   ArrowUpRight
 } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
-import { FadeUp, SlideLeft, SlideRight, FadeIn } from '../components/Animations';
+import { FadeUp, SlideLeft, SlideRight, FadeIn, CurtainReveal } from '../components/Animations';
 import { SectionEyebrow } from '../components/SectionEyebrow';
 
 interface ContactPageProps {
@@ -44,8 +44,8 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
       a: "Oui, nous proposons de nombreuses tartines, salades, omelettes, pizzas burrata et brunchs équilibrés 100% végétariens.",
     },
     {
-      q: "Le couscous marocain est-il servi tous les jours ?",
-      a: "Notre couscous traditionnel royal (poulet ou viande avec sept légumes) est préparé et servi exclusivement le vendredi midi.",
+      q: "Quels sont vos horaires de service pour le brunch et le dîner ?",
+      a: "Nous servons les petits déjeuners et brunchs signatures dès 08h00, et notre carte complète de cuisine, pâtes fraîches et pizzas au feu de bois jusqu'à minuit.",
     },
     {
       q: "Puis-je organiser un événement privé ou un anniversaire ?",
@@ -60,22 +60,26 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
       <section className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           
-          {/* Left: Atmospheric Photo */}
-          <SlideRight className="relative h-[60vh] lg:h-[80vh] w-full overflow-hidden group">
-            <img 
-              src="/images/staggered-story-1.jpg" 
-              alt="Intérieur MONARQ" 
-              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-monarq-ink/30 flex flex-col justify-end p-8 md:p-12">
-              <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white font-light mb-4">
-                L'Art de <br /> Recevoir
-              </h1>
-              <p className="font-sans text-white/90 font-light tracking-wide max-w-md text-sm md:text-base">
-                Situé au cœur vibrant de Tanger, {siteConfig.name} vous accueille dans un cadre élégant où chaque détail est pensé pour votre confort.
-              </p>
-            </div>
-          </SlideRight>
+          {/* Left: Atmospheric Photo with Curtain Reveal */}
+          <div className="relative h-[60vh] lg:h-[80vh] w-full overflow-hidden rounded-2xl">
+            <CurtainReveal direction="up" duration={0.9} className="w-full h-full">
+              <div className="relative w-full h-full group">
+                <img 
+                  src="/images/staggered-story-1.jpg" 
+                  alt="Intérieur MONARQ" 
+                  className="w-full h-full object-cover transition-transform duration-500 ease-monarch group-hover:scale-[1.035]"
+                />
+                <div className="absolute inset-0 bg-monarq-ink/35 flex flex-col justify-end p-8 md:p-12">
+                  <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white font-light mb-3">
+                    L'Art de <br /> Recevoir
+                  </h1>
+                  <p className="font-sans text-white/90 font-light tracking-wide max-w-sm text-sm md:text-base leading-relaxed">
+                    Un cadre chic et chaleureux au cœur de Tanger.
+                  </p>
+                </div>
+              </div>
+            </CurtainReveal>
+          </div>
 
           {/* Right: Contact Info & Form */}
           <SlideLeft className="space-y-16">
@@ -232,20 +236,20 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
       </section>
 
       {/* 3. Bottom Reservation CTA Band */}
-      <section className="w-full bg-marble-pattern border-t border-monarq-line/50 py-24 md:py-32 px-6 text-center">
-        <FadeIn className="max-w-4xl mx-auto space-y-6">
-          <SectionEyebrow>Réservation Privilégiée</SectionEyebrow>
-          <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-monarq-ink font-semibold">
+      <section className="w-full bg-marble-pattern border-t border-monarq-line/50 py-20 md:py-28 px-6 text-center">
+        <FadeIn className="max-w-3xl mx-auto space-y-4">
+          <SectionEyebrow>Réservations</SectionEyebrow>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold">
             Une Table Vous Attend
           </h2>
-          <p className="font-sans text-base sm:text-lg md:text-xl text-monarq-ink-soft max-w-xl mx-auto leading-relaxed font-light">
-            Pour un moment privilégié à Tanger, réservez votre table en toute simplicité.
+          <p className="font-sans text-base sm:text-lg text-monarq-ink-soft max-w-lg mx-auto leading-relaxed font-light mb-6">
+            Pour un moment privilégié à Tanger, réservez votre table en quelques clics.
           </p>
           <button 
             onClick={onOpenReservation}
-            className="btn-gold px-10 py-4 text-xs uppercase tracking-[0.22em] font-semibold rounded-full shadow-luxury hover:shadow-luxury-lg"
+            className="btn-gold px-9 py-3.5 text-xs uppercase tracking-[0.22em] font-semibold rounded-full shadow-luxury hover:shadow-luxury-lg"
           >
-            Réserver maintenant
+            Réserver
           </button>
         </FadeIn>
       </section>

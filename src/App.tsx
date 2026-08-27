@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
-import { MobileDock } from './components/MobileDock';
 import { ReservationModal } from './components/ReservationModal';
+import { PageTransition } from './components/Animations';
 import { HomePage } from './pages/HomePage';
 import MenuPage from './pages/MenuPage';
 import AtmospherePage from './pages/AtmospherePage';
@@ -27,39 +28,44 @@ export function App() {
         onOpenReservation={() => setIsReservationOpen(true)}
       />
 
-      {/* Main Content Router */}
+      {/* Main Content Router with Silky Multi-layer Page Transitions */}
       <main className="flex-grow">
-        {activeTab === 'accueil' && (
-          <HomePage 
-            setActiveTab={setActiveTab} 
-            onOpenReservation={() => setIsReservationOpen(true)} 
-          />
-        )}
-        {activeTab === 'menu' && (
-          <MenuPage />
-        )}
-        {activeTab === 'atmosphere' && (
-          <AtmospherePage 
-            onOpenReservation={() => setIsReservationOpen(true)}
-            setActiveTab={setActiveTab} 
-          />
-        )}
-        {activeTab === 'galerie' && (
-          <GalleryPage />
-        )}
-        {activeTab === 'contact' && (
-          <ContactPage 
-            onOpenReservation={() => setIsReservationOpen(true)} 
-          />
-        )}
+        <AnimatePresence mode="wait">
+          {activeTab === 'accueil' && (
+            <PageTransition pageKey="accueil">
+              <HomePage 
+                setActiveTab={setActiveTab} 
+                onOpenReservation={() => setIsReservationOpen(true)} 
+              />
+            </PageTransition>
+          )}
+          {activeTab === 'menu' && (
+            <PageTransition pageKey="menu">
+              <MenuPage />
+            </PageTransition>
+          )}
+          {activeTab === 'atmosphere' && (
+            <PageTransition pageKey="atmosphere">
+              <AtmospherePage 
+                onOpenReservation={() => setIsReservationOpen(true)}
+                setActiveTab={setActiveTab} 
+              />
+            </PageTransition>
+          )}
+          {activeTab === 'galerie' && (
+            <PageTransition pageKey="galerie">
+              <GalleryPage />
+            </PageTransition>
+          )}
+          {activeTab === 'contact' && (
+            <PageTransition pageKey="contact">
+              <ContactPage 
+                onOpenReservation={() => setIsReservationOpen(true)} 
+              />
+            </PageTransition>
+          )}
+        </AnimatePresence>
       </main>
-
-      {/* Dock Tactile Mobile Fixe */}
-      <MobileDock 
-        activeTab={activeTab} 
-        setActiveTab={setActiveTab}
-        onOpenReservation={() => setIsReservationOpen(true)}
-      />
 
       {/* Modal de Réservation */}
       <ReservationModal 

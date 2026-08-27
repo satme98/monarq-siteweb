@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Calendar, Phone, Instagram, MapPin } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
+import { EASE_MONARCH } from './Animations';
 
 interface NavbarProps {
   activeTab: string;
@@ -133,70 +135,78 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
       </div>
 
       {/* Mobile Drawer Overlay */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-[60px] bg-monarq-paper/98 backdrop-blur-xl z-40 flex flex-col justify-between p-6 border-t border-monarq-gold/20 animate-fade-in text-monarq-ink">
-          <div className="space-y-6 pt-4">
-            <div className="text-center pb-4 border-b border-monarq-line">
-              <img 
-                src={siteConfig.logos.seal} 
-                alt="MONARQ" 
-                className="w-14 h-14 mx-auto mb-2 opacity-90"
-              />
-              <p className="text-[10px] uppercase tracking-[0.25em] text-monarq-gold-deep">
-                Tanger · Maroc
-              </p>
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div 
+            className="lg:hidden fixed inset-0 top-[60px] bg-[#141210]/98 backdrop-blur-2xl z-40 flex flex-col justify-between p-6 border-t border-monarq-gold/25 text-white"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3, ease: EASE_MONARCH as unknown as number[] }}
+          >
+            <div className="space-y-6 pt-4">
+              <div className="text-center pb-4 border-b border-white/15">
+                <img 
+                  src={siteConfig.logos.seal} 
+                  alt="MONARQ" 
+                  className="w-14 h-14 mx-auto mb-2 opacity-95 brightness-125 invert"
+                />
+                <p className="text-[10px] uppercase tracking-[0.25em] text-monarq-gold-light font-semibold">
+                  Tanger · Maroc
+                </p>
+              </div>
+
+              <div className="flex flex-col space-y-2">
+                {navItems.map((item) => {
+                  const isActive = activeTab === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => handleNavClick(item.id)}
+                      className={`flex items-center justify-between px-5 py-3.5 rounded-xl text-left text-sm uppercase tracking-[0.2em] transition-all duration-200 ${
+                        isActive 
+                          ? 'bg-monarq-gold/25 text-monarq-gold-light font-bold border border-monarq-gold/40 shadow-sm' 
+                          : 'text-white/90 hover:text-white hover:bg-white/10 font-medium'
+                      }`}
+                    >
+                      <span>{item.label}</span>
+                      {isActive && <span className="w-2 h-2 rounded-full bg-monarq-gold-light shadow-sm"></span>}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
-            <div className="flex flex-col space-y-3">
-              {navItems.map((item) => {
-                const isActive = activeTab === item.id;
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => handleNavClick(item.id)}
-                    className={`flex items-center justify-between px-4 py-3 rounded-xl text-left text-sm uppercase tracking-[0.18em] transition-colors ${
-                      isActive 
-                        ? 'bg-monarq-gold/15 text-monarq-gold-deep font-semibold' 
-                        : 'text-monarq-ink hover:bg-monarq-paper-dark'
-                    }`}
-                  >
-                    <span>{item.label}</span>
-                    {isActive && <span className="w-2 h-2 rounded-full bg-monarq-gold"></span>}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+            <div className="space-y-4 pt-6 border-t border-white/15">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenReservation();
+                }}
+                className="w-full py-4 rounded-xl btn-gold flex items-center justify-center gap-2.5 text-xs uppercase tracking-[0.2em] font-semibold shadow-luxury"
+              >
+                <Calendar className="w-4 h-4" />
+                <span>Réserver une table</span>
+              </button>
 
-          <div className="space-y-4 pt-6 border-t border-monarq-line">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenReservation();
-              }}
-              className="w-full py-3.5 rounded-xl btn-gold flex items-center justify-center gap-2 text-xs uppercase tracking-[0.15em] font-semibold"
-            >
-              <Calendar className="w-4 h-4" />
-              <span>Réserver une table</span>
-            </button>
-
-            <div className="flex items-center justify-around pt-2 text-xs text-monarq-ink-soft">
-              <a href={`tel:${siteConfig.phone}`} className="flex items-center gap-1.5 hover:text-monarq-gold">
-                <Phone className="w-3.5 h-3.5" />
-                <span>Appeler</span>
-              </a>
-              <a href={siteConfig.mapsUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-monarq-gold">
-                <MapPin className="w-3.5 h-3.5" />
-                <span>Plan d'accès</span>
-              </a>
-              <a href={siteConfig.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-monarq-gold">
-                <Instagram className="w-3.5 h-3.5" />
-                <span>Instagram</span>
-              </a>
+              <div className="flex items-center justify-around pt-2 text-xs text-white/70">
+                <a href={`tel:${siteConfig.phone}`} className="flex items-center gap-1.5 hover:text-monarq-gold-light transition-colors">
+                  <Phone className="w-3.5 h-3.5" />
+                  <span>Appeler</span>
+                </a>
+                <a href={siteConfig.mapsUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-monarq-gold-light transition-colors">
+                  <MapPin className="w-3.5 h-3.5" />
+                  <span>Plan d'accès</span>
+                </a>
+                <a href={siteConfig.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-monarq-gold-light transition-colors">
+                  <Instagram className="w-3.5 h-3.5" />
+                  <span>Instagram</span>
+                </a>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

@@ -13,7 +13,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
   };
 
   return (
-    <footer className="bg-monarq-black text-white relative overflow-hidden pt-24 pb-28 md:pb-20 border-t border-monarq-gold/30">
+    <footer className="bg-monarq-black text-white relative overflow-hidden pt-24 pb-20 border-t border-monarq-gold/30">
       {/* Decorative subtle background pattern */}
       <div className="absolute inset-0 opacity-5 pointer-events-none bg-[radial-gradient(#A7916C_1px,transparent_1px)] [background-size:28px_28px]" />
 
@@ -41,7 +41,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
               className="h-10 w-auto"
             />
             <p className="text-sm text-gray-300 font-light leading-relaxed max-w-sm">
-              L'élégance à table, du matin au soir. Une expérience de brunch d'exception, cuisine créative et café de spécialité au cœur de Tanger.
+              L'art de recevoir et la passion du goût à Tanger. Grands brunchs, cuisine raffinée et café d'auteur.
             </p>
             <div className="flex items-center gap-3.5 pt-2">
               <a
