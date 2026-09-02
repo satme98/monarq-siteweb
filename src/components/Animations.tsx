@@ -318,12 +318,9 @@ export const ScaleReveal: React.FC<RevealProps> = ({
 // ─── Image Reveal (Curtain Wipe) ──────────────────────────────────────────────
 
 /**
- * Premium image reveal used by luxury agencies:
- * 1. A dark overlay wipes UP (scaleY 1→0, origin: bottom) to expose the image
- * 2. The image simultaneously scales from 1.06→1 (depth push-in)
- *
- * Replaces the old CurtainReveal component. Accepts same `direction` prop for
- * backward compatibility but always does the upward wipe.
+ * Premium Luxury Image Reveal:
+ * Smooth optical focus + gentle depth settle + luminous warm ivory dissolve.
+ * Completely eliminates jarring black wipe blocks in favor of high-end camera lens clarity.
  */
 export const ImageReveal: React.FC<{
   children: React.ReactNode;
@@ -336,7 +333,7 @@ export const ImageReveal: React.FC<{
   children,
   className = '',
   delay = 0,
-  duration = DUR.cinematic,
+  duration = DUR.slow,
   once = true,
 }) => {
   const reduce = useReducedMotion();
@@ -348,7 +345,7 @@ export const ImageReveal: React.FC<{
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once, amount: 0.05 }}
-        transition={{ duration: 0.15, delay }}
+        transition={{ duration: 0.2, delay }}
       >
         {children}
       </motion.div>
@@ -360,18 +357,37 @@ export const ImageReveal: React.FC<{
       className={`overflow-hidden relative ${className}`}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, amount: 0.05 }}
+      viewport={{ once, amount: 0.08 }}
     >
-      {/* The image content — scales in as the wipe lifts */}
+      {/* Optical lens reveal — gentle scale 1.05→1, vertical settle 16→0, soft blur→clear */}
       <motion.div
+        className="w-full h-full transform-gpu"
         variants={{
-          hidden: { scale: 1.07 },
+          hidden: {
+            opacity: 0,
+            scale: 1.05,
+            y: 16,
+            filter: 'blur(8px)',
+          },
           visible: {
+            opacity: 1,
             scale: 1,
+            y: 0,
+            filter: 'blur(0px)',
             transition: {
-              duration: duration * 1.1,
-              delay: delay + 0.08,
+              duration: duration * 1.15,
+              delay,
               ease: EASE_MONARQ as unknown as number[],
+              opacity: {
+                duration: duration * 0.85,
+                delay,
+                ease: 'easeOut',
+              },
+              filter: {
+                duration: duration * 0.8,
+                delay,
+                ease: 'easeOut',
+              },
             },
           },
         }}
@@ -379,21 +395,20 @@ export const ImageReveal: React.FC<{
         {children}
       </motion.div>
 
-      {/* The wipe overlay — scaleY 1→0, transforms from bottom */}
+      {/* Luminous warm ivory/champagne dissolve (matches site background — NO black blocks) */}
       <motion.div
-        className="absolute inset-0 bg-monarq-ink z-10 origin-bottom"
+        className="absolute inset-0 pointer-events-none bg-gradient-to-b from-monarq-paper/50 via-monarq-gold/10 to-transparent z-10"
         variants={{
-          hidden: { scaleY: 1 },
+          hidden: { opacity: 1 },
           visible: {
-            scaleY: 0,
+            opacity: 0,
             transition: {
-              duration,
-              delay,
-              ease: EASE_CINEMATIC as unknown as number[],
+              duration: duration * 0.75,
+              delay: delay + 0.04,
+              ease: 'easeOut',
             },
           },
         }}
-        style={{ transformOrigin: 'bottom' }}
       />
     </motion.div>
   );
