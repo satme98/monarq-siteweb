@@ -31,31 +31,27 @@
     line-height: 1.7;
   }
 
-  /* Display Titling Serif: Cormorant SC (Small Caps Titling with full French accent/apostrophe support) */
+  /* Display Titling Serif: Cormorant SC */
   h1, h2, h3, .font-serif {
     font-family: 'Cormorant SC', 'Cormorant Garamond', 'Bodoni Moda', Georgia, serif;
     letter-spacing: 0.03em;
     font-weight: 600;
   }
 
-  /* Editorial Serif for Quotes & Subtitles */
   .font-editorial {
     font-family: 'Cormorant Garamond', 'Bodoni Moda', Georgia, serif;
     font-weight: 400;
   }
 
-  /* Fine French non-breaking space before : ; ? ! */
   p, li, span, label, td {
     word-break: break-word;
   }
 
-  /* Prevent layout shift from images */
   img {
     max-width: 100%;
     height: auto;
   }
 
-  /* Focus styling */
   *:focus-visible {
     outline: 2px solid #9E8050;
     outline-offset: 2px;
@@ -92,7 +88,6 @@
     background-repeat: no-repeat;
   }
 
-  /* ── Ambient Kintsugi Section with Radial Readability Mask ── */
   .bg-kintsugi-ambient {
     background-image: 
       radial-gradient(ellipse at 50% 50%, rgba(253, 250, 245, 0.93) 0%, rgba(253, 250, 245, 0.88) 60%, rgba(253, 250, 245, 0.78) 100%),
@@ -119,7 +114,6 @@
     justify-content: center;
     gap: 0.75rem;
   }
-
   .diamond-divider::before,
   .diamond-divider::after {
     content: '';
@@ -127,6 +121,13 @@
     width: 48px;
     background: linear-gradient(90deg, transparent, rgba(167, 145, 108, 0.35), transparent);
   }
+
+  /* ─────────────────────────────────────────────────────────
+     BUTTONS — GPU-composited shadow technique
+     Box-shadow is painted on ::after pseudo-elements at
+     opacity:0, transitions only opacity (compositor-only).
+     No repaint on hover.
+     ───────────────────────────────────────────────────────── */
 
   /* ── Gold luxury button ── */
   .btn-gold {
@@ -136,8 +137,12 @@
     font-weight: 600;
     letter-spacing: 0.2em;
     overflow: hidden;
-    transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    /* Only transition transform — no box-shadow */
+    transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1), background 280ms ease;
+    transform: translateY(0) translateZ(0);
   }
+
+  /* Shimmer sweep on hover */
   .btn-gold::before {
     content: '';
     position: absolute;
@@ -145,51 +150,91 @@
     left: -100%;
     width: 60%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
     transform: skewX(-20deg);
-    transition: left 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: left 550ms cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    z-index: 1;
   }
-  .btn-gold:hover::before {
-    left: 140%;
+  .btn-gold:hover::before { left: 140%; }
+
+  /* Shadow on pseudo-element — opacity only (GPU compositor) */
+  .btn-gold::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 12px 28px -4px rgba(120, 90, 45, 0.5), 0 4px 10px -2px rgba(120, 90, 45, 0.3);
+    opacity: 0;
+    transition: opacity 280ms ease;
+    pointer-events: none;
+    z-index: 0;
   }
   .btn-gold:hover {
     background: linear-gradient(135deg, #B29360 0%, #8C6A36 100%);
-    box-shadow: 0 10px 25px -4px rgba(120, 90, 45, 0.45);
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
   }
-  .btn-gold:active {
-    transform: translateY(0) scale(0.98);
-  }
+  .btn-gold:hover::after { opacity: 1; }
+  .btn-gold:active { transform: translateY(0) scale(0.97) translateZ(0); }
+  .btn-gold:active::after { opacity: 0.4; }
 
   /* ── Dark button ── */
   .btn-dark {
+    position: relative;
     background-color: #141210;
     color: #FDFAF5;
     font-weight: 600;
     letter-spacing: 0.2em;
-    transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1), background-color 250ms ease;
+    transform: translateY(0) translateZ(0);
+    overflow: hidden;
+  }
+  .btn-dark::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 10px 25px -4px rgba(20, 18, 16, 0.4);
+    opacity: 0;
+    transition: opacity 250ms ease;
+    pointer-events: none;
   }
   .btn-dark:hover {
     background-color: #0A0A0A;
-    box-shadow: 0 10px 25px -4px rgba(20, 18, 16, 0.35);
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
   }
+  .btn-dark:hover::after { opacity: 1; }
+  .btn-dark:active { transform: translateY(0) scale(0.97) translateZ(0); }
 
   /* ── Ghost button ── */
   .btn-ghost {
+    position: relative;
     background: transparent;
     border: 1px solid rgba(120, 90, 45, 0.45);
     color: #141210;
     font-weight: 600;
     letter-spacing: 0.2em;
-    transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1), border-color 250ms ease, background-color 250ms ease;
+    transform: translateY(0) translateZ(0);
+    overflow: hidden;
+  }
+  .btn-ghost::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 8px 20px -4px rgba(120, 90, 45, 0.18);
+    opacity: 0;
+    transition: opacity 250ms ease;
+    pointer-events: none;
   }
   .btn-ghost:hover {
     border-color: #785A2D;
-    background: rgba(158, 128, 80, 0.08);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px -4px rgba(120, 90, 45, 0.15);
+    background: rgba(158, 128, 80, 0.07);
+    transform: translateY(-2px) translateZ(0);
   }
+  .btn-ghost:hover::after { opacity: 1; }
+  .btn-ghost:active { transform: translateY(0) scale(0.97) translateZ(0); }
 
   /* ── Section label (eyebrow) ── */
   .section-label {
@@ -238,49 +283,68 @@
 
 /* ── Custom scrollbar (desktop) ── */
 @media (min-width: 768px) {
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #FDFAF5;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #D5D0C8;
-    border-radius: 3px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #A7916C;
-  }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #FDFAF5; }
+  ::-webkit-scrollbar-thumb { background: #D5D0C8; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #A7916C; }
 }
 
-/* ── Unified Luxury Motion Tokens & Micro-interactions ── */
-.ease-monarch {
-  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-}
+/* ═══════════════════════════════════════════════════════
+   MOTION SYSTEM — GPU-Composited Utilities
+   All animations: transform + opacity only.
+   ═══════════════════════════════════════════════════════ */
 
+/* ── Easing Token ── */
+.ease-monarch { transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+.ease-cinematic { transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* ── Hover Lift (GPU-safe) ── */
+/* Shadow lives on ::after at opacity:0. Only opacity transitions on hover. */
 .hover-lift {
-  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(0) translateZ(0);
 }
-.hover-lift:hover {
-  transform: translateY(-4px);
+.hover-lift::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 12px 32px -8px rgba(24, 21, 18, 0.12);
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
 }
+.hover-lift:hover { transform: translateY(-4px) translateZ(0); }
+.hover-lift:hover::after { opacity: 1; }
 
+/* ── Luxury Card Hover (GPU-safe) ── */
 .luxury-card-hover {
-  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 400ms cubic-bezier(0.16, 1, 0.3, 1), border-color 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  transition: transform 380ms cubic-bezier(0.16, 1, 0.3, 1), border-color 380ms ease;
+  transform: translateY(0) translateZ(0);
 }
-.luxury-card-hover:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px -15px rgba(167, 145, 108, 0.22), 0 0 0 1px rgba(167, 145, 108, 0.35);
+.luxury-card-hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 20px 45px -15px rgba(167, 145, 108, 0.25), 0 0 0 1px rgba(167, 145, 108, 0.35);
+  opacity: 0;
+  transition: opacity 380ms ease;
+  pointer-events: none;
 }
+.luxury-card-hover:hover { transform: translateY(-5px) translateZ(0); }
+.luxury-card-hover:hover::after { opacity: 1; }
 
+/* ── Hover Scale (image inner) ── */
 .hover-scale-img {
-  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 550ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateZ(0);
 }
-.hover-scale-img:hover {
-  transform: scale(1.035);
-}
+.hover-scale-img:hover { transform: scale(1.04) translateZ(0); }
 
-/* ── Animated Link Underline ── */
+/* ── Animated Link Underline (directional) ── */
 .link-underline-expand {
   position: relative;
   display: inline-flex;
@@ -295,36 +359,120 @@
   background-color: currentColor;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-.link-underline-expand:hover::after {
-  transform: scaleX(1);
-}
+.link-underline-expand:hover::after { transform: scaleX(1); }
 
-/* ── Subtle Hero Ken Burns Zoom (18s slow scale) ── */
+/* ── Arrow double-ghost hover ── */
+.arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+}
+.arrow-link .arrow-icon {
+  transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(0);
+}
+.arrow-link:hover .arrow-icon { transform: translateX(5px); }
+
+/* ── Ken Burns — Slow cinematic zoom ── */
 @keyframes ken-burns {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.05);
-  }
+  0%   { transform: scale(1) translateZ(0); }
+  100% { transform: scale(1.055) translateZ(0); }
 }
-
 .animate-ken-burns {
-  animation: ken-burns 18s cubic-bezier(0.16, 1, 0.3, 1) infinite alternate;
+  animation: ken-burns 24s cubic-bezier(0.16, 1, 0.3, 1) infinite alternate;
   will-change: transform;
 }
 
-/* ── Reduced motion compliance ── */
+/* ── Slide progress bar fill ── */
+@keyframes slide-progress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+.slide-progress-bar {
+  transform-origin: left;
+  will-change: transform;
+}
+.slide-progress-bar.playing {
+  animation: slide-progress var(--progress-duration, 8000ms) linear forwards;
+}
+
+/* ── Scroll cue bounce ── */
+@keyframes scroll-cue {
+  0%, 100% { transform: translateY(0) translateZ(0); opacity: 0.6; }
+  50%       { transform: translateY(6px) translateZ(0); opacity: 1; }
+}
+.animate-scroll-cue {
+  animation: scroll-cue 2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  will-change: transform;
+}
+
+/* ── Marquee track (kinetic text bands) ── */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-left var(--marquee-duration, 28s) linear infinite;
+  will-change: transform;
+}
+.marquee-track:hover { animation-play-state: paused; }
+
+/* ── Gentle seal float ── */
+@keyframes seal-float {
+  0%, 100% { transform: rotate(-2deg) translateZ(0); }
+  50%       { transform: rotate(2deg) translateZ(0); }
+}
+.animate-seal-float {
+  animation: seal-float 20s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ══════════════════════════════════════════════════════
+   TIERED REDUCED MOTION
+   Not a kill-switch — three tiers:
+   Tier 1 (vestibular triggers): removed
+   Tier 2 (small slides, clips): cross-fade only
+   Tier 3 (opacity, color, focus): always kept
+   ══════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
+
+  /* Global safety net — 0.01ms not 0 (preserves transitionend events) */
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .animate-ken-burns {
-    animation: none !important;
+
+  /* Tier 1: Remove entirely */
+  .animate-ken-burns { animation: none !important; transform: none !important; }
+  .animate-scroll-cue { animation: none !important; }
+  .marquee-track { animation: none !important; }
+  .animate-seal-float { animation: none !important; }
+  [data-parallax] { transform: none !important; }
+
+  /* Tier 2: Button feedback survives (kept shorter) — Tier 3 */
+  .btn-gold,
+  .btn-dark,
+  .btn-ghost {
+    transition: opacity 0.15s ease !important;
+    transform: none !important;
+  }
+  .btn-gold::after,
+  .btn-dark::after,
+  .btn-ghost::after {
+    display: none !important;
+  }
+
+  /* Tier 3: Focus rings always visible */
+  *:focus-visible {
+    outline: 2px solid #9E8050 !important;
+    outline-offset: 2px !important;
+    transition: none !important;
   }
 }

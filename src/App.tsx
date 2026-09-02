@@ -9,10 +9,18 @@ import MenuPage from './pages/MenuPage';
 import AtmospherePage from './pages/AtmospherePage';
 import GalleryPage from './pages/GalleryPage';
 import ContactPage from './pages/ContactPage';
+import { initLenis } from './lib/animation';
 
 export function App() {
   const [activeTab, setActiveTab] = useState<string>('accueil');
   const [isReservationOpen, setIsReservationOpen] = useState<boolean>(false);
+
+  // Initialise Lenis smooth scroll once (wired to GSAP ticker)
+  // Skipped automatically when prefers-reduced-motion is active
+  useEffect(() => {
+    const cleanup = initLenis();
+    return cleanup;
+  }, []);
 
   // Scroll to top when tab changes
   useEffect(() => {
@@ -28,7 +36,7 @@ export function App() {
         onOpenReservation={() => setIsReservationOpen(true)}
       />
 
-      {/* Main Content Router with Silky Multi-layer Page Transitions */}
+      {/* Main Content Router with Cinematic Multi-layer Page Transitions */}
       <main className="flex-grow">
         <AnimatePresence mode="wait">
           {activeTab === 'accueil' && (
@@ -73,7 +81,7 @@ export function App() {
         onClose={() => setIsReservationOpen(false)} 
       />
 
-      {/* Pied de Page de Prestige */}
+      {/* Pied de Page */}
       <Footer 
         onOpenReservation={() => setIsReservationOpen(true)}
         setActiveTab={setActiveTab}

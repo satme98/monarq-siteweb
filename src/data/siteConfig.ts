@@ -28,6 +28,7 @@ export const siteConfig = {
     white: '/images/monarq-logo-white-hd.png',
     dark: '/images/monarq-logo-dark-hd.png',
     seal: '/images/monarq-seal-hd.png',
+    badgeSeal: '/images/monarq-badge-seal.png',
   },
   videos: {
     interiorWalkthrough: '/videos/monarq-interior-walkthrough.mov',
