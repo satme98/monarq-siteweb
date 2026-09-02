@@ -254,6 +254,18 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
               La Carte
             </button>
             <button
+              onClick={() => { setActiveTab('apropos'); scrollToTop(); }}
+              className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand"
+            >
+              À Propos
+            </button>
+            <button
+              onClick={() => { setActiveTab('evenements'); scrollToTop(); }}
+              className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand"
+            >
+              Événements
+            </button>
+            <button
               onClick={() => { setActiveTab('contact'); scrollToTop(); }}
               className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand"
             >

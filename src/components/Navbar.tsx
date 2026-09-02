@@ -52,6 +52,8 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
     { id: 'menu', label: 'La Carte' },
     { id: 'atmosphere', label: 'Le Lieu & Esprit' },
     { id: 'galerie', label: 'Galerie' },
+    { id: 'apropos', label: 'À Propos' },
+    { id: 'evenements', label: 'Événements' },
     { id: 'contact', label: 'Accès & Contact' },
   ];
 

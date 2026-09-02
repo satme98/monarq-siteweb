@@ -9,6 +9,8 @@ import MenuPage from './pages/MenuPage';
 import AtmospherePage from './pages/AtmospherePage';
 import GalleryPage from './pages/GalleryPage';
 import ContactPage from './pages/ContactPage';
+import AboutPage from './pages/AboutPage';
+import EventsPage from './pages/EventsPage';
 import { initLenis } from './lib/animation';
 
 export function App() {
@@ -69,6 +71,21 @@ export function App() {
             <PageTransition pageKey="contact">
               <ContactPage 
                 onOpenReservation={() => setIsReservationOpen(true)} 
+              />
+            </PageTransition>
+          )}
+          {activeTab === 'apropos' && (
+            <PageTransition pageKey="apropos">
+              <AboutPage
+                onOpenReservation={() => setIsReservationOpen(true)}
+                setActiveTab={setActiveTab}
+              />
+            </PageTransition>
+          )}
+          {activeTab === 'evenements' && (
+            <PageTransition pageKey="evenements">
+              <EventsPage
+                onOpenReservation={() => setIsReservationOpen(true)}
               />
             </PageTransition>
           )}
