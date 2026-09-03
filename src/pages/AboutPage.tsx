@@ -349,10 +349,10 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
               Réserver
             </button>
             <button
-              onClick={() => setActiveTab('evenements')}
+              onClick={() => setActiveTab('contact')}
               className="group flex items-center gap-2 px-7 py-3.5 rounded-full border border-monarq-gold/50 text-monarq-gold-deep text-xs uppercase tracking-[0.2em] font-semibold hover:border-monarq-gold transition-colors duration-300"
             >
-              <span>Événements Privés</span>
+              <span>Contact</span>
               <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </button>
           </div>

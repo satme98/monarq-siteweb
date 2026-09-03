@@ -50,11 +50,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
   const navItems = [
     { id: 'accueil', label: 'Accueil' },
     { id: 'menu', label: 'La Carte' },
-    { id: 'atmosphere', label: 'Le Lieu & Esprit' },
+    { id: 'atmosphere', label: 'Notre Spécialité' },
     { id: 'galerie', label: 'Galerie' },
     { id: 'apropos', label: 'À Propos' },
-    { id: 'evenements', label: 'Événements' },
-    { id: 'contact', label: 'Accès & Contact' },
+    { id: 'contact', label: 'Contact' },
   ];
 
   const handleNavClick = (id: string) => {
