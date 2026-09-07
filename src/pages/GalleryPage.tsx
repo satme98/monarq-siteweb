@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Instagram, X, ArrowUpRight } from 'lucide-react';
 import { galleryItems } from '../data/galleryData';
 import { siteConfig } from '../data/siteConfig';
-import { FadeUp, StaggerGroup, StaggerItem, EASE_MONARCH } from '../components/Animations';
+import { FadeUp, EASE_MONARCH } from '../components/Animations';
 import { SectionEyebrow } from '../components/SectionEyebrow';
 
 export default function GalleryPage() {
@@ -74,38 +74,47 @@ export default function GalleryPage() {
         </div>
       </FadeUp>
 
-      {/* Staggered Grid */}
+      {/* Masonry Grid */}
       <div className="max-w-7xl mx-auto px-6">
-        <StaggerGroup className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-          {filteredItems.map((item, index) => {
-            // Determine height class to simulate masonry
-            const heightClasses = ['h-72', 'h-88', 'h-96', 'h-[30rem]'];
-            const heightClass = heightClasses[index % heightClasses.length];
-            
-            return (
-              <StaggerItem key={item.id} className="break-inside-avoid">
-                <div
-                  onClick={() => setSelectedImage(item.image)}
-                  className={`group relative overflow-hidden rounded-2xl bg-monarq-paper-soft cursor-pointer shadow-luxury border border-monarq-gold/20 ${heightClass}`}
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+          <AnimatePresence>
+            {filteredItems.map((item, index) => {
+              const heightClasses = ['h-72', 'h-88', 'h-96', 'h-[30rem]'];
+              const heightClass = heightClasses[index % heightClasses.length];
+
+              return (
+                <motion.div
+                  key={item.id}
+                  layout
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
+                  transition={{ duration: 0.35, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] }}
+                  className="break-inside-avoid mb-6"
                 >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-300 ease-monarch group-hover:scale-[1.03]"
-                  />
-                  <div className="absolute inset-0 bg-monarq-ink/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-monarch flex flex-col justify-center items-center text-center p-6 text-white backdrop-blur-[2px]">
-                    <p className="text-xs uppercase tracking-[0.25em] font-sans font-semibold text-monarq-gold-light mb-3">
-                      {item.category}
-                    </p>
-                    <h3 className="font-serif text-2xl sm:text-3xl font-semibold">
-                      {item.title}
-                    </h3>
+                  <div
+                    onClick={() => setSelectedImage(item.image)}
+                    className={`group relative overflow-hidden rounded-2xl bg-monarq-paper-soft cursor-pointer shadow-luxury border border-monarq-gold/20 ${heightClass}`}
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover transition-transform duration-300 ease-monarch group-hover:scale-[1.03]"
+                    />
+                    <div className="absolute inset-0 bg-monarq-ink/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-monarch flex flex-col justify-center items-center text-center p-6 text-white backdrop-blur-[2px]">
+                      <p className="text-xs uppercase tracking-[0.25em] font-sans font-semibold text-monarq-gold-light mb-3">
+                        {item.category}
+                      </p>
+                      <h3 className="font-serif text-2xl sm:text-3xl font-semibold">
+                        {item.title}
+                      </h3>
+                    </div>
                   </div>
-                </div>
-              </StaggerItem>
-            );
-          })}
-        </StaggerGroup>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </div>
       </div>
 
       {/* Lightbox Modal */}

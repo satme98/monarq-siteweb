@@ -54,7 +54,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
         {/* Full-width cinematic video background */}
         <video
           className="absolute inset-0 w-full h-full object-cover object-center"
-          src="https://ik.imagekit.io/Gocard/monarq-vid-1.mp4"
+          src="https://ik.imagekit.io/yascode/data/Video-Hero-002.mp4"
           autoPlay
           muted
           loop

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Instagram, MapPin, Phone, Clock, ArrowUp, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Instagram, MapPin, Phone, Clock, ArrowUpRight, Sparkles } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
 import { EASE_MONARQ, EASE_CINEMATIC, SPRING_SNAP, SPRING_FLUID } from '../lib/animation';
 
@@ -265,16 +265,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
             >
               Contact
             </button>
-            <motion.button
-              onClick={scrollToTop}
-              className="flex items-center gap-2 text-monarq-gold-light hover:text-white transition-colors group uppercase tracking-[0.18em] font-medium"
-              whileHover={reduce ? {} : { y: -2 }}
-              whileTap={reduce ? {} : { scale: 0.92 }}
-              transition={SPRING_SNAP}
-            >
-              <span>Haut de page</span>
-              <ArrowUp className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-y-1" />
-            </motion.button>
           </div>
         </div>
       </div>

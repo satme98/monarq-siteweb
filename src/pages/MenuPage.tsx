@@ -1,215 +1,262 @@
-import React, { useState, useMemo } from 'react';
-import { Search, Download, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { menuChapters } from '../data/menuData';
-import { siteConfig } from '../data/siteConfig';
-import { FadeUp, StaggerGroup, StaggerItem, FadeIn } from '../components/Animations';
+import { FadeUp, FadeIn, StaggerGroup, StaggerItem } from '../components/Animations';
 import { SectionEyebrow } from '../components/SectionEyebrow';
+import { EASE_CINEMATIC } from '../lib/animation';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function MenuPage() {
-  const [activeChapter, setActiveChapter] = useState(menuChapters[0].id);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeFilter, setActiveFilter] = useState<string>('all');
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
+  const reduce = useReducedMotion();
 
-  const handleFilterChange = (filter: string) => {
-    setActiveFilter(activeFilter === filter ? 'all' : filter);
+  const chapter = menuChapters[activeIdx];
+
+  const goTo = (idx: number) => {
+    if (idx === activeIdx) return;
+    setDirection(idx > activeIdx ? 1 : -1);
+    setActiveIdx(idx);
   };
 
-  const filteredChapters = useMemo(() => {
-    if (!searchQuery && activeFilter === 'all') return menuChapters;
+  const goPrev = () => activeIdx > 0 && goTo(activeIdx - 1);
+  const goNext = () => activeIdx < menuChapters.length - 1 && goTo(activeIdx + 1);
 
-    return menuChapters.map(chapter => {
-      const filteredCategories = chapter.categories.map(category => {
-        const filteredItems = category.items.filter(item => {
-          const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                                (item.description && item.description.toLowerCase().includes(searchQuery.toLowerCase()));
-          const matchesFilter = activeFilter === 'all' || 
-                                (activeFilter === 'spicy' && item.isSpicy) || 
-                                (activeFilter === 'veg' && item.isVegetarian) ||
-                                (activeFilter === 'signature' && item.tag);
-          
-          return matchesSearch && matchesFilter;
-        });
-        return { ...category, items: filteredItems };
-      }).filter(category => category.items.length > 0);
-
-      return { ...chapter, categories: filteredCategories };
-    }).filter(chapter => chapter.categories.length > 0);
-  }, [searchQuery, activeFilter]);
-
-  // Determine which chapters to show
-  const displayChapters = (searchQuery || activeFilter !== 'all') 
-    ? filteredChapters 
-    : filteredChapters.filter(c => c.id === activeChapter);
+  const pageVariants = {
+    enter: (dir: number) => ({
+      x: reduce ? 0 : dir * 48,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: reduce ? 0.15 : 0.55,
+        ease: EASE_CINEMATIC,
+      },
+    },
+    exit: (dir: number) => ({
+      x: reduce ? 0 : dir * -48,
+      opacity: 0,
+      transition: {
+        duration: reduce ? 0.10 : 0.3,
+        ease: EASE_CINEMATIC,
+      },
+    }),
+  };
 
   return (
-    <div className="bg-monarq-paper min-h-screen text-monarq-ink pt-24 pb-20">
-      
-      {/* Hero Section */}
-      <section className="relative w-full py-16 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-monarq-paper bg-marble-pattern">
+    <div className="bg-monarq-paper min-h-screen text-monarq-ink pt-24 pb-24">
 
-        <FadeUp className="relative z-10 text-center max-w-2xl mx-auto space-y-4">
+      {/* ── Hero — matches AtmospherePage / GalleryPage pattern ─── */}
+      <section className="bg-marble-pattern py-16 md:py-24 px-6 flex flex-col items-center justify-center text-center border-b border-monarq-line">
+        <FadeUp delay={0.1}>
           <SectionEyebrow>La Carte</SectionEyebrow>
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold tracking-wide uppercase text-monarq-ink">
+        </FadeUp>
+        <FadeUp delay={0.25}>
+          <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl text-monarq-ink font-semibold mb-4 leading-tight max-w-3xl">
             Notre Menu
           </h1>
-          <p className="font-sans text-monarq-ink-soft text-base sm:text-lg font-light tracking-wide max-w-lg mx-auto leading-relaxed">
+        </FadeUp>
+        <FadeUp delay={0.4}>
+          <p className="font-sans text-monarq-ink-soft text-base sm:text-lg max-w-xl mx-auto font-light leading-relaxed">
             Une sélection de créations signatures et de mets préparés avec des ingrédients de premier choix.
           </p>
         </FadeUp>
       </section>
 
-      {/* Sticky Navigation & Filters */}
-      <div className="sticky top-20 z-40 bg-monarq-paper/95 backdrop-blur-md border-y border-monarq-line shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          
-          {/* Chapter Tabs */}
-          <nav className="flex items-center space-x-6 sm:space-x-8 overflow-x-auto w-full md:w-auto scrollbar-hide pb-2 md:pb-0">
-            {menuChapters.map((chapter) => (
+      {/* ── Chapter Tab Nav ──────────────────────────────────────── */}
+      <div className="sticky top-[64px] z-40 bg-monarq-paper/95 backdrop-blur-md border-b border-monarq-line shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+          <nav
+            className="flex flex-wrap items-end"
+            aria-label="Chapitres du menu"
+          >
+            {menuChapters.map((ch, idx) => (
               <button
-                key={chapter.id}
-                onClick={() => {
-                  setActiveChapter(chapter.id);
-                  setSearchQuery('');
-                  setActiveFilter('all');
-                }}
-                className={`whitespace-nowrap font-sans text-xs sm:text-sm tracking-[0.22em] uppercase pb-1.5 border-b-2 transition-all duration-300 font-semibold ${
-                  activeChapter === chapter.id && !searchQuery && activeFilter === 'all'
-                    ? 'border-monarq-gold text-monarq-ink'
-                    : 'border-transparent text-monarq-ink-soft hover:text-monarq-ink'
-                }`}
+                key={ch.id}
+                onClick={() => goTo(idx)}
+                className={`
+                  relative px-4 sm:px-6 py-3 sm:py-4
+                  font-sans text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-semibold
+                  transition-colors duration-300 focus:outline-none focus-visible:ring-1 focus-visible:ring-monarq-gold
+                  ${
+                    activeIdx === idx
+                      ? 'text-monarq-ink'
+                      : 'text-monarq-ink-muted hover:text-monarq-ink'
+                  }
+                `}
               >
-                {chapter.title}
+                {ch.title}
+                {activeIdx === idx && (
+                  <motion.span
+                    layoutId="menu-tab-underline"
+                    className="absolute bottom-0 left-3 right-3 h-[2px] bg-monarq-gold rounded-full"
+                    transition={{ type: 'spring', stiffness: 380, damping: 34 }}
+                  />
+                )}
               </button>
             ))}
           </nav>
-
-          {/* Search & Filters */}
-          <div className="flex items-center space-x-4 w-full md:w-auto">
-            <div className="relative flex-1 md:w-56">
-              <input
-                type="text"
-                placeholder="Rechercher un plat..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-transparent border-b border-monarq-line py-1.5 pl-7 pr-2 font-sans text-sm sm:text-base text-monarq-ink focus:outline-none focus:border-monarq-gold transition-colors placeholder:text-monarq-ink-soft/60"
-              />
-              <Search className="absolute left-0 top-2 w-4 h-4 text-monarq-gold-deep" />
-            </div>
-            
-            <div className="flex items-center space-x-2">
-              <button 
-                onClick={() => handleFilterChange('veg')}
-                className={`px-3.5 py-1.5 text-xs font-sans font-semibold tracking-wider border rounded-full transition-colors ${
-                  activeFilter === 'veg' ? 'bg-monarq-gold text-white border-monarq-gold shadow-sm' : 'border-monarq-line text-monarq-ink-soft hover:border-monarq-gold'
-                }`}
-              >
-                Végétarien
-              </button>
-              <button 
-                onClick={() => handleFilterChange('spicy')}
-                className={`px-3.5 py-1.5 text-xs font-sans font-semibold tracking-wider border rounded-full transition-colors flex items-center gap-1.5 ${
-                  activeFilter === 'spicy' ? 'bg-monarq-ink text-white border-monarq-ink shadow-sm' : 'border-monarq-line text-monarq-ink-soft hover:border-monarq-ink'
-                }`}
-              >
-                <span className="w-2 h-2 rounded-full bg-red-600 inline-block"></span> Épicé
-              </button>
-            </div>
-          </div>
         </div>
       </div>
 
-      {/* Menu Content */}
-      <main className="max-w-6xl mx-auto px-6 md:px-12 py-16 md:py-24">
-        {displayChapters.length === 0 ? (
-          <div className="text-center py-20">
-            <p className="font-serif text-2xl sm:text-3xl text-monarq-ink-soft font-semibold">Aucun résultat ne correspond à votre recherche.</p>
-            <button 
-              onClick={() => { setSearchQuery(''); setActiveFilter('all'); }}
-              className="mt-6 inline-flex items-center gap-2 font-sans text-xs sm:text-sm tracking-[0.22em] uppercase text-monarq-ink hover:text-monarq-gold-deep font-semibold transition-colors group"
-            >
-              <span>Voir toute la carte</span>
-              <ArrowRight className="w-4 h-4 text-monarq-gold-deep transition-transform duration-300 group-hover:translate-x-1.5" />
-            </button>
-          </div>
-        ) : (
-          <StaggerGroup className="space-y-32">
-            {displayChapters.map((chapter) => (
-              <StaggerItem key={chapter.id} className="space-y-24">
-                
-                {/* Chapter Header */}
-                {(searchQuery || activeFilter !== 'all') && (
-                  <div className="text-center border-b border-monarq-line pb-8 mb-12">
-                    <h2 className="font-serif text-3xl sm:text-4xl text-monarq-gold-deep mb-2 font-semibold">{chapter.title}</h2>
-                    <p className="font-sans text-xs sm:text-sm tracking-widest text-monarq-ink-muted uppercase font-semibold">{chapter.timeSlot}</p>
-                  </div>
-                )}
+      {/* ── Paginated Chapter Content ────────────────────────────── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-16 md:py-24 overflow-hidden">
+        <AnimatePresence mode="wait" custom={direction}>
+          <motion.div
+            key={chapter.id}
+            custom={direction}
+            variants={pageVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+          >
+            {/* Chapter header */}
+            <div className="text-center mb-16 md:mb-20">
+              <p className="font-sans text-[10px] tracking-[0.42em] uppercase text-monarq-gold font-semibold mb-4">
+                {chapter.timeSlot}
+              </p>
+              <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-monarq-ink font-semibold tracking-wide uppercase mb-5">
+                {chapter.title}
+              </h2>
+              {chapter.subtitle && (
+                <p className="font-sans text-monarq-ink-soft text-sm sm:text-base font-light tracking-wide max-w-lg mx-auto leading-relaxed">
+                  {chapter.subtitle}
+                </p>
+              )}
+              {/* Ornament */}
+              <div className="flex items-center justify-center gap-4 mt-8">
+                <span className="block h-px flex-1 max-w-[100px] bg-monarq-line" />
+                <span
+                  className="w-1.5 h-1.5 bg-monarq-gold inline-block flex-shrink-0 shadow-[0_0_6px_rgba(158,128,80,0.5)]"
+                  style={{ transform: 'rotate(45deg)' }}
+                />
+                <span className="block h-px flex-1 max-w-[100px] bg-monarq-line" />
+              </div>
+            </div>
 
-                {chapter.categories.map((category) => (
-                  <section key={category.id} className="relative">
-                    <div className="mb-12">
-                      <h3 className="font-serif text-3xl sm:text-4xl text-monarq-ink font-semibold tracking-wide">
+            {/* Categories */}
+            <StaggerGroup className="space-y-20">
+              {chapter.categories.map((category, catIdx) => (
+                <StaggerItem key={category.id}>
+                  <section className="relative">
+
+                    {/* Category heading */}
+                    <div className="mb-10 sm:mb-12">
+                      <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink font-semibold tracking-wide">
                         {category.name}
                       </h3>
                       {category.description && (
-                        <p className="mt-3 font-sans text-monarq-ink-soft max-w-2xl text-base leading-relaxed font-normal">
+                        <p className="mt-3 font-sans text-sm sm:text-base text-monarq-ink-soft font-light leading-relaxed max-w-2xl">
                           {category.description}
                         </p>
                       )}
+                      <div className="mt-5 h-px bg-monarq-line" />
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-12">
-                      {category.items.map((item) => (
-                        <div key={item.id} className="group">
-                          <div className="flex items-baseline justify-between w-full">
-                            <h4 className="font-serif text-xl sm:text-2xl text-monarq-ink flex items-center pr-4 bg-monarq-paper relative z-10 font-semibold group-hover:text-monarq-gold-deep transition-colors">
+                    {/* Items grid */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-9">
+                      {category.items.map(item => (
+                        <div key={item.id} className="group flex flex-col">
+                          <div className="flex items-baseline gap-3">
+                            <h4 className="font-serif text-lg sm:text-xl text-monarq-ink font-semibold group-hover:text-monarq-gold-deep transition-colors duration-200 leading-snug flex-1 min-w-0">
                               {item.name}
                               {item.isSpicy && (
-                                <span className="ml-2 w-2 h-2 rounded-full bg-red-600 inline-block" title="Épicé"></span>
+                                <span
+                                  className="ml-2 w-2 h-2 rounded-full bg-red-600 inline-block align-middle"
+                                  title="Épicé"
+                                />
                               )}
                             </h4>
-                            
-                            {/* Dotted Leader */}
-                            <div className="flex-grow border-b-2 border-dotted border-monarq-line mx-2 relative top-[-6px]"></div>
-                            
-                            <span className="font-sans text-base sm:text-lg text-monarq-gold-deep pl-4 bg-monarq-paper relative z-10 font-semibold">
+                            <span className="hidden sm:block flex-shrink-0 border-b border-dotted border-monarq-line/80 flex-1 min-w-[20px] relative top-[-4px]" />
+                            <span className="font-sans text-sm sm:text-base text-monarq-gold-deep font-semibold whitespace-nowrap flex-shrink-0 tabular-nums">
                               {typeof item.price === 'number' ? `${item.price} DH` : item.price}
                             </span>
                           </div>
-                          
-                          {(item.description || item.tag) && (
-                            <div className="mt-2 pr-8">
-                              {item.description && (
-                                <p className="font-sans text-sm sm:text-[15px] text-monarq-ink-soft font-normal leading-relaxed">
-                                  {item.description}
-                                </p>
-                              )}
-                              {item.tag && (
-                                <p className="font-serif italic text-monarq-gold-deep mt-1.5 text-sm font-medium">
-                                  ✦ {item.tag}
-                                </p>
-                              )}
-                            </div>
+                          {item.description && (
+                            <p className="mt-1.5 font-sans text-xs sm:text-[13px] text-monarq-ink-muted font-normal leading-relaxed pr-2">
+                              {item.description}
+                            </p>
                           )}
+
                         </div>
                       ))}
                     </div>
-                  </section>
-                ))}
-              </StaggerItem>
-            ))}
-          </StaggerGroup>
-        )}
-      </main>
 
-      {/* Download PDF Link */}
-      <FadeIn className="text-center py-12 border-t border-monarq-line max-w-xl mx-auto mt-12">
-        <a 
-          href="#" 
-          className="inline-flex items-center justify-center gap-2.5 font-sans text-xs sm:text-sm tracking-[0.22em] uppercase text-monarq-ink hover:text-monarq-gold-deep font-semibold transition-colors group"
-        >
-          <Download className="w-4 h-4 text-monarq-gold transition-transform group-hover:-translate-y-1" />
-          <span>Télécharger la Carte en PDF</span>
-        </a>
+                    {/* Category separator */}
+                    {catIdx < chapter.categories.length - 1 && (
+                      <div className="mt-16 flex items-center gap-4">
+                        <span className="block h-px flex-1 bg-monarq-line" />
+                        <span
+                          className="w-1 h-1 bg-monarq-line-strong inline-block"
+                          style={{ transform: 'rotate(45deg)' }}
+                        />
+                        <span className="block h-px flex-1 bg-monarq-line" />
+                      </div>
+                    )}
+                  </section>
+                </StaggerItem>
+              ))}
+            </StaggerGroup>
+
+            {/* Prev / Next chapter navigation */}
+            <div className="mt-20 pt-10 border-t border-monarq-line flex items-center justify-between">
+              <button
+                onClick={goPrev}
+                disabled={activeIdx === 0}
+                className={`flex items-center gap-2.5 font-sans text-xs tracking-[0.22em] uppercase font-semibold transition-colors duration-200 group
+                  ${activeIdx === 0 ? 'opacity-25 pointer-events-none' : 'text-monarq-ink-soft hover:text-monarq-ink'}`}
+              >
+                <ChevronLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1" />
+                {activeIdx > 0 ? menuChapters[activeIdx - 1].title : ''}
+              </button>
+
+              {/* Page dots */}
+              <div className="flex items-center gap-2">
+                {menuChapters.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => goTo(i)}
+                    className={`transition-all duration-300 rounded-full focus:outline-none ${
+                      i === activeIdx
+                        ? 'w-4 h-1.5 bg-monarq-gold'
+                        : 'w-1.5 h-1.5 bg-monarq-line-strong hover:bg-monarq-gold/50'
+                    }`}
+                    aria-label={menuChapters[i].title}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={goNext}
+                disabled={activeIdx === menuChapters.length - 1}
+                className={`flex items-center gap-2.5 font-sans text-xs tracking-[0.22em] uppercase font-semibold transition-colors duration-200 group
+                  ${activeIdx === menuChapters.length - 1 ? 'opacity-25 pointer-events-none' : 'text-monarq-ink-soft hover:text-monarq-ink'}`}
+              >
+                {activeIdx < menuChapters.length - 1 ? menuChapters[activeIdx + 1].title : ''}
+                <ChevronRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </button>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* ── Bottom ornament ──────────────────────────────────────── */}
+      <FadeIn>
+        <div className="flex flex-col items-center gap-4 py-12 border-t border-monarq-line px-6">
+          <div className="flex items-center gap-4">
+            <span className="block h-px w-10 bg-monarq-gold/40" />
+            <span
+              className="w-1.5 h-1.5 bg-monarq-gold/60 inline-block"
+              style={{ transform: 'rotate(45deg)' }}
+            />
+            <span className="block h-px w-10 bg-monarq-gold/40" />
+          </div>
+          <p className="font-serif italic text-monarq-ink-muted text-sm text-center leading-relaxed max-w-md">
+            Tous nos plats sont préparés à la commande avec des produits frais et de saison.
+          </p>
+        </div>
       </FadeIn>
     </div>
   );

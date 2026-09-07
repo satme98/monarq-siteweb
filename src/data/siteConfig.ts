@@ -31,7 +31,7 @@ export const siteConfig = {
     badgeSeal: '/images/monarq-badge-seal.png',
   },
   videos: {
-    interiorWalkthrough: '/videos/monarq-interior-walkthrough.mov',
+    interiorWalkthrough: 'https://ik.imagekit.io/yascode/data/Video-Localisation-003.mp4',
     droneLocation: '/videos/monarq-drone-location.mp4',
   },
   textures: {
