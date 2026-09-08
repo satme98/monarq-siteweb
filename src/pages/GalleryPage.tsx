@@ -24,24 +24,24 @@ export default function GalleryPage() {
     : galleryItems.filter((item) => item.category === activeCategory);
 
   return (
-    <div className="bg-monarq-paper min-h-screen pt-32 pb-24 text-monarq-ink">
+    <div className="bg-monarq-paper min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 md:pb-20 text-monarq-ink">
       
       {/* Editorial Header */}
-      <section className="max-w-3xl mx-auto px-6 text-center space-y-6 mb-16">
+      <section className="max-w-3xl mx-auto px-5 sm:px-6 text-center space-y-3.5 sm:space-y-4 md:space-y-5 mb-8 sm:mb-10 md:mb-12">
         <FadeUp>
           <SectionEyebrow>Galerie</SectionEyebrow>
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold tracking-wide text-monarq-ink uppercase">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold tracking-wide text-monarq-ink uppercase">
             L'Univers MONARQ
           </h1>
         </FadeUp>
         
         <FadeUp delay={0.1}>
-          <p className="font-sans text-monarq-ink-soft text-base sm:text-lg max-w-lg mx-auto font-light leading-relaxed">
+          <p className="font-sans text-monarq-ink-soft text-sm sm:text-base max-w-lg mx-auto font-light leading-relaxed">
             L'élégance de notre décor, l'atmosphère de nos salles et la beauté de nos créations en images.
           </p>
         </FadeUp>
         
-        <FadeUp delay={0.2} className="pt-2">
+        <FadeUp delay={0.2} className="pt-1 sm:pt-2">
           <a
             href={siteConfig.instagram}
             target="_blank"
@@ -56,8 +56,8 @@ export default function GalleryPage() {
       </section>
 
       {/* Category Filter Links */}
-      <FadeUp delay={0.25} className="max-w-5xl mx-auto px-6 mb-16">
-        <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 border-b border-monarq-gold/20 pb-4">
+      <FadeUp delay={0.25} className="max-w-5xl mx-auto px-5 sm:px-6 mb-8 sm:mb-10">
+        <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8 border-b border-monarq-gold/20 pb-3 sm:pb-4">
           {categories.map((cat) => (
             <button
               key={cat.id}
@@ -75,11 +75,11 @@ export default function GalleryPage() {
       </FadeUp>
 
       {/* Masonry Grid */}
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 md:px-8">
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 sm:gap-5 space-y-4 sm:space-y-5">
           <AnimatePresence>
             {filteredItems.map((item, index) => {
-              const heightClasses = ['h-72', 'h-88', 'h-96', 'h-[30rem]'];
+              const heightClasses = ['h-64 sm:h-72', 'h-72 sm:h-80', 'h-80 sm:h-96', 'h-72 sm:h-[26rem]'];
               const heightClass = heightClasses[index % heightClasses.length];
 
               return (
@@ -90,7 +90,7 @@ export default function GalleryPage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
                   transition={{ duration: 0.35, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] }}
-                  className="break-inside-avoid mb-6"
+                  className="break-inside-avoid mb-4 sm:mb-5"
                 >
                   <div
                     onClick={() => setSelectedImage(item.image)}
@@ -102,10 +102,10 @@ export default function GalleryPage() {
                       className="w-full h-full object-cover transition-transform duration-300 ease-monarch group-hover:scale-[1.03]"
                     />
                     <div className="absolute inset-0 bg-monarq-ink/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-monarch flex flex-col justify-center items-center text-center p-6 text-white backdrop-blur-[2px]">
-                      <p className="text-xs uppercase tracking-[0.25em] font-sans font-semibold text-monarq-gold-light mb-3">
+                      <p className="text-xs uppercase tracking-[0.25em] font-sans font-semibold text-monarq-gold-light mb-2">
                         {item.category}
                       </p>
-                      <h3 className="font-serif text-2xl sm:text-3xl font-semibold">
+                      <h3 className="font-serif text-xl sm:text-2xl font-semibold">
                         {item.title}
                       </h3>
                     </div>

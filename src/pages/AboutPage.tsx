@@ -107,14 +107,14 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
   }, []);
 
   return (
-    <div className="bg-monarq-paper min-h-screen text-monarq-ink pt-24">
+    <div className="bg-monarq-paper min-h-screen text-monarq-ink pt-20 sm:pt-24">
 
       {/* ── 1. Hero — Split Screen ──────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+      <section className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-10 sm:py-14 md:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
 
           {/* Left — image */}
-          <SlideLeft className="relative h-[65vh] lg:h-[80vh] w-full overflow-hidden rounded-2xl order-2 lg:order-1">
+          <SlideLeft className="relative h-[45vh] sm:h-[55vh] lg:h-[65vh] w-full overflow-hidden rounded-2xl order-2 lg:order-1">
             <div className="relative w-full h-full group">
               <img
                 src="/images/staggered-story-2.jpg"
@@ -123,13 +123,13 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
               />
               <div className="absolute inset-0 bg-gradient-to-t from-monarq-ink/50 via-transparent to-transparent" />
               {/* Floating badge */}
-              <div className="absolute bottom-8 left-8 right-8">
-                <div className="inline-flex items-center gap-2 bg-black/30 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2">
+              <div className="absolute bottom-6 left-6 right-6">
+                <div className="inline-flex items-center gap-2 bg-black/30 backdrop-blur-sm border border-white/20 rounded-full px-3.5 py-1.5">
                   <span
                     className="w-1.5 h-1.5 bg-monarq-gold rounded-full flex-shrink-0"
                     style={{ boxShadow: '0 0 8px rgba(158,128,80,0.7)' }}
                   />
-                  <span className="text-white text-[11px] uppercase tracking-[0.25em] font-medium">
+                  <span className="text-white text-[10.5px] uppercase tracking-[0.25em] font-medium">
                     Tanger · Maroc · Depuis 2019
                   </span>
                 </div>
@@ -138,33 +138,28 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
           </SlideLeft>
 
           {/* Right — text */}
-          <SlideRight className="space-y-10 order-1 lg:order-2">
+          <SlideRight className="space-y-6 sm:space-y-8 order-1 lg:order-2">
             <div>
               <SectionEyebrow align="left">Notre Histoire</SectionEyebrow>
               <h1
                 ref={heroHeadingRef}
-                className="font-serif text-4xl sm:text-5xl lg:text-6xl text-monarq-ink font-light leading-[1.1] mb-6"
+                className="font-serif text-3xl sm:text-4xl lg:text-5xl text-monarq-ink font-semibold leading-tight mb-3 sm:mb-4"
               >
-                Une Maison de Gastronomie au Cœur de Tanger
+                Une Table Pensée Comme un Refuge
               </h1>
-              <p className="font-sans text-base sm:text-lg text-monarq-ink-soft font-light leading-relaxed max-w-[56ch]">
-                MONARQ est né d'une conviction simple : Tanger méritait une adresse où l'art de recevoir se conjugue avec la passion de la cuisine. Un lieu vivant, chaleureux, exigeant sur les produits et généreux dans l'accueil.
+              <p className="font-sans text-sm sm:text-base text-monarq-ink-soft leading-relaxed font-light mb-4 sm:mb-5">
+                Au cœur de Tanger, MONARQ est né d'un désir simple : créer un lieu où la beauté des matières — marbre, bois chaud, dorures discrètes — s'accorde à la franchise d'une assiette généreuse.
+              </p>
+              <p className="font-sans text-sm sm:text-base text-monarq-ink-soft leading-relaxed font-light">
+                Du premier espresso du matin aux pâtes fraîches du dîner, chaque instant y est traité avec le même soin, dans une atmosphère lumineuse le jour et feutrée le soir.
               </p>
             </div>
 
-            <div className="space-y-5 pt-2">
-              <p className="font-sans text-base text-monarq-ink-soft font-light leading-relaxed">
-                Depuis notre ouverture en 2019, nous avons construit une maison autour d'une table — celle où se rencontrent les habitués du quartier et les voyageurs curieux, les familles du dimanche et les noctambules du vendredi soir.
-              </p>
-              <p className="font-sans text-base text-monarq-ink-soft font-light leading-relaxed">
-                Notre cuisine mêle influences méditerranéennes et inflexions marocaines : pâtes fraîches faites chaque matin, pizzas au feu de bois, brunchs signatures et carte du soir pensée comme un voyage.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-4 pt-4">
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1">
               <motion.button
                 onClick={onOpenReservation}
-                className="btn-gold flex items-center gap-2 px-7 py-3.5 rounded-full text-xs uppercase tracking-[0.2em] font-semibold shadow-luxury"
+                className="btn-gold flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full text-xs uppercase tracking-[0.2em] font-semibold shadow-luxury"
                 whileHover={reduce ? {} : { y: -1, scale: 1.01 }}
                 whileTap={reduce ? {} : { scale: 0.96 }}
                 transition={{ type: 'spring', stiffness: 500, damping: 35 }}
@@ -174,7 +169,7 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
               </motion.button>
               <button
                 onClick={() => setActiveTab('atmosphere')}
-                className="group flex items-center gap-2 px-7 py-3.5 rounded-full border border-monarq-gold/50 text-monarq-gold-deep text-xs uppercase tracking-[0.2em] font-semibold hover:border-monarq-gold hover:bg-monarq-gold/5 transition-colors duration-300"
+                className="group flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full border border-monarq-gold/50 text-monarq-gold-deep text-xs uppercase tracking-[0.2em] font-semibold hover:border-monarq-gold hover:bg-monarq-gold/5 transition-colors duration-300"
               >
                 <span>Découvrir le Lieu</span>
                 <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -185,16 +180,16 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
       </section>
 
       {/* ── 2. Philosophy Quote — Full Width ───────────────────────────────── */}
-      <section className="border-t border-monarq-line py-20 md:py-28 overflow-hidden">
-        <div className="max-w-5xl mx-auto px-6 md:px-12">
+      <section className="border-t border-monarq-line py-12 sm:py-16 md:py-20 overflow-hidden">
+        <div className="max-w-4xl mx-auto px-5 sm:px-8">
           <FadeIn>
-            <blockquote className="text-center space-y-6">
-              <p className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-light leading-[1.25] italic">
+            <blockquote className="text-center space-y-4 sm:space-y-5">
+              <p className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink font-light leading-[1.3] italic">
                 &ldquo;Ici, chaque repas est une cérémonie — célébrée avec les meilleurs produits, un service sincère et la lumière de Tanger.&rdquo;
               </p>
-              <footer className="flex items-center justify-center gap-3 pt-4">
+              <footer className="flex items-center justify-center gap-3 pt-2">
                 <span className="w-8 h-[1px] bg-monarq-gold/50" />
-                <cite className="font-sans text-xs uppercase tracking-[0.28em] text-monarq-gold-deep font-semibold not-italic">
+                <cite className="font-sans text-[11px] sm:text-xs uppercase tracking-[0.28em] text-monarq-gold-deep font-semibold not-italic">
                   La Direction · MONARQ Tanger
                 </cite>
                 <span className="w-8 h-[1px] bg-monarq-gold/50" />
@@ -205,32 +200,32 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
       </section>
 
       {/* ── 3. Values — 2×2 Grid with Images ──────────────────────────────── */}
-      <section className="border-t border-monarq-line py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <FadeUp className="text-center mb-16">
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold">
+      <section className="border-t border-monarq-line py-12 sm:py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <FadeUp className="text-center mb-8 sm:mb-10">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink font-semibold">
               Ce Qui Nous Définit
             </h2>
           </FadeUp>
 
-          <StaggerGroup className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+          <StaggerGroup className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 lg:gap-8">
             {values.map((value, i) => {
               const Icon = value.icon;
               return (
                 <StaggerItem key={value.title}>
                   <motion.div
-                    className="group p-8 lg:p-10 border border-monarq-line rounded-2xl hover:border-monarq-gold/40 transition-colors duration-500 bg-white/30 hover:bg-white/60 space-y-5"
+                    className="group p-6 sm:p-7 lg:p-8 border border-monarq-line rounded-2xl hover:border-monarq-gold/40 transition-colors duration-500 bg-white/30 hover:bg-white/60 space-y-3.5"
                     whileHover={reduce ? {} : { y: -3 }}
                     transition={{ type: 'spring', stiffness: 300, damping: 28 }}
                   >
-                    <div className="w-10 h-10 rounded-xl bg-monarq-gold/10 flex items-center justify-center border border-monarq-gold/20 group-hover:bg-monarq-gold/20 transition-colors duration-300">
-                      <Icon className="w-5 h-5 text-monarq-gold-deep" />
+                    <div className="w-9 h-9 rounded-xl bg-monarq-gold/10 flex items-center justify-center border border-monarq-gold/20 group-hover:bg-monarq-gold/20 transition-colors duration-300">
+                      <Icon className="w-4 h-4 text-monarq-gold-deep" />
                     </div>
-                    <div className="space-y-3">
-                      <h3 className="font-serif text-xl sm:text-2xl text-monarq-ink font-semibold">
+                    <div className="space-y-2">
+                      <h3 className="font-serif text-lg sm:text-xl text-monarq-ink font-semibold">
                         {value.title}
                       </h3>
-                      <p className="font-sans text-base text-monarq-ink-soft font-light leading-relaxed">
+                      <p className="font-sans text-sm sm:text-base text-monarq-ink-soft font-light leading-relaxed">
                         {value.description}
                       </p>
                     </div>
@@ -243,14 +238,14 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
       </section>
 
       {/* ── 4. Story Timeline ──────────────────────────────────────────────── */}
-      <section className="border-t border-monarq-line py-20 md:py-28 bg-monarq-black text-white relative overflow-hidden">
+      <section className="border-t border-monarq-line py-12 sm:py-16 md:py-20 lg:py-24 bg-monarq-black text-white relative overflow-hidden">
         {/* Subtle pattern */}
         <div className="absolute inset-0 opacity-[0.04] pointer-events-none bg-[radial-gradient(#A7916C_1px,transparent_1px)] [background-size:28px_28px]" />
 
-        <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
-          <FadeUp className="text-center mb-16">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+          <FadeUp className="text-center mb-8 sm:mb-10 md:mb-12">
             <SectionEyebrow variant="light">Chronologie</SectionEyebrow>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white font-semibold mt-4">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-white font-semibold mt-2.5 sm:mt-3">
               L'Histoire de la Maison
             </h2>
           </FadeUp>
@@ -259,14 +254,14 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
             {/* Vertical line */}
             <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[1px] bg-monarq-gold/25 md:-translate-x-px hidden sm:block" />
 
-            <div className="space-y-12 sm:space-y-0">
+            <div className="space-y-8 sm:space-y-0">
               {milestones.map((m, i) => {
                 const isLeft = i % 2 === 0;
                 return (
-                  <FadeUp key={m.year} delay={i * 0.1} className="relative sm:grid sm:grid-cols-2 sm:gap-12 sm:items-center sm:py-10">
+                  <FadeUp key={m.year} delay={i * 0.1} className="relative sm:grid sm:grid-cols-2 sm:gap-8 lg:gap-12 sm:items-center sm:py-6 md:py-8">
                     {/* Year badge — on the line */}
                     <div className="absolute left-6 md:left-1/2 md:-translate-x-1/2 top-0 sm:top-1/2 sm:-translate-y-1/2 hidden sm:flex items-center justify-center">
-                      <div className="w-10 h-10 rounded-full bg-monarq-black border-2 border-monarq-gold/60 flex items-center justify-center">
+                      <div className="w-9 h-9 rounded-full bg-monarq-black border-2 border-monarq-gold/60 flex items-center justify-center">
                         <span
                           className="w-2 h-2 rounded-full bg-monarq-gold"
                           style={{ boxShadow: '0 0 10px rgba(158,128,80,0.6)' }}
@@ -276,17 +271,17 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
 
                     {/* Content left/right */}
                     <div
-                      className={`pl-16 sm:pl-0 ${
-                        isLeft ? 'sm:text-right sm:pr-12' : 'sm:col-start-2 sm:pl-12'
+                      className={`pl-14 sm:pl-0 ${
+                        isLeft ? 'sm:text-right sm:pr-8 lg:pr-12' : 'sm:col-start-2 sm:pl-8 lg:pl-12'
                       }`}
                     >
-                      <span className="font-serif text-4xl sm:text-5xl text-monarq-gold font-light block mb-1">
+                      <span className="font-serif text-3xl sm:text-4xl text-monarq-gold font-light block mb-0.5">
                         {m.year}
                       </span>
-                      <h3 className="font-sans text-xs uppercase tracking-[0.24em] text-monarq-gold-light font-semibold mb-3">
+                      <h3 className="font-sans text-[11px] sm:text-xs uppercase tracking-[0.24em] text-monarq-gold-light font-semibold mb-2">
                         {m.label}
                       </h3>
-                      <p className="font-sans text-sm text-gray-300 font-light leading-relaxed max-w-xs sm:max-w-none">
+                      <p className="font-sans text-xs sm:text-sm text-gray-300 font-light leading-relaxed max-w-xs sm:max-w-none">
                         {m.text}
                       </p>
                     </div>
@@ -299,15 +294,15 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
       </section>
 
       {/* ── 5. Ambiance — Three Stacked Photos ─────────────────────────────── */}
-      <section className="border-t border-monarq-line py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <FadeUp className="text-center mb-14">
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold">
+      <section className="border-t border-monarq-line py-12 sm:py-16 md:py-20 lg:py-24">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <FadeUp className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink font-semibold">
               L'Esprit des Lieux
             </h2>
           </FadeUp>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
             {[
               { src: '/images/gallery-1.jpg', label: 'La Salle', ratio: 'aspect-[4/5]' },
               { src: '/images/gallery-2.jpg', label: 'La Terrasse', ratio: 'aspect-[3/4]' },
@@ -321,7 +316,7 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-monarq-ink/60 via-transparent to-transparent" />
-                  <span className="absolute bottom-5 left-5 font-sans text-xs uppercase tracking-[0.24em] text-white font-medium">
+                  <span className="absolute bottom-4 left-4 sm:bottom-5 sm:left-5 font-sans text-xs uppercase tracking-[0.24em] text-white font-medium">
                     {label}
                   </span>
                 </div>
@@ -332,25 +327,25 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
       </section>
 
       {/* ── 6. CTA Band ────────────────────────────────────────────────────── */}
-      <section className="w-full bg-marble-pattern border-t border-monarq-line/50 py-20 md:py-28 px-6 text-center">
-        <FadeIn className="max-w-3xl mx-auto space-y-5">
+      <section className="w-full bg-marble-pattern border-t border-monarq-line/50 py-12 sm:py-16 md:py-20 lg:py-24 px-5 sm:px-8 text-center">
+        <FadeIn className="max-w-3xl mx-auto space-y-3.5 sm:space-y-4 md:space-y-5">
           <SectionEyebrow>Rejoignez-Nous</SectionEyebrow>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold">
+          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink font-semibold">
             Vivez l'Expérience MONARQ
           </h2>
-          <p className="font-sans text-base sm:text-lg text-monarq-ink-soft max-w-lg mx-auto leading-relaxed font-light">
+          <p className="font-sans text-sm sm:text-base text-monarq-ink-soft max-w-lg mx-auto leading-relaxed font-light">
             Brunch, déjeuner, dîner ou café — chaque moment mérite d'être vécu à notre table.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-2 sm:pt-3">
             <button
               onClick={onOpenReservation}
-              className="btn-gold px-9 py-3.5 text-xs uppercase tracking-[0.22em] font-semibold rounded-full shadow-luxury hover:shadow-luxury-lg"
+              className="btn-gold px-8 sm:px-9 py-3 sm:py-3.5 text-xs uppercase tracking-[0.22em] font-semibold rounded-full shadow-luxury hover:shadow-luxury-lg"
             >
               Réserver
             </button>
             <button
               onClick={() => setActiveTab('contact')}
-              className="group flex items-center gap-2 px-7 py-3.5 rounded-full border border-monarq-gold/50 text-monarq-gold-deep text-xs uppercase tracking-[0.2em] font-semibold hover:border-monarq-gold transition-colors duration-300"
+              className="group flex items-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full border border-monarq-gold/50 text-monarq-gold-deep text-xs uppercase tracking-[0.2em] font-semibold hover:border-monarq-gold transition-colors duration-300"
             >
               <span>Contact</span>
               <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

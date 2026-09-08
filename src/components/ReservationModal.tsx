@@ -67,7 +67,7 @@ export const ReservationModal: React.FC<ReservationModalProps> = ({ isOpen, onCl
             <img className="reservation-interior" src="/images/reservation-interior.png" alt="La salle du restaurant MONARQ Tanger" />
             <div className="reservation-photo-shade" />
             <img className="reservation-logo" src="/images/reservation-logo-white.png" alt="MONARQ — Brunch, Restaurant, Café" />
-            <div className="reservation-address"><p>Tanger · En face de La Française</p><p>09h00 — 00h00</p></div>
+            <div className="reservation-address"><p>À proximité du Riad Tétouan, Tanger</p><p>09h00 — 00h00</p></div>
           </aside>
           <section className="reservation-content">
             <button className="reservation-close" type="button" onClick={onClose} aria-label="Fermer la réservation"><X size={24} /></button>

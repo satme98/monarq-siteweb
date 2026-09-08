@@ -103,10 +103,10 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
   }, []);
 
   return (
-    <div className="bg-monarq-paper min-h-screen pt-32 pb-24">
+    <div className="bg-monarq-paper min-h-screen pt-20 sm:pt-24 pb-14 sm:pb-16">
 
       {/* 1. HERO OPENING */}
-      <section className="bg-marble-pattern py-20 md:py-32 px-6 flex flex-col items-center justify-center text-center">
+      <section className="bg-marble-pattern py-12 sm:py-16 md:py-20 px-5 sm:px-6 flex flex-col items-center justify-center text-center">
         <FadeUp delay={0.15}>
           <SectionEyebrow>L'Esprit MONARQ</SectionEyebrow>
         </FadeUp>
@@ -114,7 +114,7 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
         {/* SplitText target — GSAP handles reveal, so no motion wrapper */}
         <h1
           ref={heroHeadingRef}
-          className={`font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-monarq-ink mb-6 leading-tight max-w-4xl font-semibold ${
+          className={`font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-monarq-ink mb-3 sm:mb-4 leading-tight max-w-4xl font-semibold ${
             reduce ? 'opacity-0 animate-[fadeIn_0.4s_0.3s_ease_forwards]' : ''
           }`}
           style={reduce ? { opacity: 0, animation: 'none' } : {}}
@@ -132,31 +132,31 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.2 }}
-            className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-monarq-ink mb-6 leading-tight max-w-4xl font-semibold absolute"
+            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-monarq-ink mb-3 sm:mb-4 leading-tight max-w-4xl font-semibold absolute"
             style={{ pointerEvents: 'none' }}
           />
         )}
 
         <FadeUp delay={0.55}>
-          <p className="font-sans text-monarq-ink-soft text-lg sm:text-xl max-w-2xl mx-auto font-light leading-relaxed">
+          <p className="font-sans text-monarq-ink-soft text-sm sm:text-base max-w-2xl mx-auto font-light leading-relaxed">
             Un havre gastronomique chic et lumineux au cœur de Tanger, dédié au plaisir des saveurs et du partage.
           </p>
         </FadeUp>
       </section>
 
       {/* 2. NOTRE HISTOIRE */}
-      <section className="py-20 md:py-32 px-6 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+      <section className="py-12 sm:py-16 md:py-20 px-5 sm:px-8 lg:px-12 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-16 items-center">
           <div className="lg:col-span-7">
             <SlideLeft>
               <SectionEyebrow align="left">Notre Histoire</SectionEyebrow>
               <TextReveal delay={0.08} duration={DUR.slow}>
-                <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold mb-6 leading-tight">
+                <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink font-semibold mb-3 sm:mb-4 leading-tight">
                   Une passion vouée à l'excellence
                 </h2>
               </TextReveal>
               <FadeUp delay={0.18}>
-                <div className="font-sans text-monarq-ink-soft text-base sm:text-lg leading-relaxed space-y-4 font-light">
+                <div className="font-sans text-monarq-ink-soft text-sm sm:text-base leading-relaxed space-y-3 font-light">
                   <p>
                     Né de l'amour de la haute gastronomie et de l'art de recevoir tangérois, MONARQ réinvente l'expérience du café-restaurant contemporain.
                   </p>
@@ -213,11 +213,11 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
       </section>
 
       {/* 4. NOS 3 VALEURS */}
-      <section className="py-24 md:py-36 px-6 max-w-4xl mx-auto">
+      <section className="py-12 sm:py-16 md:py-20 px-5 sm:px-6 max-w-4xl mx-auto">
         <FadeUp>
           <SectionEyebrow>Nos Piliers</SectionEyebrow>
           <TextReveal delay={0.1} duration={DUR.slow}>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold text-center mb-16">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink font-semibold text-center mb-8 sm:mb-10">
               Nos Engagements
             </h2>
           </TextReveal>
@@ -242,17 +242,17 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
             },
           ].map((value, idx) => (
             <React.Fragment key={value.num}>
-              {idx !== 0 && <div className="h-[1px] w-full bg-monarq-gold/30 my-8 md:my-12" />}
+              {idx !== 0 && <div className="h-[1px] w-full bg-monarq-gold/30 my-5 sm:my-7" />}
               <StaggerItem>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-12">
-                  <span className="font-serif text-4xl sm:text-5xl md:text-6xl text-monarq-gold font-semibold leading-none">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-8 md:gap-10">
+                  <span className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-gold font-semibold leading-none">
                     {value.num}
                   </span>
                   <div>
-                    <h3 className="font-serif text-2xl sm:text-3xl text-monarq-ink font-semibold mb-1">
+                    <h3 className="font-serif text-xl sm:text-2xl text-monarq-ink font-semibold mb-1">
                       {value.title}
                     </h3>
-                    <p className="font-sans text-monarq-ink-soft text-base sm:text-lg leading-relaxed font-light">
+                    <p className="font-sans text-monarq-ink-soft text-sm sm:text-base leading-relaxed font-light">
                       {value.desc}
                     </p>
                   </div>
@@ -265,7 +265,7 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
 
       {/* 5. CINEMATIC DRONE VIDEO */}
       <ScaleReveal delay={0.05}>
-        <section className="relative w-full h-[60vh] sm:h-[70vh] md:h-[80vh] overflow-hidden bg-monarq-black">
+        <section className="relative w-full h-[45vh] sm:h-[55vh] md:h-[65vh] overflow-hidden bg-monarq-black">
           <DroneVideoPlayer
             src={siteConfig.videos.interiorWalkthrough}
             poster="/images/hero-interior.jpg"
@@ -275,20 +275,20 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
       </ScaleReveal>
 
       {/* 6. CLOSING CTA */}
-      <section className="py-24 md:py-32 px-6 flex flex-col items-center text-center bg-marble-pattern border-t border-monarq-line/50">
+      <section className="py-12 sm:py-16 md:py-20 px-5 sm:px-6 flex flex-col items-center text-center bg-marble-pattern border-t border-monarq-line/50">
         <ScaleReveal>
           <TextReveal delay={0.05} duration={DUR.slow}>
-            <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-monarq-ink font-semibold mb-6">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink font-semibold mb-3 sm:mb-4">
               Rejoignez-nous
             </h2>
           </TextReveal>
           <FadeUp delay={0.15}>
-            <p className="font-sans text-monarq-ink-soft text-base sm:text-lg mb-8 max-w-lg mx-auto leading-relaxed font-light">
+            <p className="font-sans text-monarq-ink-soft text-sm sm:text-base mb-5 sm:mb-6 max-w-lg mx-auto leading-relaxed font-light">
               Réservez votre table et vivez un moment gastronomique d'exception.
             </p>
             <motion.button
               onClick={onOpenReservation}
-              className="btn-gold px-10 py-3.5 text-xs uppercase tracking-[0.22em] font-semibold rounded-full shadow-luxury"
+              className="btn-gold px-8 sm:px-9 py-3 sm:py-3.5 text-xs uppercase tracking-[0.22em] font-semibold rounded-full shadow-luxury"
               whileHover={reduce ? {} : { scale: 1.02, y: -1 }}
               whileTap={reduce ? {} : { scale: 0.96 }}
             >

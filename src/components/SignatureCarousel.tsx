@@ -110,21 +110,21 @@ export const SignatureCarousel: React.FC<SignatureCarouselProps> = ({ onOpenMenu
       }}
     >
       {/* Top Controls Bar */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mb-6 flex items-center justify-end">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 mb-3 sm:mb-4 flex items-center justify-end">
 
         {/* Carousel Navigation Arrows */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2">
           <button
             onClick={() => scroll('left')}
             aria-label="Plat précédent"
-            className="w-9 h-9 rounded-full border border-monarq-gold/35 bg-monarq-paper/90 backdrop-blur-sm flex items-center justify-center text-monarq-ink hover:bg-monarq-gold hover:text-white hover:border-monarq-gold transition-all duration-300 active:scale-95 group"
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-monarq-gold/35 bg-monarq-paper/90 backdrop-blur-sm flex items-center justify-center text-monarq-ink hover:bg-monarq-gold hover:text-white hover:border-monarq-gold transition-all duration-300 active:scale-95 group"
           >
             <ChevronLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
           </button>
           <button
             onClick={() => scroll('right')}
             aria-label="Plat suivant"
-            className="w-9 h-9 rounded-full border border-monarq-gold/35 bg-monarq-paper/90 backdrop-blur-sm flex items-center justify-center text-monarq-ink hover:bg-monarq-gold hover:text-white hover:border-monarq-gold transition-all duration-300 active:scale-95 group"
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-monarq-gold/35 bg-monarq-paper/90 backdrop-blur-sm flex items-center justify-center text-monarq-ink hover:bg-monarq-gold hover:text-white hover:border-monarq-gold transition-all duration-300 active:scale-95 group"
           >
             <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
           </button>
@@ -137,14 +137,14 @@ export const SignatureCarousel: React.FC<SignatureCarouselProps> = ({ onOpenMenu
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUpOrLeave}
-        className="flex gap-4 sm:gap-5 overflow-x-auto no-scrollbar scrollbar-hide [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:h-0 px-6 sm:px-8 lg:px-12 cursor-grab active:cursor-grabbing pb-3 pt-1 will-change-scroll"
+        className="flex gap-3.5 sm:gap-4.5 overflow-x-auto no-scrollbar scrollbar-hide [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:h-0 px-5 sm:px-8 lg:px-12 cursor-grab active:cursor-grabbing pb-2 pt-0.5 will-change-scroll"
         style={{ scrollBehavior: 'auto' }}
       >
         {carouselItems.map((dish, i) => (
           <div
             key={`${dish.name}-${i}`}
             onClick={onOpenMenu}
-            className="w-[235px] sm:w-[255px] md:w-[275px] flex-shrink-0 flex flex-col bg-monarq-paper/40 hover:bg-monarq-paper/80 border border-monarq-gold/30 hover:border-monarq-gold/75 rounded-none sm:rounded-[2px] p-2.5 sm:p-3 transition-colors duration-300 ease-monarch cursor-pointer group"
+            className="w-[220px] sm:w-[245px] md:w-[265px] flex-shrink-0 flex flex-col bg-monarq-paper/40 hover:bg-monarq-paper/80 border border-monarq-gold/30 hover:border-monarq-gold/75 rounded-none sm:rounded-[2px] p-2 sm:p-2.5 transition-colors duration-300 ease-monarch cursor-pointer group shadow-sm"
           >
             {/* Dominant Image Container — Locked 4:5 Aspect Ratio & Hairline Inset Frame */}
             <div className="relative aspect-[4/5] w-full overflow-hidden bg-monarq-paper-soft border border-monarq-gold/20 group-hover:border-monarq-gold/45 transition-colors duration-500 rounded-none sm:rounded-[1px] flex-shrink-0">
@@ -158,11 +158,11 @@ export const SignatureCarousel: React.FC<SignatureCarouselProps> = ({ onOpenMenu
             </div>
 
             {/* Quiet Caption Directly Underneath — Tight Spacing */}
-            <div className="flex flex-col pt-2.5 sm:pt-3 px-0.5">
-              <span className="font-serif text-[10px] sm:text-[10.5px] uppercase tracking-[0.24em] font-medium text-monarq-gold-deep truncate leading-none mb-1">
+            <div className="flex flex-col pt-2 sm:pt-2.5 px-0.5">
+              <span className="font-serif text-[10px] uppercase tracking-[0.24em] font-medium text-monarq-gold-deep truncate leading-none mb-1">
                 {dish.category}
               </span>
-              <h3 className="font-serif text-[14.5px] sm:text-base text-monarq-ink font-semibold leading-tight tracking-wide truncate group-hover:text-monarq-gold-deep transition-colors">
+              <h3 className="font-serif text-[14px] sm:text-base text-monarq-ink font-semibold leading-tight tracking-wide truncate group-hover:text-monarq-gold-deep transition-colors">
                 {dish.name}
               </h3>
             </div>

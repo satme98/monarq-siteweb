@@ -62,22 +62,22 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
   };
 
   return (
-    <footer className="bg-monarq-black text-white relative overflow-hidden pt-24 pb-20 border-t border-monarq-gold/30">
+    <footer className="bg-monarq-black text-white relative overflow-hidden pt-12 sm:pt-16 md:pt-20 pb-10 sm:pb-12 md:pb-14 border-t border-monarq-gold/30">
       {/* Decorative subtle dot pattern */}
       <div className="absolute inset-0 opacity-5 pointer-events-none bg-[radial-gradient(#A7916C_1px,transparent_1px)] [background-size:28px_28px]" />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
 
         {/* Animated header band — center-outward reveal */}
         <motion.div
-          className="flex items-center justify-center gap-5 pb-20"
+          className="flex items-center justify-center gap-3 sm:gap-5 pb-8 sm:pb-10 md:pb-12"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
           variants={headerBandVariants}
         >
           <motion.div
-            className="h-[1px] flex-1 max-w-[160px] bg-gradient-to-r from-transparent to-monarq-gold/50"
+            className="h-[1px] flex-1 max-w-[120px] sm:max-w-[160px] bg-gradient-to-r from-transparent to-monarq-gold/50"
             style={{ transformOrigin: 'right' }}
             variants={lineVariants}
           />
@@ -88,7 +88,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
           />
           <div className="overflow-hidden">
             <motion.span
-              className="block text-xs uppercase tracking-[0.32em] font-serif text-monarq-gold-light font-semibold text-center"
+              className="block text-[11px] sm:text-xs uppercase tracking-[0.28em] sm:tracking-[0.32em] font-serif text-monarq-gold-light font-semibold text-center"
               variants={labelVariants}
             >
               Maison de Gastronomie · Tanger
@@ -100,7 +100,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
             variants={diamondVariants}
           />
           <motion.div
-            className="h-[1px] flex-1 max-w-[160px] bg-gradient-to-l from-transparent to-monarq-gold/50"
+            className="h-[1px] flex-1 max-w-[120px] sm:max-w-[160px] bg-gradient-to-l from-transparent to-monarq-gold/50"
             style={{ transformOrigin: 'left' }}
             variants={lineVariants}
           />
@@ -108,23 +108,23 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
 
         {/* 4-column grid — staggered FadeUp per column */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-10 xl:gap-14 pb-20 border-b border-white/10"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-8 lg:gap-10 xl:gap-12 pb-10 sm:pb-12 md:pb-14 border-b border-white/10"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.05 }}
         >
           {/* Column 1: Brand & Social */}
-          <motion.div className="space-y-6 lg:col-span-4 lg:pr-6" custom={0} variants={colVariants}>
-            <img src={siteConfig.logos.white} alt="MONARQ" className="h-10 w-auto" />
-            <p className="text-sm text-gray-300 font-light leading-relaxed max-w-sm">
+          <motion.div className="space-y-4 lg:col-span-4 lg:pr-6" custom={0} variants={colVariants}>
+            <img src={siteConfig.logos.white} alt="MONARQ" className="h-9 sm:h-10 w-auto" />
+            <p className="text-xs sm:text-sm text-gray-300 font-light leading-relaxed max-w-sm">
               L'art de recevoir et la passion du goût à Tanger. Grands brunchs, cuisine raffinée et café d'auteur.
             </p>
-            <div className="flex items-center gap-3.5 pt-2">
+            <div className="flex items-center gap-3 pt-1">
               <motion.a
                 href={siteConfig.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-gray-200 hover:text-monarq-gold hover:border-monarq-gold transition-colors duration-300 group"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-gray-200 hover:text-monarq-gold hover:border-monarq-gold transition-colors duration-300 group"
                 title="Suivez MONARQ sur Instagram"
                 whileHover={reduce ? {} : { scale: 1.08 }}
                 whileTap={reduce ? {} : { scale: 0.9 }}
@@ -136,7 +136,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
                 href={siteConfig.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-gray-200 hover:text-monarq-gold hover:border-monarq-gold transition-colors duration-300 group"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-gray-200 hover:text-monarq-gold hover:border-monarq-gold transition-colors duration-300 group"
                 title="WhatsApp Direct"
                 whileHover={reduce ? {} : { scale: 1.08 }}
                 whileTap={reduce ? {} : { scale: 0.9 }}
@@ -148,7 +148,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
               </motion.a>
               <motion.a
                 href={`tel:${siteConfig.phone}`}
-                className="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-gray-200 hover:text-monarq-gold hover:border-monarq-gold transition-colors duration-300 group"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-gray-200 hover:text-monarq-gold hover:border-monarq-gold transition-colors duration-300 group"
                 title="Appeler le restaurant"
                 whileHover={reduce ? {} : { scale: 1.08 }}
                 whileTap={reduce ? {} : { scale: 0.9 }}
@@ -158,7 +158,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
               </motion.a>
               <motion.a
                 href={`mailto:${siteConfig.email}`}
-                className="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-gray-200 hover:text-monarq-gold hover:border-monarq-gold transition-colors duration-300 group"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-gray-200 hover:text-monarq-gold hover:border-monarq-gold transition-colors duration-300 group"
                 title="Écrivez-nous par Email"
                 whileHover={reduce ? {} : { scale: 1.08 }}
                 whileTap={reduce ? {} : { scale: 0.9 }}
@@ -170,14 +170,14 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
           </motion.div>
 
           {/* Column 2: Hours */}
-          <motion.div className="space-y-5 lg:col-span-3" custom={1} variants={colVariants}>
-            <div className="flex items-center gap-2.5 mb-5">
+          <motion.div className="space-y-3.5 lg:col-span-3" custom={1} variants={colVariants}>
+            <div className="flex items-center gap-2 mb-3">
               <Clock className="w-4 h-4 text-monarq-gold flex-shrink-0" />
-              <h4 className="text-xs uppercase tracking-[0.25em] text-monarq-gold-light font-semibold font-serif">
+              <h4 className="text-[11px] sm:text-xs uppercase tracking-[0.25em] text-monarq-gold-light font-semibold font-serif">
                 Horaires de Service
               </h4>
             </div>
-            <div className="space-y-3.5 text-sm text-gray-200">
+            <div className="space-y-2.5 text-xs sm:text-sm text-gray-200">
               {[
                 { label: 'Tous les jours', time: '09h00 — 00h00' },
                 { label: 'Service Brunch', time: '09h00 — 14h00' },
@@ -192,60 +192,60 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
           </motion.div>
 
           {/* Column 3: Address */}
-          <motion.div className="space-y-5 lg:col-span-3" custom={2} variants={colVariants}>
-            <div className="flex items-center gap-2.5 mb-5">
+          <motion.div className="space-y-3.5 lg:col-span-3" custom={2} variants={colVariants}>
+            <div className="flex items-center gap-2 mb-3">
               <MapPin className="w-4 h-4 text-monarq-gold flex-shrink-0" />
-              <h4 className="text-xs uppercase tracking-[0.25em] text-monarq-gold-light font-semibold font-serif">
+              <h4 className="text-[11px] sm:text-xs uppercase tracking-[0.25em] text-monarq-gold-light font-semibold font-serif">
                 Adresse à Tanger
               </h4>
             </div>
-            <div className="space-y-3.5 text-sm text-gray-200">
+            <div className="space-y-2.5 text-xs sm:text-sm text-gray-200">
               <p className="leading-relaxed">
                 {siteConfig.fullAddress}
               </p>
-              <div className="pt-3">
+              <div className="pt-1.5">
                 <motion.a
                   href={siteConfig.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2 text-monarq-gold-light hover:text-white transition-colors font-semibold text-xs uppercase tracking-[0.22em]"
+                  className="group inline-flex items-center gap-1.5 text-monarq-gold-light hover:text-white transition-colors font-semibold text-xs uppercase tracking-[0.22em]"
                   whileHover={reduce ? {} : { x: 2 }}
                   transition={SPRING_FLUID}
                 >
                   <span>Ouvrir dans Google Maps</span>
-                  <ArrowUpRight className="w-4 h-4 text-monarq-gold transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowUpRight className="w-3.5 h-3.5 text-monarq-gold transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </motion.a>
               </div>
             </div>
           </motion.div>
 
           {/* Column 4: Reservations CTA */}
-          <motion.div className="space-y-5 lg:col-span-2 flex flex-col justify-between" custom={3} variants={colVariants}>
+          <motion.div className="space-y-3.5 lg:col-span-2 flex flex-col justify-between" custom={3} variants={colVariants}>
             <div>
-              <div className="flex items-center gap-2.5 mb-5">
+              <div className="flex items-center gap-2 mb-3">
                 <Sparkles className="w-4 h-4 text-monarq-gold flex-shrink-0" />
-                <h4 className="text-xs uppercase tracking-[0.25em] text-monarq-gold-light font-semibold font-serif">
+                <h4 className="text-[11px] sm:text-xs uppercase tracking-[0.25em] text-monarq-gold-light font-semibold font-serif">
                   Réservations
                 </h4>
               </div>
-              <p className="text-xs text-gray-300 font-light leading-relaxed mb-6">
+              <p className="text-xs text-gray-300 font-light leading-relaxed mb-4">
                 Table d'hôtes, déjeuners d'affaires & réceptions privées.
               </p>
             </div>
             <motion.button
               onClick={onOpenReservation}
-              className="w-full py-3.5 px-5 rounded-full btn-gold text-xs uppercase tracking-[0.2em] font-semibold shadow-luxury text-center"
+              className="w-full py-3 px-4 rounded-full btn-gold text-xs uppercase tracking-[0.2em] font-semibold shadow-luxury text-center"
               whileHover={reduce ? {} : { scale: 1.02, y: -1 }}
               whileTap={reduce ? {} : { scale: 0.96, y: 0 }}
               transition={SPRING_SNAP}
             >
-              Réserver votre Table
+              Réserver une Table
             </motion.button>
           </motion.div>
         </motion.div>
 
         {/* Bottom bar */}
-        <div className="pt-10 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-gray-400 font-medium">
+        <div className="pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 text-xs text-gray-400 font-medium">
           <div className="flex items-center gap-2.5">
             <span
               className="w-1.5 h-1.5 inline-block bg-monarq-gold flex-shrink-0 shadow-[0_0_8px_rgba(158,128,80,0.6)]"
