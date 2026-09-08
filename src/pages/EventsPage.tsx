@@ -66,19 +66,19 @@ const spaces = [
     name: 'La Salle Principale',
     capacity: '60 personnes',
     note: 'Cadre haut de plafond, tables longues, verrière végétale',
-    src: '/images/staggered-story-1.jpg',
+    src: '/images/monarq-dining-room.png',
   },
   {
     name: 'La Terrasse',
     capacity: '40 personnes',
     note: 'Vue sur l\'avenue, air libre, ambiance feutrée le soir',
-    src: '/images/atmosphere-exterior.jpg',
+    src: '/images/IMG_8949.jpg',
   },
   {
     name: 'Le Salon Privé',
     capacity: '20 personnes',
     note: 'Intimité absolue, décoration premium, entrée dédiée',
-    src: '/images/gallery-2.jpg',
+    src: '/images/monarq-table-six.jpg',
   },
 ];
 

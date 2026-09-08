@@ -52,26 +52,30 @@ const values = [
   },
 ];
 
-const milestones = [
+const signatures = [
   {
-    year: '2019',
-    label: 'Ouverture',
-    text: 'MONARQ ouvre ses portes à Tanger. Un lieu, une vision : offrir à Tanger une adresse gastronomique qui lui ressemble.',
+    number: '01',
+    category: 'PASTA ITALIENNES',
+    tagline: 'L’ITALIE DANS L’ASSIETTE',
+    description: 'Des pâtes généreuses, des sauces travaillées et des recettes inspirées de la cuisine italienne.',
   },
   {
-    year: '2020',
-    label: 'La Carte Signature',
-    text: 'Naissance de notre brunch signatures — huit compositions inédites qui deviennent la marque de fabrique de la maison.',
+    number: '02',
+    category: 'VIANDES & RIBS',
+    tagline: 'GÉNÉREUX, TENDRES, GOURMANDS',
+    description: 'Des viandes soigneusement préparées, avec nos ribs parmi les signatures incontournables de la maison.',
   },
   {
-    year: '2022',
-    label: 'Le Four à Bois',
-    text: 'Installation du four à bois artisanal et lancement de la carte Pizze & Pasta — un engagement envers la tradition et le feu.',
+    number: '03',
+    category: 'BRUNCHS SIGNATURES',
+    tagline: 'LE BRUNCH VERSION MONARQ',
+    description: 'Des compositions généreuses et raffinées, pensées pour transformer le brunch en véritable moment de plaisir.',
   },
   {
-    year: '2024',
-    label: 'Ancrage & Rayonnement',
-    text: 'MONARQ s\'impose comme rendez-vous incontournable de Tanger. La terrasse, les privatisations et le bar à café d\'auteur complètent l\'expérience.',
+    number: '04',
+    category: 'PIZZAS AU FEU DE BOIS',
+    tagline: 'LA FLAMME, LA PÂTE, LE GOÛT',
+    description: 'Une pâte travaillée, une cuisson au feu de bois et des ingrédients sélectionnés pour une pizza pleine de caractère.',
   },
 ];
 
@@ -130,7 +134,7 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
                     style={{ boxShadow: '0 0 8px rgba(158,128,80,0.7)' }}
                   />
                   <span className="text-white text-[10.5px] uppercase tracking-[0.25em] font-medium">
-                    Tanger · Maroc · Depuis 2019
+                    Tanger · Maroc · Maison Gastronomique
                   </span>
                 </div>
               </div>
@@ -237,52 +241,68 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
         </div>
       </section>
 
-      {/* ── 4. Story Timeline ──────────────────────────────────────────────── */}
+      {/* ── 4. Nos Signatures — Le Goût MONARQ ─────────────────────────────── */}
       <section className="border-t border-monarq-line py-12 sm:py-16 md:py-20 lg:py-24 bg-monarq-black text-white relative overflow-hidden">
         {/* Subtle pattern */}
         <div className="absolute inset-0 opacity-[0.04] pointer-events-none bg-[radial-gradient(#A7916C_1px,transparent_1px)] [background-size:28px_28px]" />
 
         <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
-          <FadeUp className="text-center mb-8 sm:mb-10 md:mb-12">
-            <SectionEyebrow variant="light">Chronologie</SectionEyebrow>
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-white font-semibold mt-2.5 sm:mt-3">
-              L'Histoire de la Maison
+          <FadeUp className="text-center mb-10 sm:mb-12 md:mb-14">
+            <SectionEyebrow variant="light">Nos Signatures</SectionEyebrow>
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-white font-semibold mt-2.5 sm:mt-3 tracking-wide uppercase">
+              Le Goût MONARQ
             </h2>
           </FadeUp>
 
           <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[1px] bg-monarq-gold/25 md:-translate-x-px hidden sm:block" />
+            {/* Vertical hairline: left-5 sm:left-6 on mobile, centered at 50% on md+ */}
+            <div className="absolute left-5 sm:left-6 md:left-1/2 top-2 bottom-2 w-[1px] bg-gradient-to-b from-transparent via-monarq-gold/30 to-transparent md:-translate-x-px" />
 
-            <div className="space-y-8 sm:space-y-0">
-              {milestones.map((m, i) => {
+            <div className="space-y-8 sm:space-y-10 md:space-y-0">
+              {signatures.map((item, i) => {
                 const isLeft = i % 2 === 0;
                 return (
-                  <FadeUp key={m.year} delay={i * 0.1} className="relative sm:grid sm:grid-cols-2 sm:gap-8 lg:gap-12 sm:items-center sm:py-6 md:py-8">
-                    {/* Year badge — on the line */}
-                    <div className="absolute left-6 md:left-1/2 md:-translate-x-1/2 top-0 sm:top-1/2 sm:-translate-y-1/2 hidden sm:flex items-center justify-center">
-                      <div className="w-9 h-9 rounded-full bg-monarq-black border-2 border-monarq-gold/60 flex items-center justify-center">
+                  <FadeUp
+                    key={item.number}
+                    delay={i * 0.1}
+                    className="relative md:grid md:grid-cols-2 md:gap-10 lg:gap-16 md:items-center md:py-7 lg:py-9"
+                  >
+                    {/* Node marker on the line */}
+                    <div className="absolute left-5 sm:left-6 md:left-1/2 -translate-x-1/2 top-1.5 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center z-10">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-monarq-black border-2 border-monarq-gold/60 flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,0.8)]">
                         <span
                           className="w-2 h-2 rounded-full bg-monarq-gold"
-                          style={{ boxShadow: '0 0 10px rgba(158,128,80,0.6)' }}
+                          style={{ boxShadow: '0 0 10px rgba(158,128,80,0.7)' }}
                         />
                       </div>
                     </div>
 
                     {/* Content left/right */}
                     <div
-                      className={`pl-14 sm:pl-0 ${
-                        isLeft ? 'sm:text-right sm:pr-8 lg:pr-12' : 'sm:col-start-2 sm:pl-8 lg:pl-12'
+                      className={`pl-12 sm:pl-14 md:pl-0 ${
+                        isLeft
+                          ? 'md:text-right md:pr-10 lg:pr-14 md:col-start-1'
+                          : 'md:text-left md:col-start-2 md:pl-10 lg:pl-14'
                       }`}
                     >
-                      <span className="font-serif text-3xl sm:text-4xl text-monarq-gold font-light block mb-0.5">
-                        {m.year}
-                      </span>
-                      <h3 className="font-sans text-[11px] sm:text-xs uppercase tracking-[0.24em] text-monarq-gold-light font-semibold mb-2">
-                        {m.label}
+                      <div
+                        className={`font-serif text-xl sm:text-2xl md:text-3xl text-monarq-gold font-light tracking-wide mb-1 flex items-baseline gap-2.5 ${
+                          isLeft ? 'justify-start md:justify-end' : 'justify-start'
+                        }`}
+                      >
+                        <span className="text-monarq-gold-light font-normal">{item.number}</span>
+                        <span className="text-monarq-gold/40 text-base font-sans font-light">—</span>
+                        <span className="tracking-wider uppercase text-lg sm:text-xl md:text-2xl text-monarq-gold">{item.category}</span>
+                      </div>
+                      <h3 className="font-sans text-[11px] sm:text-xs uppercase tracking-[0.24em] text-monarq-gold-light font-semibold mb-2 sm:mb-2.5">
+                        {item.tagline}
                       </h3>
-                      <p className="font-sans text-xs sm:text-sm text-gray-300 font-light leading-relaxed max-w-xs sm:max-w-none">
-                        {m.text}
+                      <p
+                        className={`font-sans text-xs sm:text-sm text-gray-300 font-light leading-relaxed max-w-sm sm:max-w-md ${
+                          isLeft ? 'md:ml-auto' : 'md:mr-auto'
+                        }`}
+                      >
+                        {item.description}
                       </p>
                     </div>
                   </FadeUp>
@@ -304,9 +324,9 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
             {[
-              { src: '/images/gallery-1.jpg', label: 'La Salle', ratio: 'aspect-[4/5]' },
-              { src: '/images/gallery-2.jpg', label: 'La Terrasse', ratio: 'aspect-[3/4]' },
-              { src: '/images/gallery-3.jpg', label: 'Le Café', ratio: 'aspect-[4/5]' },
+              { src: '/images/monarq-dining-room.png', label: 'La Salle', ratio: 'aspect-[4/5]' },
+              { src: '/images/IMG_8949.jpg', label: 'La Terrasse', ratio: 'aspect-[4/5]' },
+              { src: '/images/gallery-coffee-4.jpg', label: 'Le Café', ratio: 'aspect-[4/5]' },
             ].map(({ src, label, ratio }, i) => (
               <FadeUp key={label} delay={i * 0.12}>
                 <div className={`relative ${ratio} overflow-hidden rounded-2xl group`}>
