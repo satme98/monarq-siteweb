@@ -66,10 +66,10 @@ export default function MenuPage() {
       </section>
 
       {/* ── Chapter Tab Nav ──────────────────────────────────────── */}
-      <div className="sticky top-[64px] z-40 bg-monarq-paper/95 backdrop-blur-md border-b border-monarq-line shadow-sm">
+      <div className="bg-monarq-paper/95 backdrop-blur-md border-b border-monarq-line shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
           <nav
-            className="flex flex-wrap items-end"
+            className="flex flex-wrap items-end justify-center"
             aria-label="Chapitres du menu"
           >
             {menuChapters.map((ch, idx) => (

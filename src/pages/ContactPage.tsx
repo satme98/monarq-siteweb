@@ -4,6 +4,7 @@ import {
   Phone, 
   Clock, 
   MessageSquare, 
+  Mail,
   Send, 
   ChevronDown,
   CheckCircle2,
@@ -45,7 +46,7 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
     },
     {
       q: "Quels sont vos horaires de service pour le brunch et le dîner ?",
-      a: "Nous servons les petits déjeuners et brunchs signatures dès 08h00, et notre carte complète de cuisine, pâtes fraîches et pizzas au feu de bois jusqu'à minuit.",
+      a: "Nous servons les petits déjeuners et brunchs signatures dès 09h00, et notre carte complète de cuisine, pâtes fraîches et pizzas au feu de bois jusqu'à minuit.",
     },
     {
       q: "Puis-je organiser un événement privé ou un anniversaire ?",
@@ -125,10 +126,20 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
                   </div>
 
                   <div className="flex items-start gap-4">
+                    <Mail className="w-5 h-5 text-monarq-gold-deep mt-1 flex-shrink-0" />
+                    <div>
+                      <p className="font-sans text-xs uppercase tracking-[0.2em] text-monarq-gold-deep font-semibold mb-1">Email</p>
+                      <a href={`mailto:${siteConfig.email}`} className="font-sans text-base sm:text-lg text-monarq-ink hover:text-monarq-gold-deep transition-colors font-medium">
+                        {siteConfig.email}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
                     <Clock className="w-5 h-5 text-monarq-gold-deep mt-1 flex-shrink-0" />
                     <div>
                       <p className="font-sans text-xs uppercase tracking-[0.2em] text-monarq-gold-deep font-semibold mb-1">Horaires</p>
-                      <p className="font-sans text-base sm:text-lg text-monarq-ink font-medium">Lundi — Dimanche : 08h00 — 00h00</p>
+                      <p className="font-sans text-base sm:text-lg text-monarq-ink font-medium">Tous les jours : 09h00 — 00h00</p>
                     </div>
                   </div>
                 </div>

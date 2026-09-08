@@ -5,7 +5,7 @@ export const menuChapters: MenuChapter[] = [
     id: 'le-matin',
     title: 'LE MATIN',
     subtitle: 'Petits Déjeuners & Grands Brunchs Signatures',
-    timeSlot: '08h00 — 14h00',
+    timeSlot: '09h00 — 14h00',
     categories: [
       {
         id: 'petits-dejeuners',
@@ -140,7 +140,7 @@ export const menuChapters: MenuChapter[] = [
     id: 'carte-du-matin',
     title: 'À LA CARTE DU MATIN',
     subtitle: 'Tartines, Croques Croustillants & Omelettes',
-    timeSlot: '08h00 — 14h00',
+    timeSlot: '09h00 — 14h00',
     categories: [
       {
         id: 'tartines',

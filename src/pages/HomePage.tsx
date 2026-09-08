@@ -104,7 +104,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   className="w-14 h-14 sm:w-16 sm:h-16 md:w-[72px] md:h-[72px] object-contain brightness-0 invert opacity-95 drop-shadow-[0_2px_14px_rgba(0,0,0,0.75)] hover:scale-105 transition-transform duration-500 ease-monarch"
                 />
                 <p className="text-[13.5px] xs:text-sm sm:text-base md:text-lg text-gray-100 font-light leading-snug sm:leading-relaxed max-w-md drop-shadow-[0_1px_8px_rgba(0,0,0,0.65)]">
-                  Des saveurs simples, gourmandes & authentiques.
+                  MONARQ | Brunch • Restaurant • Cafe
                 </p>
               </div>
             </FadeUp>
@@ -144,12 +144,12 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 <div className="inline-flex flex-wrap items-center gap-x-4 gap-y-1.5 px-4 sm:px-6 py-2.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-[11px] sm:text-xs md:text-sm text-gray-200 font-medium tracking-wide shadow-luxury">
                   <span className="flex items-center gap-1.5 sm:gap-2">
                     <Clock className="w-3.5 h-3.5 text-monarq-gold-light flex-shrink-0" />
-                    <span>08 h 00 — 00 h 00 · 7j/7</span>
+                    <span>09 h 00 — 00 h 00 · 7j/7</span>
                   </span>
                   <span className="hidden sm:inline w-1 h-1 rounded-full bg-monarq-gold/60" />
                   <span className="flex items-center gap-1.5 sm:gap-2">
                     <MapPin className="w-3.5 h-3.5 text-monarq-gold-light flex-shrink-0" />
-                    <span>Avenue Marrakech · Tanger</span>
+                    <span>En face de La Française · Tanger</span>
                   </span>
                 </div>
               </div>
@@ -228,7 +228,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                     </div>
                     <div className="mt-4 p-4 bg-monarq-paper-soft/80 backdrop-blur-sm rounded-xl border border-monarq-gold/20 hidden sm:block">
                       <p className="font-serif text-xs text-monarq-gold-deep tracking-wider uppercase font-semibold">Tanger</p>
-                      <p className="text-[11px] text-monarq-ink-soft mt-0.5 font-normal">Près du Palais Municipal</p>
+                      <p className="text-[11px] text-monarq-ink-soft mt-0.5 font-normal">À proximité du Riad Tétouan</p>
                     </div>
                   </ImageReveal>
                 </div>
@@ -319,7 +319,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 </TextReveal>
                 <FadeUp delay={0.15}>
                   <p className="text-base text-monarq-ink-soft leading-relaxed max-w-lg mb-5 font-light">
-                    Viennoiseries fines, msemens au miel pur, jus d'oranges pressées et cafés de terroir. De 08 h 00 à 12 h 00.
+                    Viennoiseries fines, msemens au miel pur, jus d'oranges pressées et cafés de terroir. De 09 h 00 à 12 h 00.
                   </p>
                   <motion.button
                     onClick={() => goTo('menu')}
@@ -336,7 +336,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
 
             {/* Moment 2 — reversed */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14 items-center py-14 border-b border-monarq-gold/25">
-              <SlideLeft className="md:col-span-7 md:order-1">
+              <SlideLeft className="md:col-span-7 order-2 md:order-1">
                 <span className="font-serif text-4xl md:text-5xl font-semibold text-monarq-gold">02</span>
                 <TextReveal delay={0.05} duration={DUR.mid}>
                   <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink mt-2 mb-3 font-semibold">
@@ -345,7 +345,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 </TextReveal>
                 <FadeUp delay={0.15}>
                   <p className="text-base text-monarq-ink-soft leading-relaxed max-w-lg mb-5 font-light">
-                    Brioches aux crevettes, toasts d'avocat au saumon mariné, œufs pochés et pancakes fondants. De 08 h 00 à 14 h 00.
+                    Brioches aux crevettes, toasts d'avocat au saumon mariné, œufs pochés et pancakes fondants. De 09 h 00 à 14 h 00.
                   </p>
                   <motion.button
                     onClick={() => goTo('menu')}
@@ -358,7 +358,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   </motion.button>
                 </FadeUp>
               </SlideLeft>
-              <div className="md:col-span-5 md:order-2">
+              <div className="md:col-span-5 order-1 md:order-2">
                 <ImageReveal direction="left" duration={1.0}>
                   <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover">
                     <img
@@ -507,11 +507,11 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mb-10 text-xs sm:text-sm text-monarq-ink-soft font-medium">
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-monarq-paper-soft/80 border border-monarq-gold/25 backdrop-blur-sm shadow-sm">
                 <Clock className="w-3.5 h-3.5 text-monarq-gold-deep" />
-                <span>08h00 — 00h00 · 7j/7</span>
+                <span>09h00 — 00h00 · 7j/7</span>
               </span>
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-monarq-paper-soft/80 border border-monarq-gold/25 backdrop-blur-sm shadow-sm">
                 <MapPin className="w-3.5 h-3.5 text-monarq-gold-deep" />
-                <span>Avenue Marrakech · Tanger</span>
+                <span>À proximité du Riad Tétouan, Tanger</span>
               </span>
             </div>
           </FadeUp>

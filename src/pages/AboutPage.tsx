@@ -56,7 +56,7 @@ const milestones = [
   {
     year: '2019',
     label: 'Ouverture',
-    text: 'MONARQ ouvre ses portes sur l\'Avenue Marrakech. Un lieu, une vision : offrir à Tanger une adresse gastronomique qui lui ressemble.',
+    text: 'MONARQ ouvre ses portes à Tanger. Un lieu, une vision : offrir à Tanger une adresse gastronomique qui lui ressemble.',
   },
   {
     year: '2020',

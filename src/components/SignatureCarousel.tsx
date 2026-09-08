@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+
 import { signatureHighlights } from '../data/menuData';
 
 interface SignatureCarouselProps {
@@ -109,11 +110,7 @@ export const SignatureCarousel: React.FC<SignatureCarouselProps> = ({ onOpenMenu
       }}
     >
       {/* Top Controls Bar */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mb-6 flex items-center justify-between">
-        <div className="flex items-center gap-2.5 text-monarq-gold font-serif text-xs uppercase tracking-[0.25em] font-semibold">
-          <Sparkles className="w-3.5 h-3.5 text-monarq-gold" />
-          <span>{signatureHighlights.length} Créations d’Exception</span>
-        </div>
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mb-6 flex items-center justify-end">
 
         {/* Carousel Navigation Arrows */}
         <div className="flex items-center gap-2.5">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Instagram, MapPin, Phone, Clock, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Instagram, MapPin, Phone, Clock, ArrowUpRight, Sparkles, Mail } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
 import { EASE_MONARQ, EASE_CINEMATIC, SPRING_SNAP, SPRING_FLUID } from '../lib/animation';
 
@@ -156,6 +156,16 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
               >
                 <Phone className="w-4 h-4" />
               </motion.a>
+              <motion.a
+                href={`mailto:${siteConfig.email}`}
+                className="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-gray-200 hover:text-monarq-gold hover:border-monarq-gold transition-colors duration-300 group"
+                title="Écrivez-nous par Email"
+                whileHover={reduce ? {} : { scale: 1.08 }}
+                whileTap={reduce ? {} : { scale: 0.9 }}
+                transition={SPRING_SNAP}
+              >
+                <Mail className="w-4 h-4" />
+              </motion.a>
             </div>
           </motion.div>
 
@@ -169,8 +179,8 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
             </div>
             <div className="space-y-3.5 text-sm text-gray-200">
               {[
-                { label: 'Tous les jours', time: '08h00 — 00h00' },
-                { label: 'Service Brunch', time: '08h00 — 14h00' },
+                { label: 'Tous les jours', time: '09h00 — 00h00' },
+                { label: 'Service Brunch', time: '09h00 — 14h00' },
                 { label: 'Déjeuner & Dîner', time: '12h00 — 23h30' },
               ].map((row) => (
                 <div key={row.label} className="flex justify-between items-center py-1.5 border-b border-white/10">
@@ -192,8 +202,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
             <div className="space-y-3.5 text-sm text-gray-200">
               <p className="leading-relaxed">
                 {siteConfig.fullAddress}
-                <br />
-                <span className="text-gray-400 text-xs block mt-1">(À proximité immédiate du Palais Municipal)</span>
               </p>
               <div className="pt-3">
                 <motion.a
