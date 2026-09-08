@@ -5,14 +5,11 @@ import {
   Clock, 
   MessageSquare, 
   Mail,
-  Send, 
   ChevronDown,
-  CheckCircle2,
-  ArrowRight,
   ArrowUpRight
 } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
-import { FadeUp, SlideLeft, SlideRight, FadeIn, CurtainReveal } from '../components/Animations';
+import { FadeUp, SlideLeft, FadeIn, CurtainReveal } from '../components/Animations';
 import { SectionEyebrow } from '../components/SectionEyebrow';
 
 interface ContactPageProps {
@@ -20,20 +17,7 @@ interface ContactPageProps {
 }
 
 export default function ContactPage({ onOpenReservation }: ContactPageProps) {
-  const [formSubmitted, setFormSubmitted] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: 'Renseignement Général',
-    message: '',
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormSubmitted(true);
-  };
 
   const faqs = [
     {
@@ -62,7 +46,7 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-center">
           
           {/* Left: Atmospheric Photo with Curtain Reveal */}
-          <div className="relative h-[45vh] sm:h-[55vh] lg:h-[65vh] w-full overflow-hidden rounded-2xl">
+          <div className="relative h-[45vh] sm:h-[55vh] lg:h-[600px] w-full overflow-hidden rounded-2xl">
             <CurtainReveal direction="up" duration={0.9} className="w-full h-full">
               <div className="relative w-full h-full group">
                 <img 
@@ -82,21 +66,21 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
             </CurtainReveal>
           </div>
 
-          {/* Right: Contact Info & Form */}
-          <SlideLeft className="space-y-10 sm:space-y-12">
+          {/* Right: Contact Info */}
+          <SlideLeft className="space-y-8 sm:space-y-10">
             
             {/* Contact Details List */}
             <div className="space-y-6 sm:space-y-8">
               <div>
                 <SectionEyebrow align="left">Informations & Accès</SectionEyebrow>
-                <h2 className="font-serif text-2xl sm:text-3xl text-monarq-ink font-semibold mb-4 sm:mb-5">Coordonnées</h2>
+                <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-monarq-ink font-semibold mb-4 sm:mb-6">Coordonnées</h2>
                 
-                <div className="space-y-4 sm:space-y-5">
+                <div className="space-y-5 sm:space-y-6">
                   <div className="flex items-start gap-3.5">
                     <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-monarq-gold-deep mt-1 flex-shrink-0" />
                     <div>
                       <p className="font-sans text-[11px] sm:text-xs uppercase tracking-[0.2em] text-monarq-gold-deep font-semibold mb-0.5">Adresse</p>
-                      <p className="font-sans text-sm sm:text-base text-monarq-ink font-medium">{siteConfig.fullAddress}</p>
+                      <p className="font-sans text-sm sm:text-base text-monarq-ink font-medium leading-snug">{siteConfig.fullAddress}</p>
                       <a href={siteConfig.mapsUrl} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-1.5 mt-1.5 font-sans text-[11px] sm:text-xs uppercase tracking-widest text-monarq-gold-deep hover:text-monarq-ink transition-colors font-semibold">
                         <span>Itinéraire Google Maps</span>
                         <ArrowUpRight className="w-3.5 h-3.5 text-monarq-gold transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -143,69 +127,25 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            {/* Minimal Contact Form */}
-            <div>
-              <SectionEyebrow align="left">Formulaire de Contact</SectionEyebrow>
-              <h2 className="font-serif text-2xl sm:text-3xl text-monarq-ink font-semibold mb-4 sm:mb-5">Nous Écrire</h2>
-              {formSubmitted ? (
-                <div className="flex flex-col items-center justify-center text-center py-6 space-y-3">
-                  <CheckCircle2 className="w-10 h-10 text-monarq-gold" />
-                  <p className="font-serif text-xl sm:text-2xl text-monarq-ink font-semibold">Message envoyé avec succès</p>
-                  <p className="font-sans text-monarq-ink-soft font-normal text-sm sm:text-base">Notre équipe vous répondra dans les plus brefs délais.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                    <input
-                      type="text"
-                      required
-                      placeholder="Votre Nom"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-transparent border-b border-monarq-line py-2.5 sm:py-3 px-0 font-sans text-sm sm:text-base text-monarq-ink focus:outline-none focus:border-monarq-gold transition-colors placeholder:text-monarq-ink-soft/60 rounded-none"
-                    />
-                    <input
-                      type="text"
-                      required
-                      placeholder="Téléphone ou Email"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-transparent border-b border-monarq-line py-2.5 sm:py-3 px-0 font-sans text-sm sm:text-base text-monarq-ink focus:outline-none focus:border-monarq-gold transition-colors placeholder:text-monarq-ink-soft/60 rounded-none"
-                    />
-                  </div>
-                  
-                  <select
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    className="w-full bg-transparent border-b border-monarq-line py-2.5 sm:py-3 px-0 font-sans text-sm sm:text-base focus:outline-none focus:border-monarq-gold transition-colors text-monarq-ink rounded-none appearance-none"
-                  >
-                    <option value="Renseignement Général">Renseignement Général</option>
-                    <option value="Événement Privé / Groupe">Événement Privé / Groupe (10+)</option>
-                    <option value="Partenariat / Presse">Partenariat / Presse</option>
-                    <option value="Autre Demande">Autre Demande</option>
-                  </select>
-
-                  <textarea
-                    required
-                    rows={2}
-                    placeholder="Votre Message"
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-transparent border-b border-monarq-line py-2.5 sm:py-3 px-0 font-sans text-sm sm:text-base focus:outline-none focus:border-monarq-gold transition-colors text-monarq-ink placeholder:text-monarq-ink-soft/60 resize-y min-h-[50px] rounded-none"
-                  />
-
+                <div className="flex flex-wrap items-center gap-3.5 pt-6 sm:pt-8 border-t border-monarq-line/60 mt-6 sm:mt-8">
                   <button
-                    type="submit"
-                    className="group flex items-center gap-2.5 font-sans text-xs sm:text-sm tracking-[0.22em] uppercase font-semibold text-monarq-ink hover:text-monarq-gold-deep transition-colors mt-5 sm:mt-6"
+                    onClick={onOpenReservation}
+                    className="btn-gold px-6 py-2.5 text-xs uppercase tracking-[0.2em] font-semibold rounded-full shadow-luxury hover:shadow-luxury-lg"
                   >
-                    <span>Envoyer le message</span>
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    Réserver une Table
                   </button>
-                </form>
-              )}
+                  <a
+                    href={siteConfig.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-monarq-ink/20 text-monarq-ink hover:border-monarq-gold-deep hover:text-monarq-gold-deep transition-colors font-sans text-xs uppercase tracking-[0.18em] font-medium"
+                  >
+                    <span>WhatsApp Direct</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-monarq-gold" />
+                  </a>
+                </div>
+              </div>
             </div>
           </SlideLeft>
         </div>
