@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Calendar, MapPin, Clock, Instagram, ChevronDown } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
 import { DroneVideoPlayer } from '../components/DroneVideoPlayer';
@@ -21,6 +21,84 @@ import { SectionEyebrow } from '../components/SectionEyebrow';
 import { SignatureCarousel } from '../components/SignatureCarousel';
 // HeroSlider replaced by video background
 import { EASE_CINEMATIC, SPRING_SNAP, SPRING_FLUID, DUR } from '../lib/animation';
+
+// ─── Hero Cycling Label — Brunch / Restaurant / Café ─────────────────────────
+const LABELS = ['Brunch', 'Restaurant', 'Café'] as const;
+
+interface HeroCyclingLabelProps {
+  reduce: boolean;
+}
+
+const HeroCyclingLabel: React.FC<HeroCyclingLabelProps> = ({ reduce }) => {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (reduce) return;
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % LABELS.length);
+    }, 2600);
+    return () => clearInterval(id);
+  }, [reduce]);
+
+  const variants = {
+    enter: {
+      y: 32,
+      opacity: 0,
+      scale: 0.88,
+    },
+    center: {
+      y: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.55,
+        ease: [0.22, 0.9, 0.36, 1.0],
+      },
+    },
+    exit: {
+      y: -32,
+      opacity: 0,
+      scale: 0.88,
+      transition: {
+        duration: 0.35,
+        ease: [0.55, 0, 0.8, 0.2],
+      },
+    },
+  };
+
+  return (
+    <motion.div
+      className="flex items-center justify-center gap-4 mt-2"
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 0.9, 0.36, 1.0] }}
+    >
+      {/* Left ornament */}
+      <div className="w-8 sm:w-12 h-px bg-monarq-gold/55 flex-shrink-0" />
+
+      {/* Flip slot — NO overflow-hidden so animation is never clipped */}
+      <div className="relative" style={{ height: '2.4rem', minWidth: '10rem' }}>
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.span
+            key={LABELS[index]}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            className="absolute inset-0 flex items-center justify-center font-editorial italic font-normal text-monarq-gold-light whitespace-nowrap"
+            style={{ fontSize: 'clamp(1.3rem, 3vw, 2rem)', lineHeight: 1 }}
+          >
+            {LABELS[index]}
+          </motion.span>
+        </AnimatePresence>
+      </div>
+
+      {/* Right ornament */}
+      <div className="w-8 sm:w-12 h-px bg-monarq-gold/55 flex-shrink-0" />
+    </motion.div>
+  );
+};
+// ─────────────────────────────────────────────────────────────────────────────
 
 interface HomePageProps {
   setActiveTab: (tab: string) => void;
@@ -63,61 +141,51 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
           aria-hidden="true"
         />
 
-        {/* ── Premium Dark Warm Luxury Overlays (Warm Amber/Espresso & Black) ── */}
-        {/* 1. Base warm ambient tint (espresso & deep gold undertones) */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#141210]/60 via-[#1e1710]/38 to-[#2a1c0f]/25 pointer-events-none z-[1]" />
+        {/* ── Premium Dark Warm Luxury Overlays ── */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#141210]/65 via-[#1e1710]/42 to-[#2a1c0f]/28 pointer-events-none z-[1]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#141210]/85 via-black/15 via-45% to-[#141210]/55 pointer-events-none z-[2]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(14,12,10,0.60)_100%)] pointer-events-none z-[3]" />
 
-        {/* 2. Horizontal text-shield gradient (clarity for title, tagline & buttons on left) */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#141210]/75 via-[#141210]/42 via-50% to-transparent pointer-events-none z-[2]" />
+        {/* ── Hero Content — Centered ── */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 flex flex-col items-center justify-center text-center pt-20 pb-16">
 
-        {/* 3. Vertical gradient (protects top navbar & bottom info strip) */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#141210]/80 via-black/10 via-45% to-[#141210]/50 pointer-events-none z-[2]" />
+          {/* Badge seal */}
+          <FadeUp delay={0.05} duration={DUR.mid}>
+            <img
+              src={siteConfig.logos.badgeSeal}
+              alt="MONARQ"
+              className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain brightness-0 invert opacity-80 drop-shadow-[0_2px_20px_rgba(0,0,0,0.8)] mb-6 sm:mb-8"
+            />
+          </FadeUp>
 
-        {/* 4. Cinematic subtle edge vignette */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(14,12,10,0.52)_100%)] pointer-events-none z-[3]" />
+          {/* Brand name */}
+          <TextReveal delay={0.12} duration={DUR.cinematic}>
+            <h1 className="font-serif text-[42px] xs:text-[52px] sm:text-6xl md:text-7xl lg:text-[82px] text-white font-semibold leading-[1.0] tracking-tight drop-shadow-[0_2px_18px_rgba(0,0,0,0.75)] mb-3 sm:mb-4">
+              MONARQ
+            </h1>
+          </TextReveal>
 
+          {/* Animated cycling label: Brunch → Restaurant → Café */}
+          <HeroCyclingLabel reduce={!!reduce} />
 
-        {/* Hero Content — Perfectly Centered on Desktop with Balanced Spacing */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-12 sm:pb-16 md:pb-16 lg:pb-20 flex flex-col justify-center my-auto">
-          <div className="max-w-2xl flex flex-col space-y-3 sm:space-y-4 md:space-y-5">
+          {/* Thin gold divider */}
+          <FadeUp delay={0.55} duration={DUR.mid}>
+            <div className="flex items-center justify-center gap-3 my-5 sm:my-7">
+              <div className="w-12 sm:w-16 h-px bg-monarq-gold/50" />
+              <div className="w-1.5 h-1.5 rounded-full bg-monarq-gold/60" />
+              <div className="w-12 sm:w-16 h-px bg-monarq-gold/50" />
+            </div>
+          </FadeUp>
 
-            {/* 1. Brand name — clip-mask reveal */}
-            <TextReveal delay={0.1} duration={DUR.cinematic}>
-              <div>
-                <h1 className="font-serif text-[34px] xs:text-[40px] sm:text-5xl md:text-6xl lg:text-[66px] text-white font-semibold leading-[1.05] tracking-tight drop-shadow-[0_2px_14px_rgba(0,0,0,0.7)]">
-                  MONARQ
-                </h1>
-                <TextReveal delay={0.2} duration={0.9}>
-                  <div className="font-editorial italic font-normal text-monarq-gold-light text-[22px] xs:text-[26px] sm:text-3xl md:text-4xl lg:text-[42px] leading-tight mt-0.5">
-                    Brunch • Pizza • Pâtes
-                  </div>
-                </TextReveal>
-              </div>
-            </TextReveal>
-
-            {/* 2. Logo Badge & Tagline */}
-            <FadeUp delay={0.32} duration={DUR.mid}>
-              <div className="flex flex-col items-start gap-2 sm:gap-2.5">
-                <img
-                  src={siteConfig.logos.badgeSeal}
-                  alt="MONARQ Restaurant"
-                  className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain brightness-0 invert opacity-95 drop-shadow-[0_2px_14px_rgba(0,0,0,0.75)] hover:scale-105 transition-transform duration-500 ease-monarch"
-                />
-                <p className="text-[13px] xs:text-sm sm:text-base md:text-lg text-gray-100 font-light leading-snug sm:leading-relaxed max-w-md drop-shadow-[0_1px_8px_rgba(0,0,0,0.65)]">
-                  MONARQ | Brunch • Restaurant • Cafe
-                </p>
-              </div>
-            </FadeUp>
-
-            {/* 3. Action Buttons */}
-            <FadeUp delay={0.45} duration={DUR.mid}>
-              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3.5 pt-0.5">
-                <MagneticWrapper strength={0.2}>
-                  <motion.button
-                    onClick={() => goTo('menu')}
-                    className="px-6 sm:px-7 py-2.5 sm:py-3 rounded-full btn-gold text-xs uppercase tracking-[0.2em] font-semibold shadow-luxury"
-                    whileTap={reduce ? {} : { scale: 0.96 }}
-                    transition={SPRING_SNAP}
+          {/* Action Buttons */}
+          <FadeUp delay={0.65} duration={DUR.mid}>
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+              <MagneticWrapper strength={0.2}>
+                <motion.button
+                  onClick={() => goTo('menu')}
+                  className="px-7 sm:px-9 py-3 sm:py-3.5 rounded-full btn-gold text-xs uppercase tracking-[0.22em] font-semibold shadow-luxury"
+                  whileTap={reduce ? {} : { scale: 0.96 }}
+                  transition={SPRING_SNAP}
                   >
                     La Carte
                   </motion.button>
@@ -125,7 +193,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 <MagneticWrapper strength={0.2}>
                   <motion.button
                     onClick={onOpenReservation}
-                    className="group px-6 sm:px-7 py-2.5 sm:py-3 rounded-full bg-black/35 sm:bg-transparent border border-white/45 text-white text-xs uppercase tracking-[0.2em] font-semibold hover:bg-white hover:text-monarq-ink transition-colors duration-300 backdrop-blur-sm sm:backdrop-blur-none"
+                    className="group px-7 sm:px-9 py-3 sm:py-3.5 rounded-full border border-white/45 text-white text-xs uppercase tracking-[0.22em] font-semibold hover:bg-white hover:text-monarq-ink transition-colors duration-300 backdrop-blur-sm"
                     whileTap={reduce ? {} : { scale: 0.96 }}
                     transition={SPRING_SNAP}
                   >
@@ -135,29 +203,22 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                     </span>
                   </motion.button>
                 </MagneticWrapper>
-              </div>
-            </FadeUp>
+            </div>
+          </FadeUp>
 
-            {/* 4. Info strip */}
-            <FadeUp delay={0.58} duration={DUR.mid}>
-              <div className="pt-0.5">
-                <div className="inline-flex flex-wrap items-center gap-x-3.5 sm:gap-x-4 gap-y-1 px-3.5 sm:px-5 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-[11px] sm:text-xs text-gray-200 font-medium tracking-wide shadow-luxury">
-                  <span className="flex items-center gap-1.5 sm:gap-2">
-                    <Clock className="w-3.5 h-3.5 text-monarq-gold-light flex-shrink-0" />
-                    <span>09 h 00 — 00 h 00 · 7j/7</span>
-                  </span>
-                  <span className="hidden sm:inline w-1 h-1 rounded-full bg-monarq-gold/60" />
-                  <span className="flex items-center gap-1.5 sm:gap-2">
-                    <MapPin className="w-3.5 h-3.5 text-monarq-gold-light flex-shrink-0" />
-                    <span>À proximité du Riad Tétouan, Tanger</span>
-                  </span>
-                </div>
+          {/* Location pill */}
+          <FadeUp delay={0.78} duration={DUR.mid}>
+            <div className="mt-6 sm:mt-8">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/50 backdrop-blur-md border border-white/15 text-[11px] sm:text-xs text-gray-300 font-medium tracking-wide">
+                <MapPin className="w-3 h-3 text-monarq-gold-light flex-shrink-0" />
+                <span>Avenue Marrakech, Tanger</span>
               </div>
-            </FadeUp>
-          </div>
+            </div>
+          </FadeUp>
+
         </div>
 
-        {/* Scroll cue — positioned nicely at the bottom */}
+        {/* Scroll cue — bottom center */}
         <motion.div
           className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-1 pointer-events-none"
           animate={{ opacity: scrollCueVisible ? 1 : 0 }}
@@ -511,7 +572,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
               </span>
               <span className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-monarq-paper-soft/80 border border-monarq-gold/25 backdrop-blur-sm shadow-sm text-xs">
                 <MapPin className="w-3.5 h-3.5 text-monarq-gold-deep" />
-                <span>À proximité du Riad Tétouan, Tanger</span>
+                <span>Avenue Marrakech, Tanger</span>
               </span>
             </div>
           </FadeUp>
