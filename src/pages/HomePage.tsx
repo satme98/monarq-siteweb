@@ -42,9 +42,9 @@ const HeroCyclingLabel: React.FC<HeroCyclingLabelProps> = ({ reduce }) => {
 
   const variants = {
     enter: {
-      y: 32,
+      y: 40,
       opacity: 0,
-      scale: 0.88,
+      scale: 0.85,
     },
     center: {
       y: 0,
@@ -56,9 +56,9 @@ const HeroCyclingLabel: React.FC<HeroCyclingLabelProps> = ({ reduce }) => {
       },
     },
     exit: {
-      y: -32,
+      y: -40,
       opacity: 0,
-      scale: 0.88,
+      scale: 0.85,
       transition: {
         duration: 0.35,
         ease: [0.55, 0, 0.8, 0.2],
@@ -68,16 +68,16 @@ const HeroCyclingLabel: React.FC<HeroCyclingLabelProps> = ({ reduce }) => {
 
   return (
     <motion.div
-      className="flex items-center justify-center gap-4 mt-2"
-      initial={{ opacity: 0, y: 16 }}
+      className="flex items-center justify-center gap-5 sm:gap-6 mt-1"
+      initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 0.9, 0.36, 1.0] }}
     >
       {/* Left ornament */}
-      <div className="w-8 sm:w-12 h-px bg-monarq-gold/55 flex-shrink-0" />
+      <div className="w-10 sm:w-16 md:w-20 h-[1.5px] bg-gradient-to-r from-transparent to-[#c5a467] flex-shrink-0" />
 
-      {/* Flip slot — NO overflow-hidden so animation is never clipped */}
-      <div className="relative" style={{ height: '2.4rem', minWidth: '10rem' }}>
+      {/* Flip slot */}
+      <div className="relative" style={{ height: '3.2rem', minWidth: '13rem' }}>
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
             key={LABELS[index]}
@@ -85,8 +85,8 @@ const HeroCyclingLabel: React.FC<HeroCyclingLabelProps> = ({ reduce }) => {
             initial="enter"
             animate="center"
             exit="exit"
-            className="absolute inset-0 flex items-center justify-center font-editorial italic font-normal text-monarq-gold-light whitespace-nowrap"
-            style={{ fontSize: 'clamp(1.3rem, 3vw, 2rem)', lineHeight: 1 }}
+            className="absolute inset-0 flex items-center justify-center font-editorial italic font-normal text-[#c5a467] whitespace-nowrap drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]"
+            style={{ fontSize: 'clamp(1.6rem, 4vw, 2.8rem)', lineHeight: 1 }}
           >
             {LABELS[index]}
           </motion.span>
@@ -94,7 +94,7 @@ const HeroCyclingLabel: React.FC<HeroCyclingLabelProps> = ({ reduce }) => {
       </div>
 
       {/* Right ornament */}
-      <div className="w-8 sm:w-12 h-px bg-monarq-gold/55 flex-shrink-0" />
+      <div className="w-10 sm:w-16 md:w-20 h-[1.5px] bg-gradient-to-l from-transparent to-[#c5a467] flex-shrink-0" />
     </motion.div>
   );
 };
@@ -141,26 +141,27 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
           aria-hidden="true"
         />
 
-        {/* ── Premium Dark Warm Luxury Overlays ── */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#141210]/65 via-[#1e1710]/42 to-[#2a1c0f]/28 pointer-events-none z-[1]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#141210]/85 via-black/15 via-45% to-[#141210]/55 pointer-events-none z-[2]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(14,12,10,0.60)_100%)] pointer-events-none z-[3]" />
+        {/* ── Premium Dark Overlays — Strong center darkening for text ── */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0e0c0a]/70 via-[#1a1510]/50 to-[#2a1c0f]/35 pointer-events-none z-[1]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0e0c0a]/90 via-[#0e0c0a]/30 via-50% to-[#0e0c0a]/60 pointer-events-none z-[2]" />
+        {/* Center-focused radial darken so text always pops */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_48%,rgba(10,8,6,0.55)_0%,rgba(10,8,6,0.35)_60%,rgba(10,8,6,0.65)_100%)] pointer-events-none z-[3]" />
 
         {/* ── Hero Content — Centered ── */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 flex flex-col items-center justify-center text-center pt-20 pb-16">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 flex flex-col items-center justify-center text-center my-auto">
 
           {/* Badge seal */}
           <FadeUp delay={0.05} duration={DUR.mid}>
             <img
               src={siteConfig.logos.badgeSeal}
               alt="MONARQ"
-              className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain brightness-0 invert opacity-80 drop-shadow-[0_2px_20px_rgba(0,0,0,0.8)] mb-6 sm:mb-8"
+              className="w-14 h-14 sm:w-16 sm:h-16 md:w-[72px] md:h-[72px] object-contain brightness-0 invert opacity-90 drop-shadow-[0_2px_24px_rgba(0,0,0,0.85)] mb-5 sm:mb-6"
             />
           </FadeUp>
 
           {/* Brand name */}
           <TextReveal delay={0.12} duration={DUR.cinematic}>
-            <h1 className="font-serif text-[42px] xs:text-[52px] sm:text-6xl md:text-7xl lg:text-[82px] text-white font-semibold leading-[1.0] tracking-tight drop-shadow-[0_2px_18px_rgba(0,0,0,0.75)] mb-3 sm:mb-4">
+            <h1 className="font-serif text-[44px] xs:text-[54px] sm:text-6xl md:text-7xl lg:text-[82px] text-white font-semibold leading-[1.0] tracking-tight drop-shadow-[0_3px_20px_rgba(0,0,0,0.85)] mb-1 sm:mb-2">
               MONARQ
             </h1>
           </TextReveal>
@@ -168,12 +169,12 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
           {/* Animated cycling label: Brunch → Restaurant → Café */}
           <HeroCyclingLabel reduce={!!reduce} />
 
-          {/* Thin gold divider */}
+          {/* Gold divider */}
           <FadeUp delay={0.55} duration={DUR.mid}>
-            <div className="flex items-center justify-center gap-3 my-5 sm:my-7">
-              <div className="w-12 sm:w-16 h-px bg-monarq-gold/50" />
-              <div className="w-1.5 h-1.5 rounded-full bg-monarq-gold/60" />
-              <div className="w-12 sm:w-16 h-px bg-monarq-gold/50" />
+            <div className="flex items-center justify-center gap-3 my-4 sm:my-5">
+              <div className="w-10 sm:w-14 h-[1.5px] bg-gradient-to-r from-transparent to-[#c5a467]" />
+              <div className="w-2 h-2 rounded-full bg-[#c5a467]/80 shadow-[0_0_8px_rgba(197,164,103,0.4)]" />
+              <div className="w-10 sm:w-14 h-[1.5px] bg-gradient-to-l from-transparent to-[#c5a467]" />
             </div>
           </FadeUp>
 
@@ -183,34 +184,34 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
               <MagneticWrapper strength={0.2}>
                 <motion.button
                   onClick={() => goTo('menu')}
-                  className="px-7 sm:px-9 py-3 sm:py-3.5 rounded-full btn-gold text-xs uppercase tracking-[0.22em] font-semibold shadow-luxury"
+                  className="px-8 sm:px-10 py-3 sm:py-3.5 rounded-full btn-gold text-xs uppercase tracking-[0.22em] font-semibold shadow-[0_4px_24px_rgba(197,164,103,0.35)]"
                   whileTap={reduce ? {} : { scale: 0.96 }}
                   transition={SPRING_SNAP}
-                  >
-                    La Carte
-                  </motion.button>
-                </MagneticWrapper>
-                <MagneticWrapper strength={0.2}>
-                  <motion.button
-                    onClick={onOpenReservation}
-                    className="group px-7 sm:px-9 py-3 sm:py-3.5 rounded-full border border-white/45 text-white text-xs uppercase tracking-[0.22em] font-semibold hover:bg-white hover:text-monarq-ink transition-colors duration-300 backdrop-blur-sm"
-                    whileTap={reduce ? {} : { scale: 0.96 }}
-                    transition={SPRING_SNAP}
-                  >
-                    <span className="flex items-center gap-2">
-                      <Calendar className="w-3.5 h-3.5 text-monarq-gold-light group-hover:text-monarq-ink transition-colors" />
-                      Réserver
-                    </span>
-                  </motion.button>
-                </MagneticWrapper>
+                >
+                  La Carte
+                </motion.button>
+              </MagneticWrapper>
+              <MagneticWrapper strength={0.2}>
+                <motion.button
+                  onClick={onOpenReservation}
+                  className="group px-8 sm:px-10 py-3 sm:py-3.5 rounded-full bg-white/10 border border-white/50 text-white text-xs uppercase tracking-[0.22em] font-semibold hover:bg-white hover:text-monarq-ink transition-colors duration-300 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.3)]"
+                  whileTap={reduce ? {} : { scale: 0.96 }}
+                  transition={SPRING_SNAP}
+                >
+                  <span className="flex items-center gap-2">
+                    <Calendar className="w-3.5 h-3.5 text-monarq-gold-light group-hover:text-monarq-ink transition-colors" />
+                    Réserver
+                  </span>
+                </motion.button>
+              </MagneticWrapper>
             </div>
           </FadeUp>
 
           {/* Location pill */}
           <FadeUp delay={0.78} duration={DUR.mid}>
-            <div className="mt-6 sm:mt-8">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/50 backdrop-blur-md border border-white/15 text-[11px] sm:text-xs text-gray-300 font-medium tracking-wide">
-                <MapPin className="w-3 h-3 text-monarq-gold-light flex-shrink-0" />
+            <div className="mt-5 sm:mt-6">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[11px] sm:text-xs text-white/85 font-medium tracking-wide">
+                <MapPin className="w-3 h-3 text-[#c5a467] flex-shrink-0" />
                 <span>Avenue Marrakech, Tanger</span>
               </div>
             </div>
