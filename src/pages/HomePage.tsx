@@ -68,16 +68,19 @@ const HeroCyclingLabel: React.FC<HeroCyclingLabelProps> = ({ reduce }) => {
 
   return (
     <motion.div
-      className="flex items-center justify-center gap-5 sm:gap-6 mt-1"
+      className="flex items-center justify-center gap-3 sm:gap-4 mt-1 mb-5 sm:mb-6"
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 0.9, 0.36, 1.0] }}
     >
-      {/* Left ornament */}
-      <div className="w-10 sm:w-16 md:w-20 h-[1.5px] bg-gradient-to-r from-transparent to-[#c5a467] flex-shrink-0" />
+      {/* Left ornament: line + diamond */}
+      <div className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0">
+        <div className="h-[1px] w-6 sm:w-10 md:w-14 bg-gradient-to-r from-transparent to-monarq-gold/45" />
+        <span className="w-1.5 h-1.5 inline-block bg-monarq-gold shadow-[0_0_6px_rgba(158,128,80,0.55)]" style={{ transform: 'rotate(45deg)' }} />
+      </div>
 
       {/* Flip slot */}
-      <div className="relative" style={{ height: '3.2rem', minWidth: '13rem' }}>
+      <div className="relative" style={{ height: '3.4rem', minWidth: '14rem' }}>
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
             key={LABELS[index]}
@@ -85,16 +88,19 @@ const HeroCyclingLabel: React.FC<HeroCyclingLabelProps> = ({ reduce }) => {
             initial="enter"
             animate="center"
             exit="exit"
-            className="absolute inset-0 flex items-center justify-center font-editorial italic font-normal text-[#c5a467] whitespace-nowrap drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]"
-            style={{ fontSize: 'clamp(1.6rem, 4vw, 2.8rem)', lineHeight: 1 }}
+            className="absolute inset-0 flex items-center justify-center font-editorial italic font-normal text-white/90 whitespace-nowrap drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]"
+            style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3rem)', lineHeight: 1 }}
           >
             {LABELS[index]}
           </motion.span>
         </AnimatePresence>
       </div>
 
-      {/* Right ornament */}
-      <div className="w-10 sm:w-16 md:w-20 h-[1.5px] bg-gradient-to-l from-transparent to-[#c5a467] flex-shrink-0" />
+      {/* Right ornament: diamond + line */}
+      <div className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0">
+        <span className="w-1.5 h-1.5 inline-block bg-monarq-gold shadow-[0_0_6px_rgba(158,128,80,0.55)]" style={{ transform: 'rotate(45deg)' }} />
+        <div className="h-[1px] w-6 sm:w-10 md:w-14 bg-gradient-to-r from-monarq-gold/45 to-transparent" />
+      </div>
     </motion.div>
   );
 };
@@ -169,17 +175,8 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
           {/* Animated cycling label: Brunch → Restaurant → Café */}
           <HeroCyclingLabel reduce={!!reduce} />
 
-          {/* Gold divider */}
-          <FadeUp delay={0.55} duration={DUR.mid}>
-            <div className="flex items-center justify-center gap-3 my-4 sm:my-5">
-              <div className="w-10 sm:w-14 h-[1.5px] bg-gradient-to-r from-transparent to-[#c5a467]" />
-              <div className="w-2 h-2 rounded-full bg-[#c5a467]/80 shadow-[0_0_8px_rgba(197,164,103,0.4)]" />
-              <div className="w-10 sm:w-14 h-[1.5px] bg-gradient-to-l from-transparent to-[#c5a467]" />
-            </div>
-          </FadeUp>
-
           {/* Action Buttons */}
-          <FadeUp delay={0.65} duration={DUR.mid}>
+          <FadeUp delay={0.55} duration={DUR.mid}>
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
               <MagneticWrapper strength={0.2}>
                 <motion.button
