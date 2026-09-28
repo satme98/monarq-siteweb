@@ -40,5 +40,14 @@ export const siteConfig = {
     marbleGold2: '/images/marble-gold-vein-2.png',
     marblePaper1: '/images/marble-bg-1.png',
     marblePaper2: '/images/marble-bg-2.png',
+  },
+  maintenance: {
+    enabled: true,
+    password: 'monarq123456',
+    title: 'Bientôt Disponible',
+    subtitle: 'BRUNCH · RESTAURANT · CAFÉ — TANGER',
+    message: "Notre site officiel prépare son ouverture imminente. En attendant de vous accueillir en ligne, retrouvez-nous au cœur de Tanger ou contactez-nous directement.",
+    badge: 'Ouverture Très Prochaine',
   }
 };
+
