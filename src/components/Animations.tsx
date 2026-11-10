@@ -1,14 +1,12 @@
 /**
- * MONARQ — Animation Primitives
- * Every reveal, transition, and motion wrapper used site-wide.
+ * MONARQ — Premium Animation System
+ * Silky, high-velocity, luxury motion primitives for text and sections site-wide.
  *
- * Design principles applied:
- * - GPU-only: transform + opacity exclusively
- * - Tiered reduced-motion (not a kill-switch)
- * - Spring physics for all interactive states
- * - Premium text masking / clip reveals for headings
- * - True curtain wipe + depth for image reveals
- * - Scroll-triggered parallax via GSAP
+ * Principles:
+ * - 100% GPU-composited (transform + opacity only, zero blur filter churn)
+ * - Pure luxury deceleration curve [0.16, 1, 0.3, 1] (no wobbly springs)
+ * - Snappy, immediate viewport triggers (no waiting or late content pop-in)
+ * - Typography preservation (no clipping of descenders or French accents)
  */
 
 import React, { useRef, useEffect } from 'react';
@@ -17,9 +15,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   EASE_MONARQ,
-  EASE_CINEMATIC,
   EASE_ENTER,
-  SPRING_CONTENT,
   SPRING_SNAP,
   SPRING_FLUID,
   DUR,
@@ -44,10 +40,7 @@ interface RevealProps {
 // ─── Page Transition ──────────────────────────────────────────────────────────
 
 /**
- * Wraps each page with a cinematic entrance + exit.
- * Enter: content lifts from y:16 with opacity. A gold hairline draws across the
- * bottom simultaneously — a signature luxury "underline arrival" effect.
- * Exit: soft fade + slight upward drift.
+ * Clean, instant luxury cross-fade on tab navigation.
  */
 export const PageTransition: React.FC<{
   children: React.ReactNode;
@@ -60,40 +53,24 @@ export const PageTransition: React.FC<{
     <motion.div
       key={pageKey}
       className={`relative ${className}`}
-      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 6 }}
       animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
-      exit={reduce ? { opacity: 0 } : { opacity: 0, y: -10 }}
-      transition={
-        reduce
-          ? { duration: 0.15 }
-          : {
-              duration: DUR.mid,
-              ease: EASE_CINEMATIC as unknown as number[],
-            }
-      }
+      exit={reduce ? { opacity: 0 } : { opacity: 0 }}
+      transition={{
+        duration: reduce ? 0.01 : 0.22,
+        ease: EASE_MONARQ as unknown as number[],
+      }}
     >
-      {/* Gold hairline entrance underline */}
-      {!reduce && (
-        <motion.div
-          className="fixed bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-monarq-gold to-transparent z-50 pointer-events-none"
-          initial={{ scaleX: 0, opacity: 0 }}
-          animate={{ scaleX: 1, opacity: [0, 1, 0] }}
-          exit={{ scaleX: 0, opacity: 0 }}
-          transition={{ duration: 0.7, ease: EASE_ENTER as unknown as number[], times: [0, 0.3, 1] }}
-          style={{ transformOrigin: 'left' }}
-        />
-      )}
       {children}
     </motion.div>
   );
 };
 
-// ─── Text Reveal (Clip Mask) ───────────────────────────────────────────────────
+// ─── Text Reveal ──────────────────────────────────────────────────────────────
 
 /**
- * Premium text reveal: text slides up from behind a clip mask.
- * Standard on Bottega Veneta, Dior, luxury hospitality sites.
- * Wrap individual headings, not entire paragraphs.
+ * Ultra-smooth luxury text reveal: subtle vertical rise with luminous fade.
+ * Avoids rigid clipping masks to protect descenders (g, p, y) and French accents.
  */
 export const TextReveal: React.FC<{
   children: React.ReactNode;
@@ -111,69 +88,60 @@ export const TextReveal: React.FC<{
   as: Tag = 'div',
 }) => {
   const reduce = useReducedMotion();
+  const tunedDelay = Math.min(delay * 0.4, 0.22);
 
   if (reduce) {
-    return (
-      <motion.div
-        className={className}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once, amount: 0.1 }}
-        transition={{ duration: 0.15, delay }}
-      >
-        {children}
-      </motion.div>
-    );
+    return <Tag className={className}>{children}</Tag>;
   }
 
   return (
-    <div className={`overflow-hidden relative ${className}`}>
-      <motion.div
-        initial={{ y: '102%', opacity: 0.3 }}
-        whileInView={{ y: '0%', opacity: 1 }}
-        viewport={{ once, amount: 0.05 }}
-        transition={{
-          duration,
-          delay,
-          ease: EASE_CINEMATIC as unknown as number[],
-        }}
-      >
-        {children}
-      </motion.div>
-    </div>
+    <motion.div
+      className={`relative ${className}`}
+      initial={{ opacity: 0, y: 14 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once, amount: 0.02, margin: '0px 0px -40px 0px' }}
+      transition={{
+        duration: Math.min(duration, 0.58),
+        delay: tunedDelay,
+        ease: EASE_MONARQ as unknown as number[],
+      }}
+    >
+      {children}
+    </motion.div>
   );
 };
 
-// ─── Fade Up ──────────────────────────────────────────────────────────────────
+// ─── Fade Up (Section & Content Elements) ──────────────────────────────────────
 
 /**
- * Standard entrance reveal with spring physics.
- * Use for body text, labels, secondary elements — not headings (use TextReveal).
+ * Premium silky entrance for paragraphs, cards, badges, and section blocks.
+ * Uses fine-tuned cubic-bezier deceleration for effortless fluid scroll.
  */
 export const FadeUp: React.FC<RevealProps & { as?: keyof JSX.IntrinsicElements }> = ({
   children,
   className = '',
   delay = 0,
-  duration = DUR.slow,
+  duration = DUR.mid,
   once = true,
 }) => {
   const reduce = useReducedMotion();
+  const tunedDelay = Math.min(delay * 0.4, 0.22);
+
+  if (reduce) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div
       className={className}
-      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once, amount: 0.06 }}
-      transition={
-        reduce
-          ? { duration: 0.15, delay }
-          : {
-              ...SPRING_CONTENT,
-              delay,
-              opacity: { duration: duration * 0.8, ease: EASE_ENTER as unknown as number[] },
-            }
-      }
+      viewport={{ once, amount: 0.02, margin: '0px 0px -40px 0px' }}
+      transition={{
+        duration: Math.min(duration, 0.54),
+        delay: tunedDelay,
+        ease: EASE_MONARQ as unknown as number[],
+      }}
     >
       {children}
     </motion.div>
@@ -190,17 +158,22 @@ export const FadeIn: React.FC<RevealProps> = ({
   once = true,
 }) => {
   const reduce = useReducedMotion();
+  const tunedDelay = Math.min(delay * 0.4, 0.18);
+
+  if (reduce) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div
       className={className}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      viewport={{ once, amount: 0.05 }}
+      viewport={{ once, amount: 0.02, margin: '0px 0px -30px 0px' }}
       transition={{
-        duration: reduce ? 0.15 : duration,
-        delay,
-        ease: EASE_ENTER as unknown as number[],
+        duration: Math.min(duration, 0.48),
+        delay: tunedDelay,
+        ease: EASE_MONARQ as unknown as number[],
       }}
     >
       {children}
@@ -211,36 +184,33 @@ export const FadeIn: React.FC<RevealProps> = ({
 // ─── Slide Directions ────────────────────────────────────────────────────────
 
 /**
- * Lateral reveal. On mobile, degrades to FadeUp to prevent horizontal shift.
+ * Subtle lateral drift. Degrades cleanly to vertical rise on mobile.
  */
 export const SlideLeft: React.FC<RevealProps> = ({
   children,
   className = '',
   delay = 0,
-  duration = DUR.slow,
+  duration = DUR.mid,
   once = true,
 }) => {
   const reduce = useReducedMotion();
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const tunedDelay = Math.min(delay * 0.4, 0.2);
 
-  if (reduce || isMobile) {
-    return (
-      <FadeUp className={className} delay={delay} duration={duration} once={once}>
-        {children}
-      </FadeUp>
-    );
+  if (reduce) {
+    return <div className={className}>{children}</div>;
   }
 
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, x: -40 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once, amount: 0.06 }}
+      initial={isMobile ? { opacity: 0, y: 14 } : { opacity: 0, x: -16 }}
+      whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, x: 0 }}
+      viewport={{ once, amount: 0.02, margin: '0px 0px -40px 0px' }}
       transition={{
-        ...SPRING_CONTENT,
-        delay,
-        opacity: { duration: duration * 0.75, ease: EASE_ENTER as unknown as number[] },
+        duration: Math.min(duration, 0.54),
+        delay: tunedDelay,
+        ease: EASE_MONARQ as unknown as number[],
       }}
     >
       {children}
@@ -252,30 +222,27 @@ export const SlideRight: React.FC<RevealProps> = ({
   children,
   className = '',
   delay = 0,
-  duration = DUR.slow,
+  duration = DUR.mid,
   once = true,
 }) => {
   const reduce = useReducedMotion();
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const tunedDelay = Math.min(delay * 0.4, 0.2);
 
-  if (reduce || isMobile) {
-    return (
-      <FadeUp className={className} delay={delay} duration={duration} once={once}>
-        {children}
-      </FadeUp>
-    );
+  if (reduce) {
+    return <div className={className}>{children}</div>;
   }
 
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, x: 40 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once, amount: 0.06 }}
+      initial={isMobile ? { opacity: 0, y: 14 } : { opacity: 0, x: 16 }}
+      whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, x: 0 }}
+      viewport={{ once, amount: 0.02, margin: '0px 0px -40px 0px' }}
       transition={{
-        ...SPRING_CONTENT,
-        delay,
-        opacity: { duration: duration * 0.75, ease: EASE_ENTER as unknown as number[] },
+        duration: Math.min(duration, 0.54),
+        delay: tunedDelay,
+        ease: EASE_MONARQ as unknown as number[],
       }}
     >
       {children}
@@ -289,45 +256,46 @@ export const ScaleReveal: React.FC<RevealProps> = ({
   children,
   className = '',
   delay = 0,
-  duration = DUR.slow,
+  duration = DUR.mid,
   once = true,
 }) => {
   const reduce = useReducedMotion();
+  const tunedDelay = Math.min(delay * 0.4, 0.2);
+
+  if (reduce) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div
       className={className}
-      initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.94, y: 20 }}
+      initial={{ opacity: 0, scale: 0.98, y: 8 }}
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      viewport={{ once, amount: 0.06 }}
-      transition={
-        reduce
-          ? { duration: 0.15, delay }
-          : {
-              ...SPRING_CONTENT,
-              delay,
-              opacity: { duration: duration * 0.8, ease: EASE_ENTER as unknown as number[] },
-            }
-      }
+      viewport={{ once, amount: 0.02, margin: '0px 0px -40px 0px' }}
+      transition={{
+        duration: Math.min(duration, 0.54),
+        delay: tunedDelay,
+        ease: EASE_MONARQ as unknown as number[],
+      }}
     >
       {children}
     </motion.div>
   );
 };
 
-// ─── Image Reveal (Curtain Wipe) ──────────────────────────────────────────────
+// ─── Image Reveal ─────────────────────────────────────────────────────────────
 
 /**
- * Premium Luxury Image Reveal:
- * Smooth optical focus + gentle depth settle + luminous warm ivory dissolve.
- * Completely eliminates jarring black wipe blocks in favor of high-end camera lens clarity.
+ * Optical clarity image reveal:
+ * Smooth, subtle zoom-in settle [1.025 → 1] with clean opacity fade.
+ * Zero expensive blur filters to guarantee silky 60fps/120fps scrolling.
  */
 export const ImageReveal: React.FC<{
   children: React.ReactNode;
   className?: string;
   delay?: number;
   duration?: number;
-  direction?: 'up' | 'down' | 'left' | 'right'; // kept for API compat
+  direction?: 'up' | 'down' | 'left' | 'right';
   once?: boolean;
 }> = ({
   children,
@@ -337,80 +305,28 @@ export const ImageReveal: React.FC<{
   once = true,
 }) => {
   const reduce = useReducedMotion();
+  const tunedDelay = Math.min(delay * 0.4, 0.2);
 
   if (reduce) {
-    return (
-      <motion.div
-        className={`overflow-hidden relative ${className}`}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once, amount: 0.05 }}
-        transition={{ duration: 0.2, delay }}
-      >
-        {children}
-      </motion.div>
-    );
+    return <div className={`overflow-hidden relative ${className}`}>{children}</div>;
   }
 
   return (
-    <motion.div
-      className={`overflow-hidden relative ${className}`}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once, amount: 0.08 }}
-    >
-      {/* Optical lens reveal — gentle scale 1.05→1, vertical settle 16→0, soft blur→clear */}
+    <div className={`overflow-hidden relative ${className}`}>
       <motion.div
-        className="w-full h-full transform-gpu"
-        variants={{
-          hidden: {
-            opacity: 0,
-            scale: 1.05,
-            y: 16,
-            filter: 'blur(8px)',
-          },
-          visible: {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            filter: 'blur(0px)',
-            transition: {
-              duration: duration * 1.15,
-              delay,
-              ease: EASE_MONARQ as unknown as number[],
-              opacity: {
-                duration: duration * 0.85,
-                delay,
-                ease: 'easeOut',
-              },
-              filter: {
-                duration: duration * 0.8,
-                delay,
-                ease: 'easeOut',
-              },
-            },
-          },
+        className="w-full h-full transform-gpu will-change-transform"
+        initial={{ opacity: 0, scale: 1.025 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once, amount: 0.05, margin: '0px 0px -40px 0px' }}
+        transition={{
+          duration: Math.min(duration, 0.62),
+          delay: tunedDelay,
+          ease: EASE_MONARQ as unknown as number[],
         }}
       >
         {children}
       </motion.div>
-
-      {/* Luminous warm ivory/champagne dissolve (matches site background — NO black blocks) */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none bg-gradient-to-b from-monarq-paper/50 via-monarq-gold/10 to-transparent z-10"
-        variants={{
-          hidden: { opacity: 1 },
-          visible: {
-            opacity: 0,
-            transition: {
-              duration: duration * 0.75,
-              delay: delay + 0.04,
-              ease: 'easeOut',
-            },
-          },
-        }}
-      />
-    </motion.div>
+    </div>
   );
 };
 
@@ -429,20 +345,20 @@ const staggerContainer: Variants = {
 };
 
 const staggerChildVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 12 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      ...SPRING_CONTENT,
-      opacity: { duration: 0.5, ease: EASE_ENTER as unknown as number[] },
+      duration: 0.45,
+      ease: EASE_MONARQ as unknown as number[],
     },
   },
 };
 
 const staggerChildReducedVariants: Variants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.15 } },
+  visible: { opacity: 1, transition: { duration: 0.01 } },
 };
 
 export const StaggerGroup: React.FC<{
@@ -450,7 +366,7 @@ export const StaggerGroup: React.FC<{
   className?: string;
   staggerDelay?: number;
   once?: boolean;
-}> = ({ children, className = '', staggerDelay = 0.07, once = true }) => {
+}> = ({ children, className = '', staggerDelay = 0.045, once = true }) => {
   const reduce = useReducedMotion();
 
   return (
@@ -458,7 +374,7 @@ export const StaggerGroup: React.FC<{
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, amount: 0.06 }}
+      viewport={{ once, amount: 0.02, margin: '0px 0px -40px 0px' }}
       variants={staggerContainer}
       custom={reduce ? 0 : staggerDelay}
     >
@@ -485,10 +401,6 @@ export const StaggerItem: React.FC<{
 
 // ─── Line Reveal ──────────────────────────────────────────────────────────────
 
-/**
- * Animated hairline — draws scaleX: 0→1 on scroll entry.
- * Used for section separators, decorative rules.
- */
 export const LineReveal: React.FC<{
   className?: string;
   delay?: number;
@@ -498,7 +410,7 @@ export const LineReveal: React.FC<{
 }> = ({
   className = 'h-px w-full bg-monarq-gold/30',
   delay = 0,
-  duration = 0.7,
+  duration = 0.55,
   origin = 'left',
   once = true,
 }) => {
@@ -509,16 +421,12 @@ export const LineReveal: React.FC<{
       className={`origin-${origin} ${className}`}
       initial={{ scaleX: 0, opacity: 0 }}
       whileInView={{ scaleX: 1, opacity: 1 }}
-      viewport={{ once, amount: 0.1 }}
-      transition={
-        reduce
-          ? { duration: 0.01 }
-          : {
-              duration,
-              delay,
-              ease: EASE_MONARQ as unknown as number[],
-            }
-      }
+      viewport={{ once, amount: 0.05, margin: '0px 0px -30px 0px' }}
+      transition={{
+        duration: reduce ? 0.01 : duration,
+        delay: Math.min(delay * 0.4, 0.15),
+        ease: EASE_MONARQ as unknown as number[],
+      }}
       style={{
         transformOrigin:
           origin === 'left' ? 'left' : origin === 'right' ? 'right' : 'center',
@@ -529,20 +437,13 @@ export const LineReveal: React.FC<{
 
 // ─── Parallax Image (GSAP ScrollTrigger) ─────────────────────────────────────
 
-/**
- * True depth parallax: image moves at `rate` × scroll speed while
- * the container is stationary. Creates convincing depth layering.
- *
- * Uses GSAP ScrollTrigger in a useEffect with full cleanup (ctx.revert()).
- * Hover: subtle scale on the inner image for a push-depth feel.
- */
 export const ParallaxImage: React.FC<{
   src: string;
   alt: string;
   className?: string;
-  rate?: number;    // 0 = no parallax, 0.3 = gentle, 0.5 = strong
+  rate?: number;
   hoverScale?: boolean;
-}> = ({ src, alt, className = '', rate = 0.25, hoverScale = true }) => {
+}> = ({ src, alt, className = '', rate = 0.18, hoverScale = true }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const reduce = prefersReducedMotion();
@@ -551,20 +452,17 @@ export const ParallaxImage: React.FC<{
     if (reduce || !containerRef.current || !imageRef.current) return;
 
     const ctx = gsap.context(() => {
-      const containerH = containerRef.current!.offsetHeight;
-      const offset = containerH * rate * 1.5;
-
       gsap.fromTo(
         imageRef.current,
-        { yPercent: -rate * 30 },
+        { yPercent: -rate * 25 },
         {
-          yPercent: rate * 30,
+          yPercent: rate * 25,
           ease: 'none',
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top bottom',
             end: 'bottom top',
-            scrub: true,
+            scrub: 0.5,
           },
         }
       );
@@ -584,7 +482,7 @@ export const ParallaxImage: React.FC<{
         src={src}
         alt={alt}
         className={`w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          hoverScale && !reduce ? 'group-hover:scale-[1.04]' : ''
+          hoverScale && !reduce ? 'group-hover:scale-[1.035]' : ''
         }`}
         loading="lazy"
         style={{ willChange: reduce ? 'auto' : 'transform' }}
@@ -595,16 +493,11 @@ export const ParallaxImage: React.FC<{
 
 // ─── Magnetic Button ──────────────────────────────────────────────────────────
 
-/**
- * Subtle magnetic pull toward the cursor.
- * Wraps any element. Uses useMotionValue (no re-render on pointermove).
- * Strength: 0.2–0.4 for refined luxury feel. Not flashy.
- */
 export const MagneticWrapper: React.FC<{
   children: React.ReactNode;
   className?: string;
   strength?: number;
-}> = ({ children, className = '', strength = 0.25 }) => {
+}> = ({ children, className = '', strength = 0.2 }) => {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -618,7 +511,7 @@ export const MagneticWrapper: React.FC<{
     gsap.to(ref.current, {
       x: dx,
       y: dy,
-      duration: 0.4,
+      duration: 0.35,
       ease: 'power3.out',
       overwrite: 'auto',
     });
@@ -629,8 +522,8 @@ export const MagneticWrapper: React.FC<{
     gsap.to(ref.current, {
       x: 0,
       y: 0,
-      duration: 0.6,
-      ease: 'elastic.out(1, 0.5)',
+      duration: 0.5,
+      ease: 'power3.out',
       overwrite: 'auto',
     });
   };
@@ -649,10 +542,6 @@ export const MagneticWrapper: React.FC<{
 
 // ─── Animated CTA Button ──────────────────────────────────────────────────────
 
-/**
- * Luxury CTA with spring press + hover lift.
- * Replaces raw <button> elements for primary CTAs.
- */
 export const MotionButton: React.FC<{
   children: React.ReactNode;
   className?: string;
@@ -681,17 +570,13 @@ export const MotionButton: React.FC<{
 
 // ─── Count Up Number ──────────────────────────────────────────────────────────
 
-/**
- * Animates a number from 0 to `value` on scroll entry.
- * Premium touch for statistics / awards sections.
- */
 export const CountUp: React.FC<{
   value: number;
   suffix?: string;
   prefix?: string;
   className?: string;
   duration?: number;
-}> = ({ value, suffix = '', prefix = '', className = '', duration = 1.5 }) => {
+}> = ({ value, suffix = '', prefix = '', className = '', duration = 1.2 }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const reduce = prefersReducedMotion();
 

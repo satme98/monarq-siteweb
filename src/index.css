@@ -28,19 +28,19 @@
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     font-size: 1rem;
     font-weight: 400;
-    line-height: 1.7;
+    line-height: 1.65;
   }
 
-  /* Display Titling Serif: Cormorant SC */
-  h1, h2, h3, .font-serif {
-    font-family: 'Cormorant SC', 'Cormorant Garamond', 'Bodoni Moda', Georgia, serif;
-    letter-spacing: 0.03em;
+  /* Display Titling Serif */
+  h1, h2, h3, h4, .font-serif {
+    font-family: 'Cormorant Garamond', 'Bodoni Moda', Georgia, serif;
+    letter-spacing: 0.015em;
     font-weight: 600;
   }
 
   .font-editorial {
     font-family: 'Cormorant Garamond', 'Bodoni Moda', Georgia, serif;
-    font-weight: 400;
+    font-weight: 500;
   }
 
   p, li, span, label, td {

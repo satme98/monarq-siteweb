@@ -19,7 +19,7 @@ export const SectionEyebrow: React.FC<SectionEyebrowProps> = ({
 }) => {
   const reduce = useReducedMotion();
   const isLight = variant === 'light';
-  const textColor = isLight ? 'text-monarq-gold-light' : 'text-monarq-ink-soft';
+  const textColor = isLight ? 'text-monarq-gold-light' : 'text-monarq-gold-deep';
   const diamondColor = 'bg-monarq-gold';
 
   const lineGradientLeft = isLight
@@ -32,14 +32,14 @@ export const SectionEyebrow: React.FC<SectionEyebrowProps> = ({
   const justifyClass =
     align === 'left' ? 'justify-start' : align === 'right' ? 'justify-end' : 'justify-center';
 
-  // Lines and diamonds animate simultaneously from center outward
+  // Lines and diamonds animate smoothly from center outward
   const lineVariants = {
     hidden: reduce ? {} : { scaleX: 0, opacity: 0 },
     visible: {
       scaleX: 1,
       opacity: 1,
       transition: {
-        duration: reduce ? 0.01 : 0.65,
+        duration: reduce ? 0.01 : 0.5,
         ease: EASE_MONARQ,
       },
     },
@@ -52,9 +52,9 @@ export const SectionEyebrow: React.FC<SectionEyebrowProps> = ({
       opacity: 1,
       rotate: 45,
       transition: {
-        duration: reduce ? 0.01 : 0.4,
-        delay: reduce ? 0 : 0.15,
-        ease: [0.34, 1.56, 0.64, 1], // slight overshoot pop
+        duration: reduce ? 0.01 : 0.35,
+        delay: reduce ? 0 : 0.06,
+        ease: EASE_MONARQ,
       },
     },
   };
@@ -64,7 +64,7 @@ export const SectionEyebrow: React.FC<SectionEyebrowProps> = ({
       className={`flex items-center gap-2.5 sm:gap-3 ${justifyClass} mb-4 select-none ${className}`}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.02, margin: '0px 0px -30px 0px' }}
     >
       {/* Left hairline — draws from right to left (origin: right) */}
       <motion.div
@@ -79,19 +79,19 @@ export const SectionEyebrow: React.FC<SectionEyebrowProps> = ({
         variants={diamondVariants}
       />
 
-      {/* Label — clip-mask text reveal */}
-      <div className="overflow-hidden px-1">
+      {/* Label — silky text reveal */}
+      <div className="px-1">
         <motion.span
-          className={`block text-sm sm:text-[15px] uppercase tracking-[0.2em] font-serif font-semibold ${textColor} whitespace-nowrap`}
+          className={`block text-sm sm:text-[15px] uppercase tracking-[0.16em] font-serif font-bold ${textColor} whitespace-nowrap`}
           variants={{
-            hidden: reduce ? { opacity: 0 } : { y: '110%', opacity: 0 },
+            hidden: reduce ? { opacity: 0 } : { y: 6, opacity: 0 },
             visible: {
-              y: '0%',
+              y: 0,
               opacity: 1,
               transition: {
-                duration: reduce ? 0.01 : 0.5,
-                delay: reduce ? 0 : 0.2,
-                ease: EASE_CINEMATIC,
+                duration: reduce ? 0.01 : 0.45,
+                delay: reduce ? 0 : 0.08,
+                ease: EASE_MONARQ,
               },
             },
           }}

@@ -55,10 +55,10 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
                   className="w-full h-full object-cover transition-transform duration-500 ease-monarch group-hover:scale-[1.035]"
                 />
                 <div className="absolute inset-0 bg-monarq-ink/35 flex flex-col justify-end p-6 sm:p-8 md:p-10">
-                  <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-white font-light mb-2 sm:mb-3">
+                  <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-white font-semibold mb-2 sm:mb-3">
                     L'Art de <br /> Recevoir
                   </h1>
-                  <p className="font-sans text-white/90 font-light tracking-wide max-w-sm text-xs sm:text-sm md:text-base leading-relaxed">
+                  <p className="font-sans text-white font-normal tracking-wide max-w-sm text-xs sm:text-sm md:text-base leading-relaxed">
                     Un cadre chic et chaleureux au cœur de Tanger.
                   </p>
                 </div>
@@ -193,7 +193,7 @@ export default function ContactPage({ onOpenReservation }: ContactPageProps) {
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink font-semibold">
             Une Table Vous Attend
           </h2>
-          <p className="font-sans text-sm sm:text-base text-monarq-ink-soft max-w-lg mx-auto leading-relaxed font-light mb-4 sm:mb-5">
+          <p className="font-sans text-sm sm:text-base text-monarq-ink-soft max-w-lg mx-auto leading-relaxed font-normal mb-4 sm:mb-5">
             Pour un moment privilégié à Tanger, réservez votre table en quelques clics.
           </p>
           <button 

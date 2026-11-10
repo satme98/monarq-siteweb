@@ -143,10 +143,10 @@ export default function EventsPage({ onOpenReservation }: EventsPageProps) {
             {/* Left text */}
             <FadeUp className="space-y-8">
               <SectionEyebrow className="text-monarq-gold-light">Événements & Privatisation</SectionEyebrow>
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-white font-light leading-[1.1]">
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-white font-semibold leading-[1.1]">
                 Votre Occasion. Notre Maison.
               </h1>
-              <p className="font-sans text-base sm:text-lg text-gray-300 font-light leading-relaxed max-w-[52ch]">
+              <p className="font-sans text-base sm:text-lg text-gray-200 font-normal leading-relaxed max-w-[52ch]">
                 De l'anniversaire intime à la réception professionnelle, MONARQ met son cadre d'exception, sa cuisine et son équipe à votre service pour des événements mémorables.
               </p>
               <div className="flex flex-wrap gap-4">
@@ -190,7 +190,7 @@ export default function EventsPage({ onOpenReservation }: EventsPageProps) {
                     key={s.label}
                     className="flex-1 bg-black/40 backdrop-blur-sm border border-white/15 rounded-xl p-3.5 text-center"
                   >
-                    <span className="block font-serif text-2xl text-monarq-gold font-light">{s.value}</span>
+                    <span className="block font-serif text-2xl text-monarq-gold font-normal">{s.value}</span>
                     <span className="block font-sans text-[10px] uppercase tracking-[0.22em] text-white/70 mt-0.5">{s.label}</span>
                   </div>
                 ))}
@@ -232,7 +232,7 @@ export default function EventsPage({ onOpenReservation }: EventsPageProps) {
                         </span>
                       </div>
                     </div>
-                    <p className="font-sans text-sm sm:text-base text-monarq-ink-soft font-light leading-relaxed">
+                    <p className="font-sans text-sm sm:text-base text-monarq-ink-soft font-normal leading-relaxed">
                       {ev.description}
                     </p>
                   </motion.div>
@@ -274,7 +274,7 @@ export default function EventsPage({ onOpenReservation }: EventsPageProps) {
                   </div>
                   <div className="space-y-1.5 px-1">
                     <h3 className="font-serif text-xl text-monarq-ink font-semibold">{space.name}</h3>
-                    <p className="font-sans text-sm text-monarq-ink-soft font-light">{space.note}</p>
+                    <p className="font-sans text-sm text-monarq-ink-soft font-normal">{space.note}</p>
                   </div>
                 </div>
               </FadeUp>
@@ -291,7 +291,7 @@ export default function EventsPage({ onOpenReservation }: EventsPageProps) {
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold leading-snug">
                 Ce Que Comprend Chaque Événement
               </h2>
-              <p className="font-sans text-base text-monarq-ink-soft font-light leading-relaxed">
+              <p className="font-sans text-base text-monarq-ink-soft font-normal leading-relaxed">
                 Notre équipe prend en charge chaque détail pour que vous puissiez profiter pleinement du moment.
               </p>
               <motion.a
@@ -331,7 +331,7 @@ export default function EventsPage({ onOpenReservation }: EventsPageProps) {
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold mt-4">
               Déposez Votre Demande
             </h2>
-            <p className="font-sans text-base text-monarq-ink-soft max-w-lg mx-auto mt-4 leading-relaxed font-light">
+            <p className="font-sans text-base text-monarq-ink-soft max-w-lg mx-auto mt-4 leading-relaxed font-normal">
               Renseignez le formulaire ci-dessous et notre équipe vous contacte dans les 24 heures pour construire votre événement ensemble.
             </p>
           </FadeUp>
@@ -348,7 +348,7 @@ export default function EventsPage({ onOpenReservation }: EventsPageProps) {
                 <p className="font-serif text-2xl sm:text-3xl text-monarq-ink font-semibold">
                   Demande envoyée avec succès
                 </p>
-                <p className="font-sans text-base text-monarq-ink-soft font-light">
+                <p className="font-sans text-base text-monarq-ink-soft font-normal">
                   Notre équipe vous contactera sous 24 heures pour affiner les détails de votre événement.
                 </p>
               </motion.div>
@@ -464,7 +464,7 @@ export default function EventsPage({ onOpenReservation }: EventsPageProps) {
                         transition={{ duration: 0.3, ease: EASE_CINEMATIC as unknown as number[] }}
                         className="overflow-hidden"
                       >
-                        <p className="font-sans text-base text-monarq-ink-soft font-light leading-relaxed mt-4 pr-12">
+                        <p className="font-sans text-base text-monarq-ink-soft font-normal leading-relaxed mt-4 pr-12">
                           {faq.a}
                         </p>
                       </motion.div>
@@ -484,7 +484,7 @@ export default function EventsPage({ onOpenReservation }: EventsPageProps) {
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold">
             Faisons de Votre Événement un Souvenir
           </h2>
-          <p className="font-sans text-base sm:text-lg text-monarq-ink-soft max-w-lg mx-auto leading-relaxed font-light">
+          <p className="font-sans text-base sm:text-lg text-monarq-ink-soft max-w-lg mx-auto leading-relaxed font-normal">
             Appelez-nous directement pour discuter de votre projet en quelques minutes.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 pt-4">

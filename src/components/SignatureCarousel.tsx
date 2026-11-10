@@ -196,14 +196,14 @@ export const SignatureCarousel: React.FC<SignatureCarouselProps> = ({ onOpenMenu
             <p
               className="
                 text-center truncate
-                font-editorial font-normal
+                font-editorial font-semibold
                 transition-colors duration-200
-                group-hover:text-[#9a7b4f]
+                group-hover:text-monarq-gold-deep
               "
               style={{
                 fontFamily: '"Cormorant Garamond", "Cormorant SC", Georgia, serif',
-                fontSize: '19px',
-                color: '#1a1a1a',
+                fontSize: '20px',
+                color: '#141210',
                 lineHeight: 1.3,
               }}
             >

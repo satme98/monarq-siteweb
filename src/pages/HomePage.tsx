@@ -76,8 +76,8 @@ function ImmersionSection() {
             </FadeUp>
             <FadeUp delay={0.22}>
               <p
-                className="font-sans leading-relaxed font-light max-w-sm mx-auto md:mx-0"
-                style={{ fontSize: '1.0625rem', color: '#2A2320' }}
+                className="font-sans leading-relaxed font-normal max-w-sm mx-auto md:mx-0 text-monarq-ink-soft"
+                style={{ fontSize: '1.0625rem' }}
               >
                 Découvrez notre verrière et l'ambiance du restaurant en vidéo.
               </p>
@@ -294,7 +294,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
           <HeroCyclingLabel reduce={!!reduce} />
 
           {/* Action Buttons */}
-          <FadeUp delay={0.55} duration={DUR.mid}>
+          <FadeUp delay={0.15} duration={DUR.mid}>
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
               <MagneticWrapper strength={0.2}>
                 <motion.button
@@ -323,9 +323,9 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
           </FadeUp>
 
           {/* Location pill */}
-          <FadeUp delay={0.78} duration={DUR.mid}>
+          <FadeUp delay={0.22} duration={DUR.mid}>
             <div className="mt-5 sm:mt-6">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[11px] sm:text-xs text-white/85 font-medium tracking-wide">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/30 text-xs sm:text-[13px] text-white font-medium tracking-wide">
                 <MapPin className="w-3 h-3 text-[#c5a467] flex-shrink-0" />
                 <span>Avenue Marrakech, Tanger</span>
               </div>
@@ -361,7 +361,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   </h2>
                 </TextReveal>
                 <FadeUp delay={0.15}>
-                  <p className="text-sm sm:text-base text-monarq-ink-soft leading-relaxed font-light mb-5 sm:mb-6">
+                  <p className="text-sm sm:text-base text-monarq-ink-soft leading-relaxed font-normal mb-5 sm:mb-6">
                     MONARQ réunit le raffinement d'un décor en marbre sous verrière et la passion des produits nobles. Un havre chic et chaleureux pensé pour savourer chaque instant.
                   </p>
                 </FadeUp>
@@ -404,8 +404,8 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                       />
                     </div>
                     <div className="mt-2.5 sm:mt-3 p-2.5 sm:p-3 bg-monarq-paper-soft/80 backdrop-blur-sm rounded-xl border border-monarq-gold/20 hidden sm:block">
-                      <p className="font-serif text-[11px] sm:text-xs text-monarq-gold-deep tracking-wider uppercase font-semibold">Tanger</p>
-                      <p className="text-[10.5px] sm:text-[11px] text-monarq-ink-soft mt-0.5 font-normal">À proximité du Riad Tétouan</p>
+                      <p className="font-serif text-xs sm:text-[13px] text-monarq-gold-deep tracking-wider uppercase font-bold">Tanger</p>
+                      <p className="text-xs text-monarq-ink mt-0.5 font-medium">À proximité du Riad Tétouan</p>
                     </div>
                   </ImageReveal>
                 </div>
@@ -440,7 +440,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 </h2>
               </TextReveal>
               <FadeUp delay={0.2}>
-                <p className="text-sm sm:text-base text-monarq-ink-soft max-w-md mx-auto font-light leading-relaxed">
+                <p className="text-sm sm:text-base text-monarq-ink-soft max-w-md mx-auto font-normal leading-relaxed">
                   Une partition gourmande au rythme de votre journée.
                 </p>
               </FadeUp>
@@ -469,7 +469,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   </h3>
                 </TextReveal>
                 <FadeUp delay={0.15}>
-                  <p className="text-sm sm:text-[15px] text-monarq-ink-soft leading-relaxed max-w-lg mb-3.5 sm:mb-4 font-light">
+                  <p className="text-[14.5px] sm:text-base text-monarq-ink-soft leading-relaxed max-w-lg mb-3.5 sm:mb-4 font-normal">
                     Viennoiseries fines, msemens au miel pur, jus d'oranges pressées et cafés de terroir. De 09 h 00 à 12 h 00.
                   </p>
                   <motion.button
@@ -495,7 +495,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   </h3>
                 </TextReveal>
                 <FadeUp delay={0.15}>
-                  <p className="text-sm sm:text-[15px] text-monarq-ink-soft leading-relaxed max-w-lg mb-3.5 sm:mb-4 font-light">
+                  <p className="text-[14.5px] sm:text-base text-monarq-ink-soft leading-relaxed max-w-lg mb-3.5 sm:mb-4 font-normal">
                     Brioches aux crevettes, toasts d'avocat au saumon mariné, œufs pochés et pancakes fondants. De 09 h 00 à 14 h 00.
                   </p>
                   <motion.button
@@ -543,7 +543,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   </h3>
                 </TextReveal>
                 <FadeUp delay={0.15}>
-                  <p className="text-sm sm:text-[15px] text-monarq-ink-soft leading-relaxed max-w-lg mb-3.5 sm:mb-4 font-light">
+                  <p className="text-[14.5px] sm:text-base text-monarq-ink-soft leading-relaxed max-w-lg mb-3.5 sm:mb-4 font-normal">
                     Penne aux crevettes, risottos au saumon, viandes nobles grillées et pizzas au feu de bois. De midi à minuit.
                   </p>
                   <motion.button
@@ -590,7 +590,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 </h2>
               </TextReveal>
               <FadeUp delay={0.15}>
-                <p className="text-sm sm:text-base text-monarq-ink-soft leading-relaxed font-light">
+                <p className="text-sm sm:text-base text-monarq-ink-soft leading-relaxed font-normal">
                   Des recettes d'exception préparées avec des ingrédients de premier choix.
                 </p>
               </FadeUp>
@@ -648,20 +648,20 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
           </TextReveal>
 
           <FadeUp delay={0.2}>
-            <p className="text-sm sm:text-base text-monarq-ink-soft max-w-lg mx-auto mb-6 sm:mb-7 leading-relaxed font-light">
+            <p className="text-sm sm:text-base text-monarq-ink-soft max-w-lg mx-auto mb-6 sm:mb-7 leading-relaxed font-normal">
               Déjeuner d'affaires, grand brunch convivial ou dîner feutré : notre équipe de salle prépare votre venue avec une attention sur-mesure.
             </p>
           </FadeUp>
 
           {/* Quick Info Badges */}
           <FadeUp delay={0.25}>
-            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-7 text-xs sm:text-sm text-monarq-ink-soft font-medium">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-monarq-paper-soft/80 border border-monarq-gold/25 backdrop-blur-sm shadow-sm text-xs">
-                <Clock className="w-3.5 h-3.5 text-monarq-gold-deep" />
+            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 mb-6 sm:mb-7 text-xs sm:text-[13px] text-monarq-ink font-semibold">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-monarq-paper-soft border border-monarq-gold/35 backdrop-blur-sm shadow-sm">
+                <Clock className="w-4 h-4 text-monarq-gold-deep" />
                 <span>09h00 — 00h00 · 7j/7</span>
               </span>
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-monarq-paper-soft/80 border border-monarq-gold/25 backdrop-blur-sm shadow-sm text-xs">
-                <MapPin className="w-3.5 h-3.5 text-monarq-gold-deep" />
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-monarq-paper-soft border border-monarq-gold/35 backdrop-blur-sm shadow-sm">
+                <MapPin className="w-4 h-4 text-monarq-gold-deep" />
                 <span>Avenue Marrakech, Tanger</span>
               </span>
             </div>

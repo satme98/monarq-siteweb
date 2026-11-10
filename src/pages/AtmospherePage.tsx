@@ -138,7 +138,7 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
         )}
 
         <FadeUp delay={0.55}>
-          <p className="font-sans text-monarq-ink-soft text-sm sm:text-base max-w-2xl mx-auto font-light leading-relaxed">
+          <p className="font-sans text-monarq-ink-soft text-sm sm:text-base max-w-2xl mx-auto font-normal leading-relaxed">
             Un havre gastronomique chic et lumineux au cœur de Tanger, dédié au plaisir des saveurs et du partage.
           </p>
         </FadeUp>
@@ -156,7 +156,7 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
                 </h2>
               </TextReveal>
               <FadeUp delay={0.18}>
-                <div className="font-sans text-monarq-ink-soft text-sm sm:text-base leading-relaxed space-y-3 font-light">
+                <div className="font-sans text-monarq-ink-soft text-sm sm:text-base leading-relaxed space-y-3 font-normal">
                   <p>
                     Né de l'amour de la haute gastronomie et de l'art de recevoir tangérois, MONARQ réinvente l'expérience du café-restaurant contemporain.
                   </p>
@@ -252,7 +252,7 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
                     <h3 className="font-serif text-xl sm:text-2xl text-monarq-ink font-semibold mb-1">
                       {value.title}
                     </h3>
-                    <p className="font-sans text-monarq-ink-soft text-sm sm:text-base leading-relaxed font-light">
+                    <p className="font-sans text-monarq-ink-soft text-sm sm:text-base leading-relaxed font-normal">
                       {value.desc}
                     </p>
                   </div>
@@ -283,7 +283,7 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
             </h2>
           </TextReveal>
           <FadeUp delay={0.15}>
-            <p className="font-sans text-monarq-ink-soft text-sm sm:text-base mb-5 sm:mb-6 max-w-lg mx-auto leading-relaxed font-light">
+            <p className="font-sans text-monarq-ink-soft text-sm sm:text-base mb-5 sm:mb-6 max-w-lg mx-auto leading-relaxed font-normal">
               Réservez votre table et vivez un moment gastronomique d'exception.
             </p>
             <motion.button

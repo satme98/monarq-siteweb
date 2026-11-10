@@ -20,10 +20,10 @@ gsap.registerPlugin(ScrollTrigger);
 /** Primary luxury easing — fast-out, silky settle */
 export const EASE_MONARQ = [0.16, 1, 0.3, 1] as const;
 
-/** Cinematic — slow start, dramatic arrival */
-export const EASE_CINEMATIC = [0.22, 1, 0.36, 1] as const;
+/** Cinematic — smooth, elegant deceleration */
+export const EASE_CINEMATIC = [0.16, 1, 0.3, 1] as const;
 
-/** UI enter — sharp, decisive */
+/** UI enter — sharp, decisive, silky */
 export const EASE_ENTER = [0.16, 1, 0.3, 1] as const;
 
 /** UI exit — fast, efficient */
@@ -44,12 +44,12 @@ export const GSAP_EASE_SCRUB = 'none';
 
 export const DUR = {
   instant: 0.01,
-  fast: 0.2,
-  quick: 0.35,
-  mid: 0.55,
-  slow: 0.85,
-  cinematic: 1.2,
-  epic: 1.8,
+  fast: 0.18,
+  quick: 0.28,
+  mid: 0.45,
+  slow: 0.58,
+  cinematic: 0.7,
+  epic: 0.9,
 } as const;
 
 // ─── Spring Presets ────────────────────────────────────────────────────────────
@@ -58,13 +58,16 @@ export const DUR = {
 export const SPRING_SNAP = { type: 'spring', stiffness: 500, damping: 35 } as const;
 
 /** Fluid UI hover */
-export const SPRING_FLUID = { type: 'spring', stiffness: 300, damping: 28 } as const;
+export const SPRING_FLUID = { type: 'spring', stiffness: 350, damping: 28 } as const;
 
-/** Weighty content entrance */
-export const SPRING_CONTENT = { type: 'spring', stiffness: 60, damping: 18 } as const;
+/** Silky smooth content entrance — no heavy rubbery wobble */
+export const SPRING_CONTENT = {
+  duration: 0.52,
+  ease: [0.16, 1, 0.3, 1],
+} as const;
 
 /** Gentle float */
-export const SPRING_GENTLE = { type: 'spring', stiffness: 80, damping: 22 } as const;
+export const SPRING_GENTLE = { type: 'spring', stiffness: 100, damping: 20 } as const;
 
 // ─── Reduced Motion ────────────────────────────────────────────────────────────
 

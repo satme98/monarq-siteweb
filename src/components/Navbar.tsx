@@ -173,7 +173,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
                   <button
                     key={item.id}
                     onClick={() => handleNavClick(item.id)}
-                    className={`text-xs uppercase tracking-[0.2em] font-medium transition-colors duration-250 relative py-1.5 focus:outline-none ${
+                    className={`text-xs sm:text-[13px] uppercase tracking-[0.16em] font-semibold transition-colors duration-250 relative py-1.5 focus:outline-none ${
                       isTransparent
                         ? isActive
                           ? 'text-monarq-gold'
@@ -332,7 +332,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
                   alt="MONARQ"
                   className="w-12 h-12 mx-auto mb-2 opacity-90 brightness-125 invert"
                 />
-                <p className="text-[10px] uppercase tracking-[0.28em] text-monarq-gold-light font-semibold">
+                <p className="text-xs uppercase tracking-[0.22em] text-monarq-gold-light font-bold">
                   Tanger · Maroc
                 </p>
               </motion.div>
@@ -382,7 +382,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
                 <span>Réserver une table</span>
               </button>
 
-              <div className="flex items-center justify-around pt-1 text-xs text-white/70 font-medium">
+              <div className="flex items-center justify-around pt-1 text-xs sm:text-sm text-white/90 font-medium">
                 <a
                   href={`tel:${siteConfig.phone}`}
                   className="flex items-center gap-1.5 hover:text-monarq-gold-light transition-colors"

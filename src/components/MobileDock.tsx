@@ -20,8 +20,8 @@ export const MobileDock: React.FC<MobileDockProps> = ({ activeTab, setActiveTab,
           }}
           className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-full text-xs font-medium transition-all ${
             activeTab === 'menu'
-              ? 'bg-white/20 text-monarq-gold'
-              : 'text-gray-300 hover:text-white'
+              ? 'bg-white/20 text-monarq-gold font-semibold'
+              : 'text-gray-100 hover:text-white'
           }`}
         >
           <Utensils className="w-3.5 h-3.5" />
@@ -33,7 +33,7 @@ export const MobileDock: React.FC<MobileDockProps> = ({ activeTab, setActiveTab,
           href={siteConfig.mapsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-full text-xs font-medium text-gray-300 hover:text-white transition-all"
+          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-full text-xs font-semibold text-gray-100 hover:text-white transition-all"
         >
           <MapPin className="w-3.5 h-3.5 text-monarq-gold" />
           <span>GPS</span>

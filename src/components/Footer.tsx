@@ -116,7 +116,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
           {/* Column 1: Brand & Social */}
           <motion.div className="space-y-4 lg:col-span-4 lg:pr-6" custom={0} variants={colVariants}>
             <img src={siteConfig.logos.white} alt="MONARQ" className="h-9 sm:h-10 w-auto" />
-            <p className="text-xs sm:text-sm text-gray-300 font-light leading-relaxed max-w-sm">
+            <p className="text-xs sm:text-sm text-gray-200 font-normal leading-relaxed max-w-sm">
               L'art de recevoir et la passion du goût à Tanger. Grands brunchs, cuisine raffinée et café d'auteur.
             </p>
             <div className="flex items-center gap-3 pt-1">
@@ -184,7 +184,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
                 { label: 'Déjeuner & Dîner', time: '12h00 — 23h30' },
               ].map((row) => (
                 <div key={row.label} className="flex justify-between items-center py-1.5 border-b border-white/10">
-                  <span className="text-gray-400">{row.label}</span>
+                  <span className="text-gray-300 font-medium">{row.label}</span>
                   <span className="font-medium text-white">{row.time}</span>
                 </div>
               ))}
@@ -228,7 +228,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
                   Réservations
                 </h4>
               </div>
-              <p className="text-xs text-gray-300 font-light leading-relaxed mb-4">
+              <p className="text-xs sm:text-sm text-gray-200 font-normal leading-relaxed mb-4">
                 Table d'hôtes, déjeuners d'affaires & réceptions privées.
               </p>
             </div>
@@ -245,7 +245,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
         </motion.div>
 
         {/* Bottom bar */}
-        <div className="pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 text-xs text-gray-400 font-medium">
+        <div className="pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 text-xs sm:text-[13px] text-gray-300 font-medium">
           <div className="flex items-center gap-2.5">
             <span
               className="w-1.5 h-1.5 inline-block bg-monarq-gold flex-shrink-0 shadow-[0_0_8px_rgba(158,128,80,0.6)]"

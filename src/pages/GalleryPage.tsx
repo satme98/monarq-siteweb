@@ -36,7 +36,7 @@ export default function GalleryPage() {
         </FadeUp>
         
         <FadeUp delay={0.1}>
-          <p className="font-sans text-monarq-ink-soft text-sm sm:text-base max-w-lg mx-auto font-light leading-relaxed">
+          <p className="font-sans text-monarq-ink-soft text-sm sm:text-base max-w-lg mx-auto font-normal leading-relaxed">
             L'élégance de notre décor, l'atmosphère de nos salles et la beauté de nos créations en images.
           </p>
         </FadeUp>

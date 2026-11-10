@@ -133,7 +133,7 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
                     className="w-1.5 h-1.5 bg-monarq-gold rounded-full flex-shrink-0"
                     style={{ boxShadow: '0 0 8px rgba(158,128,80,0.7)' }}
                   />
-                  <span className="text-white text-[10.5px] uppercase tracking-[0.25em] font-medium">
+                  <span className="text-white text-xs sm:text-[13px] uppercase tracking-[0.2em] font-semibold">
                     Tanger · Maroc · Maison Gastronomique
                   </span>
                 </div>
@@ -151,10 +151,10 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
               >
                 Une Table Pensée Comme un Refuge
               </h1>
-              <p className="font-sans text-sm sm:text-base text-monarq-ink-soft leading-relaxed font-light mb-4 sm:mb-5">
+              <p className="font-sans text-sm sm:text-base text-monarq-ink-soft leading-relaxed font-normal mb-4 sm:mb-5">
                 Au cœur de Tanger, MONARQ est né d'un désir simple : créer un lieu où la beauté des matières — marbre, bois chaud, dorures discrètes — s'accorde à la franchise d'une assiette généreuse.
               </p>
-              <p className="font-sans text-sm sm:text-base text-monarq-ink-soft leading-relaxed font-light">
+              <p className="font-sans text-sm sm:text-base text-monarq-ink-soft leading-relaxed font-normal">
                 Du premier espresso du matin aux pâtes fraîches du dîner, chaque instant y est traité avec le même soin, dans une atmosphère lumineuse le jour et feutrée le soir.
               </p>
             </div>
@@ -188,12 +188,12 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
         <div className="max-w-4xl mx-auto px-5 sm:px-8">
           <FadeIn>
             <blockquote className="text-center space-y-4 sm:space-y-5">
-              <p className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink font-light leading-[1.3] italic">
+              <p className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink font-normal leading-[1.3] italic">
                 &ldquo;Ici, chaque repas est une cérémonie — célébrée avec les meilleurs produits, un service sincère et la lumière de Tanger.&rdquo;
               </p>
               <footer className="flex items-center justify-center gap-3 pt-2">
                 <span className="w-8 h-[1px] bg-monarq-gold/50" />
-                <cite className="font-sans text-[11px] sm:text-xs uppercase tracking-[0.28em] text-monarq-gold-deep font-semibold not-italic">
+                <cite className="font-sans text-xs sm:text-[13px] uppercase tracking-[0.22em] text-monarq-gold-deep font-bold not-italic">
                   La Direction · MONARQ Tanger
                 </cite>
                 <span className="w-8 h-[1px] bg-monarq-gold/50" />
@@ -229,7 +229,7 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
                       <h3 className="font-serif text-lg sm:text-xl text-monarq-ink font-semibold">
                         {value.title}
                       </h3>
-                      <p className="font-sans text-sm sm:text-base text-monarq-ink-soft font-light leading-relaxed">
+                      <p className="font-sans text-sm sm:text-base text-monarq-ink-soft font-normal leading-relaxed">
                         {value.description}
                       </p>
                     </div>
@@ -286,19 +286,19 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
                       }`}
                     >
                       <div
-                        className={`font-serif text-xl sm:text-2xl md:text-3xl text-monarq-gold font-light tracking-wide mb-1 flex items-baseline gap-2.5 ${
+                        className={`font-serif text-xl sm:text-2xl md:text-3xl text-monarq-gold font-normal tracking-wide mb-1 flex items-baseline gap-2.5 ${
                           isLeft ? 'justify-start md:justify-end' : 'justify-start'
                         }`}
                       >
-                        <span className="text-monarq-gold-light font-normal">{item.number}</span>
-                        <span className="text-monarq-gold/40 text-base font-sans font-light">—</span>
-                        <span className="tracking-wider uppercase text-lg sm:text-xl md:text-2xl text-monarq-gold">{item.category}</span>
+                        <span className="text-monarq-gold-light font-medium">{item.number}</span>
+                        <span className="text-monarq-gold/60 text-base font-sans">—</span>
+                        <span className="tracking-wider uppercase text-lg sm:text-xl md:text-2xl text-monarq-gold font-bold">{item.category}</span>
                       </div>
-                      <h3 className="font-sans text-[11px] sm:text-xs uppercase tracking-[0.24em] text-monarq-gold-light font-semibold mb-2 sm:mb-2.5">
+                      <h3 className="font-sans text-xs sm:text-[13px] uppercase tracking-[0.2em] text-monarq-gold-light font-bold mb-2 sm:mb-2.5">
                         {item.tagline}
                       </h3>
                       <p
-                        className={`font-sans text-xs sm:text-sm text-gray-300 font-light leading-relaxed max-w-sm sm:max-w-md ${
+                        className={`font-sans text-xs sm:text-sm text-gray-200 font-normal leading-relaxed max-w-sm sm:max-w-md ${
                           isLeft ? 'md:ml-auto' : 'md:mr-auto'
                         }`}
                       >
@@ -353,7 +353,7 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink font-semibold">
             Vivez l'Expérience MONARQ
           </h2>
-          <p className="font-sans text-sm sm:text-base text-monarq-ink-soft max-w-lg mx-auto leading-relaxed font-light">
+          <p className="font-sans text-sm sm:text-base text-monarq-ink-soft max-w-lg mx-auto leading-relaxed font-normal">
             Brunch, déjeuner, dîner ou café — chaque moment mérite d'être vécu à notre table.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-2 sm:pt-3">
