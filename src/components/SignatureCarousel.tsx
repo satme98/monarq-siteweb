@@ -1,6 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-
 import { signatureHighlights } from '../data/menuData';
 
 interface SignatureCarouselProps {
@@ -9,163 +8,207 @@ interface SignatureCarouselProps {
 
 export const SignatureCarousel: React.FC<SignatureCarouselProps> = ({ onOpenMenu }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const posRef = useRef(0);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
+  const startXRef = useRef(0);
+  const startScrollRef = useRef(0);
+  const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Smooth manual step navigation
-  const scroll = (direction: 'left' | 'right') => {
-    if (!scrollRef.current) return;
-    const cardWidth = 280;
-    const currentScroll = scrollRef.current.scrollLeft;
-    const targetScroll = direction === 'left' ? currentScroll - cardWidth : currentScroll + cardWidth;
-    
-    posRef.current = targetScroll;
-    scrollRef.current.scrollTo({
-      left: targetScroll,
-      behavior: 'smooth'
-    });
-  };
+  const total = signatureHighlights.length;
 
-  // Continuous buttery-smooth high-speed auto-scroll animation
-  useEffect(() => {
+  // ── Scroll to card by index ──────────────────────────────────────────────
+  const scrollToIndex = useCallback((idx: number) => {
     const container = scrollRef.current;
     if (!container) return;
+    const clamped = Math.max(0, Math.min(idx, total - 1));
+    setActiveIndex(clamped);
+    const card = container.children[clamped] as HTMLElement | undefined;
+    if (card) {
+      container.scrollTo({ left: card.offsetLeft - 20, behavior: 'smooth' });
+    }
+  }, [total]);
 
-    // Initialize posRef with current scroll position
-    posRef.current = container.scrollLeft;
+  const goLeft  = useCallback(() => scrollToIndex(activeIndex - 1), [activeIndex, scrollToIndex]);
+  const goRight = useCallback(() => scrollToIndex(activeIndex + 1), [activeIndex, scrollToIndex]);
 
-    let animationFrameId: number;
-    let lastTime = performance.now();
+  // ── Sync active index from scroll position ───────────────────────────────
+  const syncIndex = useCallback(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const sl = container.scrollLeft;
+    let best = 0;
+    let bestDist = Infinity;
+    Array.from(container.children).forEach((child, i) => {
+      const el = child as HTMLElement;
+      const dist = Math.abs(el.offsetLeft - 20 - sl);
+      if (dist < bestDist) { bestDist = dist; best = i; }
+    });
+    setActiveIndex(best);
+  }, []);
 
-    const step = (now: number) => {
-      // Guard against frame jump after tab switch or long idle
-      const delta = Math.min(now - lastTime, 64);
-      lastTime = now;
+  useEffect(() => {
+    const c = scrollRef.current;
+    if (!c) return;
+    c.addEventListener('scroll', syncIndex, { passive: true });
+    return () => c.removeEventListener('scroll', syncIndex);
+  }, [syncIndex]);
 
-      if (!isPaused && !isDragging && container) {
-        // Balanced, ultra-fluid drift (~120px/s)
-        posRef.current += delta * 0.12;
-
-        // Seamless infinite loop wrap-around logic
-        const maxHalf = container.scrollWidth / 2;
-        if (maxHalf > 0) {
-          if (posRef.current >= maxHalf) {
-            posRef.current -= maxHalf;
-          } else if (posRef.current <= 0) {
-            posRef.current += maxHalf;
-          }
+  // ── Autoplay ─────────────────────────────────────────────────────────────
+  useEffect(() => {
+    if (isPaused || isDragging) {
+      if (autoplayRef.current) clearInterval(autoplayRef.current);
+      return;
+    }
+    autoplayRef.current = setInterval(() => {
+      setActiveIndex(prev => {
+        const next = prev >= total - 1 ? 0 : prev + 1;
+        const c = scrollRef.current;
+        if (c) {
+          const card = c.children[next] as HTMLElement | undefined;
+          if (card) c.scrollTo({ left: card.offsetLeft - 20, behavior: 'smooth' });
         }
+        return next;
+      });
+    }, 4500);
+    return () => { if (autoplayRef.current) clearInterval(autoplayRef.current); };
+  }, [isPaused, isDragging, total]);
 
-        container.scrollLeft = posRef.current;
-      }
-
-      animationFrameId = requestAnimationFrame(step);
-    };
-
-    animationFrameId = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [isPaused, isDragging]);
-
-  // Drag-to-scroll handlers
-  const handleMouseDown = (e: React.MouseEvent) => {
+  // ── Desktop drag ─────────────────────────────────────────────────────────
+  const onMouseDown = (e: React.MouseEvent) => {
     if (!scrollRef.current) return;
     setIsDragging(true);
-    setStartX(e.pageX - scrollRef.current.offsetLeft);
-    setScrollLeft(scrollRef.current.scrollLeft);
-    posRef.current = scrollRef.current.scrollLeft;
+    startXRef.current = e.pageX;
+    startScrollRef.current = scrollRef.current.scrollLeft;
   };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const onMouseMove = (e: React.MouseEvent) => {
     if (!isDragging || !scrollRef.current) return;
     e.preventDefault();
-    const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    scrollRef.current.scrollLeft = scrollLeft - walk;
-    posRef.current = scrollRef.current.scrollLeft;
+    scrollRef.current.scrollLeft = startScrollRef.current + (startXRef.current - e.pageX) * 1.2;
   };
-
-  const handleMouseUpOrLeave = () => {
-    setIsDragging(false);
-    if (scrollRef.current) {
-      posRef.current = scrollRef.current.scrollLeft;
-    }
-  };
-
-  // Duplicate items to ensure seamless infinite scroll wrap
-  const carouselItems = [...signatureHighlights, ...signatureHighlights];
+  const onMouseUp = () => { setIsDragging(false); syncIndex(); };
 
   return (
-    <div 
-      className="relative w-full overflow-hidden select-none py-2"
+    <div
+      className="relative w-full select-none"
       onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => {
-        setIsPaused(false);
-        setIsDragging(false);
-        if (scrollRef.current) {
-          posRef.current = scrollRef.current.scrollLeft;
-        }
-      }}
+      onMouseLeave={() => { setIsPaused(false); setIsDragging(false); }}
     >
-      {/* Top Controls Bar */}
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 mb-3 sm:mb-4 flex items-center justify-end">
+      {/* ── Left arrow ──────────────────────────────────────────────────── */}
+      <button
+        onClick={goLeft}
+        disabled={activeIndex === 0}
+        aria-label="Plat précédent"
+        className="
+          hidden sm:flex items-center justify-center
+          absolute left-3 z-20
+          w-9 h-9 rounded-full
+          bg-white/85 backdrop-blur-sm
+          border border-monarq-gold/30
+          text-monarq-ink shadow-luxury
+          hover:bg-monarq-gold hover:text-white hover:border-monarq-gold
+          transition-all duration-250 active:scale-95
+          disabled:opacity-25 disabled:pointer-events-none
+          group
+        "
+        style={{ top: 'calc(50% - 1.5rem)' }}
+      >
+        <ChevronLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
+      </button>
 
-        {/* Carousel Navigation Arrows */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => scroll('left')}
-            aria-label="Plat précédent"
-            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-monarq-gold/35 bg-monarq-paper/90 backdrop-blur-sm flex items-center justify-center text-monarq-ink hover:bg-monarq-gold hover:text-white hover:border-monarq-gold transition-all duration-300 active:scale-95 group"
-          >
-            <ChevronLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
-          </button>
-          <button
-            onClick={() => scroll('right')}
-            aria-label="Plat suivant"
-            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-monarq-gold/35 bg-monarq-paper/90 backdrop-blur-sm flex items-center justify-center text-monarq-ink hover:bg-monarq-gold hover:text-white hover:border-monarq-gold transition-all duration-300 active:scale-95 group"
-          >
-            <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-          </button>
-        </div>
-      </div>
+      {/* ── Right arrow ─────────────────────────────────────────────────── */}
+      <button
+        onClick={goRight}
+        disabled={activeIndex === total - 1}
+        aria-label="Plat suivant"
+        className="
+          hidden sm:flex items-center justify-center
+          absolute right-3 z-20
+          w-9 h-9 rounded-full
+          bg-white/85 backdrop-blur-sm
+          border border-monarq-gold/30
+          text-monarq-ink shadow-luxury
+          hover:bg-monarq-gold hover:text-white hover:border-monarq-gold
+          transition-all duration-250 active:scale-95
+          disabled:opacity-25 disabled:pointer-events-none
+          group
+        "
+        style={{ top: 'calc(50% - 1.5rem)' }}
+      >
+        <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+      </button>
 
-      {/* Gallery Strip Container with NO visible scrollbar */}
+      {/* ── Scroll strip ────────────────────────────────────────────────── */}
       <div
         ref={scrollRef}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUpOrLeave}
-        className="flex gap-3.5 sm:gap-4.5 overflow-x-auto no-scrollbar scrollbar-hide [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:h-0 px-5 sm:px-8 lg:px-12 cursor-grab active:cursor-grabbing pb-2 pt-0.5 will-change-scroll"
-        style={{ scrollBehavior: 'auto' }}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        onTouchStart={() => setIsPaused(true)}
+        onTouchEnd={() => { setIsPaused(false); syncIndex(); }}
+        className="
+          flex gap-6
+          overflow-x-auto
+          no-scrollbar scrollbar-hide
+          px-5 sm:px-10 lg:px-14
+          pb-2 pt-1
+          cursor-grab active:cursor-grabbing
+          snap-x snap-mandatory
+        "
+        style={{ WebkitOverflowScrolling: 'touch', scrollPaddingLeft: '1.25rem' }}
       >
-        {carouselItems.map((dish, i) => (
+        {signatureHighlights.map((dish, i) => (
           <div
             key={`${dish.name}-${i}`}
+            className="
+              snap-start flex-shrink-0
+              w-[calc(76.9vw-1.5rem)] sm:w-[calc(25%-1.125rem)]
+              min-w-[180px] max-w-[260px]
+              flex flex-col gap-3
+              cursor-pointer group
+            "
             onClick={onOpenMenu}
-            className="w-[220px] sm:w-[245px] md:w-[265px] flex-shrink-0 flex flex-col bg-monarq-paper/40 hover:bg-monarq-paper/80 border border-monarq-gold/30 hover:border-monarq-gold/75 rounded-none sm:rounded-[2px] p-2 sm:p-2.5 transition-colors duration-300 ease-monarch cursor-pointer group shadow-sm"
+            role="button"
+            tabIndex={0}
+            onKeyDown={e => e.key === 'Enter' && onOpenMenu?.()}
+            aria-label={`Voir ${dish.name} dans la carte`}
           >
-            {/* Dominant Image Container — Locked 4:5 Aspect Ratio & Hairline Inset Frame */}
-            <div className="relative aspect-[4/5] w-full overflow-hidden bg-monarq-paper-soft border border-monarq-gold/20 group-hover:border-monarq-gold/45 transition-colors duration-500 rounded-none sm:rounded-[1px] flex-shrink-0">
+            {/* Photo */}
+            <div
+              className="w-full overflow-hidden flex-shrink-0"
+              style={{ aspectRatio: '4/5', borderRadius: '16px' }}
+            >
               <img
                 src={dish.image}
                 alt={dish.name}
-                className="w-full h-full object-cover transition-transform duration-700 ease-monarch group-hover:scale-[1.035] filter contrast-[1.02] brightness-[0.99] saturate-[1.03]"
                 draggable={false}
                 loading="lazy"
+                className="
+                  w-full h-full object-cover
+                  transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]
+                  group-hover:scale-[1.04]
+                "
+                style={{ objectPosition: dish.objectPosition ?? 'center center' }}
               />
             </div>
 
-            {/* Quiet Caption Directly Underneath — Tight Spacing */}
-            <div className="flex flex-col pt-2 sm:pt-2.5 px-0.5">
-              <span className="font-serif text-[10px] uppercase tracking-[0.24em] font-medium text-monarq-gold-deep truncate leading-none mb-1">
-                {dish.category}
-              </span>
-              <h3 className="font-serif text-[14px] sm:text-base text-monarq-ink font-semibold leading-tight tracking-wide truncate group-hover:text-monarq-gold-deep transition-colors">
-                {dish.name}
-              </h3>
-            </div>
+            {/* Name */}
+            <p
+              className="
+                text-center truncate
+                font-editorial font-normal
+                transition-colors duration-200
+                group-hover:text-[#9a7b4f]
+              "
+              style={{
+                fontFamily: '"Cormorant Garamond", "Cormorant SC", Georgia, serif',
+                fontSize: '19px',
+                color: '#1a1a1a',
+                lineHeight: 1.3,
+              }}
+            >
+              {dish.name}
+            </p>
           </div>
         ))}
       </div>

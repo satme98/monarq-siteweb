@@ -19,7 +19,7 @@ export const SectionEyebrow: React.FC<SectionEyebrowProps> = ({
 }) => {
   const reduce = useReducedMotion();
   const isLight = variant === 'light';
-  const textColor = isLight ? 'text-monarq-gold-light' : 'text-monarq-gold-deep';
+  const textColor = isLight ? 'text-monarq-gold-light' : 'text-monarq-ink-soft';
   const diamondColor = 'bg-monarq-gold';
 
   const lineGradientLeft = isLight
@@ -75,14 +75,14 @@ export const SectionEyebrow: React.FC<SectionEyebrowProps> = ({
 
       {/* Left diamond */}
       <motion.span
-        className={`w-1.5 h-1.5 inline-block ${diamondColor} flex-shrink-0 shadow-[0_0_6px_rgba(158,128,80,0.55)]`}
+        className={`w-1.5 h-1.5 inline-block ${diamondColor} flex-shrink-0`}
         variants={diamondVariants}
       />
 
       {/* Label — clip-mask text reveal */}
       <div className="overflow-hidden px-1">
         <motion.span
-          className={`block text-[11px] sm:text-xs uppercase tracking-[0.28em] font-serif font-semibold ${textColor} whitespace-nowrap`}
+          className={`block text-sm sm:text-[15px] uppercase tracking-[0.2em] font-serif font-semibold ${textColor} whitespace-nowrap`}
           variants={{
             hidden: reduce ? { opacity: 0 } : { y: '110%', opacity: 0 },
             visible: {
@@ -102,7 +102,7 @@ export const SectionEyebrow: React.FC<SectionEyebrowProps> = ({
 
       {/* Right diamond */}
       <motion.span
-        className={`w-1.5 h-1.5 inline-block ${diamondColor} flex-shrink-0 shadow-[0_0_6px_rgba(158,128,80,0.55)]`}
+        className={`w-1.5 h-1.5 inline-block ${diamondColor} flex-shrink-0`}
         variants={diamondVariants}
       />
 

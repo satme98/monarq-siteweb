@@ -239,11 +239,11 @@
   /* ── Section label (eyebrow) ── */
   .section-label {
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.24em;
-    color: #785A2D;
+    letter-spacing: 0.2em;
+    color: #2A2320;
   }
 
   /* ── Menu item row ── */
@@ -278,6 +278,16 @@
     display: none !important;
     width: 0 !important;
     height: 0 !important;
+  }
+
+  /* ── Signature carousel snap strip ── */
+  .sig-carousel-strip {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-padding-left: 1.25rem;
+  }
+  .sig-carousel-strip > * {
+    scroll-snap-align: start;
   }
 }
 

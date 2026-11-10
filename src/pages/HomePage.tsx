@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, ArrowUpRight, Calendar, MapPin, Clock, Instagram, ChevronDown } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Calendar, MapPin, Clock, Instagram, ChevronDown, Volume2, VolumeX } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
 import { DroneVideoPlayer } from '../components/DroneVideoPlayer';
 import {
@@ -21,6 +21,124 @@ import { SectionEyebrow } from '../components/SectionEyebrow';
 import { SignatureCarousel } from '../components/SignatureCarousel';
 // HeroSlider replaced by video background
 import { EASE_CINEMATIC, SPRING_SNAP, SPRING_FLUID, DUR } from '../lib/animation';
+
+// ─── Immersion Portrait Video Section ────────────────────────────────────────
+function ImmersionSection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const reduce = useReducedMotion();
+
+  // IntersectionObserver: play when visible, pause when off-screen
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => { });
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  const toggleMute = () => {
+    if (!videoRef.current) return;
+    videoRef.current.muted = !isMuted;
+    setIsMuted(!isMuted);
+  };
+
+  return (
+    <section className="py-16 sm:py-20 md:py-24 bg-monarq-paper">
+      <div
+        className="mx-auto px-5 sm:px-8"
+        style={{ maxWidth: '1100px' }}
+      >
+        {/* ── Two-column layout ── */}
+        <div className="flex flex-col items-center gap-10 md:flex-row md:items-center md:gap-16">
+
+          {/* LEFT — text block */}
+          <div className="flex-1 text-center md:text-left">
+            <FadeUp>
+              <SectionEyebrow align="left">Immersion</SectionEyebrow>
+            </FadeUp>
+            <FadeUp delay={0.1}>
+              <TextReveal delay={0.12} duration={DUR.slow}>
+                <h2 className="font-serif text-3xl sm:text-4xl md:text-[2.6rem] text-monarq-ink font-semibold mb-4 leading-tight">
+                  Au Cœur de Tanger
+                </h2>
+              </TextReveal>
+            </FadeUp>
+            <FadeUp delay={0.22}>
+              <p
+                className="font-sans leading-relaxed font-light max-w-sm mx-auto md:mx-0"
+                style={{ fontSize: '1.0625rem', color: '#2A2320' }}
+              >
+                Découvrez notre verrière et l'ambiance du restaurant en vidéo.
+              </p>
+            </FadeUp>
+          </div>
+
+          {/* RIGHT — portrait video */}
+          <FadeUp delay={0.15}>
+            <div
+              ref={wrapperRef}
+              className="relative flex-shrink-0 overflow-hidden"
+              style={{
+                width: 'min(80vw, 340px)',
+                aspectRatio: '9 / 16',
+                borderRadius: '24px',
+                border: '1px solid #9a7b4f',
+                boxShadow: '0 20px 60px -15px rgba(24,21,18,0.18), 0 4px 16px rgba(24,21,18,0.06)',
+              }}
+            >
+              <video
+                ref={videoRef}
+                src="/videos/monarq-interior-walkthrough.mov"
+                poster="/images/hero-interior.jpg"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
+                }}
+              />
+
+              {/* Mute / Unmute button — bottom-right */}
+              <button
+                onClick={toggleMute}
+                aria-label={isMuted ? 'Activer le son' : 'Couper le son'}
+                className="absolute bottom-4 right-4 z-10 w-9 h-9 flex items-center justify-center rounded-full transition-colors"
+                style={{
+                  background: 'rgba(20,18,16,0.55)',
+                  backdropFilter: 'blur(6px)',
+                  border: '1px solid rgba(154,123,79,0.5)',
+                  color: '#D4C29E',
+                }}
+              >
+                {isMuted
+                  ? <VolumeX className="w-4 h-4" />
+                  : <Volume2 className="w-4 h-4" />
+                }
+              </button>
+            </div>
+          </FadeUp>
+
+        </div>
+      </div>
+    </section>
+  );
+}
 
 // ─── Hero Cycling Label — Brunch / Restaurant / Café ─────────────────────────
 const LABELS = ['Brunch', 'Restaurant', 'Café'] as const;
@@ -298,35 +416,9 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
       </section>
 
       {/* ═══════════════════════════════════════════════════
-          3. CINEMATIC VIDEO INTERLUDE
+          3. IMMERSION — Portrait Video + Text
           ═══════════════════════════════════════════════════ */}
-      <section className="relative pt-12 sm:pt-14 md:pt-16 lg:pt-20 pb-0 bg-monarq-paper overflow-hidden">
-        <div className="max-w-4xl mx-auto px-5 text-center mb-6 sm:mb-8 md:mb-10">
-          <FadeUp>
-            <SectionEyebrow>Immersion</SectionEyebrow>
-            <TextReveal delay={0.1} duration={DUR.slow}>
-              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink font-semibold mb-2 sm:mb-2.5">
-                Au Cœur de Tanger
-              </h2>
-            </TextReveal>
-            <FadeUp delay={0.2}>
-              <p className="text-sm sm:text-base text-monarq-ink-soft leading-relaxed font-light max-w-md mx-auto">
-                Découvrez notre verrière et l'ambiance du restaurant en vidéo.
-              </p>
-            </FadeUp>
-          </FadeUp>
-        </div>
-
-        <ScaleReveal delay={0.05}>
-          <div className="relative w-full h-[45vh] sm:h-[55vh] md:h-[65vh] lg:h-[70vh] overflow-hidden bg-monarq-black">
-            <DroneVideoPlayer
-              src={siteConfig.videos.interiorWalkthrough}
-              poster="/images/tangier-drone-poster.jpg"
-              className="w-full h-full"
-            />
-          </div>
-        </ScaleReveal>
-      </section>
+      <ImmersionSection />
 
       {/* ═══════════════════════════════════════════════════
           4. SPÉCIALITÉS — 3 Instants
@@ -474,17 +566,18 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
           5. PLATS SIGNATURES CAROUSEL
           ═══════════════════════════════════════════════════ */}
       <section className="relative py-12 sm:py-16 md:py-20 lg:py-24 bg-monarq-paper border-b border-monarq-line/60 overflow-hidden">
+        {/* Decorative sketches — fully inside section bounds, never cropped */}
         <img
           src="/images/ornament-waffle.png"
           alt=""
           aria-hidden="true"
-          className="hidden sm:block absolute top-8 md:top-12 lg:top-16 -left-24 md:-left-32 lg:-left-40 xl:-left-48 w-60 md:w-72 lg:w-96 pointer-events-none select-none z-0 mix-blend-multiply opacity-[0.11] filter grayscale contrast-125 sepia-[0.25]"
+          className="hidden lg:block absolute top-6 left-6 w-32 xl:w-40 pointer-events-none select-none z-0 mix-blend-multiply opacity-[0.08] filter grayscale contrast-125 sepia-[0.25]"
         />
         <img
           src="/images/ornament-crepes.png"
           alt=""
           aria-hidden="true"
-          className="hidden sm:block absolute bottom-8 md:bottom-12 lg:bottom-16 -right-24 md:-right-32 lg:-right-40 xl:-right-48 w-60 md:w-72 lg:w-96 pointer-events-none select-none z-0 mix-blend-multiply opacity-[0.11] filter grayscale contrast-125 sepia-[0.25]"
+          className="hidden lg:block absolute bottom-6 right-6 w-32 xl:w-40 pointer-events-none select-none z-0 mix-blend-multiply opacity-[0.08] filter grayscale contrast-125 sepia-[0.25]"
         />
 
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
@@ -541,9 +634,8 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 src={siteConfig.logos.badgeSeal}
                 alt="MONARQ"
                 aria-hidden="true"
-                className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 mx-auto opacity-90 drop-shadow-[0_4px_16px_rgba(158,128,80,0.25)] hover:scale-105 transition-transform duration-500 ease-monarch ${
-                  reduce ? '' : 'animate-seal-float'
-                }`}
+                className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 mx-auto opacity-90 drop-shadow-[0_4px_16px_rgba(158,128,80,0.25)] hover:scale-105 transition-transform duration-500 ease-monarch ${reduce ? '' : 'animate-seal-float'
+                  }`}
               />
             </div>
             <SectionEyebrow>Réservations</SectionEyebrow>
@@ -589,7 +681,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   <span>Réserver en ligne</span>
                 </motion.button>
               </MagneticWrapper>
-              
+
               <MagneticWrapper strength={0.15}>
                 <motion.a
                   href={siteConfig.whatsappUrl}

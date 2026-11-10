@@ -38,13 +38,7 @@ export function App() {
     setIsUnlocked(false);
   };
 
-  // Initialise Lenis smooth scroll once when site is active (wired to GSAP ticker)
-  // Skipped automatically when prefers-reduced-motion is active
-  useEffect(() => {
-    if (isMaintenance) return;
-    const cleanup = initLenis();
-    return cleanup;
-  }, [isMaintenance]);
+  // Lenis smooth scroll intentionally disabled — native browser scroll is used instead.
 
   // Scroll to top when tab changes
   useEffect(() => {

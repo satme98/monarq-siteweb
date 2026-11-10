@@ -14,7 +14,7 @@ export default {
           white: '#FFFFFF',
           ink: '#141210',
           black: '#0A0A0A',
-          'ink-soft': '#3D352E',
+          'ink-soft': '#2A2320',
           'ink-muted': '#685C50',
           gold: '#9E8050',
           'gold-light': '#D4C29E',
