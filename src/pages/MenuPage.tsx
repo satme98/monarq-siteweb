@@ -6,7 +6,11 @@ import { SectionEyebrow } from '../components/SectionEyebrow';
 import { EASE_CINEMATIC } from '../lib/animation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-export default function MenuPage() {
+interface MenuPageProps {
+  onSwitchToDigitalMenu?: () => void;
+}
+
+export default function MenuPage({ onSwitchToDigitalMenu }: MenuPageProps = {}) {
   const [activeIdx, setActiveIdx] = useState(0);
   const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
   const reduce = useReducedMotion();
@@ -63,13 +67,27 @@ export default function MenuPage() {
             Une sélection de créations signatures et de mets préparés avec des ingrédients de premier choix.
           </p>
         </FadeUp>
+        {onSwitchToDigitalMenu && (
+          <FadeUp delay={0.5}>
+            <div className="mt-5">
+              <button
+                type="button"
+                onClick={onSwitchToDigitalMenu}
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full btn-dark text-xs font-semibold uppercase tracking-[0.18em] shadow-luxury group"
+              >
+                <span>Commander en ligne</span>
+                <ChevronRight className="w-3.5 h-3.5 text-monarq-gold-light transition-transform group-hover:translate-x-1" />
+              </button>
+            </div>
+          </FadeUp>
+        )}
       </section>
 
       {/* ── Chapter Tab Nav ──────────────────────────────────────── */}
       <div className="bg-monarq-paper/95 backdrop-blur-md border-b border-monarq-line shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
           <nav
-            className="flex flex-wrap items-end justify-center"
+            className="flex items-end justify-start md:justify-center overflow-x-auto no-scrollbar"
             aria-label="Chapitres du menu"
           >
             {menuChapters.map((ch, idx) => (
@@ -77,8 +95,8 @@ export default function MenuPage() {
                 key={ch.id}
                 onClick={() => goTo(idx)}
                 className={`
-                  relative px-4 sm:px-6 py-3 sm:py-3.5
-                  font-sans text-xs sm:text-[13px] tracking-[0.16em] uppercase font-bold
+                  relative flex-shrink-0 whitespace-nowrap px-4 sm:px-5 lg:px-6 py-3 sm:py-3.5
+                  font-sans text-xs sm:text-[13px] tracking-[0.14em] sm:tracking-[0.16em] uppercase font-bold
                   transition-colors duration-300 focus:outline-none focus-visible:ring-1 focus-visible:ring-monarq-gold
                   ${
                     activeIdx === idx
@@ -201,19 +219,21 @@ export default function MenuPage() {
             </StaggerGroup>
 
             {/* Prev / Next chapter navigation */}
-            <div className="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-monarq-line flex items-center justify-between">
+            <div className="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-monarq-line flex items-center justify-between gap-2">
               <button
                 onClick={goPrev}
                 disabled={activeIdx === 0}
-                className={`flex items-center gap-2 font-sans text-xs sm:text-[13px] tracking-[0.18em] uppercase font-bold transition-colors duration-200 group
+                className={`flex items-center gap-1.5 sm:gap-2 font-sans text-[11px] sm:text-[13px] tracking-[0.12em] sm:tracking-[0.18em] uppercase font-bold transition-colors duration-200 group min-w-0
                   ${activeIdx === 0 ? 'opacity-25 pointer-events-none' : 'text-monarq-ink hover:text-monarq-gold-deep'}`}
               >
-                <ChevronLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1" />
-                {activeIdx > 0 ? menuChapters[activeIdx - 1].title : ''}
+                <ChevronLeft className="w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:-translate-x-1" />
+                <span className="truncate max-w-[100px] sm:max-w-none">
+                  {activeIdx > 0 ? menuChapters[activeIdx - 1].title : ''}
+                </span>
               </button>
 
               {/* Page dots */}
-              <div className="flex items-center gap-1.5 sm:gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
                 {menuChapters.map((_, i) => (
                   <button
                     key={i}
@@ -231,11 +251,13 @@ export default function MenuPage() {
               <button
                 onClick={goNext}
                 disabled={activeIdx === menuChapters.length - 1}
-                className={`flex items-center gap-2 font-sans text-xs sm:text-[13px] tracking-[0.18em] uppercase font-bold transition-colors duration-200 group
+                className={`flex items-center gap-1.5 sm:gap-2 font-sans text-[11px] sm:text-[13px] tracking-[0.12em] sm:tracking-[0.18em] uppercase font-bold transition-colors duration-200 group min-w-0
                   ${activeIdx === menuChapters.length - 1 ? 'opacity-25 pointer-events-none' : 'text-monarq-ink hover:text-monarq-gold-deep'}`}
               >
-                {activeIdx < menuChapters.length - 1 ? menuChapters[activeIdx + 1].title : ''}
-                <ChevronRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+                <span className="truncate max-w-[100px] sm:max-w-none">
+                  {activeIdx < menuChapters.length - 1 ? menuChapters[activeIdx + 1].title : ''}
+                </span>
+                <ChevronRight className="w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
             </div>
           </motion.div>

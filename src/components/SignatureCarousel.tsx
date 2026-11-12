@@ -162,8 +162,8 @@ export const SignatureCarousel: React.FC<SignatureCarouselProps> = ({ onOpenMenu
             key={`${dish.name}-${i}`}
             className="
               snap-start flex-shrink-0
-              w-[calc(76.9vw-1.5rem)] sm:w-[calc(25%-1.125rem)]
-              min-w-[180px] max-w-[260px]
+              w-[calc(76vw-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]
+              min-w-[190px] max-w-[270px]
               flex flex-col gap-3
               cursor-pointer group
             "

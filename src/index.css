@@ -20,6 +20,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    overflow-x: clip;
   }
   
   body {
@@ -29,6 +30,7 @@
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.65;
+    overflow-x: clip;
   }
 
   /* Display Titling Serif */
@@ -43,8 +45,8 @@
     font-weight: 500;
   }
 
-  p, li, span, label, td {
-    word-break: break-word;
+  p, li, td {
+    overflow-wrap: break-word;
   }
 
   img {
@@ -136,6 +138,7 @@
     color: #FFFFFF;
     font-weight: 600;
     letter-spacing: 0.2em;
+    white-space: nowrap;
     overflow: hidden;
     /* Only transition transform — no box-shadow */
     transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1), background 280ms ease;
@@ -172,7 +175,6 @@
   }
   .btn-gold:hover {
     background: linear-gradient(135deg, #B29360 0%, #8C6A36 100%);
-    transform: translateY(-2px) translateZ(0);
   }
   .btn-gold:hover::after { opacity: 1; }
   .btn-gold:active { transform: translateY(0) scale(0.97) translateZ(0); }
@@ -185,6 +187,7 @@
     color: #FDFAF5;
     font-weight: 600;
     letter-spacing: 0.2em;
+    white-space: nowrap;
     transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1), background-color 250ms ease;
     transform: translateY(0) translateZ(0);
     overflow: hidden;
@@ -201,7 +204,6 @@
   }
   .btn-dark:hover {
     background-color: #0A0A0A;
-    transform: translateY(-2px) translateZ(0);
   }
   .btn-dark:hover::after { opacity: 1; }
   .btn-dark:active { transform: translateY(0) scale(0.97) translateZ(0); }
@@ -214,6 +216,7 @@
     color: #141210;
     font-weight: 600;
     letter-spacing: 0.2em;
+    white-space: nowrap;
     transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1), border-color 250ms ease, background-color 250ms ease;
     transform: translateY(0) translateZ(0);
     overflow: hidden;
@@ -231,7 +234,6 @@
   .btn-ghost:hover {
     border-color: #785A2D;
     background: rgba(158, 128, 80, 0.07);
-    transform: translateY(-2px) translateZ(0);
   }
   .btn-ghost:hover::after { opacity: 1; }
   .btn-ghost:active { transform: translateY(0) scale(0.97) translateZ(0); }

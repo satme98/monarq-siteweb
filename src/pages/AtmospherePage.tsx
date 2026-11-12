@@ -289,7 +289,6 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
             <motion.button
               onClick={onOpenReservation}
               className="btn-gold px-8 sm:px-9 py-3 sm:py-3.5 text-xs uppercase tracking-[0.22em] font-semibold rounded-full shadow-luxury"
-              whileHover={reduce ? {} : { scale: 1.02, y: -1 }}
               whileTap={reduce ? {} : { scale: 0.96 }}
             >
               Réserver une table

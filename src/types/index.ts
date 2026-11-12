@@ -7,10 +7,17 @@ export interface MenuItem {
   isSpicy?: boolean;
   isVegetarian?: boolean;
   isFridaySpecial?: boolean;
+  popular?: boolean;
   tag?: string;
   image?: string;
   category: string;
   chapter: string;
+}
+
+export interface CartItem {
+  item: MenuItem;
+  quantity: number;
+  notes?: string;
 }
 
 export interface MenuCategory {

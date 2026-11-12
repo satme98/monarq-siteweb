@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, ArrowUpRight, Calendar, MapPin, Clock, Instagram, ChevronDown, Volume2, VolumeX } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Calendar, MapPin, Clock, Instagram, ChevronDown, Volume2, VolumeX, Leaf, Coffee } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
 import { DroneVideoPlayer } from '../components/DroneVideoPlayer';
 import {
@@ -23,7 +23,29 @@ import { SignatureCarousel } from '../components/SignatureCarousel';
 import { EASE_CINEMATIC, SPRING_SNAP, SPRING_FLUID, DUR } from '../lib/animation';
 
 // ─── Immersion Portrait Video Section ────────────────────────────────────────
-function ImmersionSection() {
+interface ImmersionSectionProps {
+  onOpenReservation: () => void;
+}
+
+const IMMERSION_HIGHLIGHTS = [
+  {
+    icon: Leaf,
+    label: 'La verrière :',
+    text: 'lumière naturelle toute la journée',
+  },
+  {
+    icon: Coffee,
+    label: 'Du matin à minuit :',
+    text: 'brunch, déjeuner, dîner',
+  },
+  {
+    icon: MapPin,
+    label: 'Avenue Marrakech :',
+    text: 'à deux pas du Riad Tétouan',
+  },
+] as const;
+
+function ImmersionSection({ onOpenReservation }: ImmersionSectionProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [isMuted, setIsMuted] = useState(true);
@@ -54,85 +76,192 @@ function ImmersionSection() {
   };
 
   return (
-    <section className="py-16 sm:py-20 md:py-24 bg-monarq-paper">
+    <section className="py-16 sm:py-20 md:py-24 bg-monarq-paper relative overflow-hidden border-b border-monarq-line/50">
       <div
-        className="mx-auto px-5 sm:px-8"
-        style={{ maxWidth: '1100px' }}
+        className="mx-auto px-5 sm:px-8 lg:px-12"
+        style={{ maxWidth: '1180px' }}
       >
         {/* ── Two-column layout ── */}
-        <div className="flex flex-col items-center gap-10 md:flex-row md:items-center md:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
-          {/* LEFT — text block */}
-          <div className="flex-1 text-center md:text-left">
+          {/* LEFT — aligned with video */}
+          <div className="lg:col-span-7 text-left">
             <FadeUp>
-              <SectionEyebrow align="left">Immersion</SectionEyebrow>
+              <SectionEyebrow align="left">IMMERSION</SectionEyebrow>
             </FadeUp>
-            <FadeUp delay={0.1}>
-              <TextReveal delay={0.12} duration={DUR.slow}>
-                <h2 className="font-serif text-3xl sm:text-4xl md:text-[2.6rem] text-monarq-ink font-semibold mb-4 leading-tight">
+
+            <FadeUp delay={0.08}>
+              <TextReveal delay={0.1} duration={DUR.slow}>
+                <h2 className="font-serif text-3xl sm:text-4xl md:text-[2.75rem] text-monarq-ink font-semibold mb-4 leading-tight">
                   Au Cœur de Tanger
                 </h2>
               </TextReveal>
             </FadeUp>
-            <FadeUp delay={0.22}>
+
+            <FadeUp delay={0.16}>
               <p
-                className="font-sans leading-relaxed font-normal max-w-sm mx-auto md:mx-0 text-monarq-ink-soft"
+                className="font-sans leading-relaxed font-normal max-w-xl text-monarq-ink-soft mb-6 sm:mb-7"
                 style={{ fontSize: '1.0625rem' }}
               >
-                Découvrez notre verrière et l'ambiance du restaurant en vidéo.
+                Sous notre verrière, la lumière de Tanger inonde le marbre et les plantes. Du premier café au dîner, chaque moment est pensé pour se poser, se retrouver et savourer.
               </p>
+            </FadeUp>
+
+            {/* Three short highlights with gold icons */}
+            <FadeUp delay={0.22}>
+              <ul className="space-y-3.5 sm:space-y-4 mb-7 sm:mb-8">
+                {IMMERSION_HIGHLIGHTS.map(({ icon: Icon, label, text }) => (
+                  <li key={label} className="flex items-start sm:items-center gap-3.5">
+                    <span className="w-9 h-9 rounded-xl bg-monarq-gold/12 border border-monarq-gold/30 flex items-center justify-center flex-shrink-0 shadow-sm">
+                      <Icon className="w-4 h-4 text-monarq-gold-deep" />
+                    </span>
+                    <span className="font-sans text-sm sm:text-[15px] text-monarq-ink-soft leading-snug">
+                      <strong className="font-semibold text-monarq-ink">{label}</strong>{' '}
+                      {text}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </FadeUp>
+
+            {/* Two CTA buttons */}
+            <FadeUp delay={0.28}>
+              <div className="flex flex-wrap items-center gap-3.5 sm:gap-4">
+                <MagneticWrapper strength={0.18}>
+                  <motion.button
+                    onClick={onOpenReservation}
+                    className="px-7 sm:px-8 py-3.5 rounded-full btn-gold text-xs uppercase tracking-[0.2em] font-semibold shadow-luxury inline-flex items-center gap-2.5"
+                    whileTap={reduce ? {} : { scale: 0.96 }}
+                    transition={SPRING_SNAP}
+                  >
+                    <Calendar className="w-3.5 h-3.5 text-white" />
+                    <span>Réserver une table</span>
+                  </motion.button>
+                </MagneticWrapper>
+
+                <MagneticWrapper strength={0.15}>
+                  <motion.a
+                    href={siteConfig.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 sm:px-7 py-3.5 rounded-full btn-ghost text-xs uppercase tracking-[0.2em] font-semibold inline-flex items-center gap-2"
+                    whileTap={reduce ? {} : { scale: 0.96 }}
+                    transition={SPRING_SNAP}
+                  >
+                    <span>Voir l'itinéraire</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-monarq-gold-deep" />
+                  </motion.a>
+                </MagneticWrapper>
+              </div>
             </FadeUp>
           </div>
 
-          {/* RIGHT — portrait video */}
-          <FadeUp delay={0.15}>
-            <div
-              ref={wrapperRef}
-              className="relative flex-shrink-0 overflow-hidden"
-              style={{
-                width: 'min(80vw, 340px)',
-                aspectRatio: '9 / 16',
-                borderRadius: '24px',
-                border: '1px solid #9a7b4f',
-                boxShadow: '0 20px 60px -15px rgba(24,21,18,0.18), 0 4px 16px rgba(24,21,18,0.06)',
-              }}
-            >
-              <video
-                ref={videoRef}
-                src="/videos/monarq-interior-walkthrough.mov"
-                poster="/images/hero-interior.jpg"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  display: 'block',
-                }}
-              />
+          {/* RIGHT — phone-ratio video + soft gold frame + floating info card */}
+          <div className="lg:col-span-5 flex flex-col items-center">
+            <FadeUp delay={0.15}>
+              <div className="relative flex flex-col items-center">
+                {/* Video + Soft Gold Frame wrapper */}
+                <div className="relative">
+                  {/* Soft ambient gold halo */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute -inset-5 rounded-[34px] bg-gradient-to-tr from-monarq-gold/25 via-monarq-gold/10 to-transparent blur-xl pointer-events-none"
+                  />
 
-              {/* Mute / Unmute button — bottom-right */}
-              <button
-                onClick={toggleMute}
-                aria-label={isMuted ? 'Activer le son' : 'Couper le son'}
-                className="absolute bottom-4 right-4 z-10 w-9 h-9 flex items-center justify-center rounded-full transition-colors"
-                style={{
-                  background: 'rgba(20,18,16,0.55)',
-                  backdropFilter: 'blur(6px)',
-                  border: '1px solid rgba(154,123,79,0.5)',
-                  color: '#D4C29E',
-                }}
-              >
-                {isMuted
-                  ? <VolumeX className="w-4 h-4" />
-                  : <Volume2 className="w-4 h-4" />
-                }
-              </button>
-            </div>
-          </FadeUp>
+                  {/* Soft gold architectural frame behind the video */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 translate-x-3 translate-y-3 sm:translate-x-4 sm:translate-y-4 rounded-[26px] border border-monarq-gold/45 bg-gradient-to-br from-monarq-gold/18 via-monarq-gold/8 to-monarq-paper-soft/60 shadow-gold-glow pointer-events-none"
+                  />
+
+                  {/* Phone-ratio video container */}
+                  <div
+                    ref={wrapperRef}
+                    className="relative z-10 flex-shrink-0 overflow-hidden bg-monarq-black"
+                    style={{
+                      width: 'min(80vw, 330px)',
+                      aspectRatio: '9 / 16',
+                      borderRadius: '24px',
+                      border: '1px solid rgba(158, 128, 80, 0.65)',
+                      boxShadow: '0 22px 60px -15px rgba(24,21,18,0.22), 0 4px 16px rgba(24,21,18,0.08)',
+                    }}
+                  >
+                    <video
+                      ref={videoRef}
+                      src="/videos/Localisation-monarq.mp4"
+                      poster="/images/localisation-monarq-poster.jpg"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: 'block',
+                      }}
+                    />
+
+                    {/* Subtle corner mute button inside video */}
+                    <button
+                      onClick={toggleMute}
+                      aria-label={isMuted ? 'Activer le son' : 'Couper le son'}
+                      className="absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center rounded-full transition-colors"
+                      style={{
+                        background: 'rgba(20,18,16,0.55)',
+                        backdropFilter: 'blur(6px)',
+                        border: '1px solid rgba(154,123,79,0.5)',
+                        color: '#D4C29E',
+                      }}
+                    >
+                      {isMuted
+                        ? <VolumeX className="w-4 h-4" />
+                        : <Volume2 className="w-4 h-4" />
+                      }
+                    </button>
+                  </div>
+
+                  {/* Floating info card */}
+                  <div className="absolute left-3 right-3 sm:right-auto sm:-left-6 bottom-5 sm:bottom-8 z-20 bg-monarq-paper/95 backdrop-blur-md border border-monarq-gold/40 rounded-2xl px-3.5 sm:px-4 py-2.5 sm:py-3 shadow-luxury-lg flex items-center gap-3 sm:max-w-[260px]">
+                    <div className="w-9 h-9 rounded-xl bg-monarq-gold/15 border border-monarq-gold/30 flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-4 h-4 text-monarq-gold-deep" />
+                    </div>
+                    <div className="text-left min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse flex-shrink-0" />
+                        <p className="font-serif text-[11px] sm:text-xs uppercase tracking-[0.12em] sm:tracking-[0.16em] text-monarq-gold-deep font-bold whitespace-nowrap">
+                          Ouvert 7j/7 · 09h–00h
+                        </p>
+                      </div>
+                      <p className="font-sans text-xs text-monarq-ink font-medium mt-0.5 leading-snug truncate">
+                        Av. Marrakech · Riad Tétouan
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Small "Son activé / coupé" toggle under the video */}
+                <button
+                  type="button"
+                  onClick={toggleMute}
+                  className="mt-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-monarq-paper-soft border border-monarq-gold/35 hover:border-monarq-gold text-xs font-medium text-monarq-ink-soft hover:text-monarq-ink transition-colors shadow-sm"
+                >
+                  {isMuted ? (
+                    <>
+                      <VolumeX className="w-3.5 h-3.5 text-monarq-gold-deep" />
+                      <span>Son coupé · Activer le son</span>
+                    </>
+                  ) : (
+                    <>
+                      <Volume2 className="w-3.5 h-3.5 text-monarq-gold-deep" />
+                      <span>Son activé · Couper le son</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </FadeUp>
+          </div>
 
         </div>
       </div>
@@ -198,7 +327,7 @@ const HeroCyclingLabel: React.FC<HeroCyclingLabelProps> = ({ reduce }) => {
       </div>
 
       {/* Flip slot */}
-      <div className="relative" style={{ height: '3.4rem', minWidth: '14rem' }}>
+      <div className="relative h-[2.6rem] sm:h-[3.4rem] min-w-[10.5rem] sm:min-w-[14rem]">
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
             key={LABELS[index]}
@@ -207,7 +336,7 @@ const HeroCyclingLabel: React.FC<HeroCyclingLabelProps> = ({ reduce }) => {
             animate="center"
             exit="exit"
             className="absolute inset-0 flex items-center justify-center font-editorial italic font-normal text-white/90 whitespace-nowrap drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]"
-            style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3rem)', lineHeight: 1 }}
+            style={{ fontSize: 'clamp(1.65rem, 4.5vw, 3rem)', lineHeight: 1 }}
           >
             {LABELS[index]}
           </motion.span>
@@ -365,11 +494,41 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                     MONARQ réunit le raffinement d'un décor en marbre sous verrière et la passion des produits nobles. Un havre chic et chaleureux pensé pour savourer chaque instant.
                   </p>
                 </FadeUp>
+
+                {/* 3 Key Figures */}
+                <FadeUp delay={0.2}>
+                  <div className="grid grid-cols-3 gap-2.5 sm:gap-4 py-4 sm:py-5 mb-5 sm:mb-6 border-y border-monarq-gold/25">
+                    <div>
+                      <p className="font-serif text-xl sm:text-2xl xl:text-3xl text-monarq-gold-deep font-semibold leading-none whitespace-nowrap">
+                        7j/7
+                      </p>
+                      <p className="font-sans text-[11px] sm:text-xs text-monarq-ink-soft mt-1.5 font-medium">
+                        Service continu
+                      </p>
+                    </div>
+                    <div className="border-l border-monarq-gold/20 pl-2.5 sm:pl-4">
+                      <p className="font-serif text-xl sm:text-2xl xl:text-3xl text-monarq-gold-deep font-semibold leading-none whitespace-nowrap">
+                        09h–00h
+                      </p>
+                      <p className="font-sans text-[11px] sm:text-xs text-monarq-ink-soft mt-1.5 font-medium">
+                        Du matin à minuit
+                      </p>
+                    </div>
+                    <div className="border-l border-monarq-gold/20 pl-2.5 sm:pl-4">
+                      <p className="font-serif text-xl sm:text-2xl xl:text-3xl text-monarq-gold-deep font-semibold leading-none whitespace-nowrap">
+                        +80
+                      </p>
+                      <p className="font-sans text-[11px] sm:text-xs text-monarq-ink-soft mt-1.5 font-medium">
+                        Plats signature
+                      </p>
+                    </div>
+                  </div>
+                </FadeUp>
+
                 <FadeUp delay={0.25}>
                   <motion.button
                     onClick={() => goTo('atmosphere')}
                     className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.22em] font-semibold text-monarq-ink hover:text-monarq-gold-deep transition-colors arrow-link"
-                    whileHover={reduce ? {} : { x: 2 }}
                     transition={SPRING_FLUID}
                   >
                     <span>Découvrir le lieu</span>
@@ -379,10 +538,10 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
               </SlideLeft>
             </div>
 
-            {/* Asymmetric image composition */}
+            {/* Equal-height image composition */}
             <div className="lg:col-span-7 relative">
-              <div className="grid grid-cols-12 gap-3 sm:gap-4">
-                <div className="col-span-8">
+              <div className="grid grid-cols-12 gap-3 sm:gap-4 items-stretch">
+                <div className="col-span-7">
                   <ImageReveal delay={0.05} duration={1.1}>
                     <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
                       <img
@@ -394,18 +553,14 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   </ImageReveal>
                 </div>
 
-                <div className="col-span-4 pt-6 sm:pt-8 md:pt-12">
-                  <ImageReveal delay={0.25} duration={1.0}>
+                <div className="col-span-5">
+                  <ImageReveal delay={0.2} duration={1.0}>
                     <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
                       <img
                         src="/images/concept-terrace.jpg"
                         alt="Accueil MONARQ"
-                        className="w-full h-40 sm:h-52 md:h-64 lg:h-72 object-cover hover-scale-img"
+                        className="w-full h-64 sm:h-80 md:h-[380px] lg:h-[420px] object-cover hover-scale-img"
                       />
-                    </div>
-                    <div className="mt-2.5 sm:mt-3 p-2.5 sm:p-3 bg-monarq-paper-soft/80 backdrop-blur-sm rounded-xl border border-monarq-gold/20 hidden sm:block">
-                      <p className="font-serif text-xs sm:text-[13px] text-monarq-gold-deep tracking-wider uppercase font-bold">Tanger</p>
-                      <p className="text-xs text-monarq-ink mt-0.5 font-medium">À proximité du Riad Tétouan</p>
                     </div>
                   </ImageReveal>
                 </div>
@@ -418,7 +573,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
       {/* ═══════════════════════════════════════════════════
           3. IMMERSION — Portrait Video + Text
           ═══════════════════════════════════════════════════ */}
-      <ImmersionSection />
+      <ImmersionSection onOpenReservation={onOpenReservation} />
 
       {/* ═══════════════════════════════════════════════════
           4. SPÉCIALITÉS — 3 Instants
@@ -475,7 +630,6 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   <motion.button
                     onClick={() => goTo('menu')}
                     className="text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors inline-flex items-center gap-2 group arrow-link"
-                    whileHover={reduce ? {} : { x: 2 }}
                     transition={SPRING_FLUID}
                   >
                     <span>Découvrir</span>
@@ -501,7 +655,6 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   <motion.button
                     onClick={() => goTo('menu')}
                     className="text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors inline-flex items-center gap-2 group arrow-link"
-                    whileHover={reduce ? {} : { x: 2 }}
                     transition={SPRING_FLUID}
                   >
                     <span>Explorer les brunchs</span>
@@ -549,7 +702,6 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   <motion.button
                     onClick={() => goTo('menu')}
                     className="text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors inline-flex items-center gap-2 group arrow-link"
-                    whileHover={reduce ? {} : { x: 2 }}
                     transition={SPRING_FLUID}
                   >
                     <span>Découvrir la cuisine</span>
@@ -674,7 +826,6 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   onClick={onOpenReservation}
                   className="px-7 sm:px-8 py-3 sm:py-3.5 rounded-full btn-gold text-xs uppercase tracking-[0.22em] font-semibold shadow-luxury hover:shadow-luxury-lg flex items-center justify-center gap-2"
                   whileTap={reduce ? {} : { scale: 0.96 }}
-                  whileHover={reduce ? {} : { scale: 1.02 }}
                   transition={SPRING_SNAP}
                 >
                   <Calendar className="w-4 h-4 text-white" />
@@ -688,7 +839,6 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full btn-ghost text-xs uppercase tracking-[0.22em] font-semibold flex items-center justify-center gap-2 bg-white/60 backdrop-blur-sm"
-                  whileHover={reduce ? {} : { y: -2, scale: 1.01 }}
                   whileTap={reduce ? {} : { scale: 0.96 }}
                   transition={SPRING_SNAP}
                 >
@@ -719,7 +869,6 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors arrow-link"
-                whileHover={reduce ? {} : { x: 2 }}
                 transition={SPRING_FLUID}
               >
                 <span>Instagram</span>
@@ -730,7 +879,12 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
 
           {/* Instagram grid — accordion stagger with ImageReveal */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
-            {['/images/insta-1.jpg', '/images/insta-2.jpg', '/images/insta-3.jpg', '/images/insta-4.jpg'].map(
+            {[
+              '/images/photographer/_DSC6976.jpg',
+              '/images/photographer/_DSC7015.jpg',
+              '/images/photographer/_DSC7124.jpg',
+              '/images/photographer/_DSC6971-Modifier.jpg',
+            ].map(
               (src, i) => (
                 <ImageReveal key={i} delay={i * 0.07} duration={0.9}>
                   <a

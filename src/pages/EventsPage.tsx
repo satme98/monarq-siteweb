@@ -155,7 +155,6 @@ export default function EventsPage({ onOpenReservation }: EventsPageProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-center gap-2.5 px-7 py-3.5 rounded-full btn-gold text-xs uppercase tracking-[0.2em] font-semibold shadow-luxury"
-                  whileHover={reduce ? {} : { y: -1, scale: 1.01 }}
                   whileTap={reduce ? {} : { scale: 0.96 }}
                   transition={SPRING_SNAP}
                 >
@@ -299,7 +298,6 @@ export default function EventsPage({ onOpenReservation }: EventsPageProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2 font-sans text-xs uppercase tracking-[0.22em] text-monarq-gold-deep font-semibold hover:text-monarq-ink transition-colors"
-                whileHover={reduce ? {} : { x: 2 }}
                 transition={SPRING_FLUID}
               >
                 <span>Demander un devis personnalisé</span>
@@ -491,7 +489,6 @@ export default function EventsPage({ onOpenReservation }: EventsPageProps) {
             <motion.button
               onClick={onOpenReservation}
               className="btn-gold px-9 py-3.5 text-xs uppercase tracking-[0.22em] font-semibold rounded-full shadow-luxury"
-              whileHover={reduce ? {} : { y: -1, scale: 1.01 }}
               whileTap={reduce ? {} : { scale: 0.96 }}
               transition={SPRING_SNAP}
             >

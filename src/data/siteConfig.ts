@@ -13,6 +13,7 @@ export const siteConfig = {
   instagram: 'https://www.instagram.com/monarq.tanger/?hl=en',
   instagramHandle: '@monarq.tanger',
   mapsUrl: 'https://maps.app.goo.gl/xrn8792TuDMeojBo9',
+  mapsEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3237.38!2d-5.8042041!3d35.768218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd0b81877a4e3dc5%3A0x20398447b41ad260!2sMonarq%20Tanger!5e0!3m2!1sfr!2sma!4v1710000000000!5m2!1sfr!2sma',
   openingHours: [
     { days: 'Tous les jours', hours: '09h00 — 00h00', note: 'Service continu' },
     { days: 'Service Brunch', hours: '09h00 — 14h00', note: 'Tous les matins' },

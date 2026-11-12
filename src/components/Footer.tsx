@@ -88,7 +88,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
           />
           <div className="overflow-hidden">
             <motion.span
-              className="block text-[11px] sm:text-xs uppercase tracking-[0.28em] sm:tracking-[0.32em] font-serif text-monarq-gold-light font-semibold text-center"
+              className="block text-[10px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.32em] font-serif text-monarq-gold-light font-semibold text-center whitespace-nowrap"
               variants={labelVariants}
             >
               Maison de Gastronomie · Tanger
@@ -108,13 +108,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
 
         {/* 4-column grid — staggered FadeUp per column */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-8 lg:gap-10 xl:gap-12 pb-10 sm:pb-12 md:pb-14 border-b border-white/10"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-8 lg:gap-8 xl:gap-10 pb-10 sm:pb-12 md:pb-14 border-b border-white/10"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.05 }}
         >
           {/* Column 1: Brand & Social */}
-          <motion.div className="space-y-4 lg:col-span-4 lg:pr-6" custom={0} variants={colVariants}>
+          <motion.div className="space-y-4 lg:col-span-3 xl:pr-4" custom={0} variants={colVariants}>
             <img src={siteConfig.logos.white} alt="MONARQ" className="h-9 sm:h-10 w-auto" />
             <p className="text-xs sm:text-sm text-gray-200 font-normal leading-relaxed max-w-sm">
               L'art de recevoir et la passion du goût à Tanger. Grands brunchs, cuisine raffinée et café d'auteur.
@@ -209,7 +209,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group inline-flex items-center gap-1.5 text-monarq-gold-light hover:text-white transition-colors font-semibold text-xs uppercase tracking-[0.22em]"
-                  whileHover={reduce ? {} : { x: 2 }}
                   transition={SPRING_FLUID}
                 >
                   <span>Ouvrir dans Google Maps</span>
@@ -220,7 +219,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
           </motion.div>
 
           {/* Column 4: Reservations CTA */}
-          <motion.div className="space-y-3.5 lg:col-span-2 flex flex-col justify-between" custom={3} variants={colVariants}>
+          <motion.div className="space-y-3.5 lg:col-span-3 flex flex-col justify-between" custom={3} variants={colVariants}>
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <Sparkles className="w-4 h-4 text-monarq-gold flex-shrink-0" />
@@ -234,14 +233,44 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
             </div>
             <motion.button
               onClick={onOpenReservation}
-              className="w-full py-3 px-4 rounded-full btn-gold text-xs uppercase tracking-[0.2em] font-semibold shadow-luxury text-center"
-              whileHover={reduce ? {} : { scale: 1.02, y: -1 }}
+              className="w-full py-3 px-5 rounded-full btn-gold text-[11px] xl:text-xs uppercase tracking-[0.15em] xl:tracking-[0.18em] font-semibold shadow-luxury text-center whitespace-nowrap"
               whileTap={reduce ? {} : { scale: 0.96, y: 0 }}
               transition={SPRING_SNAP}
             >
               Réserver une Table
             </motion.button>
           </motion.div>
+        </motion.div>
+
+        {/* Embedded Google Map */}
+        <motion.div
+          className="pt-8 sm:pt-10 pb-8 sm:pb-10 border-b border-white/10"
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: reduce ? 0.15 : 0.65, ease: EASE_CINEMATIC }}
+        >
+          <div className="relative rounded-2xl overflow-hidden border border-monarq-gold/35 shadow-luxury bg-white/5">
+            <iframe
+              src={siteConfig.mapsEmbedUrl}
+              title="Localisation MONARQ Tanger — Google Maps"
+              className="w-full h-56 sm:h-64 md:h-72 block"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+            <a
+              href={siteConfig.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute bottom-3 right-3 z-10 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-monarq-black/85 hover:bg-monarq-black text-monarq-gold-light hover:text-white border border-monarq-gold/40 backdrop-blur-md text-[11px] uppercase tracking-[0.18em] font-semibold transition-colors shadow-lg"
+            >
+              <MapPin className="w-3 h-3 text-monarq-gold" />
+              <span>Itinéraire Google Maps</span>
+              <ArrowUpRight className="w-3 h-3 text-monarq-gold" />
+            </a>
+          </div>
         </motion.div>
 
         {/* Bottom bar */}
@@ -254,22 +283,22 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
             <p>© {new Date().getFullYear()} MONARQ Tanger. Tous droits réservés.</p>
           </div>
 
-          <div className="flex items-center gap-8">
+          <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-8">
             <button
               onClick={() => { setActiveTab('menu'); scrollToTop(); }}
-              className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand"
+              className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand whitespace-nowrap"
             >
               La Carte
             </button>
             <button
               onClick={() => { setActiveTab('apropos'); scrollToTop(); }}
-              className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand"
+              className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand whitespace-nowrap"
             >
               À Propos
             </button>
             <button
               onClick={() => { setActiveTab('contact'); scrollToTop(); }}
-              className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand"
+              className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand whitespace-nowrap"
             >
               Contact
             </button>

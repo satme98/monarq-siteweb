@@ -127,13 +127,13 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
               />
               <div className="absolute inset-0 bg-gradient-to-t from-monarq-ink/50 via-transparent to-transparent" />
               {/* Floating badge */}
-              <div className="absolute bottom-6 left-6 right-6">
-                <div className="inline-flex items-center gap-2 bg-black/30 backdrop-blur-sm border border-white/20 rounded-full px-3.5 py-1.5">
+              <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
+                <div className="inline-flex items-center gap-2 bg-black/30 backdrop-blur-sm border border-white/20 rounded-full px-3 sm:px-3.5 py-1.5 max-w-full">
                   <span
                     className="w-1.5 h-1.5 bg-monarq-gold rounded-full flex-shrink-0"
                     style={{ boxShadow: '0 0 8px rgba(158,128,80,0.7)' }}
                   />
-                  <span className="text-white text-xs sm:text-[13px] uppercase tracking-[0.2em] font-semibold">
+                  <span className="text-white text-[10px] sm:text-xs md:text-[13px] uppercase tracking-[0.14em] sm:tracking-[0.2em] font-semibold truncate">
                     Tanger · Maroc · Maison Gastronomique
                   </span>
                 </div>
@@ -164,7 +164,6 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
               <motion.button
                 onClick={onOpenReservation}
                 className="btn-gold flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full text-xs uppercase tracking-[0.2em] font-semibold shadow-luxury"
-                whileHover={reduce ? {} : { y: -1, scale: 1.01 }}
                 whileTap={reduce ? {} : { scale: 0.96 }}
                 transition={{ type: 'spring', stiffness: 500, damping: 35 }}
               >
@@ -286,7 +285,7 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
                       }`}
                     >
                       <div
-                        className={`font-serif text-xl sm:text-2xl md:text-3xl text-monarq-gold font-normal tracking-wide mb-1 flex items-baseline gap-2.5 ${
+                        className={`font-serif text-xl sm:text-2xl md:text-3xl text-monarq-gold font-normal tracking-wide mb-1 flex flex-wrap items-baseline gap-2 ${
                           isLeft ? 'justify-start md:justify-end' : 'justify-start'
                         }`}
                       >

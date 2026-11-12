@@ -9,23 +9,27 @@ interface MobileDockProps {
 }
 
 export const MobileDock: React.FC<MobileDockProps> = ({ activeTab, setActiveTab, onOpenReservation }) => {
+  if (activeTab === 'digital-menu') {
+    return null;
+  }
+
   return (
     <div className="md:hidden fixed bottom-4 left-4 right-4 z-40">
       <div className="bg-monarq-black/95 backdrop-blur-xl border border-monarq-gold/40 rounded-full p-1.5 shadow-2xl flex items-center justify-between text-white">
-        {/* Bouton Menu */}
+        {/* Bouton Commander */}
         <button
           onClick={() => {
-            setActiveTab('menu');
+            setActiveTab('digital-menu');
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
           className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-full text-xs font-medium transition-all ${
-            activeTab === 'menu'
+            activeTab === 'digital-menu'
               ? 'bg-white/20 text-monarq-gold font-semibold'
               : 'text-gray-100 hover:text-white'
           }`}
         >
-          <Utensils className="w-3.5 h-3.5" />
-          <span>La Carte</span>
+          <Utensils className="w-3.5 h-3.5 text-monarq-gold" />
+          <span>Commander</span>
         </button>
 
         {/* Bouton Itinéraire Maps */}

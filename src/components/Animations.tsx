@@ -491,50 +491,15 @@ export const ParallaxImage: React.FC<{
   );
 };
 
-// ─── Magnetic Button ──────────────────────────────────────────────────────────
+// ─── Magnetic Button (movement disabled per user preference) ──────────────────
 
 export const MagneticWrapper: React.FC<{
   children: React.ReactNode;
   className?: string;
   strength?: number;
-}> = ({ children, className = '', strength = 0.2 }) => {
-  const reduce = useReducedMotion();
-  const ref = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (reduce || !ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const dx = (e.clientX - cx) * strength;
-    const dy = (e.clientY - cy) * strength;
-    gsap.to(ref.current, {
-      x: dx,
-      y: dy,
-      duration: 0.35,
-      ease: 'power3.out',
-      overwrite: 'auto',
-    });
-  };
-
-  const handleMouseLeave = () => {
-    if (!ref.current) return;
-    gsap.to(ref.current, {
-      x: 0,
-      y: 0,
-      duration: 0.5,
-      ease: 'power3.out',
-      overwrite: 'auto',
-    });
-  };
-
+}> = ({ children, className = '' }) => {
   return (
-    <div
-      ref={ref}
-      className={`inline-block ${className}`}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-    >
+    <div className={`inline-block ${className}`}>
       {children}
     </div>
   );
@@ -558,8 +523,7 @@ export const MotionButton: React.FC<{
       className={className}
       onClick={onClick}
       disabled={disabled}
-      whileHover={reduce ? {} : { y: -2, scale: 1.01 }}
-      whileTap={reduce ? {} : { scale: 0.96, y: 0 }}
+      whileTap={reduce ? {} : { scale: 0.97 }}
       transition={SPRING_SNAP}
       {...(rest as any)}
     >

@@ -57,12 +57,12 @@ export default function GalleryPage() {
 
       {/* Category Filter Links */}
       <FadeUp delay={0.25} className="max-w-5xl mx-auto px-5 sm:px-6 mb-8 sm:mb-10">
-        <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8 border-b border-monarq-gold/20 pb-3 sm:pb-4">
+        <div className="flex overflow-x-auto no-scrollbar md:flex-wrap justify-start md:justify-center items-center gap-4 sm:gap-6 md:gap-8 border-b border-monarq-gold/20 pb-3 sm:pb-4">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`font-sans text-xs sm:text-sm uppercase tracking-[0.22em] pb-1.5 transition-all duration-200 ease-monarch font-semibold ${
+              className={`flex-shrink-0 whitespace-nowrap font-sans text-xs sm:text-sm uppercase tracking-[0.18em] sm:tracking-[0.22em] pb-1.5 transition-all duration-200 ease-monarch font-semibold ${
                 activeCategory === cat.id
                   ? 'text-monarq-ink border-b-2 border-monarq-gold'
                   : 'text-monarq-ink-soft hover:text-monarq-ink border-b-2 border-transparent'
