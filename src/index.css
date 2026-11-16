@@ -94,7 +94,7 @@
   .white-section-bg {
     background-image: 
       linear-gradient(rgba(253, 250, 245, 0.86), rgba(253, 250, 245, 0.92)),
-      url('/images/kintsugi-marble-bg.jpg');
+      url('/images/site-responsive/kintsugi-marble-bg-1376.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -112,7 +112,7 @@
   .bg-marble-pure {
     background-image: 
       linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.88)),
-      url('/images/kintsugi-marble-bg.jpg');
+      url('/images/site-responsive/kintsugi-marble-bg-1376.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -121,7 +121,7 @@
   .bg-kintsugi-ambient {
     background-image: 
       radial-gradient(ellipse at 50% 50%, rgba(253, 250, 245, 0.93) 0%, rgba(253, 250, 245, 0.88) 60%, rgba(253, 250, 245, 0.78) 100%),
-      url('/images/kintsugi-marble-bg.jpg');
+      url('/images/site-responsive/kintsugi-marble-bg-1376.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

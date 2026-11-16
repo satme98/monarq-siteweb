@@ -13,11 +13,12 @@ import { useLanguage, LanguageSwitcher } from '../i18n';
 
 interface NavbarProps {
   activeTab: string;
+  preloadTab: (tab: string) => void;
   setActiveTab: (tab: string) => void;
   onOpenReservation: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenReservation }) => {
+export const Navbar: React.FC<NavbarProps> = ({ activeTab, preloadTab, setActiveTab, onOpenReservation }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const reduce = useReducedMotion();
   const { t } = useLanguage();
@@ -60,7 +61,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
   const handleNavClick = (id: string) => {
     setActiveTab(id);
     setMobileMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const isTransparent = activeTab === 'accueil' && !isScrolled;
@@ -151,6 +151,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
         >
           {/* Logo */}
           <motion.button
+            onPointerEnter={() => preloadTab('accueil')}
+            onFocus={() => preloadTab('accueil')}
+            onPointerDown={() => preloadTab('accueil')}
             onClick={() => handleNavClick('accueil')}
             className="flex items-center gap-3 text-left focus:outline-none flex-shrink-0"
             style={{ scale: reduce ? 1 : logoScale }}
@@ -173,6 +176,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
                 return (
                   <button
                     key={item.id}
+                    onPointerEnter={() => preloadTab(item.id)}
+                    onFocus={() => preloadTab(item.id)}
+                    onPointerDown={() => preloadTab(item.id)}
                     onClick={() => handleNavClick(item.id)}
                     className={`whitespace-nowrap flex-shrink-0 text-[11px] xl:text-[13px] uppercase tracking-[0.11em] xl:tracking-[0.16em] font-semibold transition-colors duration-250 relative py-1.5 focus:outline-none ${
                       isTransparent
@@ -240,6 +246,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
             </motion.button>
 
             <motion.button
+              onPointerEnter={() => preloadTab('digital-menu')}
+              onFocus={() => preloadTab('digital-menu')}
+              onPointerDown={() => preloadTab('digital-menu')}
               onClick={() => handleNavClick('digital-menu')}
               className="whitespace-nowrap flex-shrink-0 flex items-center gap-1.5 xl:gap-2 px-4 xl:px-5 py-2 xl:py-2.5 rounded-full text-[11px] xl:text-xs uppercase tracking-[0.12em] xl:tracking-[0.15em] font-medium btn-gold shadow-sm"
               whileTap={reduce ? {} : { scale: 0.96, y: 0 }}
@@ -255,6 +264,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
             <LanguageSwitcher isTransparent={isTransparent} variant="mobile-compact" />
 
             <motion.button
+              onPointerEnter={() => preloadTab('digital-menu')}
+              onFocus={() => preloadTab('digital-menu')}
+              onPointerDown={() => preloadTab('digital-menu')}
               onClick={() => handleNavClick('digital-menu')}
               className="whitespace-nowrap px-3 sm:px-3.5 py-1.5 rounded-full text-[11px] uppercase tracking-wider font-semibold btn-gold shadow-sm"
               whileTap={reduce ? {} : { scale: 0.94 }}
@@ -299,6 +311,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
               transition={{ duration: 0.25, delay: 0.3 }}
             >
               <button
+                onPointerEnter={() => preloadTab('accueil')}
+                onFocus={() => preloadTab('accueil')}
+                onPointerDown={() => preloadTab('accueil')}
                 onClick={() => handleNavClick('accueil')}
                 className="flex items-center gap-3 text-left focus:outline-none"
               >
@@ -355,6 +370,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
                 return (
                   <motion.button
                     key={item.id}
+                    onPointerEnter={() => preloadTab(item.id)}
+                    onFocus={() => preloadTab(item.id)}
+                    onPointerDown={() => preloadTab(item.id)}
                     onClick={() => handleNavClick(item.id)}
                     className={`flex items-center justify-between px-5 py-3.5 rounded-xl text-left text-sm uppercase tracking-[0.2em] transition-colors duration-200 ${
                       isActive
@@ -389,6 +407,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
             >
               <div className="grid grid-cols-2 gap-2.5">
                 <button
+                  onPointerEnter={() => preloadTab('digital-menu')}
+                  onFocus={() => preloadTab('digital-menu')}
+                  onPointerDown={() => preloadTab('digital-menu')}
                   onClick={() => handleNavClick('digital-menu')}
                   className="w-full py-3.5 rounded-xl btn-gold flex items-center justify-center gap-2 text-xs uppercase tracking-[0.18em] font-semibold shadow-luxury"
                 >

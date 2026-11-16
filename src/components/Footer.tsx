@@ -14,9 +14,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
   const reduce = useReducedMotion();
   const { t } = useLanguage();
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   const colVariants = {
     hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 24 },
@@ -283,19 +280,19 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
 
           <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-8">
             <button
-              onClick={() => { setActiveTab('menu'); scrollToTop(); }}
+              onClick={() => { setActiveTab('menu'); }}
               className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand whitespace-nowrap"
             >
               {t.nav.menu}
             </button>
             <button
-              onClick={() => { setActiveTab('apropos'); scrollToTop(); }}
+              onClick={() => { setActiveTab('apropos'); }}
               className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand whitespace-nowrap"
             >
               {t.nav.apropos}
             </button>
             <button
-              onClick={() => { setActiveTab('contact'); scrollToTop(); }}
+              onClick={() => { setActiveTab('contact'); }}
               className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand whitespace-nowrap"
             >
               {t.nav.contact}

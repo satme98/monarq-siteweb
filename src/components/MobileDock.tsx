@@ -22,7 +22,6 @@ export const MobileDock: React.FC<MobileDockProps> = ({ activeTab, setActiveTab,
         <button
           onClick={() => {
             setActiveTab('digital-menu');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
           className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-full text-xs font-medium transition-all ${
             activeTab === 'digital-menu'

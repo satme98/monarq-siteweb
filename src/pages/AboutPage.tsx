@@ -121,8 +121,8 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
           <SlideLeft className="relative h-[45vh] sm:h-[55vh] lg:h-[65vh] w-full overflow-hidden rounded-2xl order-2 lg:order-1">
             <div className="relative w-full h-full group">
               <img
-                src="/images/staggered-story-2.jpg"
-                alt="La salle du restaurant MONARQ Tanger"
+                src="/images/monarq-lobby-reception.png"
+                alt="Accueil du restaurant MONARQ Tanger"
                 className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-monarq-ink/50 via-transparent to-transparent" />

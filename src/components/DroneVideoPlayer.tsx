@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Play, Pause, Volume2, VolumeX, Maximize2 } from 'lucide-react';
+import { useViewportVideo } from '../lib/useViewportVideo';
 import { useLanguage } from '../i18n';
 
 interface DroneVideoPlayerProps {
@@ -15,19 +16,19 @@ export const DroneVideoPlayer: React.FC<DroneVideoPlayerProps> = ({
   poster,
   className = '',
 }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [wantsPlayback, setWantsPlayback] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useViewportVideo(src, wantsPlayback);
   const [isMuted, setIsMuted] = useState(true);
   const { t } = useLanguage();
 
   const togglePlay = () => {
     if (!videoRef.current) return;
-    if (isPlaying) {
-      videoRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      videoRef.current.play();
-      setIsPlaying(true);
+    setWantsPlayback(!isPlaying);
+    if (isPlaying) videoRef.current.pause();
+    else {
+      if (!videoRef.current.getAttribute('src')) videoRef.current.src = src;
+      void videoRef.current.play().catch(() => {});
     }
   };
 
@@ -48,9 +49,10 @@ export const DroneVideoPlayer: React.FC<DroneVideoPlayerProps> = ({
     <div className={`relative w-full h-full overflow-hidden bg-monarq-black group ${className}`}>
       <video
         ref={videoRef}
-        src={src}
         poster={poster}
-        autoPlay
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        preload="metadata"
         loop
         muted={isMuted}
         playsInline

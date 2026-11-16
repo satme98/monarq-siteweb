@@ -12,7 +12,6 @@ import {
   ImageReveal,
   StaggerGroup,
   StaggerItem,
-  ParallaxImage,
   TextReveal,
   LineReveal,
   MagneticWrapper,
@@ -21,6 +20,8 @@ import { SectionEyebrow } from '../components/SectionEyebrow';
 import { SignatureCarousel } from '../components/SignatureCarousel';
 // HeroSlider replaced by video background
 import { EASE_CINEMATIC, SPRING_SNAP, SPRING_FLUID, DUR } from '../lib/animation';
+import { useViewportVideo } from '../lib/useViewportVideo';
+import { SitePicture } from '../components/SitePicture';
 import { useLanguage } from '../i18n';
 
 // ─── Immersion Portrait Video Section ────────────────────────────────────────
@@ -31,29 +32,11 @@ interface ImmersionSectionProps {
 const IMMERSION_ICONS = [Leaf, Coffee, MapPin] as const;
 
 function ImmersionSection({ onOpenReservation }: ImmersionSectionProps) {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRef = useViewportVideo('/videos/Localisation-monarq.mp4');
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [isMuted, setIsMuted] = useState(true);
   const reduce = useReducedMotion();
   const { t } = useLanguage();
-
-  // IntersectionObserver: play when visible, pause when off-screen
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          video.play().catch(() => { });
-        } else {
-          video.pause();
-        }
-      },
-      { threshold: 0.25 }
-    );
-    observer.observe(video);
-    return () => observer.disconnect();
-  }, []);
 
   const toggleMute = () => {
     if (!videoRef.current) return;
@@ -177,9 +160,7 @@ function ImmersionSection({ onOpenReservation }: ImmersionSectionProps) {
                   >
                     <video
                       ref={videoRef}
-                      src="/videos/Localisation-monarq.mp4"
-                      poster="/images/localisation-monarq-poster.jpg"
-                      autoPlay
+                      poster="/images/site-responsive/localisation-monarq-poster-768.webp"
                       muted
                       loop
                       playsInline
@@ -351,19 +332,22 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
   const reduce = useReducedMotion();
   const [scrollCueVisible, setScrollCueVisible] = useState(true);
   const { scrollY } = useScroll();
+  const heroVideo = useViewportVideo('https://ik.imagekit.io/yascode/data/Video-Hero-002.mp4', true, true);
   const { t } = useLanguage();
 
   // Hide scroll cue once user scrolls
   useEffect(() => {
     const unsub = scrollY.on('change', (v) => {
-      if (v > 80) setScrollCueVisible(false);
+      if (v > 80) {
+        setScrollCueVisible(false);
+        unsub();
+      }
     });
     return unsub;
   }, [scrollY]);
 
   const goTo = (tab: string) => {
     setActiveTab(tab);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -375,12 +359,12 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
         {/* Full-width cinematic video background */}
         <video
           className="absolute inset-0 w-full h-full object-cover object-center"
-          src="https://ik.imagekit.io/yascode/data/Video-Hero-002.mp4"
-          autoPlay
+          ref={heroVideo}
+          poster="https://ik.imagekit.io/yascode/data/Video-Hero-002.mp4/ik-thumbnail.jpg?tr=w-1200,f-webp"
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           aria-hidden="true"
         />
 
@@ -534,7 +518,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 <div className="col-span-7">
                   <ImageReveal delay={0.05} duration={1.1}>
                     <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
-                      <img
+                      <SitePicture
                         src="/images/concept-dining.jpg"
                         alt="Salle de restaurant MONARQ Tanger"
                         className="w-full h-64 sm:h-80 md:h-[380px] lg:h-[420px] object-cover hover-scale-img"
@@ -546,7 +530,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 <div className="col-span-5">
                   <ImageReveal delay={0.2} duration={1.0}>
                     <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
-                      <img
+                      <SitePicture
                         src="/images/concept-terrace.jpg"
                         alt="Accueil MONARQ"
                         className="w-full h-64 sm:h-80 md:h-[380px] lg:h-[420px] object-cover hover-scale-img"
@@ -598,7 +582,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
               <div className="md:col-span-5">
                 <ImageReveal direction="right" duration={1.0}>
                   <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
-                    <img
+                    <SitePicture
                       src="/images/moments/img-1050.jpg"
                       alt={t.home.specialties.moments[0].title}
                       className="w-full h-52 sm:h-60 md:h-72 lg:h-76 object-cover hover-scale-img"
@@ -655,7 +639,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
               <div className="md:col-span-5 order-1 md:order-2">
                 <ImageReveal direction="left" duration={1.0}>
                   <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
-                    <img
+                    <SitePicture
                       src="/images/moments/img-1040.jpg"
                       alt={t.home.specialties.moments[1].title}
                       className="w-full h-52 sm:h-60 md:h-72 lg:h-76 object-cover hover-scale-img"
@@ -670,7 +654,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
               <div className="md:col-span-5">
                 <ImageReveal direction="right" duration={1.0}>
                   <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
-                    <img
+                    <SitePicture
                       src="/images/moments/img-1020.jpg"
                       alt={t.home.specialties.moments[2].title}
                       className="w-full h-52 sm:h-60 md:h-72 lg:h-76 object-cover hover-scale-img"
@@ -709,13 +693,13 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
           ═══════════════════════════════════════════════════ */}
       <section className="relative py-12 sm:py-16 md:py-20 lg:py-24 bg-monarq-paper border-b border-monarq-line/60 overflow-hidden">
         {/* Decorative sketches — fully inside section bounds, never cropped */}
-        <img
+        <SitePicture
           src="/images/ornament-waffle.png"
           alt=""
           aria-hidden="true"
           className="hidden lg:block absolute top-6 left-6 w-32 xl:w-40 pointer-events-none select-none z-0 mix-blend-multiply opacity-[0.08] filter grayscale contrast-125 sepia-[0.25]"
         />
-        <img
+        <SitePicture
           src="/images/ornament-crepes.png"
           alt=""
           aria-hidden="true"

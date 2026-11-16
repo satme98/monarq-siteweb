@@ -17,9 +17,10 @@ import { menuChapters as baseMenuChapters } from '../data/menuData';
 import { MenuItem, CartItem } from '../types';
 import { FadeUp, FadeIn } from '../components/Animations';
 import { SectionEyebrow } from '../components/SectionEyebrow';
-import { DishDetailModal } from '../components/digital-menu/DishDetailModal';
 import { OrderDrawer } from '../components/digital-menu/OrderDrawer';
 import { useLanguage, getLocalizedMenuChapters } from '../i18n';
+
+const DishDetailModal = React.lazy(() => import('../components/digital-menu/DishDetailModal').then(m => ({ default: m.DishDetailModal })));
 
 interface DigitalMenuPageProps {
   onSwitchToClassicMenu?: () => void;
@@ -59,6 +60,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
   const isManualScroll = useRef(false);
 
   // Detail Modal & Order Drawer states
+  const [detailOpened, setDetailOpened] = useState(false);
   const [detailItem, setDetailItem] = useState<MenuItem | null>(null);
   const [isOrderOpen, setIsOrderOpen] = useState(false);
   const basketObserver = useRef<ResizeObserver | null>(null);
@@ -187,7 +189,9 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
 
   // Scroll-spy: highlight the category currently in view
   useEffect(() => {
-    const onScroll = () => {
+    let frame = 0;
+    const updateSection = () => {
+      frame = 0;
       if (isManualScroll.current) return;
       let current = sections[0]?.id || '';
       for (const s of sections) {
@@ -198,9 +202,15 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
       }
       setActiveSection(current);
     };
-    onScroll();
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(updateSection);
+    };
+    updateSection();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+    };
   }, [sections]);
 
   // Keep the active pill centered in the horizontal bar
@@ -417,7 +427,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                       >
                         {/* Top Zone: Dish Info + Clean Unobscured Thumbnail */}
                         <div
-                          onClick={() => setDetailItem(item)}
+                          onClick={() => { setDetailOpened(true); setDetailItem(item); }}
                           className="cursor-pointer flex items-start justify-between gap-4"
                         >
                           <div className="flex-1 min-w-0">
@@ -472,7 +482,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                             </span>
                             <button
                               type="button"
-                              onClick={() => setDetailItem(item)}
+                              onClick={() => { setDetailOpened(true); setDetailItem(item); }}
                               className="min-h-[44px] py-1 font-sans text-sm tracking-normal text-monarq-ink-muted hover:text-monarq-gold-deep font-semibold transition-colors"
                             >
                               Détails
@@ -603,7 +613,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
       </AnimatePresence>
 
       {/* ── Dish Detail Modal ────────────────────────────────────── */}
-      <DishDetailModal
+      <React.Suspense fallback={null}>{detailOpened && <DishDetailModal
         item={detailItem}
         quantity={detailItem ? getItemQuantity(detailItem.id) : 0}
         onClose={() => setDetailItem(null)}
@@ -612,7 +622,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
             handleUpdateQuantity(detailItem.id, newQty);
           }
         }}
-      />
+      />}</React.Suspense>
 
       {/* ── Order Drawer / WhatsApp Summary ───────────────────────── */}
       <OrderDrawer

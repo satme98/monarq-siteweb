@@ -1,0 +1,92 @@
+{
+  "/images/concept-dining.jpg": {
+    "stem": "concept-dining",
+    "width": 768,
+    "height": 1024,
+    "widths": [
+      480,
+      768
+    ]
+  },
+  "/images/concept-terrace.jpg": {
+    "stem": "concept-terrace",
+    "width": 640,
+    "height": 853,
+    "widths": [
+      480,
+      640
+    ]
+  },
+  "/images/kintsugi-marble-bg.jpg": {
+    "stem": "kintsugi-marble-bg",
+    "width": 1376,
+    "height": 768,
+    "widths": [
+      480,
+      768,
+      1200,
+      1376
+    ]
+  },
+  "/images/localisation-monarq-poster.jpg": {
+    "stem": "localisation-monarq-poster",
+    "width": 1512,
+    "height": 1080,
+    "widths": [
+      480,
+      768,
+      1200,
+      1512
+    ]
+  },
+  "/images/moments/img-1020.jpg": {
+    "stem": "img-1020",
+    "width": 1080,
+    "height": 720,
+    "widths": [
+      480,
+      768,
+      1080
+    ]
+  },
+  "/images/moments/img-1040.jpg": {
+    "stem": "img-1040",
+    "width": 1080,
+    "height": 720,
+    "widths": [
+      480,
+      768,
+      1080
+    ]
+  },
+  "/images/moments/img-1050.jpg": {
+    "stem": "img-1050",
+    "width": 1080,
+    "height": 720,
+    "widths": [
+      480,
+      768,
+      1080
+    ]
+  },
+  "/images/ornament-crepes.png": {
+    "stem": "ornament-crepes",
+    "width": 896,
+    "height": 781,
+    "widths": [
+      480,
+      768,
+      896
+    ]
+  },
+  "/images/ornament-waffle.png": {
+    "stem": "ornament-waffle",
+    "width": 963,
+    "height": 781,
+    "widths": [
+      480,
+      768,
+      963
+    ]
+  }
+}

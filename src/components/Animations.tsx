@@ -9,20 +9,15 @@
  * - Typography preservation (no clipping of descenders or French accents)
  */
 
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import { motion, useReducedMotion, Variants } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   EASE_MONARQ,
   EASE_ENTER,
   SPRING_SNAP,
   SPRING_FLUID,
   DUR,
-  prefersReducedMotion,
 } from '../lib/animation';
-
-gsap.registerPlugin(ScrollTrigger);
 
 // Re-export for legacy usage
 export const EASE_MONARCH = EASE_MONARQ;
@@ -53,11 +48,11 @@ export const PageTransition: React.FC<{
     <motion.div
       key={pageKey}
       className={`relative ${className}`}
-      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 6 }}
+      initial={reduce ? false : { opacity: 0.85, y: 6 }}
       animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
       exit={reduce ? { opacity: 0 } : { opacity: 0 }}
       transition={{
-        duration: reduce ? 0.01 : 0.22,
+        duration: reduce ? 0.01 : 0.16,
         ease: EASE_MONARQ as unknown as number[],
       }}
     >
@@ -435,64 +430,6 @@ export const LineReveal: React.FC<{
   );
 };
 
-// ─── Parallax Image (GSAP ScrollTrigger) ─────────────────────────────────────
-
-export const ParallaxImage: React.FC<{
-  src: string;
-  alt: string;
-  className?: string;
-  rate?: number;
-  hoverScale?: boolean;
-}> = ({ src, alt, className = '', rate = 0.18, hoverScale = true }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
-  const reduce = prefersReducedMotion();
-
-  useEffect(() => {
-    if (reduce || !containerRef.current || !imageRef.current) return;
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        imageRef.current,
-        { yPercent: -rate * 25 },
-        {
-          yPercent: rate * 25,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 0.5,
-          },
-        }
-      );
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, [rate, reduce]);
-
-  return (
-    <div
-      ref={containerRef}
-      className={`overflow-hidden relative group ${className}`}
-      style={{ willChange: reduce ? 'auto' : 'transform' }}
-    >
-      <img
-        ref={imageRef}
-        src={src}
-        alt={alt}
-        className={`w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          hoverScale && !reduce ? 'group-hover:scale-[1.035]' : ''
-        }`}
-        loading="lazy"
-        style={{ willChange: reduce ? 'auto' : 'transform' }}
-      />
-    </div>
-  );
-};
-
-// ─── Magnetic Button (movement disabled per user preference) ──────────────────
-
 export const MagneticWrapper: React.FC<{
   children: React.ReactNode;
   className?: string;
@@ -529,54 +466,5 @@ export const MotionButton: React.FC<{
     >
       {children}
     </motion.button>
-  );
-};
-
-// ─── Count Up Number ──────────────────────────────────────────────────────────
-
-export const CountUp: React.FC<{
-  value: number;
-  suffix?: string;
-  prefix?: string;
-  className?: string;
-  duration?: number;
-}> = ({ value, suffix = '', prefix = '', className = '', duration = 1.2 }) => {
-  const ref = useRef<HTMLSpanElement>(null);
-  const reduce = prefersReducedMotion();
-
-  useEffect(() => {
-    if (!ref.current) return;
-    if (reduce) {
-      ref.current.textContent = `${prefix}${value}${suffix}`;
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      const obj = { val: 0 };
-      gsap.to(obj, {
-        val: value,
-        duration,
-        ease: 'power2.out',
-        snap: { val: 1 },
-        onUpdate: () => {
-          if (ref.current) {
-            ref.current.textContent = `${prefix}${Math.round(obj.val)}${suffix}`;
-          }
-        },
-        scrollTrigger: {
-          trigger: ref.current,
-          start: 'top 85%',
-          once: true,
-        },
-      });
-    }, ref);
-
-    return () => ctx.revert();
-  }, [value, prefix, suffix, duration, reduce]);
-
-  return (
-    <span ref={ref} className={className}>
-      {prefix}0{suffix}
-    </span>
   );
 };

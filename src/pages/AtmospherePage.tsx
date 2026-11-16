@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { ParallaxImage } from '../components/ScrollAnimations';
 import { motion, useReducedMotion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -10,7 +11,6 @@ import {
   SlideRight,
   ScaleReveal,
   ImageReveal,
-  ParallaxImage,
   StaggerGroup,
   StaggerItem,
   TextReveal,
@@ -182,8 +182,8 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
               <ImageReveal delay={0.25} duration={1.0}>
                 <div className="relative aspect-[3/4] rounded-2xl overflow-hidden mt-10 md:mt-12 group luxury-card-hover border border-monarq-gold/25">
                   <img
-                    src="/images/staggered-story-2.jpg"
-                    alt="Ambiance tamisée MONARQ"
+                    src="/images/monarq-lobby-reception.png"
+                    alt="Accueil du restaurant MONARQ Tanger"
                     className="object-cover w-full h-full hover-scale-img"
                   />
                 </div>

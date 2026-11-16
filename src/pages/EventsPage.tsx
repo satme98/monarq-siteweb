@@ -174,8 +174,8 @@ export default function EventsPage({ onOpenReservation }: EventsPageProps) {
             {/* Right — image */}
             <SlideLeft className="relative h-[50vh] lg:h-[70vh] w-full overflow-hidden rounded-2xl">
               <img
-                src="/images/staggered-story-2.jpg"
-                alt="Espace événementiel MONARQ Tanger"
+                src="/images/monarq-lobby-reception.png"
+                alt="Accueil du restaurant MONARQ Tanger"
                 className="w-full h-full object-cover"
               />
               {/* Stats overlay */}
