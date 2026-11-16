@@ -143,7 +143,7 @@ export function App() {
           )}
           {activeTab === 'galerie' && (
             <PageTransition pageKey="galerie">
-              <GalleryPage />
+              <GalleryPage onOpenReservation={() => setIsReservationOpen(true)} onViewMenu={() => setActiveTab('menu')} />
             </PageTransition>
           )}
           {activeTab === 'contact' && (

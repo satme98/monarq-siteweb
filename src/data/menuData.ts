@@ -210,11 +210,11 @@ export const menuChapters: MenuChapter[] = [
         name: 'OMELETTES POÊLÉES',
         chapterId: 'carte-du-matin',
         items: [
-          { id: 'omelette-nature', name: 'Omelette nature', price: 25, category: 'omelettes', chapter: 'carte-du-matin' },
-          { id: 'omelette-champignons', name: 'Omelette aux champignons et fines herbes', price: 40, category: 'omelettes', chapter: 'carte-du-matin' },
-          { id: 'omelette-fromage', name: 'Omelette au fromage', price: 32, category: 'omelettes', chapter: 'carte-du-matin' },
-          { id: 'omelette-charcuterie', name: 'Omelette à la charcuterie et au fromage', price: 39, category: 'omelettes', chapter: 'carte-du-matin' },
-          { id: 'omelette-saumon', name: 'Omelette au saumon et aux épinards', price: 45, category: 'omelettes', chapter: 'carte-du-matin' },
+          { id: 'omelette-nature', name: 'Omelette nature', price: 25, image: '/images/generated-menu/omelette-nature.webp', category: 'omelettes', chapter: 'carte-du-matin' },
+          { id: 'omelette-champignons', name: 'Omelette aux champignons et fines herbes', price: 40, image: '/images/generated-menu/omelette-champignons.webp', category: 'omelettes', chapter: 'carte-du-matin' },
+          { id: 'omelette-fromage', name: 'Omelette au fromage', price: 32, image: '/images/generated-menu/omelette-fromage.webp', category: 'omelettes', chapter: 'carte-du-matin' },
+          { id: 'omelette-charcuterie', name: 'Omelette à la charcuterie et au fromage', price: 39, image: '/images/generated-menu/omelette-charcuterie.webp', category: 'omelettes', chapter: 'carte-du-matin' },
+          { id: 'omelette-saumon', name: 'Omelette au saumon et aux épinards', price: 45, image: '/images/generated-menu/omelette-saumon.webp', category: 'omelettes', chapter: 'carte-du-matin' },
         ]
       },
       {
@@ -222,10 +222,10 @@ export const menuChapters: MenuChapter[] = [
         name: 'DOUCEURS TRADITIONNELLES',
         chapterId: 'carte-du-matin',
         items: [
-          { id: 'pain-grille', name: 'Pain grillé au choix', price: 7, category: 'a-la-carte-pain', chapter: 'carte-du-matin' },
-          { id: 'trio-marocain', name: 'Harcha / Msemen / Baghrir', price: 10, category: 'a-la-carte-pain', chapter: 'carte-du-matin' },
-          { id: 'viennoiserie', name: 'Viennoiserie au choix', price: 10, category: 'a-la-carte-pain', chapter: 'carte-du-matin' },
-          { id: 'baghrir-amlou', name: 'Baghrir à l\'amlou berbère', price: 28, category: 'a-la-carte-pain', chapter: 'carte-du-matin' },
+          { id: 'pain-grille', name: 'Pain grillé au choix', price: 7, image: '/images/generated-menu/pain-grille.webp', category: 'a-la-carte-pain', chapter: 'carte-du-matin' },
+          { id: 'trio-marocain', name: 'Harcha / Msemen / Baghrir', price: 10, image: '/images/generated-menu/trio-marocain.webp', category: 'a-la-carte-pain', chapter: 'carte-du-matin' },
+          { id: 'viennoiserie', name: 'Viennoiserie au choix', price: 10, image: '/images/generated-menu/viennoiserie.webp', category: 'a-la-carte-pain', chapter: 'carte-du-matin' },
+          { id: 'baghrir-amlou', name: 'Baghrir à l\'amlou berbère', price: 28, image: '/images/generated-menu/baghrir-amlou.webp', category: 'a-la-carte-pain', chapter: 'carte-du-matin' },
         ]
       }
     ]

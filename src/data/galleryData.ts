@@ -261,3 +261,34 @@ export const galleryItems: GalleryItem[] = [
     span: 'col-span-12 md:col-span-6 row-span-1',
   },
 ];
+
+// Swap editorial photos here. Existing catalog IDs retain their captions and original files.
+export const galleryChapters = [
+  { id: 'le-lieu', number: '01', label: 'Le Lieu', title: 'Le Lieu', description: 'Sous la verrière, le marbre et les boiseries dessinent un refuge au cœur de Tanger.', photos: ['36', '34', '32'] },
+  { id: 'les-brunchs', number: '02', label: 'Les Brunchs', title: 'Les Grands Brunchs', description: 'Des pancakes encore tièdes, du thé à la menthe et le plaisir de prendre son temps.', photos: ['6', '26', '7'] },
+  { id: 'la-cuisine', number: '03', label: 'La Cuisine', title: 'La Cuisine', description: 'Des ribs caramélisés au tajine au citron confit, des assiettes qui invitent au partage.', photos: ['11', '12', '14', '21', '24'] },
+  { id: 'cafe-douceurs', number: '04', label: 'Café & Douceurs', title: 'Café & Douceurs', description: 'Un café, quelques cuillerées de tiramisu et une dernière raison de rester à table.', photos: ['27', '29', '28'] },
+] as const;
+
+export const heroPhoto = '31';
+export const closingPhoto = '33';
+export const featuredIds = [heroPhoto, ...galleryChapters.flatMap(chapter => [...chapter.photos]), closingPhoto];
+
+export const photoDetails: Record<string, { position: string; mobile?: string; name?: string; label?: string; alt?: string }> = {
+  '31': { position: '50% 55%', mobile: '52% 53%', alt: 'Table en marbre et fauteuils de velours vert sous la verrière du MONARQ Tanger' },
+  '36': { position: '50% 55%' },
+  '34': { position: '50% 41%' },
+  '32': { position: '50% 58%' },
+  '6': { position: '50% 57%', alt: 'Brunch Un Dimanche à Paris avec brioche dorée et œufs brouillés, MONARQ Tanger' },
+  '26': { position: '50% 62%' },
+  '7': { position: '50% 57%' },
+  '11': { position: '50% 57%', name: 'Ribs de bœuf caramélisés', label: 'Grillades' },
+  '12': { position: '50% 53%', name: 'Burger gourmet', label: 'Burgers' },
+  '14': { position: '52% 65%', name: 'Linguine aux fruits de mer', label: 'Pâtes' },
+  '21': { position: '50% 62%', name: 'Pizza carnivore', label: 'Pizzas' },
+  '24': { position: '50% 61%', name: 'Tajine de poulet daghmira', label: 'Cuisine marocaine' },
+  '27': { position: '50% 62%' },
+  '29': { position: '50% 60%' },
+  '28': { position: '50% 59%' },
+  '33': { position: '50% 58%', mobile: '50% 54%' },
+};
