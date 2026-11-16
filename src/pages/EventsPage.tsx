@@ -66,7 +66,7 @@ const spaces = [
     name: 'La Salle Principale',
     capacity: '60 personnes',
     note: 'Cadre haut de plafond, tables longues, verrière végétale',
-    src: '/images/monarq-dining-room.png',
+    src: '/images/monarq-restaurant-entrance-new.png',
   },
   {
     name: 'La Terrasse',

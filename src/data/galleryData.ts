@@ -236,14 +236,14 @@ export const galleryItems: GalleryItem[] = [
     id: '33',
     title: 'Grande Verrière Lumineuse & Tables en Marbre',
     category: 'atmosphere',
-    image: '/images/monarq-veranda-tables.png',
+    image: '/images/Monaro_Dining-Room.png',
     span: 'col-span-12 md:col-span-4 row-span-1',
   },
   {
     id: '34',
-    title: 'Façade Royale & Enseigne Lumineuse MONARQ',
+    title: 'Salle de restaurant sous la verrière',
     category: 'lieu',
-    image: '/images/monarq-facade-entrance.png',
+    image: '/images/monaro-restaurant-interior-new.png',
     span: 'col-span-12 md:col-span-6 row-span-1',
   },
   {
@@ -255,9 +255,9 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: '36',
-    title: 'Salle de Restaurant Chaleureuse & Boiseries',
+    title: 'Entrée du restaurant',
     category: 'atmosphere',
-    image: '/images/monarq-dining-room.png',
+    image: '/images/monarq-restaurant-entrance-new.png',
     span: 'col-span-12 md:col-span-6 row-span-1',
   },
 ];

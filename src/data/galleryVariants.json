@@ -318,22 +318,26 @@
       640
     ]
   },
-  "/images/monarq-veranda-tables.png": {
-    "stem": "monarq-veranda-tables",
-    "width": 720,
-    "height": 1280,
+  "/images/Monaro_Dining-Room.png": {
+    "stem": "Monaro_Dining-Room",
+    "width": 1448,
+    "height": 1086,
     "widths": [
       480,
-      720
+      768,
+      1200,
+      1448
     ]
   },
-  "/images/monarq-facade-entrance.png": {
-    "stem": "monarq-facade-entrance",
-    "width": 720,
-    "height": 1280,
+  "/images/monaro-restaurant-interior-new.png": {
+    "stem": "monaro-restaurant-interior-new",
+    "width": 1672,
+    "height": 941,
     "widths": [
       480,
-      720
+      768,
+      1200,
+      1672
     ]
   },
   "/images/monarq-reception-hall.png": {
@@ -345,13 +349,15 @@
       720
     ]
   },
-  "/images/monarq-dining-room.png": {
-    "stem": "monarq-dining-room",
-    "width": 720,
-    "height": 1280,
+  "/images/monarq-restaurant-entrance-new.png": {
+    "stem": "monarq-restaurant-entrance-new",
+    "width": 1672,
+    "height": 941,
     "widths": [
       480,
-      720
+      768,
+      1200,
+      1672
     ]
   }
 }

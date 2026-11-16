@@ -323,7 +323,7 @@ export default function AboutPage({ onOpenReservation, setActiveTab }: AboutPage
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
             {[
-              { src: '/images/monarq-dining-room.png', label: 'La Salle', ratio: 'aspect-[4/5]' },
+              { src: '/images/monarq-restaurant-entrance-new.png', label: "L'Entrée", ratio: 'aspect-[4/5]' },
               { src: '/images/IMG_8949.jpg', label: 'La Terrasse', ratio: 'aspect-[4/5]' },
               { src: '/images/gallery-coffee-4.jpg', label: 'Le Café', ratio: 'aspect-[4/5]' },
             ].map(({ src, label, ratio }, i) => (
