@@ -1,12 +1,14 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { signatureHighlights } from '../data/menuData';
+import { useLanguage, getLocalizedSignatureHighlights } from '../i18n';
 
 interface SignatureCarouselProps {
   onOpenMenu?: () => void;
 }
 
 export const SignatureCarousel: React.FC<SignatureCarouselProps> = ({ onOpenMenu }) => {
+  const { lang, t } = useLanguage();
+  const signatureHighlights = getLocalizedSignatureHighlights(lang);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -98,7 +100,7 @@ export const SignatureCarousel: React.FC<SignatureCarouselProps> = ({ onOpenMenu
       <button
         onClick={goLeft}
         disabled={activeIndex === 0}
-        aria-label="Plat précédent"
+        aria-label={t.home.signatures.prevDish}
         className="
           hidden sm:flex items-center justify-center
           absolute left-3 z-20
@@ -120,7 +122,7 @@ export const SignatureCarousel: React.FC<SignatureCarouselProps> = ({ onOpenMenu
       <button
         onClick={goRight}
         disabled={activeIndex === total - 1}
-        aria-label="Plat suivant"
+        aria-label={t.home.signatures.nextDish}
         className="
           hidden sm:flex items-center justify-center
           absolute right-3 z-20

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { menuChapters } from '../data/menuData';
 import { FadeUp, FadeIn, StaggerGroup, StaggerItem } from '../components/Animations';
 import { SectionEyebrow } from '../components/SectionEyebrow';
 import { EASE_CINEMATIC } from '../lib/animation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useLanguage, getLocalizedMenuChapters } from '../i18n';
 
 interface MenuPageProps {
   onSwitchToDigitalMenu?: () => void;
@@ -14,6 +14,8 @@ export default function MenuPage({ onSwitchToDigitalMenu }: MenuPageProps = {}) 
   const [activeIdx, setActiveIdx] = useState(0);
   const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
   const reduce = useReducedMotion();
+  const { lang, t } = useLanguage();
+  const menuChapters = getLocalizedMenuChapters(lang);
 
   const chapter = menuChapters[activeIdx];
 
@@ -55,16 +57,16 @@ export default function MenuPage({ onSwitchToDigitalMenu }: MenuPageProps = {}) 
       {/* ── Hero — matches AtmospherePage / GalleryPage pattern ─── */}
       <section className="bg-marble-pattern py-10 sm:py-12 md:py-16 px-5 sm:px-6 flex flex-col items-center justify-center text-center border-b border-monarq-line">
         <FadeUp delay={0.1}>
-          <SectionEyebrow>La Carte</SectionEyebrow>
+          <SectionEyebrow>{t.menuPage.eyebrow}</SectionEyebrow>
         </FadeUp>
         <FadeUp delay={0.25}>
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold mb-2.5 leading-tight max-w-3xl">
-            Notre Menu
+            {t.menuPage.title}
           </h1>
         </FadeUp>
         <FadeUp delay={0.4}>
           <p className="font-sans text-monarq-ink-soft text-sm sm:text-base max-w-xl mx-auto font-normal leading-relaxed">
-            Une sélection de créations signatures et de mets préparés avec des ingrédients de premier choix.
+            {t.menuPage.subtitle}
           </p>
         </FadeUp>
         {onSwitchToDigitalMenu && (
@@ -75,7 +77,7 @@ export default function MenuPage({ onSwitchToDigitalMenu }: MenuPageProps = {}) 
                 onClick={onSwitchToDigitalMenu}
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full btn-dark text-xs font-semibold uppercase tracking-[0.18em] shadow-luxury group"
               >
-                <span>Commander en ligne</span>
+                <span>{t.menuPage.orderOnlineBtn}</span>
                 <ChevronRight className="w-3.5 h-3.5 text-monarq-gold-light transition-transform group-hover:translate-x-1" />
               </button>
             </div>
@@ -88,7 +90,7 @@ export default function MenuPage({ onSwitchToDigitalMenu }: MenuPageProps = {}) 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
           <nav
             className="flex items-end justify-start md:justify-center overflow-x-auto no-scrollbar"
-            aria-label="Chapitres du menu"
+            aria-label={t.menuPage.chaptersAria}
           >
             {menuChapters.map((ch, idx) => (
               <button
@@ -182,14 +184,14 @@ export default function MenuPage({ onSwitchToDigitalMenu }: MenuPageProps = {}) 
                               {item.name}
                               {item.isSpicy && (
                                 <span
-                                  className="ml-2 w-2 h-2 rounded-full bg-red-600 inline-block align-middle"
-                                  title="Épicé"
+                                  className="ms-2 w-2 h-2 rounded-full bg-red-600 inline-block align-middle"
+                                  title={t.menuPage.spicyTitle}
                                 />
                               )}
                             </h4>
                             <span className="hidden sm:block flex-shrink-0 border-b border-dotted border-monarq-line-strong flex-1 min-w-[20px] relative top-[-4px]" />
                             <span className="font-sans text-sm sm:text-base text-monarq-gold-deep font-bold whitespace-nowrap flex-shrink-0 tabular-nums">
-                              {typeof item.price === 'number' ? `${item.price} DH` : item.price}
+                              {typeof item.price === 'number' ? `${item.price} ${t.common.currency}` : item.price}
                             </span>
                           </div>
                           {item.description && (
@@ -276,7 +278,7 @@ export default function MenuPage({ onSwitchToDigitalMenu }: MenuPageProps = {}) 
             <span className="block h-px w-8 sm:w-10 bg-monarq-gold/40" />
           </div>
           <p className="font-serif italic text-monarq-ink-soft text-sm sm:text-base text-center leading-relaxed max-w-md font-medium">
-            Tous nos plats sont préparés à la commande avec des produits frais et de saison.
+            {t.menuPage.bottomNote}
           </p>
         </div>
       </FadeIn>

@@ -21,35 +21,21 @@ import { SectionEyebrow } from '../components/SectionEyebrow';
 import { SignatureCarousel } from '../components/SignatureCarousel';
 // HeroSlider replaced by video background
 import { EASE_CINEMATIC, SPRING_SNAP, SPRING_FLUID, DUR } from '../lib/animation';
+import { useLanguage } from '../i18n';
 
 // ─── Immersion Portrait Video Section ────────────────────────────────────────
 interface ImmersionSectionProps {
   onOpenReservation: () => void;
 }
 
-const IMMERSION_HIGHLIGHTS = [
-  {
-    icon: Leaf,
-    label: 'La verrière :',
-    text: 'lumière naturelle toute la journée',
-  },
-  {
-    icon: Coffee,
-    label: 'Du matin à minuit :',
-    text: 'brunch, déjeuner, dîner',
-  },
-  {
-    icon: MapPin,
-    label: 'Avenue Marrakech :',
-    text: 'à deux pas du Riad Tétouan',
-  },
-] as const;
+const IMMERSION_ICONS = [Leaf, Coffee, MapPin] as const;
 
 function ImmersionSection({ onOpenReservation }: ImmersionSectionProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [isMuted, setIsMuted] = useState(true);
   const reduce = useReducedMotion();
+  const { t } = useLanguage();
 
   // IntersectionObserver: play when visible, pause when off-screen
   useEffect(() => {
@@ -87,13 +73,13 @@ function ImmersionSection({ onOpenReservation }: ImmersionSectionProps) {
           {/* LEFT — aligned with video */}
           <div className="lg:col-span-7 text-left">
             <FadeUp>
-              <SectionEyebrow align="left">IMMERSION</SectionEyebrow>
+              <SectionEyebrow align="left">{t.home.immersion.eyebrow}</SectionEyebrow>
             </FadeUp>
 
             <FadeUp delay={0.08}>
               <TextReveal delay={0.1} duration={DUR.slow}>
                 <h2 className="font-serif text-3xl sm:text-4xl md:text-[2.75rem] text-monarq-ink font-semibold mb-4 leading-tight">
-                  Au Cœur de Tanger
+                  {t.home.immersion.title}
                 </h2>
               </TextReveal>
             </FadeUp>
@@ -103,24 +89,27 @@ function ImmersionSection({ onOpenReservation }: ImmersionSectionProps) {
                 className="font-sans leading-relaxed font-normal max-w-xl text-monarq-ink-soft mb-6 sm:mb-7"
                 style={{ fontSize: '1.0625rem' }}
               >
-                Sous notre verrière, la lumière de Tanger inonde le marbre et les plantes. Du premier café au dîner, chaque moment est pensé pour se poser, se retrouver et savourer.
+                {t.home.immersion.description}
               </p>
             </FadeUp>
 
             {/* Three short highlights with gold icons */}
             <FadeUp delay={0.22}>
               <ul className="space-y-3.5 sm:space-y-4 mb-7 sm:mb-8">
-                {IMMERSION_HIGHLIGHTS.map(({ icon: Icon, label, text }) => (
-                  <li key={label} className="flex items-start sm:items-center gap-3.5">
-                    <span className="w-9 h-9 rounded-xl bg-monarq-gold/12 border border-monarq-gold/30 flex items-center justify-center flex-shrink-0 shadow-sm">
-                      <Icon className="w-4 h-4 text-monarq-gold-deep" />
-                    </span>
-                    <span className="font-sans text-sm sm:text-[15px] text-monarq-ink-soft leading-snug">
-                      <strong className="font-semibold text-monarq-ink">{label}</strong>{' '}
-                      {text}
-                    </span>
-                  </li>
-                ))}
+                {t.home.immersion.highlights.map(({ label, text }, idx) => {
+                  const Icon = IMMERSION_ICONS[idx] || Leaf;
+                  return (
+                    <li key={label} className="flex items-start sm:items-center gap-3.5">
+                      <span className="w-9 h-9 rounded-xl bg-monarq-gold/12 border border-monarq-gold/30 flex items-center justify-center flex-shrink-0 shadow-sm">
+                        <Icon className="w-4 h-4 text-monarq-gold-deep" />
+                      </span>
+                      <span className="font-sans text-sm sm:text-[15px] text-monarq-ink-soft leading-snug">
+                        <strong className="font-semibold text-monarq-ink">{label}</strong>{' '}
+                        {text}
+                      </span>
+                    </li>
+                  );
+                })}
               </ul>
             </FadeUp>
 
@@ -135,7 +124,7 @@ function ImmersionSection({ onOpenReservation }: ImmersionSectionProps) {
                     transition={SPRING_SNAP}
                   >
                     <Calendar className="w-3.5 h-3.5 text-white" />
-                    <span>Réserver une table</span>
+                    <span>{t.home.immersion.reserveBtn}</span>
                   </motion.button>
                 </MagneticWrapper>
 
@@ -148,7 +137,7 @@ function ImmersionSection({ onOpenReservation }: ImmersionSectionProps) {
                     whileTap={reduce ? {} : { scale: 0.96 }}
                     transition={SPRING_SNAP}
                   >
-                    <span>Voir l'itinéraire</span>
+                    <span>{t.home.immersion.directionsBtn}</span>
                     <ArrowUpRight className="w-3.5 h-3.5 text-monarq-gold-deep" />
                   </motion.a>
                 </MagneticWrapper>
@@ -206,7 +195,7 @@ function ImmersionSection({ onOpenReservation }: ImmersionSectionProps) {
                     {/* Subtle corner mute button inside video */}
                     <button
                       onClick={toggleMute}
-                      aria-label={isMuted ? 'Activer le son' : 'Couper le son'}
+                      aria-label={isMuted ? t.common.unmute : t.common.mute}
                       className="absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center rounded-full transition-colors"
                       style={{
                         background: 'rgba(20,18,16,0.55)',
@@ -231,11 +220,11 @@ function ImmersionSection({ onOpenReservation }: ImmersionSectionProps) {
                       <div className="flex items-center gap-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse flex-shrink-0" />
                         <p className="font-serif text-[11px] sm:text-xs uppercase tracking-[0.12em] sm:tracking-[0.16em] text-monarq-gold-deep font-bold whitespace-nowrap">
-                          Ouvert 7j/7 · 09h–00h
+                          {t.home.immersion.openBadge}
                         </p>
                       </div>
                       <p className="font-sans text-xs text-monarq-ink font-medium mt-0.5 leading-snug truncate">
-                        Av. Marrakech · Riad Tétouan
+                        {t.home.immersion.locationSub}
                       </p>
                     </div>
                   </div>
@@ -250,12 +239,12 @@ function ImmersionSection({ onOpenReservation }: ImmersionSectionProps) {
                   {isMuted ? (
                     <>
                       <VolumeX className="w-3.5 h-3.5 text-monarq-gold-deep" />
-                      <span>Son coupé · Activer le son</span>
+                      <span>{t.home.immersion.mutedToggle}</span>
                     </>
                   ) : (
                     <>
                       <Volume2 className="w-3.5 h-3.5 text-monarq-gold-deep" />
-                      <span>Son activé · Couper le son</span>
+                      <span>{t.home.immersion.unmutedToggle}</span>
                     </>
                   )}
                 </button>
@@ -270,22 +259,22 @@ function ImmersionSection({ onOpenReservation }: ImmersionSectionProps) {
 }
 
 // ─── Hero Cycling Label — Brunch / Restaurant / Café ─────────────────────────
-const LABELS = ['Brunch', 'Restaurant', 'Café'] as const;
-
 interface HeroCyclingLabelProps {
   reduce: boolean;
 }
 
 const HeroCyclingLabel: React.FC<HeroCyclingLabelProps> = ({ reduce }) => {
   const [index, setIndex] = useState(0);
+  const { t } = useLanguage();
+  const labels = t.home.hero.cyclingLabels;
 
   useEffect(() => {
     if (reduce) return;
     const id = setInterval(() => {
-      setIndex((i) => (i + 1) % LABELS.length);
+      setIndex((i) => (i + 1) % labels.length);
     }, 2600);
     return () => clearInterval(id);
-  }, [reduce]);
+  }, [reduce, labels.length]);
 
   const variants = {
     enter: {
@@ -330,7 +319,7 @@ const HeroCyclingLabel: React.FC<HeroCyclingLabelProps> = ({ reduce }) => {
       <div className="relative h-[2.6rem] sm:h-[3.4rem] min-w-[10.5rem] sm:min-w-[14rem]">
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
-            key={LABELS[index]}
+            key={labels[index]}
             variants={variants}
             initial="enter"
             animate="center"
@@ -338,7 +327,7 @@ const HeroCyclingLabel: React.FC<HeroCyclingLabelProps> = ({ reduce }) => {
             className="absolute inset-0 flex items-center justify-center font-editorial italic font-normal text-white/90 whitespace-nowrap drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]"
             style={{ fontSize: 'clamp(1.65rem, 4.5vw, 3rem)', lineHeight: 1 }}
           >
-            {LABELS[index]}
+            {labels[index]}
           </motion.span>
         </AnimatePresence>
       </div>
@@ -362,6 +351,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
   const reduce = useReducedMotion();
   const [scrollCueVisible, setScrollCueVisible] = useState(true);
   const { scrollY } = useScroll();
+  const { t } = useLanguage();
 
   // Hide scroll cue once user scrolls
   useEffect(() => {
@@ -432,7 +422,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   whileTap={reduce ? {} : { scale: 0.96 }}
                   transition={SPRING_SNAP}
                 >
-                  La Carte
+                  {t.home.hero.menuBtn}
                 </motion.button>
               </MagneticWrapper>
               <MagneticWrapper strength={0.2}>
@@ -444,7 +434,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 >
                   <span className="flex items-center gap-2">
                     <Calendar className="w-3.5 h-3.5 text-monarq-gold-light group-hover:text-monarq-ink transition-colors" />
-                    Réserver
+                    {t.home.hero.reserveBtn}
                   </span>
                 </motion.button>
               </MagneticWrapper>
@@ -456,7 +446,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
             <div className="mt-5 sm:mt-6">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/30 text-xs sm:text-[13px] text-white font-medium tracking-wide">
                 <MapPin className="w-3 h-3 text-[#c5a467] flex-shrink-0" />
-                <span>Avenue Marrakech, Tanger</span>
+                <span>{t.home.hero.locationPill}</span>
               </div>
             </div>
           </FadeUp>
@@ -469,7 +459,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
           animate={{ opacity: scrollCueVisible ? 1 : 0 }}
           transition={{ duration: 0.5, ease: EASE_CINEMATIC }}
         >
-          <span className="text-[10px] uppercase tracking-[0.28em] text-white/50 font-medium">Découvrir</span>
+          <span className="text-[10px] uppercase tracking-[0.28em] text-white/50 font-medium">{t.home.hero.discoverCue}</span>
           <ChevronDown className={`w-3.5 h-3.5 text-white/40 ${reduce ? '' : 'animate-scroll-cue'}`} />
         </motion.div>
       </section>
@@ -483,15 +473,15 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
             {/* Text column */}
             <div className="lg:col-span-5">
               <SlideLeft>
-                <SectionEyebrow align="left">À Propos</SectionEyebrow>
+                <SectionEyebrow align="left">{t.home.about.eyebrow}</SectionEyebrow>
                 <TextReveal delay={0.05} duration={DUR.slow}>
                   <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-monarq-ink font-semibold leading-tight mb-3 sm:mb-4">
-                    Le goût de l'excellence, l'art de recevoir.
+                    {t.home.about.title}
                   </h2>
                 </TextReveal>
                 <FadeUp delay={0.15}>
                   <p className="text-sm sm:text-base text-monarq-ink-soft leading-relaxed font-normal mb-5 sm:mb-6">
-                    MONARQ réunit le raffinement d'un décor en marbre sous verrière et la passion des produits nobles. Un havre chic et chaleureux pensé pour savourer chaque instant.
+                    {t.home.about.description}
                   </p>
                 </FadeUp>
 
@@ -500,26 +490,26 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   <div className="grid grid-cols-3 gap-2.5 sm:gap-4 py-4 sm:py-5 mb-5 sm:mb-6 border-y border-monarq-gold/25">
                     <div>
                       <p className="font-serif text-xl sm:text-2xl xl:text-3xl text-monarq-gold-deep font-semibold leading-none whitespace-nowrap">
-                        7j/7
+                        {t.home.about.stat1Value}
                       </p>
                       <p className="font-sans text-[11px] sm:text-xs text-monarq-ink-soft mt-1.5 font-medium">
-                        Service continu
+                        {t.home.about.stat1Label}
                       </p>
                     </div>
-                    <div className="border-l border-monarq-gold/20 pl-2.5 sm:pl-4">
+                    <div className="border-s border-monarq-gold/20 ps-2.5 sm:ps-4">
                       <p className="font-serif text-xl sm:text-2xl xl:text-3xl text-monarq-gold-deep font-semibold leading-none whitespace-nowrap">
-                        09h–00h
+                        {t.home.about.stat2Value}
                       </p>
                       <p className="font-sans text-[11px] sm:text-xs text-monarq-ink-soft mt-1.5 font-medium">
-                        Du matin à minuit
+                        {t.home.about.stat2Label}
                       </p>
                     </div>
-                    <div className="border-l border-monarq-gold/20 pl-2.5 sm:pl-4">
+                    <div className="border-s border-monarq-gold/20 ps-2.5 sm:ps-4">
                       <p className="font-serif text-xl sm:text-2xl xl:text-3xl text-monarq-gold-deep font-semibold leading-none whitespace-nowrap">
-                        +80
+                        {t.home.about.stat3Value}
                       </p>
                       <p className="font-sans text-[11px] sm:text-xs text-monarq-ink-soft mt-1.5 font-medium">
-                        Plats signature
+                        {t.home.about.stat3Label}
                       </p>
                     </div>
                   </div>
@@ -531,7 +521,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                     className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.22em] font-semibold text-monarq-ink hover:text-monarq-gold-deep transition-colors arrow-link"
                     transition={SPRING_FLUID}
                   >
-                    <span>Découvrir le lieu</span>
+                    <span>{t.home.about.discoverPlaceBtn}</span>
                     <ArrowRight className="w-4 h-4 text-monarq-gold-deep arrow-icon" />
                   </motion.button>
                 </FadeUp>
@@ -588,15 +578,15 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
         <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
           <FadeUp>
             <div className="text-center mb-8 sm:mb-10 md:mb-12">
-              <SectionEyebrow>Nos Spécialités</SectionEyebrow>
+              <SectionEyebrow>{t.home.specialties.eyebrow}</SectionEyebrow>
               <TextReveal delay={0.1} duration={DUR.slow}>
                 <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-monarq-ink font-semibold mb-2">
-                  Trois moments d'exception
+                  {t.home.specialties.title}
                 </h2>
               </TextReveal>
               <FadeUp delay={0.2}>
                 <p className="text-sm sm:text-base text-monarq-ink-soft max-w-md mx-auto font-normal leading-relaxed">
-                  Une partition gourmande au rythme de votre journée.
+                  {t.home.specialties.subtitle}
                 </p>
               </FadeUp>
             </div>
@@ -610,29 +600,29 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
                     <img
                       src="/images/moments/img-1050.jpg"
-                      alt="Petit déjeuner chez MONARQ"
+                      alt={t.home.specialties.moments[0].title}
                       className="w-full h-52 sm:h-60 md:h-72 lg:h-76 object-cover hover-scale-img"
                     />
                   </div>
                 </ImageReveal>
               </div>
               <SlideRight className="md:col-span-7">
-                <span className="font-serif text-3xl sm:text-4xl text-monarq-gold font-semibold leading-none">01</span>
+                <span className="font-serif text-3xl sm:text-4xl text-monarq-gold font-semibold leading-none">{t.home.specialties.moments[0].num}</span>
                 <TextReveal delay={0.05} duration={DUR.mid}>
                   <h3 className="font-serif text-xl sm:text-2xl md:text-3xl text-monarq-ink mt-1.5 mb-2 sm:mb-2.5 font-semibold">
-                    Le Matin & Petits Déjeuners
+                    {t.home.specialties.moments[0].title}
                   </h3>
                 </TextReveal>
                 <FadeUp delay={0.15}>
                   <p className="text-[14.5px] sm:text-base text-monarq-ink-soft leading-relaxed max-w-lg mb-3.5 sm:mb-4 font-normal">
-                    Viennoiseries fines, msemens au miel pur, jus d'oranges pressées et cafés de terroir. De 09 h 00 à 12 h 00.
+                    {t.home.specialties.moments[0].desc}
                   </p>
                   <motion.button
                     onClick={() => goTo('menu')}
                     className="text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors inline-flex items-center gap-2 group arrow-link"
                     transition={SPRING_FLUID}
                   >
-                    <span>Découvrir</span>
+                    <span>{t.home.specialties.moments[0].cta}</span>
                     <ArrowRight className="w-4 h-4 text-monarq-gold-deep arrow-icon" />
                   </motion.button>
                 </FadeUp>
@@ -642,22 +632,22 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
             {/* Moment 2 — reversed */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 md:gap-12 items-center py-6 sm:py-8 md:py-10 border-b border-monarq-gold/25">
               <SlideLeft className="md:col-span-7 order-2 md:order-1">
-                <span className="font-serif text-3xl sm:text-4xl text-monarq-gold font-semibold leading-none">02</span>
+                <span className="font-serif text-3xl sm:text-4xl text-monarq-gold font-semibold leading-none">{t.home.specialties.moments[1].num}</span>
                 <TextReveal delay={0.05} duration={DUR.mid}>
                   <h3 className="font-serif text-xl sm:text-2xl md:text-3xl text-monarq-ink mt-1.5 mb-2 sm:mb-2.5 font-semibold">
-                    Les Grands Brunchs Signatures
+                    {t.home.specialties.moments[1].title}
                   </h3>
                 </TextReveal>
                 <FadeUp delay={0.15}>
                   <p className="text-[14.5px] sm:text-base text-monarq-ink-soft leading-relaxed max-w-lg mb-3.5 sm:mb-4 font-normal">
-                    Brioches aux crevettes, toasts d'avocat au saumon mariné, œufs pochés et pancakes fondants. De 09 h 00 à 14 h 00.
+                    {t.home.specialties.moments[1].desc}
                   </p>
                   <motion.button
                     onClick={() => goTo('menu')}
                     className="text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors inline-flex items-center gap-2 group arrow-link"
                     transition={SPRING_FLUID}
                   >
-                    <span>Explorer les brunchs</span>
+                    <span>{t.home.specialties.moments[1].cta}</span>
                     <ArrowRight className="w-4 h-4 text-monarq-gold-deep arrow-icon" />
                   </motion.button>
                 </FadeUp>
@@ -667,7 +657,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
                     <img
                       src="/images/moments/img-1040.jpg"
-                      alt="Brunchs MONARQ"
+                      alt={t.home.specialties.moments[1].title}
                       className="w-full h-52 sm:h-60 md:h-72 lg:h-76 object-cover hover-scale-img"
                     />
                   </div>
@@ -682,29 +672,29 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
                     <img
                       src="/images/moments/img-1020.jpg"
-                      alt="Cuisine MONARQ"
+                      alt={t.home.specialties.moments[2].title}
                       className="w-full h-52 sm:h-60 md:h-72 lg:h-76 object-cover hover-scale-img"
                     />
                   </div>
                 </ImageReveal>
               </div>
               <SlideRight className="md:col-span-7">
-                <span className="font-serif text-3xl sm:text-4xl text-monarq-gold font-semibold leading-none">03</span>
+                <span className="font-serif text-3xl sm:text-4xl text-monarq-gold font-semibold leading-none">{t.home.specialties.moments[2].num}</span>
                 <TextReveal delay={0.05} duration={DUR.mid}>
                   <h3 className="font-serif text-xl sm:text-2xl md:text-3xl text-monarq-ink mt-1.5 mb-2 sm:mb-2.5 font-semibold">
-                    Pâtes Artisanales, Steaks & Pizzas
+                    {t.home.specialties.moments[2].title}
                   </h3>
                 </TextReveal>
                 <FadeUp delay={0.15}>
                   <p className="text-[14.5px] sm:text-base text-monarq-ink-soft leading-relaxed max-w-lg mb-3.5 sm:mb-4 font-normal">
-                    Penne aux crevettes, risottos au saumon, viandes nobles grillées et pizzas au feu de bois. De midi à minuit.
+                    {t.home.specialties.moments[2].desc}
                   </p>
                   <motion.button
                     onClick={() => goTo('menu')}
                     className="text-xs uppercase tracking-[0.22em] font-semibold text-monarq-gold-deep hover:text-monarq-ink transition-colors inline-flex items-center gap-2 group arrow-link"
                     transition={SPRING_FLUID}
                   >
-                    <span>Découvrir la cuisine</span>
+                    <span>{t.home.specialties.moments[2].cta}</span>
                     <ArrowRight className="w-4 h-4 text-monarq-gold-deep arrow-icon" />
                   </motion.button>
                 </FadeUp>
@@ -735,15 +725,15 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
           <FadeUp>
             <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
-              <SectionEyebrow>Créations Signatures</SectionEyebrow>
+              <SectionEyebrow>{t.home.signatures.eyebrow}</SectionEyebrow>
               <TextReveal delay={0.1} duration={DUR.slow}>
                 <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink font-semibold tracking-tight leading-tight mb-2">
-                  Nos Incontournables
+                  {t.home.signatures.title}
                 </h2>
               </TextReveal>
               <FadeUp delay={0.15}>
                 <p className="text-sm sm:text-base text-monarq-ink-soft leading-relaxed font-normal">
-                  Des recettes d'exception préparées avec des ingrédients de premier choix.
+                  {t.home.signatures.subtitle}
                 </p>
               </FadeUp>
             </div>
@@ -763,7 +753,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 whileTap={reduce ? {} : { scale: 0.96 }}
                 transition={SPRING_SNAP}
               >
-                <span>Consulter la Carte Complète</span>
+                <span>{t.home.signatures.fullMenuBtn}</span>
                 <ArrowRight className="w-4 h-4 text-white arrow-icon" />
               </motion.button>
             </MagneticWrapper>
@@ -790,18 +780,18 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   }`}
               />
             </div>
-            <SectionEyebrow>Réservations</SectionEyebrow>
+            <SectionEyebrow>{t.home.reservations.eyebrow}</SectionEyebrow>
           </FadeUp>
 
           <TextReveal delay={0.1} duration={DUR.slow}>
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-monarq-ink font-semibold mb-2.5 sm:mb-3 leading-tight">
-              Réservez votre table d'exception
+              {t.home.reservations.title}
             </h2>
           </TextReveal>
 
           <FadeUp delay={0.2}>
             <p className="text-sm sm:text-base text-monarq-ink-soft max-w-lg mx-auto mb-6 sm:mb-7 leading-relaxed font-normal">
-              Déjeuner d'affaires, grand brunch convivial ou dîner feutré : notre équipe de salle prépare votre venue avec une attention sur-mesure.
+              {t.home.reservations.description}
             </p>
           </FadeUp>
 
@@ -810,11 +800,11 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
             <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 mb-6 sm:mb-7 text-xs sm:text-[13px] text-monarq-ink font-semibold">
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-monarq-paper-soft border border-monarq-gold/35 backdrop-blur-sm shadow-sm">
                 <Clock className="w-4 h-4 text-monarq-gold-deep" />
-                <span>09h00 — 00h00 · 7j/7</span>
+                <span>{t.home.reservations.hoursBadge}</span>
               </span>
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-monarq-paper-soft border border-monarq-gold/35 backdrop-blur-sm shadow-sm">
                 <MapPin className="w-4 h-4 text-monarq-gold-deep" />
-                <span>Avenue Marrakech, Tanger</span>
+                <span>{t.home.reservations.locationBadge}</span>
               </span>
             </div>
           </FadeUp>
@@ -829,7 +819,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   transition={SPRING_SNAP}
                 >
                   <Calendar className="w-4 h-4 text-white" />
-                  <span>Réserver en ligne</span>
+                  <span>{t.home.reservations.bookOnlineBtn}</span>
                 </motion.button>
               </MagneticWrapper>
 
@@ -842,7 +832,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   whileTap={reduce ? {} : { scale: 0.96 }}
                   transition={SPRING_SNAP}
                 >
-                  <span>WhatsApp Direct</span>
+                  <span>{t.home.reservations.whatsappBtn}</span>
                   <ArrowUpRight className="w-4 h-4 text-monarq-gold" />
                 </motion.a>
               </MagneticWrapper>

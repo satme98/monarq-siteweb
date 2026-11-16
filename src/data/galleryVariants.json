@@ -318,6 +318,17 @@
       640
     ]
   },
+  "/images/monarq-lobby-reception.png": {
+    "stem": "monarq-lobby-reception",
+    "width": 1672,
+    "height": 941,
+    "widths": [
+      480,
+      768,
+      1200,
+      1672
+    ]
+  },
   "/images/Monaro_Dining-Room.png": {
     "stem": "Monaro_Dining-Room",
     "width": 1448,

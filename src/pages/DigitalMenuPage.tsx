@@ -13,12 +13,13 @@ import {
   BookOpen,
   UtensilsCrossed,
 } from 'lucide-react';
-import { menuChapters } from '../data/menuData';
+import { menuChapters as baseMenuChapters } from '../data/menuData';
 import { MenuItem, CartItem } from '../types';
 import { FadeUp, FadeIn } from '../components/Animations';
 import { SectionEyebrow } from '../components/SectionEyebrow';
 import { DishDetailModal } from '../components/digital-menu/DishDetailModal';
 import { OrderDrawer } from '../components/digital-menu/OrderDrawer';
+import { useLanguage, getLocalizedMenuChapters } from '../i18n';
 
 interface DigitalMenuPageProps {
   onSwitchToClassicMenu?: () => void;
@@ -27,7 +28,30 @@ interface DigitalMenuPageProps {
 const stripEmojis = (text?: string) =>
   text ? text.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, '').trim() : '';
 
+const SIGNATURE_IDS = new Set<string>(
+  baseMenuChapters.flatMap((ch) =>
+    ch.categories.flatMap((cat) =>
+      cat.items
+        .filter((item) => {
+          const t = (item.tag || '').toLowerCase();
+          return (
+            !!item.popular ||
+            t.includes('signature') ||
+            t.includes('incontournable') ||
+            t.includes('favori') ||
+            t.includes('coup de cœur') ||
+            t.includes('prestige') ||
+            t.includes('chef')
+          );
+        })
+        .map((i) => i.id)
+    )
+  )
+);
+
 export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClassicMenu }) => {
+  const { lang, t } = useLanguage();
+  const menuChapters = useMemo(() => getLocalizedMenuChapters(lang), [lang]);
   // Search query & active category (Glovo-style scroll-spy)
   const [searchQuery, setSearchQuery] = useState('');
   const [activeSection, setActiveSection] = useState<string>('');
@@ -37,6 +61,18 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
   // Detail Modal & Order Drawer states
   const [detailItem, setDetailItem] = useState<MenuItem | null>(null);
   const [isOrderOpen, setIsOrderOpen] = useState(false);
+  const basketObserver = useRef<ResizeObserver | null>(null);
+  const measureBasket = React.useCallback((basket: HTMLDivElement | null) => {
+    basketObserver.current?.disconnect();
+    basketObserver.current = null;
+    if (!basket) return;
+    const menu = basket.closest<HTMLElement>('[data-digital-menu]');
+    if (!menu) return;
+    const update = () => menu.style.setProperty('--menu-basket-height', `${basket.offsetHeight}px`);
+    update();
+    basketObserver.current = new ResizeObserver(update);
+    basketObserver.current.observe(basket);
+  }, []);
   const isMenuOverlayOpen = detailItem !== null || isOrderOpen;
 
   React.useLayoutEffect(() => {
@@ -96,20 +132,9 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
       });
     });
     return list;
-  }, []);
+  }, [menuChapters]);
 
-  const isSignature = (item: MenuItem) => {
-    const t = (item.tag || '').toLowerCase();
-    return (
-      !!item.popular ||
-      t.includes('signature') ||
-      t.includes('incontournable') ||
-      t.includes('favori') ||
-      t.includes('coup de cœur') ||
-      t.includes('prestige') ||
-      t.includes('chef')
-    );
-  };
+  const isSignature = (item: MenuItem) => SIGNATURE_IDS.has(item.id);
 
   // Flat, Glovo-style category list (no chapter hierarchy)
   const sections = useMemo(() => {
@@ -125,8 +150,8 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
     if (signatures.length > 0) {
       list.push({
         id: 'signatures',
-        name: 'Signatures & Favoris',
-        description: 'Nos créations incontournables plébiscitées par nos clients.',
+        name: t.digitalMenu.signaturesTitle,
+        description: t.digitalMenu.signaturesDesc,
         items: signatures,
       });
     }
@@ -139,7 +164,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
       });
     });
     return list;
-  }, [searchQuery, allItems]);
+  }, [searchQuery, allItems, menuChapters, t]);
 
   const totalMatchingCount = sections.reduce((acc, s) => acc + s.items.length, 0);
 
@@ -230,7 +255,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
   const totalCartPrice = cart.reduce((sum, item) => sum + item.item.price * item.quantity, 0);
 
   return (
-    <div className="bg-monarq-paper min-h-screen text-monarq-ink pt-20 sm:pt-24 pb-28">
+    <div data-digital-menu className="bg-monarq-paper min-h-screen text-monarq-ink pt-20 sm:pt-24 [padding-bottom:calc(7rem+env(safe-area-inset-bottom)+var(--menu-basket-height,0px))]">
       {/* ── Hero ─── */}
       <section className="bg-marble-pattern py-10 sm:py-12 md:py-16 px-5 sm:px-6 flex flex-col items-center justify-center text-center border-b border-monarq-line">
         <FadeUp delay={0.1}>
@@ -256,7 +281,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
               placeholder="Rechercher un plat, un ingrédient..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-10 py-3 rounded-full bg-monarq-paper text-monarq-ink placeholder:text-monarq-ink-muted/60 font-sans text-sm shadow-luxury border border-monarq-line-strong/60 focus:outline-none focus:border-monarq-gold transition-all"
+              className="w-full pl-11 pr-10 py-3 rounded-full bg-monarq-paper text-monarq-ink placeholder:text-monarq-ink-muted/60 font-sans text-base shadow-luxury border border-monarq-line-strong/60 focus:outline-none focus:border-monarq-gold transition-all"
             />
             {searchQuery && (
               <button
@@ -310,7 +335,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                   type="button"
                   data-cat={s.id}
                   onClick={() => scrollToSection(s.id)}
-                  className={`flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full font-sans text-xs sm:text-[13px] font-semibold whitespace-nowrap transition-colors border ${
+                  className={`flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full font-sans text-sm font-semibold whitespace-nowrap transition-colors border ${
                     isActive
                       ? 'bg-monarq-ink text-monarq-paper border-monarq-ink shadow-sm'
                       : 'bg-monarq-paper-soft border-monarq-line text-monarq-ink-soft hover:border-monarq-gold/60 hover:text-monarq-ink'
@@ -397,7 +422,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                         >
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <h3 className="font-serif text-[18px] sm:text-[20px] text-monarq-ink font-bold group-hover:text-monarq-gold-deep transition-colors leading-snug uppercase tracking-wide">
+                              <h3 className="font-sans text-lg leading-[1.3] tracking-normal font-semibold text-monarq-ink group-hover:text-monarq-gold-deep transition-colors break-words min-w-0">
                                 {item.name}
                               </h3>
                               {item.isSpicy && (
@@ -415,20 +440,20 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                             </div>
 
                             {cleanTag && (
-                              <span className="inline-block mt-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-sans uppercase tracking-[0.14em] font-semibold bg-monarq-gold/15 text-monarq-gold-deep border border-monarq-gold/25">
+                              <span className="inline-block mt-1.5 px-2.5 py-0.5 rounded-full text-[0.6875rem] font-sans tracking-normal font-semibold bg-monarq-gold/15 text-monarq-gold-deep border border-monarq-gold/25">
                                 {cleanTag}
                               </span>
                             )}
 
                             {item.description && (
-                              <p className="mt-2 font-sans text-[13.5px] sm:text-[14px] text-monarq-ink-soft font-normal leading-relaxed line-clamp-2">
+                              <p className="mt-2 font-sans text-[0.9375rem] text-monarq-ink-soft font-normal leading-normal line-clamp-2">
                                 {item.description}
                               </p>
                             )}
                           </div>
 
                           {item.image && (
-                            <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden border border-monarq-line/70 bg-monarq-paper-dark shadow-sm">
+                            <div className="flex-shrink-0 w-20 h-20 min-[375px]:size-[88px] min-[640px]:size-24 rounded-xl overflow-hidden border border-monarq-line/70 bg-monarq-paper-dark shadow-sm">
                               <img
                                 src={item.image}
                                 alt={item.name}
@@ -440,15 +465,15 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                         </div>
 
                         {/* Bottom Zone: Dedicated Footer Bar (Price on Left, Controls on Right — Never Overlapping Image) */}
-                        <div className="mt-4 pt-3 border-t border-monarq-line/50 flex items-center justify-between gap-3">
+                        <div className="mt-4 pt-3 border-t border-monarq-line/50 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
                           <div className="flex items-center gap-3">
-                            <span className="font-sans text-[15px] sm:text-base text-monarq-gold-deep font-bold tabular-nums">
+                            <span className="font-sans text-[1.0625rem] text-monarq-gold-deep font-bold tabular-nums">
                               {typeof item.price === 'number' ? `${item.price} DH` : item.price}
                             </span>
                             <button
                               type="button"
                               onClick={() => setDetailItem(item)}
-                              className="font-sans text-[11px] uppercase tracking-[0.14em] text-monarq-ink-muted hover:text-monarq-gold-deep font-semibold transition-colors"
+                              className="min-h-[44px] py-1 font-sans text-sm tracking-normal text-monarq-ink-muted hover:text-monarq-gold-deep font-semibold transition-colors"
                             >
                               Détails
                             </button>
@@ -458,7 +483,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                             <button
                               type="button"
                               onClick={() => handleUpdateQuantity(item.id, 1)}
-                              className="px-4 py-1.5 rounded-full bg-monarq-ink hover:bg-monarq-black active:scale-95 text-monarq-paper font-sans text-[11px] uppercase tracking-[0.16em] font-semibold flex items-center gap-1.5 transition-colors shadow-sm"
+                              className="min-h-[44px] px-4 py-1.5 rounded-full bg-monarq-ink hover:bg-monarq-black active:scale-95 text-monarq-paper font-sans text-sm tracking-normal font-semibold flex items-center gap-1.5 transition-colors shadow-sm"
                             >
                               <Plus className="w-3.5 h-3.5 text-monarq-gold-light" />
                               <span>Ajouter</span>
@@ -469,7 +494,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                                 <button
                                   type="button"
                                   onClick={() => handleUpdateQuantity(item.id, qty - 1)}
-                                  className="w-7 h-7 rounded-full flex items-center justify-center text-monarq-ink hover:bg-monarq-paper-dark transition-colors"
+                                  className="size-[44px] rounded-full flex items-center justify-center text-monarq-ink hover:bg-monarq-paper-dark transition-colors"
                                   aria-label="Diminuer"
                                 >
                                   <Minus className="w-3 h-3" />
@@ -480,7 +505,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                                 <button
                                   type="button"
                                   onClick={() => handleUpdateQuantity(item.id, qty + 1)}
-                                  className="w-7 h-7 rounded-full bg-monarq-gold/20 text-monarq-gold-deep hover:bg-monarq-gold/30 transition-colors flex items-center justify-center"
+                                  className="size-[44px] rounded-full bg-monarq-gold/20 text-monarq-gold-deep hover:bg-monarq-gold/30 transition-colors flex items-center justify-center"
                                   aria-label="Augmenter"
                                 >
                                   <Plus className="w-3 h-3" />
@@ -492,7 +517,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                                 onClick={() => handleUpdateQuantity(item.id, 0)}
                                 title="Retirer de la sélection"
                                 aria-label={`Retirer ${item.name} de la sélection`}
-                                className="w-7 h-7 rounded-full border border-monarq-line bg-monarq-paper text-monarq-ink-muted hover:text-red-700 hover:border-red-200 hover:bg-red-50 flex items-center justify-center transition-colors shadow-sm"
+                                className="size-[44px] rounded-full border border-monarq-line bg-monarq-paper text-monarq-ink-muted hover:text-red-700 hover:border-red-200 hover:bg-red-50 flex items-center justify-center transition-colors shadow-sm"
                               >
                                 <X className="w-3.5 h-3.5" />
                               </button>
@@ -534,7 +559,8 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 80, opacity: 0 }}
             transition={{ type: 'spring', damping: 25, stiffness: 280 }}
-            className="fixed bottom-4 sm:bottom-6 left-4 right-4 max-w-lg mx-auto z-40"
+            ref={measureBasket}
+            className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom))] left-4 right-4 max-w-lg mx-auto z-40"
           >
             <button
               type="button"
@@ -553,8 +579,8 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                 </div>
 
                 <div className="text-left">
-                  <p className="font-serif font-bold text-base uppercase tracking-wider text-white leading-tight">
-                    Votre Sélection
+                  <p className="font-sans font-semibold text-[0.9375rem] tracking-normal text-white leading-tight">
+                    Votre sélection
                   </p>
                   <p className="font-sans text-[11px] text-monarq-paper/80">
                     {totalCartCount} article{totalCartCount > 1 ? 's' : ''}

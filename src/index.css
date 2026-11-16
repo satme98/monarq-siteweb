@@ -58,6 +58,34 @@
     outline: 2px solid #9E8050;
     outline-offset: 2px;
   }
+
+  /* Arabic / RTL Typography & Layout Support */
+  html[dir="rtl"] body,
+  html[dir="rtl"] .font-sans {
+    font-family: 'Cairo', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  html[dir="rtl"] h1,
+  html[dir="rtl"] h2,
+  html[dir="rtl"] h3,
+  html[dir="rtl"] h4,
+  html[dir="rtl"] .font-serif,
+  html[dir="rtl"] .font-editorial {
+    font-family: 'Amiri', 'Cairo', 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: 0 !important;
+  }
+
+  html[dir="rtl"] * {
+    letter-spacing: 0 !important;
+  }
+
+  html[dir="rtl"] .text-left {
+    text-align: right;
+  }
+
+  html[dir="rtl"] .text-right {
+    text-align: left;
+  }
 }
 
 @layer components {

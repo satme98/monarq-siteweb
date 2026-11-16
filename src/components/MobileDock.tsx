@@ -1,6 +1,7 @@
 import React from 'react';
-import { Utensils, MapPin, Calendar, MessageSquare } from 'lucide-react';
+import { Utensils, MapPin, Calendar } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
+import { useLanguage } from '../i18n';
 
 interface MobileDockProps {
   activeTab: string;
@@ -9,6 +10,7 @@ interface MobileDockProps {
 }
 
 export const MobileDock: React.FC<MobileDockProps> = ({ activeTab, setActiveTab, onOpenReservation }) => {
+  const { t } = useLanguage();
   if (activeTab === 'digital-menu') {
     return null;
   }
@@ -29,7 +31,7 @@ export const MobileDock: React.FC<MobileDockProps> = ({ activeTab, setActiveTab,
           }`}
         >
           <Utensils className="w-3.5 h-3.5 text-monarq-gold" />
-          <span>Commander</span>
+          <span>{t.nav.commander}</span>
         </button>
 
         {/* Bouton Itinéraire Maps */}
@@ -40,7 +42,7 @@ export const MobileDock: React.FC<MobileDockProps> = ({ activeTab, setActiveTab,
           className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-full text-xs font-semibold text-gray-100 hover:text-white transition-all"
         >
           <MapPin className="w-3.5 h-3.5 text-monarq-gold" />
-          <span>GPS</span>
+          <span>{t.nav.gps}</span>
         </a>
 
         {/* Bouton Réserver Principal */}
@@ -49,7 +51,7 @@ export const MobileDock: React.FC<MobileDockProps> = ({ activeTab, setActiveTab,
           className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-full btn-gold text-xs font-semibold uppercase tracking-wider shadow-md"
         >
           <Calendar className="w-3.5 h-3.5" />
-          <span>Réserver</span>
+          <span>{t.nav.reserver}</span>
         </button>
       </div>
     </div>

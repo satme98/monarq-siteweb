@@ -9,6 +9,7 @@ import {
 import { Menu, X, Calendar, Phone, Instagram, MapPin, ShoppingBag } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
 import { EASE_MONARQ, EASE_CINEMATIC, DUR, SPRING_SNAP, SPRING_FLUID } from '../lib/animation';
+import { useLanguage, LanguageSwitcher } from '../i18n';
 
 interface NavbarProps {
   activeTab: string;
@@ -19,6 +20,7 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenReservation }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const reduce = useReducedMotion();
+  const { t } = useLanguage();
 
   // Smooth scroll progress — used to interpolate navbar opacity instead of a boolean toggle
   const { scrollY } = useScroll();
@@ -48,11 +50,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
   }, []);
 
   const navItems = [
-    { id: 'accueil', label: 'Accueil' },
-    { id: 'menu', label: 'La Carte' },
-    { id: 'galerie', label: 'Galerie' },
-    { id: 'apropos', label: 'À Propos' },
-    { id: 'contact', label: 'Contact' },
+    { id: 'accueil', label: t.nav.accueil },
+    { id: 'menu', label: t.nav.menu },
+    { id: 'galerie', label: t.nav.galerie },
+    { id: 'apropos', label: t.nav.apropos },
+    { id: 'contact', label: t.nav.contact },
   ];
 
   const handleNavClick = (id: string) => {
@@ -203,7 +205,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
           </nav>
 
           {/* Desktop Actions */}
-          <div className="hidden lg:flex items-center gap-2.5 xl:gap-3.5 flex-shrink-0">
+          <div className="hidden lg:flex items-center gap-2 xl:gap-3 flex-shrink-0">
+            <LanguageSwitcher isTransparent={isTransparent} variant="desktop" />
+
             <motion.a
               href={siteConfig.instagram}
               target="_blank"
@@ -232,7 +236,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
               transition={SPRING_SNAP}
             >
               <Calendar className="w-3.5 h-3.5 flex-shrink-0" />
-              <span>Réserver</span>
+              <span>{t.nav.reserver}</span>
             </motion.button>
 
             <motion.button
@@ -242,19 +246,21 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
               transition={SPRING_SNAP}
             >
               <ShoppingBag className="w-3.5 h-3.5 flex-shrink-0" />
-              <span>Commander</span>
+              <span>{t.nav.commander}</span>
             </motion.button>
           </div>
 
           {/* Mobile Actions */}
-          <div className="flex items-center gap-2 sm:gap-2.5 lg:hidden flex-shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden flex-shrink-0">
+            <LanguageSwitcher isTransparent={isTransparent} variant="mobile-compact" />
+
             <motion.button
               onClick={() => handleNavClick('digital-menu')}
-              className="whitespace-nowrap px-3.5 py-1.5 rounded-full text-[11px] uppercase tracking-wider font-semibold btn-gold shadow-sm"
+              className="whitespace-nowrap px-3 sm:px-3.5 py-1.5 rounded-full text-[11px] uppercase tracking-wider font-semibold btn-gold shadow-sm"
               whileTap={reduce ? {} : { scale: 0.94 }}
               transition={SPRING_SNAP}
             >
-              Commander
+              {t.nav.commander}
             </motion.button>
 
             <motion.button
@@ -264,7 +270,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
                   ? 'text-white hover:bg-white/10'
                   : 'text-monarq-ink hover:bg-monarq-paper-dark'
               }`}
-              aria-label="Ouvrir le menu"
+              aria-label={t.nav.openMenu}
               whileTap={reduce ? {} : { scale: 0.9 }}
               transition={SPRING_SNAP}
             >
@@ -308,12 +314,12 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
                   onClick={() => { setMobileMenuOpen(false); onOpenReservation(); }}
                   className="px-3.5 py-1.5 rounded-full text-[11px] uppercase tracking-wider font-semibold bg-white text-monarq-ink shadow-sm"
                 >
-                  Réserver
+                  {t.nav.reserver}
                 </button>
                 <motion.button
                   onClick={() => setMobileMenuOpen(false)}
                   className="p-2 rounded-lg text-white hover:bg-white/10 focus:outline-none"
-                  aria-label="Fermer le menu"
+                  aria-label={t.nav.closeMenu}
                   whileTap={reduce ? {} : { scale: 0.88, rotate: 90 }}
                   transition={SPRING_SNAP}
                 >
@@ -324,21 +330,24 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
 
             {/* Nav Items — staggered in */}
             <div className="py-4 flex flex-col justify-center space-y-1 flex-grow">
-              {/* Logo seal */}
+              {/* Logo seal + Language Switcher */}
               <motion.div
-                className="text-center pb-6 mb-2"
+                className="text-center pb-5 mb-2 flex flex-col items-center gap-3"
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.32 }}
               >
-                <img
-                  src={siteConfig.logos.seal}
-                  alt="MONARQ"
-                  className="w-12 h-12 mx-auto mb-2 opacity-90 brightness-125 invert"
-                />
-                <p className="text-xs uppercase tracking-[0.22em] text-monarq-gold-light font-bold">
-                  Tanger · Maroc
-                </p>
+                <div>
+                  <img
+                    src={siteConfig.logos.seal}
+                    alt="MONARQ"
+                    className="w-12 h-12 mx-auto mb-2 opacity-90 brightness-125 invert"
+                  />
+                  <p className="text-xs uppercase tracking-[0.22em] text-monarq-gold-light font-bold">
+                    {t.common.cityCountry}
+                  </p>
+                </div>
+                <LanguageSwitcher variant="mobile-overlay" />
               </motion.div>
 
               {navItems.map((item, i) => {
@@ -384,14 +393,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
                   className="w-full py-3.5 rounded-xl btn-gold flex items-center justify-center gap-2 text-xs uppercase tracking-[0.18em] font-semibold shadow-luxury"
                 >
                   <ShoppingBag className="w-4 h-4" />
-                  <span>Commander</span>
+                  <span>{t.nav.commander}</span>
                 </button>
                 <button
                   onClick={() => { setMobileMenuOpen(false); onOpenReservation(); }}
                   className="w-full py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white flex items-center justify-center gap-2 text-xs uppercase tracking-[0.18em] font-semibold"
                 >
                   <Calendar className="w-4 h-4" />
-                  <span>Réserver</span>
+                  <span>{t.nav.reserver}</span>
                 </button>
               </div>
 
@@ -401,7 +410,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
                   className="flex items-center gap-1.5 hover:text-monarq-gold-light transition-colors"
                 >
                   <Phone className="w-3.5 h-3.5" />
-                  <span>Appeler</span>
+                  <span>{t.nav.appeler}</span>
                 </a>
                 <a
                   href={siteConfig.mapsUrl}
@@ -410,7 +419,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenR
                   className="flex items-center gap-1.5 hover:text-monarq-gold-light transition-colors"
                 >
                   <MapPin className="w-3.5 h-3.5" />
-                  <span>Plan d'accès</span>
+                  <span>{t.nav.planAcces}</span>
                 </a>
                 <a
                   href={siteConfig.instagram}

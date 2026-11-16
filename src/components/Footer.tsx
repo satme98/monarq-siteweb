@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { Instagram, MapPin, Phone, Clock, ArrowUpRight, Sparkles, Mail } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
 import { EASE_MONARQ, EASE_CINEMATIC, SPRING_SNAP, SPRING_FLUID } from '../lib/animation';
+import { useLanguage } from '../i18n';
 
 interface FooterProps {
   onOpenReservation: () => void;
@@ -11,6 +12,7 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab }) => {
   const reduce = useReducedMotion();
+  const { t } = useLanguage();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -91,7 +93,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
               className="block text-[10px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.32em] font-serif text-monarq-gold-light font-semibold text-center whitespace-nowrap"
               variants={labelVariants}
             >
-              Maison de Gastronomie · Tanger
+              {t.footer.headerBand}
             </motion.span>
           </div>
           <motion.span
@@ -117,7 +119,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
           <motion.div className="space-y-4 lg:col-span-3 xl:pr-4" custom={0} variants={colVariants}>
             <img src={siteConfig.logos.white} alt="MONARQ" className="h-9 sm:h-10 w-auto" />
             <p className="text-xs sm:text-sm text-gray-200 font-normal leading-relaxed max-w-sm">
-              L'art de recevoir et la passion du goût à Tanger. Grands brunchs, cuisine raffinée et café d'auteur.
+              {t.footer.brandDescription}
             </p>
             <div className="flex items-center gap-3 pt-1">
               <motion.a
@@ -174,15 +176,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
             <div className="flex items-center gap-2 mb-3">
               <Clock className="w-4 h-4 text-monarq-gold flex-shrink-0" />
               <h4 className="text-[11px] sm:text-xs uppercase tracking-[0.25em] text-monarq-gold-light font-semibold font-serif">
-                Horaires de Service
+                {t.footer.hoursTitle}
               </h4>
             </div>
             <div className="space-y-2.5 text-xs sm:text-sm text-gray-200">
-              {[
-                { label: 'Tous les jours', time: '09h00 — 00h00' },
-                { label: 'Service Brunch', time: '09h00 — 14h00' },
-                { label: 'Déjeuner & Dîner', time: '12h00 — 23h30' },
-              ].map((row) => (
+              {t.footer.hoursRows.map((row) => (
                 <div key={row.label} className="flex justify-between items-center py-1.5 border-b border-white/10">
                   <span className="text-gray-300 font-medium">{row.label}</span>
                   <span className="font-medium text-white">{row.time}</span>
@@ -196,12 +194,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
             <div className="flex items-center gap-2 mb-3">
               <MapPin className="w-4 h-4 text-monarq-gold flex-shrink-0" />
               <h4 className="text-[11px] sm:text-xs uppercase tracking-[0.25em] text-monarq-gold-light font-semibold font-serif">
-                Adresse à Tanger
+                {t.footer.addressTitle}
               </h4>
             </div>
             <div className="space-y-2.5 text-xs sm:text-sm text-gray-200">
               <p className="leading-relaxed">
-                {siteConfig.fullAddress}
+                {t.common.fullAddress}
               </p>
               <div className="pt-1.5">
                 <motion.a
@@ -211,7 +209,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
                   className="group inline-flex items-center gap-1.5 text-monarq-gold-light hover:text-white transition-colors font-semibold text-xs uppercase tracking-[0.22em]"
                   transition={SPRING_FLUID}
                 >
-                  <span>Ouvrir dans Google Maps</span>
+                  <span>{t.footer.openInMaps}</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-monarq-gold transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </motion.a>
               </div>
@@ -224,11 +222,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
               <div className="flex items-center gap-2 mb-3">
                 <Sparkles className="w-4 h-4 text-monarq-gold flex-shrink-0" />
                 <h4 className="text-[11px] sm:text-xs uppercase tracking-[0.25em] text-monarq-gold-light font-semibold font-serif">
-                  Réservations
+                  {t.footer.reservationsTitle}
                 </h4>
               </div>
               <p className="text-xs sm:text-sm text-gray-200 font-normal leading-relaxed mb-4">
-                Table d'hôtes, déjeuners d'affaires & réceptions privées.
+                {t.footer.reservationsText}
               </p>
             </div>
             <motion.button
@@ -237,7 +235,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
               whileTap={reduce ? {} : { scale: 0.96, y: 0 }}
               transition={SPRING_SNAP}
             >
-              Réserver une Table
+              {t.footer.reserveTableBtn}
             </motion.button>
           </motion.div>
         </motion.div>
@@ -267,7 +265,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
               className="absolute bottom-3 right-3 z-10 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-monarq-black/85 hover:bg-monarq-black text-monarq-gold-light hover:text-white border border-monarq-gold/40 backdrop-blur-md text-[11px] uppercase tracking-[0.18em] font-semibold transition-colors shadow-lg"
             >
               <MapPin className="w-3 h-3 text-monarq-gold" />
-              <span>Itinéraire Google Maps</span>
+              <span>{t.footer.directionsMaps}</span>
               <ArrowUpRight className="w-3 h-3 text-monarq-gold" />
             </a>
           </div>
@@ -280,7 +278,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
               className="w-1.5 h-1.5 inline-block bg-monarq-gold flex-shrink-0 shadow-[0_0_8px_rgba(158,128,80,0.6)]"
               style={{ transform: 'rotate(45deg)' }}
             />
-            <p>© {new Date().getFullYear()} MONARQ Tanger. Tous droits réservés.</p>
+            <p>© {new Date().getFullYear()} MONARQ {t.common.city}. {t.footer.copyright}</p>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-8">
@@ -288,19 +286,19 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
               onClick={() => { setActiveTab('menu'); scrollToTop(); }}
               className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand whitespace-nowrap"
             >
-              La Carte
+              {t.nav.menu}
             </button>
             <button
               onClick={() => { setActiveTab('apropos'); scrollToTop(); }}
               className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand whitespace-nowrap"
             >
-              À Propos
+              {t.nav.apropos}
             </button>
             <button
               onClick={() => { setActiveTab('contact'); scrollToTop(); }}
               className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand whitespace-nowrap"
             >
-              Contact
+              {t.nav.contact}
             </button>
           </div>
         </div>

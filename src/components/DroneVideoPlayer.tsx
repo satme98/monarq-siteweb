@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Play, Pause, Volume2, VolumeX, Maximize2 } from 'lucide-react';
+import { useLanguage } from '../i18n';
 
 interface DroneVideoPlayerProps {
   src: string;
@@ -17,6 +18,7 @@ export const DroneVideoPlayer: React.FC<DroneVideoPlayerProps> = ({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
+  const { t } = useLanguage();
 
   const togglePlay = () => {
     if (!videoRef.current) return;
@@ -63,8 +65,8 @@ export const DroneVideoPlayer: React.FC<DroneVideoPlayerProps> = ({
         <button
           onClick={togglePlay}
           className="w-8 h-8 rounded-full bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center transition-colors"
-          title={isPlaying ? 'Pause' : 'Lecture'}
-          aria-label={isPlaying ? 'Pause' : 'Lecture'}
+          title={isPlaying ? t.common.pause : t.common.play}
+          aria-label={isPlaying ? t.common.pause : t.common.play}
         >
           {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 ml-0.5" />}
         </button>
@@ -72,8 +74,8 @@ export const DroneVideoPlayer: React.FC<DroneVideoPlayerProps> = ({
         <button
           onClick={toggleMute}
           className="w-8 h-8 rounded-full bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center transition-colors"
-          title={isMuted ? 'Activer le son' : 'Couper le son'}
-          aria-label={isMuted ? 'Activer le son' : 'Couper le son'}
+          title={isMuted ? t.common.unmute : t.common.mute}
+          aria-label={isMuted ? t.common.unmute : t.common.mute}
         >
           {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
         </button>
@@ -81,8 +83,8 @@ export const DroneVideoPlayer: React.FC<DroneVideoPlayerProps> = ({
         <button
           onClick={toggleFullscreen}
           className="w-8 h-8 rounded-full bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center transition-colors"
-          title="Plein écran"
-          aria-label="Plein écran"
+          title={t.common.fullscreen}
+          aria-label={t.common.fullscreen}
         >
           <Maximize2 className="w-3.5 h-3.5" />
         </button>

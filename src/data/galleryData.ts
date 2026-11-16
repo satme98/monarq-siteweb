@@ -220,9 +220,9 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: '31',
-    title: 'Table en Marbre & Fauteuils Velours Émeraude sous Verrière',
+    title: 'Accueil du restaurant MONARQ',
     category: 'atmosphere',
-    image: '/images/photographer/_DSC7011.jpg',
+    image: '/images/monarq-lobby-reception.png',
     span: 'col-span-12 md:col-span-4 row-span-1',
   },
   {
@@ -275,7 +275,7 @@ export const closingPhoto = '33';
 export const featuredIds = [heroPhoto, ...galleryChapters.flatMap(chapter => [...chapter.photos]), closingPhoto];
 
 export const photoDetails: Record<string, { position: string; mobile?: string; name?: string; label?: string; alt?: string }> = {
-  '31': { position: '50% 55%', mobile: '52% 53%', alt: 'Table en marbre et fauteuils de velours vert sous la verrière du MONARQ Tanger' },
+  '31': { position: '50% 55%', mobile: '52% 53%', alt: 'Accueil et salle du restaurant MONARQ Tanger' },
   '36': { position: '50% 55%' },
   '34': { position: '50% 41%' },
   '32': { position: '50% 58%' },

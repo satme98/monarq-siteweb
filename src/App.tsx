@@ -15,7 +15,6 @@ import EventsPage from './pages/EventsPage';
 import { initLenis } from './lib/animation';
 import { siteConfig } from './data/siteConfig';
 import { MaintenancePage } from './pages/MaintenancePage';
-import { Lock } from 'lucide-react';
 
 const getInitialTab = (): string => {
   if (typeof window === 'undefined') return 'accueil';
@@ -53,15 +52,6 @@ export function App() {
   });
 
   const isMaintenance = Boolean(siteConfig.maintenance?.enabled && !isUnlocked);
-
-  const handleLockAgain = () => {
-    try {
-      localStorage.removeItem('monarq_maintenance_unlocked');
-    } catch {
-      // Storage fallback
-    }
-    setIsUnlocked(false);
-  };
 
   // Lenis smooth scroll intentionally disabled — native browser scroll is used instead.
 
@@ -183,29 +173,6 @@ export function App() {
         setActiveTab={setActiveTab}
       />
 
-      {/* Floating Maintenance Mode Banner (Visible only when unlocked preview is active) */}
-      {siteConfig.maintenance?.enabled && isUnlocked && (
-        <aside
-          aria-label="Contrôle du mode maintenance"
-          className="fixed bottom-4 left-4 z-50 flex items-center gap-3 px-3.5 py-2 rounded-full bg-monarq-ink/90 text-monarq-paper text-xs shadow-luxury-lg border border-monarq-gold/40 backdrop-blur-md transition-all hover:bg-monarq-ink"
-        >
-          <span className="flex h-2 w-2 relative">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
-          </span>
-          <span className="font-sans text-[11px] text-monarq-paper/90 hidden sm:inline">
-            Mode Maintenance Actif · Aperçu Déverrouillé
-          </span>
-          <button
-            onClick={handleLockAgain}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-monarq-gold/20 hover:bg-monarq-gold/30 text-monarq-gold-light hover:text-white transition-colors text-[11px] font-medium"
-            title="Reverrouiller le site pour afficher la page de maintenance"
-          >
-            <Lock className="w-3 h-3" />
-            <span>Reverrouiller</span>
-          </button>
-        </aside>
-      )}
     </div>
   );
 
