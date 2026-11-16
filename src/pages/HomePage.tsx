@@ -609,7 +609,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 <ImageReveal direction="right" duration={1.0}>
                   <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
                     <img
-                      src="/images/moment-morning.jpg"
+                      src="/images/moments/img-1050.jpg"
                       alt="Petit déjeuner chez MONARQ"
                       className="w-full h-52 sm:h-60 md:h-72 lg:h-76 object-cover hover-scale-img"
                     />
@@ -666,7 +666,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 <ImageReveal direction="left" duration={1.0}>
                   <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
                     <img
-                      src="/images/moment-cuisine.jpg"
+                      src="/images/moments/img-1040.jpg"
                       alt="Brunchs MONARQ"
                       className="w-full h-52 sm:h-60 md:h-72 lg:h-76 object-cover hover-scale-img"
                     />
@@ -681,7 +681,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 <ImageReveal direction="right" duration={1.0}>
                   <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
                     <img
-                      src="/images/moment-sweet.jpg"
+                      src="/images/moments/img-1020.jpg"
                       alt="Cuisine MONARQ"
                       className="w-full h-52 sm:h-60 md:h-72 lg:h-76 object-cover hover-scale-img"
                     />
@@ -880,10 +880,10 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
           {/* Instagram grid — accordion stagger with ImageReveal */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
             {[
-              '/images/photographer/_DSC6976.jpg',
-              '/images/photographer/_DSC7015.jpg',
-              '/images/photographer/_DSC7124.jpg',
-              '/images/photographer/_DSC6971-Modifier.jpg',
+              '/images/instagram/ig-01.jpg',
+              '/images/instagram/ig-02.jpg',
+              '/images/instagram/ig-03.jpg',
+              '/images/instagram/ig-04.jpg',
             ].map(
               (src, i) => (
                 <ImageReveal key={i} delay={i * 0.07} duration={0.9}>
