@@ -81,17 +81,8 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
     }
   }, [customerName, customerPhone]);
 
-  // Lock body scroll when drawer is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      setSubmitted(false);
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
+    if (isOpen) setSubmitted(false);
   }, [isOpen]);
 
   const totalItemsCount = items.reduce((sum, item) => sum + item.quantity, 0);

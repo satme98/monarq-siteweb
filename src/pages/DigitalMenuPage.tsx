@@ -37,6 +37,31 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
   // Detail Modal & Order Drawer states
   const [detailItem, setDetailItem] = useState<MenuItem | null>(null);
   const [isOrderOpen, setIsOrderOpen] = useState(false);
+  const isMenuOverlayOpen = detailItem !== null || isOrderOpen;
+
+  React.useLayoutEffect(() => {
+    if (!isMenuOverlayOpen) return;
+
+    const { style } = document.body;
+    const previous = {
+      overflow: style.overflow,
+      position: style.position,
+      top: style.top,
+      width: style.width,
+    };
+    const { scrollX, scrollY } = window;
+
+    // Fix the body in place so touch scrolling cannot move it on iOS.
+    style.overflow = 'hidden';
+    style.position = 'fixed';
+    style.top = `-${scrollY}px`;
+    style.width = '100%';
+
+    return () => {
+      Object.assign(style, previous);
+      window.scrollTo({ left: scrollX, top: scrollY, behavior: 'instant' });
+    };
+  }, [isMenuOverlayOpen]);
 
   // Cart state with localStorage persistence
   const [cart, setCart] = useState<CartItem[]>(() => {
