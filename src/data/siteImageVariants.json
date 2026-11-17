@@ -1,11 +1,13 @@
 {
-  "/images/concept-dining.jpg": {
-    "stem": "concept-dining",
-    "width": 768,
-    "height": 1024,
+  "/images/monarq-lobby-reception.png": {
+    "stem": "monarq-lobby-reception",
+    "width": 1672,
+    "height": 941,
     "widths": [
       480,
-      768
+      768,
+      1200,
+      1672
     ]
   },
   "/images/concept-terrace.jpg": {

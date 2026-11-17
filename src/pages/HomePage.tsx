@@ -519,8 +519,8 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   <ImageReveal delay={0.05} duration={1.1}>
                     <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
                       <SitePicture
-                        src="/images/concept-dining.jpg"
-                        alt="Salle de restaurant MONARQ Tanger"
+                        src="/images/monarq-lobby-reception.png"
+                        alt="Accueil du restaurant MONARQ Tanger"
                         className="w-full h-64 sm:h-80 md:h-[380px] lg:h-[420px] object-cover hover-scale-img"
                       />
                     </div>
