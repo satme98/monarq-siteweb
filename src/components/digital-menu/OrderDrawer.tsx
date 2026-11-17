@@ -11,6 +11,8 @@ import {
   Clock,
   MapPin,
 } from 'lucide-react';
+import { cartLineKey, lineTotal, unitPrice, extraLabels } from '../../lib/menuOrder';
+import { useLanguage } from '../../i18n';
 import { CartItem } from '../../types';
 import { siteConfig } from '../../data/siteConfig';
 import {
@@ -24,6 +26,7 @@ interface OrderDrawerProps {
   items: CartItem[];
   onUpdateQuantity: (itemId: string, quantity: number) => void;
   onClearCart: () => void;
+  onEdit: (line: CartItem) => void;
 }
 
 export const OrderDrawer: React.FC<OrderDrawerProps> = ({
@@ -32,7 +35,9 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
   items,
   onUpdateQuantity,
   onClearCart,
+  onEdit,
 }) => {
+  const { lang } = useLanguage();
   // Service mode: Delivery or Pick-up
   const [serviceMode, setServiceMode] = useState<'delivery' | 'pickup'>('delivery');
   const [pickupTime, setPickupTime] = useState<string>('asap');
@@ -86,7 +91,7 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
   }, [isOpen]);
 
   const totalItemsCount = items.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = items.reduce((sum, item) => sum + item.item.price * item.quantity, 0);
+  const totalPrice = items.reduce((sum, item) => sum + lineTotal(item), 0);
 
   const generateWhatsAppMessage = () => {
     const lines = [
@@ -130,8 +135,9 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
     lines.push('*Articles :*');
 
     items.forEach((ci) => {
-      const linePrice = ci.item.price * ci.quantity;
+      const linePrice = lineTotal(ci);
       lines.push(`- ${ci.quantity}x ${ci.item.name} — ${linePrice} DH`);
+      ci.extras?.forEach((extra) => lines.push(`  + ${extra.name} (+${extra.price} DH)`));
     });
 
     lines.push('');
@@ -426,10 +432,10 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                   </div>
                   <div className="divide-y divide-monarq-line rounded-xl bg-monarq-paper-soft/50 border border-monarq-line overflow-hidden">
                     {items.map((cartItem) => {
-                      const itemTotal = cartItem.item.price * cartItem.quantity;
+                      const itemTotal = lineTotal(cartItem);
                       return (
                         <div
-                          key={cartItem.item.id}
+                          key={cartLineKey(cartItem)}
                           className="p-3 flex items-center justify-between gap-2.5"
                         >
                           {/* Product name & unit price */}
@@ -438,16 +444,23 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                               {cartItem.item.name}
                             </h5>
                             <p className="font-sans text-xs text-monarq-gold-deep font-semibold tabular-nums">
-                              {cartItem.item.price} DH
+                              {unitPrice(cartItem)} DH
                             </p>
                           </div>
+
+                          {cartItem.extras?.map((extra) => (
+                            <p key={extra.id} className="text-xs text-monarq-ink-soft">{extra.name} (+{extra.price} DH)</p>
+                          ))}
+                          <button type="button" onClick={() => onEdit(cartItem)} className="text-xs text-monarq-gold-deep underline">
+                            {extraLabels[lang].edit}
+                          </button>
 
                           {/* Quantity stepper + total + remove X */}
                           <div className="flex items-center gap-2 flex-shrink-0">
                             <div className="flex items-center border border-monarq-line bg-monarq-paper rounded-full p-0.5">
                               <button
                                 type="button"
-                                onClick={() => onUpdateQuantity(cartItem.item.id, cartItem.quantity - 1)}
+                                onClick={() => onUpdateQuantity(cartLineKey(cartItem), cartItem.quantity - 1)}
                                 className="w-6 h-6 rounded-full flex items-center justify-center text-monarq-ink hover:bg-monarq-paper-dark transition-colors"
                                 aria-label="Diminuer"
                               >
@@ -458,7 +471,7 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                               </span>
                               <button
                                 type="button"
-                                onClick={() => onUpdateQuantity(cartItem.item.id, cartItem.quantity + 1)}
+                                onClick={() => onUpdateQuantity(cartLineKey(cartItem), cartItem.quantity + 1)}
                                 className="w-6 h-6 rounded-full bg-monarq-gold/15 text-monarq-gold-deep hover:bg-monarq-gold/25 transition-colors flex items-center justify-center"
                                 aria-label="Augmenter"
                               >
@@ -472,7 +485,7 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
 
                             <button
                               type="button"
-                              onClick={() => onUpdateQuantity(cartItem.item.id, 0)}
+                              onClick={() => onUpdateQuantity(cartLineKey(cartItem), 0)}
                               title="Retirer cet article"
                               aria-label={`Retirer ${cartItem.item.name}`}
                               className="w-6 h-6 rounded-full text-monarq-ink-muted hover:text-red-700 hover:bg-red-50 flex items-center justify-center transition-colors ml-0.5"

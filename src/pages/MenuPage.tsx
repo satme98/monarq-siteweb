@@ -4,6 +4,7 @@ import { FadeUp, FadeIn, StaggerGroup, StaggerItem } from '../components/Animati
 import { SectionEyebrow } from '../components/SectionEyebrow';
 import { EASE_CINEMATIC } from '../lib/animation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { browseMenuChapters } from '../lib/menuOrder';
 import { useLanguage, getLocalizedMenuChapters } from '../i18n';
 
 interface MenuPageProps {
@@ -15,7 +16,7 @@ export default function MenuPage({ onSwitchToDigitalMenu }: MenuPageProps = {}) 
   const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
   const reduce = useReducedMotion();
   const { lang, t } = useLanguage();
-  const menuChapters = getLocalizedMenuChapters(lang);
+  const menuChapters = browseMenuChapters(getLocalizedMenuChapters(lang));
 
   const chapter = menuChapters[activeIdx];
 

@@ -1,0 +1,1768 @@
+[
+  {
+    "id": "le-matin",
+    "title": "LE MATIN",
+    "subtitle": "Petits Déjeuners & Grands Brunchs Signatures",
+    "categories": [
+      {
+        "id": "petits-dejeuners",
+        "name": "PETITS DÉJEUNERS",
+        "chapterId": "le-matin",
+        "items": [
+          {
+            "id": "a-la-hate",
+            "name": "À la hâte",
+            "price": 49,
+            "category": "petits-dejeuners",
+            "chapter": "le-matin",
+            "description": "Pain grillé, 3 mini-viennoiseries, beurre, confiture, olives, mini-jus d’orange, boisson chaude."
+          },
+          {
+            "id": "tangerois",
+            "name": "Tangérois",
+            "price": 49,
+            "category": "petits-dejeuners",
+            "chapter": "le-matin",
+            "tag": "Spécialité Locale",
+            "description": "Œufs au plat, pain complet, jambon de dinde, jben arabe, fromage rouge, huile d’olive, olives, mini-jus d’orange, boisson chaude.",
+            "image": "/images/photographer/_DSC6983.jpg"
+          },
+          {
+            "id": "hollandaise",
+            "name": "Hollandaise",
+            "price": 55,
+            "category": "petits-dejeuners",
+            "chapter": "le-matin",
+            "image": "/images/photographer/_DSC6977-raw.jpg",
+            "description": "2 œufs au plat, toast grillé, dinde fumée, fromage edam, mesclun de salade, olives, sauce hollandaise, mini-jus d’orange, boisson chaude."
+          },
+          {
+            "id": "espagnol",
+            "name": "Espagnol",
+            "price": 55,
+            "category": "petits-dejeuners",
+            "chapter": "le-matin",
+            "description": "Pain grillé, fromage manchego, purée de tomate fraîche, huile d’olive, tapenade, mini-jus d’orange, boisson chaude."
+          }
+        ]
+      },
+      {
+        "id": "brunches",
+        "name": "BRUNCHS",
+        "chapterId": "le-matin",
+        "items": [
+          {
+            "id": "bagel-au-saumon",
+            "name": "Bagel au saumon",
+            "price": 89,
+            "category": "brunches",
+            "chapter": "le-matin",
+            "image": "/images/photographer/_DSC6992.jpg",
+            "description": "Bagel, fromage frais, mousse d’avocat, saumon fumé et roquette. Servi avec une boisson chaude au choix, un jus d’orange, un pancake et un yaourt maison."
+          },
+          {
+            "id": "premiere-heure",
+            "name": "Première heure",
+            "price": 89,
+            "category": "brunches",
+            "chapter": "le-matin",
+            "image": "/images/photographer/_DSC7004-raw.jpg",
+            "description": "Croissant garni d’œufs brouillés, d’avocat, de bacon de bœuf croustillant ou de saumon fumé, de fromage edam et de roquette. Servi avec une boisson chaude au choix, un jus d’orange, un pancake et un yaourt maison."
+          },
+          {
+            "id": "le-brunch-equilibre",
+            "name": "Le brunch équilibré",
+            "price": 89,
+            "category": "brunches",
+            "chapter": "le-matin",
+            "isVegetarian": true,
+            "description": "Pain complet grillé, blancs d’œufs brouillés, avocat, bol de granola et mesclun de salade. Servi avec une boisson chaude au choix et un mini-jus d’orange."
+          },
+          {
+            "id": "un-dimanche-a-paris",
+            "name": "Un dimanche à Paris",
+            "price": 89,
+            "category": "brunches",
+            "chapter": "le-matin",
+            "image": "/images/photographer/_DSC7007.jpg",
+            "tag": "Favori des Clients",
+            "description": "Brioche façon pain perdu, bacon de bœuf fumé, œufs brouillés et poêlée de champignons parfumée à la truffe. Servie avec une boisson chaude au choix, un jus d’orange, un duo de mini-pancakes et un yaourt maison."
+          },
+          {
+            "id": "moroccan-touch",
+            "name": "Moroccan Touch",
+            "price": 89,
+            "category": "brunches",
+            "chapter": "le-matin",
+            "image": "/images/photographer/_DSC6971-Modifier.jpg",
+            "tag": "Incontournable",
+            "description": "Corbeille de pistolets, amlou, olives, trio gourmand de msemen, baghrir et harcha, et œufs au plat au khlii. Servie avec une boisson chaude au choix, un jus d’orange et un yaourt maison."
+          },
+          {
+            "id": "mqila-a-la-chakchouka",
+            "name": "M’qila à la chakchouka",
+            "price": 89,
+            "category": "brunches",
+            "chapter": "le-matin",
+            "image": "/images/photographer/_DSC6943-raw.jpg",
+            "description": "Corbeille de pistolets, beurre, confiture, olives rouges et œufs à la tomate et aux poivrons. Servie avec une boisson chaude au choix, un jus d’orange, un duo de mini-viennoiseries et un yaourt maison."
+          },
+          {
+            "id": "london-morning",
+            "name": "London Morning",
+            "price": 89,
+            "category": "brunches",
+            "chapter": "le-matin",
+            "description": "Saucisses, œufs, champignons sautés, galette de pommes de terre et méli-mélo de salade. Servi avec une boisson chaude au choix, un jus d’orange, un duo de mini-viennoiseries et un yaourt maison."
+          },
+          {
+            "id": "facon-manhattan",
+            "name": "Façon Manhattan",
+            "price": 89,
+            "category": "brunches",
+            "chapter": "le-matin",
+            "image": "/images/photographer/_DSC7015.jpg",
+            "description": "Brioche, sauce tzatziki, mousse d’avocat, bacon de bœuf ou saumon fumé, œufs pochés, sauce hollandaise et ciboulette. Servi avec une boisson chaude au choix, un jus d’orange, un mini-pancake et un yaourt maison."
+          },
+          {
+            "id": "le-monarq",
+            "name": "Le Monarq",
+            "price": 99,
+            "category": "brunches",
+            "chapter": "le-matin",
+            "image": "/images/photographer/_DSC6976.jpg",
+            "tag": "Signature Prestige",
+            "description": "Brioche aux crevettes, avocat, mangue, sauce piquante et oignons, accompagnée d’une omelette, d’une galette de pommes de terre, de fromage emmental, d’un yaourt maison et de pain perdu. Servie avec une boisson chaude au choix et un jus d’orange."
+          }
+        ]
+      }
+    ],
+    "timeSlot": "09h00 — 14h00"
+  },
+  {
+    "id": "carte-du-matin",
+    "title": "À LA CARTE DU MATIN",
+    "subtitle": "Tartines, Croques Croustillants & Omelettes",
+    "categories": [
+      {
+        "id": "tartines",
+        "name": "TARTINES",
+        "chapterId": "carte-du-matin",
+        "items": [
+          {
+            "id": "tartine-orientale",
+            "name": "Tartine orientale",
+            "price": 59,
+            "category": "tartines",
+            "chapter": "carte-du-matin",
+            "isVegetarian": true,
+            "description": "Tartine aux céréales, sauce tzatziki, houmous, concombre, falafels et roquette."
+          },
+          {
+            "id": "tartine-au-saumon",
+            "name": "Tartine au saumon",
+            "price": 59,
+            "category": "tartines",
+            "chapter": "carte-du-matin",
+            "description": "Tartine aux céréales, mousse d’avocat, œufs pochés, tranche d’avocat, fromage blanc et saumon fumé."
+          },
+          {
+            "id": "tartine-stracciatella",
+            "name": "Tartine à la stracciatella",
+            "price": 59,
+            "category": "tartines",
+            "chapter": "carte-du-matin",
+            "image": "/images/photographer/_DSC7028-raw.jpg",
+            "description": "Tartine aux céréales, fromage blanc, bacon de bœuf, pêche caramélisée, stracciatella, basilic, roquette et sauce balsamique."
+          },
+          {
+            "id": "tartine-cesar-poulet",
+            "name": "Tartine César au poulet",
+            "price": 69,
+            "category": "tartines",
+            "chapter": "carte-du-matin",
+            "image": "/images/photographer/_DSC7035.jpg",
+            "description": "Tartine aux céréales, sauce César, poulet grillé, tomates cerises, copeaux de parmesan et roquette."
+          }
+        ]
+      },
+      {
+        "id": "croques",
+        "name": "CROQUES",
+        "chapterId": "carte-du-matin",
+        "items": [
+          {
+            "id": "croque-madame",
+            "name": "Croque-madame",
+            "price": 59,
+            "category": "croques",
+            "chapter": "carte-du-matin",
+            "image": "/images/photographer/_DSC7021.jpg",
+            "description": "Croque-madame garni d’un œuf au plat, accompagné d’une galette de pommes de terre."
+          },
+          {
+            "id": "croque-monsieur",
+            "name": "Croque-monsieur",
+            "price": 59,
+            "category": "croques",
+            "chapter": "carte-du-matin",
+            "image": "/images/photographer/_DSC7025.jpg",
+            "description": "Croque-monsieur enrobé d’une omelette, accompagné d’une galette de pommes de terre."
+          }
+        ]
+      },
+      {
+        "id": "omelettes",
+        "name": "OMELETTES",
+        "chapterId": "carte-du-matin",
+        "items": [
+          {
+            "id": "omelette-nature",
+            "name": "Omelette nature",
+            "price": 25,
+            "category": "omelettes",
+            "chapter": "carte-du-matin",
+            "image": "/images/generated-menu/omelette-nature.webp"
+          },
+          {
+            "id": "omelette-champignons",
+            "name": "Omelette aux champignons et fines herbes",
+            "price": 40,
+            "category": "omelettes",
+            "chapter": "carte-du-matin",
+            "image": "/images/generated-menu/omelette-champignons.webp"
+          },
+          {
+            "id": "omelette-fromage",
+            "name": "Omelette au fromage",
+            "price": 32,
+            "category": "omelettes",
+            "chapter": "carte-du-matin",
+            "image": "/images/generated-menu/omelette-fromage.webp"
+          },
+          {
+            "id": "omelette-charcuterie",
+            "name": "Omelette à la charcuterie et au fromage",
+            "price": 39,
+            "category": "omelettes",
+            "chapter": "carte-du-matin",
+            "image": "/images/generated-menu/omelette-charcuterie.webp"
+          },
+          {
+            "id": "omelette-saumon",
+            "name": "Omelette au saumon et aux épinards",
+            "price": 45,
+            "category": "omelettes",
+            "chapter": "carte-du-matin",
+            "image": "/images/generated-menu/omelette-saumon.webp"
+          }
+        ]
+      },
+      {
+        "id": "a-la-carte-pain",
+        "optionsOnly": true,
+        "name": "À LA CARTE",
+        "chapterId": "carte-du-matin",
+        "items": [
+          {
+            "id": "pain-grille",
+            "name": "Pain grillé",
+            "price": 7,
+            "category": "a-la-carte-pain",
+            "chapter": "carte-du-matin",
+            "image": "/images/generated-menu/pain-grille.webp"
+          },
+          {
+            "id": "trio-marocain",
+            "name": "Harcha / Msemen / Baghrir",
+            "price": 10,
+            "category": "a-la-carte-pain",
+            "chapter": "carte-du-matin",
+            "image": "/images/generated-menu/trio-marocain.webp"
+          },
+          {
+            "id": "viennoiserie",
+            "name": "Viennoiserie",
+            "price": 10,
+            "category": "a-la-carte-pain",
+            "chapter": "carte-du-matin",
+            "image": "/images/generated-menu/viennoiserie.webp"
+          },
+          {
+            "id": "baghrir-amlou",
+            "name": "Baghrir à l’amlou",
+            "price": 28,
+            "category": "a-la-carte-pain",
+            "chapter": "carte-du-matin",
+            "image": "/images/generated-menu/baghrir-amlou.webp"
+          }
+        ]
+      },
+      {
+        "id": "accompagnements-supplements",
+        "optionsOnly": true,
+        "name": "ACCOMPAGNEMENTS & SUPPLÉMENTS",
+        "chapterId": "carte-du-matin",
+        "items": [
+          {
+            "id": "accompagnements-supplements-fromage-la-vache-qui-rit",
+            "name": "Fromage La Vache qui rit",
+            "price": 3,
+            "category": "accompagnements-supplements",
+            "chapter": "carte-du-matin"
+          },
+          {
+            "id": "accompagnements-supplements-olives",
+            "name": "Olives",
+            "price": 5,
+            "category": "accompagnements-supplements",
+            "chapter": "carte-du-matin"
+          },
+          {
+            "id": "accompagnements-supplements-confiture",
+            "name": "Confiture",
+            "price": 5,
+            "category": "accompagnements-supplements",
+            "chapter": "carte-du-matin"
+          },
+          {
+            "id": "accompagnements-supplements-fromage-edam",
+            "name": "Fromage edam",
+            "price": 10,
+            "category": "accompagnements-supplements",
+            "chapter": "carte-du-matin"
+          },
+          {
+            "id": "accompagnements-supplements-fromage-a-tartiner",
+            "name": "Fromage à tartiner",
+            "price": 10,
+            "category": "accompagnements-supplements",
+            "chapter": "carte-du-matin"
+          },
+          {
+            "id": "accompagnements-supplements-amlou",
+            "name": "Amlou",
+            "price": 12,
+            "category": "accompagnements-supplements",
+            "chapter": "carte-du-matin"
+          },
+          {
+            "id": "accompagnements-supplements-fromage-manchego",
+            "name": "Fromage manchego",
+            "price": 18,
+            "category": "accompagnements-supplements",
+            "chapter": "carte-du-matin"
+          },
+          {
+            "id": "accompagnements-supplements-jben-arabi",
+            "name": "Jben arabi",
+            "price": 6,
+            "category": "accompagnements-supplements",
+            "chapter": "carte-du-matin"
+          },
+          {
+            "id": "accompagnements-supplements-miel",
+            "name": "Miel",
+            "price": 6,
+            "category": "accompagnements-supplements",
+            "chapter": "carte-du-matin"
+          },
+          {
+            "id": "accompagnements-supplements-nutella",
+            "name": "Nutella",
+            "price": 10,
+            "category": "accompagnements-supplements",
+            "chapter": "carte-du-matin"
+          },
+          {
+            "id": "accompagnements-supplements-beurre",
+            "name": "Beurre",
+            "price": 8,
+            "category": "accompagnements-supplements",
+            "chapter": "carte-du-matin"
+          },
+          {
+            "id": "accompagnements-supplements-dinde-fumee",
+            "name": "Dinde fumée",
+            "price": 8,
+            "category": "accompagnements-supplements",
+            "chapter": "carte-du-matin"
+          },
+          {
+            "id": "accompagnements-supplements-saumon-fume",
+            "name": "Saumon fumé",
+            "price": 22,
+            "category": "accompagnements-supplements",
+            "chapter": "carte-du-matin"
+          },
+          {
+            "id": "accompagnements-supplements-avocat",
+            "name": "Avocat",
+            "price": 15,
+            "category": "accompagnements-supplements",
+            "chapter": "carte-du-matin"
+          }
+        ]
+      }
+    ],
+    "timeSlot": "09h00 — 14h00"
+  },
+  {
+    "id": "la-cuisine",
+    "title": "LA CUISINE",
+    "subtitle": "Entrées Délicates, Salades Fraîches, Pâtes Artisanales & Risottos",
+    "categories": [
+      {
+        "id": "entrees-froides",
+        "name": "ENTRÉES FROIDES",
+        "chapterId": "la-cuisine",
+        "items": [
+          {
+            "id": "carpaccio-boeuf",
+            "name": "Carpaccio de bœuf",
+            "price": 89,
+            "category": "entrees-froides",
+            "chapter": "la-cuisine",
+            "image": "/images/photographer/_DSC7121.jpg"
+          },
+          {
+            "id": "carpaccio-burrata",
+            "name": "Carpaccio de bœuf et burrata",
+            "price": 110,
+            "category": "entrees-froides",
+            "chapter": "la-cuisine"
+          }
+        ]
+      },
+      {
+        "id": "entrees-chaudes",
+        "name": "ENTRÉES CHAUDES",
+        "chapterId": "la-cuisine",
+        "items": [
+          {
+            "id": "aiguillettes-poulet",
+            "name": "Aiguillettes de poulet panées",
+            "price": 45,
+            "category": "entrees-chaudes",
+            "chapter": "la-cuisine",
+            "image": "/images/photographer/_DSC7073.jpg",
+            "description": "Filets de poulet panés, accompagnés d’une sauce au choix."
+          },
+          {
+            "id": "gambas-tempura",
+            "name": "Gambas en tempura",
+            "price": 55,
+            "category": "entrees-chaudes",
+            "chapter": "la-cuisine",
+            "image": "/images/photographer/_DSC7084.jpg",
+            "description": "Crevettes en tempura, sauce aigre-douce pimentée."
+          },
+          {
+            "id": "briouates-marocaines",
+            "name": "Assortiment de briouates marocaines",
+            "price": 55,
+            "category": "entrees-chaudes",
+            "chapter": "la-cuisine",
+            "image": "/images/photographer/_DSC7085.jpg"
+          },
+          {
+            "id": "croquettes-crevettes",
+            "name": "Croquettes de crevettes faites maison",
+            "price": 89,
+            "category": "entrees-chaudes",
+            "chapter": "la-cuisine"
+          },
+          {
+            "id": "trio-tacos",
+            "name": "Trio de tacos",
+            "price": 89,
+            "category": "entrees-chaudes",
+            "chapter": "la-cuisine",
+            "image": "/images/photographer/_DSC7163-raw.jpg"
+          },
+          {
+            "id": "trio-burgers",
+            "name": "Trio de burgers gourmets",
+            "price": 110,
+            "category": "entrees-chaudes",
+            "chapter": "la-cuisine",
+            "image": "/images/photographer/_DSC7108.jpg",
+            "description": "Trois viandes d’exception"
+          }
+        ]
+      },
+      {
+        "id": "salades",
+        "name": "SALADES",
+        "chapterId": "la-cuisine",
+        "items": [
+          {
+            "id": "salade-cesar",
+            "name": "César",
+            "price": 85,
+            "category": "salades",
+            "chapter": "la-cuisine",
+            "description": "Laitue, poulet grillé, copeaux de parmesan, tomates, œufs de caille, croûtons et sauce César."
+          },
+          {
+            "id": "salade-nicoise",
+            "name": "Niçoise",
+            "price": 75,
+            "category": "salades",
+            "chapter": "la-cuisine",
+            "description": "Laitue, maïs, tomates cerises, thon, oignon, olives noires, œufs, penne et vinaigrette."
+          },
+          {
+            "id": "salade-portofino",
+            "name": "Portofino",
+            "price": 85,
+            "category": "salades",
+            "chapter": "la-cuisine",
+            "image": "/images/photographer/_DSC7056.jpg",
+            "description": "Roquette, avocat, crevettes grillées, tomates cerises et vinaigrette."
+          },
+          {
+            "id": "salade-burrata",
+            "name": "Burrata",
+            "price": 95,
+            "category": "salades",
+            "chapter": "la-cuisine",
+            "image": "/images/photographer/_DSC7052.jpg",
+            "tag": "Coup de Cœur",
+            "isVegetarian": true,
+            "description": "Burrata, roquette, tomates cerises, pêche, raisin, segments d’orange et sauce balsamique."
+          }
+        ]
+      },
+      {
+        "id": "supplements-sales",
+        "optionsOnly": true,
+        "name": "SUPPLÉMENTS SALÉS",
+        "chapterId": "la-cuisine",
+        "items": [
+          {
+            "id": "supplements-sales-burrata",
+            "name": "Burrata",
+            "price": 59,
+            "category": "supplements-sales",
+            "chapter": "la-cuisine"
+          },
+          {
+            "id": "supplements-sales-gambas",
+            "name": "Gambas",
+            "price": 25,
+            "category": "supplements-sales",
+            "chapter": "la-cuisine"
+          },
+          {
+            "id": "supplements-sales-dinde-fumee",
+            "name": "Dinde fumée",
+            "price": 19,
+            "category": "supplements-sales",
+            "chapter": "la-cuisine"
+          },
+          {
+            "id": "supplements-sales-poulet",
+            "name": "Poulet",
+            "price": 19,
+            "category": "supplements-sales",
+            "chapter": "la-cuisine"
+          },
+          {
+            "id": "supplements-sales-viande-hachee",
+            "name": "Viande hachée",
+            "price": 25,
+            "category": "supplements-sales",
+            "chapter": "la-cuisine"
+          },
+          {
+            "id": "supplements-sales-bolognaise",
+            "name": "Bolognaise",
+            "price": 19,
+            "category": "supplements-sales",
+            "chapter": "la-cuisine"
+          },
+          {
+            "id": "supplements-sales-parmesan",
+            "name": "Parmesan",
+            "price": 25,
+            "category": "supplements-sales",
+            "chapter": "la-cuisine"
+          },
+          {
+            "id": "supplements-sales-avocat",
+            "name": "Avocat",
+            "price": 15,
+            "category": "supplements-sales",
+            "chapter": "la-cuisine"
+          },
+          {
+            "id": "supplements-sales-sauce-au-choix",
+            "name": "Sauce au choix",
+            "price": 10,
+            "category": "supplements-sales",
+            "chapter": "la-cuisine"
+          }
+        ]
+      },
+      {
+        "id": "pates",
+        "name": "PÂTES",
+        "chapterId": "la-cuisine",
+        "items": [
+          {
+            "id": "pates-alfredo",
+            "name": "Alfredo",
+            "price": 79,
+            "category": "pates",
+            "chapter": "la-cuisine",
+            "description": "Penne, champignons, poulet et sauce blanche (sauce au choix)."
+          },
+          {
+            "id": "pates-bolognaise",
+            "name": "Bolognaise",
+            "price": 79,
+            "category": "pates",
+            "chapter": "la-cuisine",
+            "description": "Spaghettis à la sauce bolognaise."
+          },
+          {
+            "id": "pates-fruits-de-mer",
+            "name": "Fruits de mer",
+            "price": 98,
+            "category": "pates",
+            "chapter": "la-cuisine",
+            "image": "/images/photographer/_DSC7079.jpg",
+            "description": "Linguine, fruits de mer et sauce blanche (sauce au choix)."
+          },
+          {
+            "id": "pates-saumon",
+            "name": "Saumon",
+            "price": 98,
+            "category": "pates",
+            "chapter": "la-cuisine",
+            "description": "Tagliatelles, saumon fumé, épinards et sauce rosée."
+          },
+          {
+            "id": "pates-monarq-crevettes",
+            "name": "Monarq crevettes",
+            "price": 98,
+            "category": "pates",
+            "chapter": "la-cuisine",
+            "image": "/images/photographer/_DSC7083.jpg",
+            "tag": "Plat Signature 🌶️",
+            "isSpicy": true,
+            "description": "Penne aux crevettes, sauce piquante maison."
+          },
+          {
+            "id": "pates-monarq-poulet",
+            "name": "Monarq poulet",
+            "price": 92,
+            "category": "pates",
+            "chapter": "la-cuisine",
+            "tag": "Signature 🌶️",
+            "isSpicy": true,
+            "description": "Penne poulet, sauce piquante maison."
+          },
+          {
+            "id": "pates-pesto",
+            "name": "Pesto",
+            "price": 89,
+            "category": "pates",
+            "chapter": "la-cuisine",
+            "description": "Penne, champignons, poulet, sauce blanche et pesto."
+          },
+          {
+            "id": "pates-carbonara",
+            "name": "Carbonara",
+            "price": 75,
+            "category": "pates",
+            "chapter": "la-cuisine",
+            "description": "Crème, parmesan, dinde fumée"
+          },
+          {
+            "id": "pates-arrabbiata",
+            "name": "Arrabbiata",
+            "price": 69,
+            "category": "pates",
+            "chapter": "la-cuisine",
+            "isSpicy": true,
+            "description": "Penne, sauce tomate et sauce piquante."
+          },
+          {
+            "id": "tagliatelle-alfredo",
+            "name": "Tagliatelle alfredo",
+            "price": 98,
+            "category": "pates",
+            "chapter": "la-cuisine",
+            "description": "Tagliatelle, émincé de poulet à la crème, champignons, fromage parmesan"
+          },
+          {
+            "id": "tagliatelle-salmone",
+            "name": "Tagliatelle salmone",
+            "price": 98,
+            "category": "pates",
+            "chapter": "la-cuisine",
+            "image": "/images/photographer/_DSC110.jpg",
+            "description": "Tagliatelle, saumon fumé, épinards, sauce à la crème"
+          },
+          {
+            "id": "pates-cardinale",
+            "name": "Cardinale",
+            "price": 95,
+            "category": "pates",
+            "chapter": "la-cuisine",
+            "description": "Linguine, crevettes, champignons et sauce blanche."
+          },
+          {
+            "id": "lasagnes",
+            "name": "Lasagnes",
+            "price": 79,
+            "category": "pates",
+            "chapter": "la-cuisine",
+            "image": "/images/photographer/_DSC7196-raw.jpg",
+            "description": "Lasagnes, sauce bolognaise, béchamel et mozzarella."
+          },
+          {
+            "id": "crazy-pasta",
+            "name": "Crazy Pasta",
+            "price": 89,
+            "category": "pates",
+            "chapter": "la-cuisine",
+            "description": "Fusilli, crevettes, mozzarella et sauce rosée."
+          }
+        ]
+      },
+      {
+        "id": "risottos",
+        "name": "RISOTTOS",
+        "chapterId": "la-cuisine",
+        "items": [
+          {
+            "id": "risotto-fruits-de-mer",
+            "name": "Fruits de mer",
+            "price": 110,
+            "category": "risottos",
+            "chapter": "la-cuisine",
+            "description": "Risotto, marmelade, fruits de mer et parmesan."
+          },
+          {
+            "id": "risotto-milanais",
+            "name": "Milanais",
+            "price": 110,
+            "category": "risottos",
+            "chapter": "la-cuisine",
+            "description": "Risotto, poulet et sauce au safran"
+          },
+          {
+            "id": "risotto-saumon",
+            "name": "Saumon",
+            "price": 135,
+            "category": "risottos",
+            "chapter": "la-cuisine",
+            "tag": "Recommandation Chef",
+            "description": "Risotto, pavé de saumon, épinards et pesto."
+          },
+          {
+            "id": "risotto-alfredo",
+            "name": "Alfredo",
+            "price": 99,
+            "category": "risottos",
+            "chapter": "la-cuisine",
+            "description": "Risotto au poulet, sauce à la crème, fromage parmesan."
+          }
+        ]
+      }
+    ],
+    "timeSlot": "12h00 — 00h00"
+  },
+  {
+    "id": "pizzas-grillades",
+    "title": "PIZZAS & GRILLADES",
+    "subtitle": "Pizzas Artisanales, Burgers Gourmets, Viandes Nobles & Plats Marocains",
+    "categories": [
+      {
+        "id": "pizzas",
+        "name": "PIZZAS",
+        "chapterId": "pizzas-grillades",
+        "items": [
+          {
+            "id": "pizza-margherita",
+            "name": "Margherita",
+            "price": 75,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Sauce tomate, mozzarella",
+            "image": "/images/photographer/_DSC7050.jpg",
+            "isVegetarian": true
+          },
+          {
+            "id": "pizza-carnivore",
+            "name": "Carnivore",
+            "price": 95,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Sauce tomate, mozzarella, pepperoni, jambon de dinde, poulet, viande hachée et sauce barbecue.",
+            "image": "/images/photographer/_DSC7048.jpg"
+          },
+          {
+            "id": "pizza-fruits-de-mer",
+            "name": "Fruits de mer",
+            "price": 95,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Sauce tomate, mozzarella, fruits de mer et ail."
+          },
+          {
+            "id": "pizza-royale",
+            "name": "Royale",
+            "price": 95,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Mozzarella, pepperoni, champignons, poivron vert, oignon rouge, olives et viande hachée.",
+            "image": "/images/photographer/_DSC7043.jpg"
+          },
+          {
+            "id": "pizza-roasted-potatoes",
+            "name": "Roasted Potatoes",
+            "price": 95,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Crème fraîche, mozzarella, pommes de terre, poulet, ail et romarin.",
+            "image": "/images/photographer/_DSC7051.jpg"
+          },
+          {
+            "id": "pizza-mexicaine",
+            "name": "Mexicaine",
+            "price": 85,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Sauce tomate, mozzarella, pepperoni, oignons rouges, olives, piments et ail.",
+            "isSpicy": true
+          },
+          {
+            "id": "pizza-cheesy",
+            "name": "Cheesy",
+            "price": 95,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Sauce tomate, mozzarella, feta et fromage de chèvre.",
+            "isVegetarian": true
+          },
+          {
+            "id": "pizza-tasty-chicken",
+            "name": "Tasty Chicken",
+            "price": 85,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Sauce tomate, mozzarella, poulet, oignons rouges et poivron vert."
+          },
+          {
+            "id": "pizza-vegetarienne",
+            "name": "Végétarienne",
+            "price": 85,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Sauce tomate, mozzarella, champignons, oignons rouges, poivron vert, olives et tomates cerises.",
+            "image": "/images/photographer/_DSC7049.jpg",
+            "isVegetarian": true
+          },
+          {
+            "id": "pizza-pepperoni",
+            "name": "Pepperoni",
+            "price": 89,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Sauce tomate, mozzarella, pepperoni"
+          },
+          {
+            "id": "pizza-hawai",
+            "name": "Hawaï",
+            "price": 85,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Sauce tomate, mozzarella, jambon de dinde et ananas."
+          },
+          {
+            "id": "pizza-poulet-barbecue",
+            "name": "Poulet barbecue",
+            "price": 89,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Sauce barbecue, mozzarella, poulet, poivron vert et oignons rouges."
+          },
+          {
+            "id": "pizza-shrimp",
+            "name": "Shrimp",
+            "price": 95,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Sauce tomate, mozzarella, oignons rouges, tomates cerises, olives, champignons, paprika, ail et crevettes."
+          },
+          {
+            "id": "pizza-viande-hachee",
+            "name": "Viande hachée",
+            "price": 89,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Sauce tomate, mozzarella, viande hachée"
+          },
+          {
+            "id": "pizza-feta",
+            "name": "Feta",
+            "price": 95,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Sauce tomate, mozzarella, oignons caramélisés, feta et poulet."
+          },
+          {
+            "id": "pizza-thon",
+            "name": "Thon",
+            "price": 89,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Sauce tomate, mozzarella, thon"
+          },
+          {
+            "id": "pizza-saumon",
+            "name": "Saumon",
+            "price": 95,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Sauce tomate, mozzarella, tomates cerises, oignons rouges, saumon et ail."
+          },
+          {
+            "id": "pizza-burrata",
+            "name": "Burrata",
+            "price": 125,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Sauce tomate, mozzarella, burrata, tomates cerises et basilic.",
+            "tag": "Prestige"
+          },
+          {
+            "id": "pizza-poulet-satay",
+            "name": "Poulet satay",
+            "price": 89,
+            "category": "pizzas",
+            "chapter": "pizzas-grillades",
+            "description": "Sauce satay, mozzarella, poulet, poivron vert et oignons rouges."
+          }
+        ]
+      },
+      {
+        "id": "supplements-pizzas",
+        "optionsOnly": true,
+        "name": "SUPPLÉMENTS PIZZAS",
+        "chapterId": "pizzas-grillades",
+        "items": [
+          {
+            "id": "supplements-pizzas-champignons",
+            "name": "Champignons",
+            "price": 19,
+            "category": "supplements-pizzas",
+            "chapter": "pizzas-grillades"
+          },
+          {
+            "id": "supplements-pizzas-mozzarella",
+            "name": "Mozzarella",
+            "price": 10,
+            "category": "supplements-pizzas",
+            "chapter": "pizzas-grillades"
+          },
+          {
+            "id": "supplements-pizzas-fromage-de-chevre",
+            "name": "Fromage de chèvre",
+            "price": 19,
+            "category": "supplements-pizzas",
+            "chapter": "pizzas-grillades"
+          },
+          {
+            "id": "supplements-pizzas-pepperoni",
+            "name": "Pepperoni",
+            "price": 25,
+            "category": "supplements-pizzas",
+            "chapter": "pizzas-grillades"
+          },
+          {
+            "id": "supplements-pizzas-thon",
+            "name": "Thon",
+            "price": 15,
+            "category": "supplements-pizzas",
+            "chapter": "pizzas-grillades"
+          },
+          {
+            "id": "supplements-pizzas-ananas",
+            "name": "Ananas",
+            "price": 15,
+            "category": "supplements-pizzas",
+            "chapter": "pizzas-grillades"
+          },
+          {
+            "id": "supplements-pizzas-gouda",
+            "name": "Gouda",
+            "price": 22,
+            "category": "supplements-pizzas",
+            "chapter": "pizzas-grillades"
+          }
+        ]
+      },
+      {
+        "id": "burgers",
+        "name": "BURGERS",
+        "chapterId": "pizzas-grillades",
+        "items": [
+          {
+            "id": "burger-classique",
+            "name": "Le burger classique",
+            "price": 95,
+            "category": "burgers",
+            "chapter": "pizzas-grillades",
+            "description": "Steak de bœuf, cheddar, salade iceberg ciselée, oignons caramélisés, rondelles de tomate et sauce du chef."
+          },
+          {
+            "id": "burger-fume",
+            "name": "Le burger fumé",
+            "price": 95,
+            "category": "burgers",
+            "chapter": "pizzas-grillades",
+            "tag": "Saveur Truffe",
+            "description": "Bœuf, emmental, roquette, champignons sautés, rondelles de tomate et mayonnaise maison à la truffe et sauce du chef."
+          },
+          {
+            "id": "burger-poulet",
+            "name": "Le burger au poulet",
+            "price": 69,
+            "category": "burgers",
+            "chapter": "pizzas-grillades",
+            "description": "Poulet, cheddar, oignons caramélisés, roquette, rondelles de tomate, cornichons et sauce à la truffe et sauce du chef."
+          },
+          {
+            "id": "burger-bacon",
+            "name": "Le burger au bacon de bœuf",
+            "price": 119,
+            "category": "burgers",
+            "chapter": "pizzas-grillades",
+            "image": "/images/photographer/_DSC7124.jpg",
+            "tag": "Gourmet Max",
+            "description": "Bœuf, cheddar, oignons caramélisés au paprika, salade iceberg ciselée, oignons rouges, bacon de bœuf, rondelles de tomate, cornichons et sauce barbecue."
+          }
+        ]
+      },
+      {
+        "id": "viandes",
+        "name": "VIANDES",
+        "chapterId": "pizzas-grillades",
+        "items": [
+          {
+            "id": "filet-black-angus",
+            "name": "Filet pur Black Angus",
+            "price": 219,
+            "category": "viandes",
+            "chapter": "pizzas-grillades",
+            "image": "/images/highlight-angus.jpg",
+            "tag": "Signature Viande"
+          },
+          {
+            "id": "tagliata-boeuf",
+            "name": "Tagliata de filet de bœuf à l’huile de truffe",
+            "price": 229,
+            "category": "viandes",
+            "chapter": "pizzas-grillades",
+            "image": "/images/photographer/_DSC7178-raw.jpg"
+          },
+          {
+            "id": "emince-volaille",
+            "name": "Émincé de suprême de volaille",
+            "price": 139,
+            "category": "viandes",
+            "chapter": "pizzas-grillades",
+            "description": "Légumes de saison"
+          }
+        ]
+      },
+      {
+        "id": "ribs",
+        "name": "RIBS",
+        "chapterId": "pizzas-grillades",
+        "items": [
+          {
+            "id": "ribs-epice",
+            "name": "Épicé et barbecue",
+            "price": 259,
+            "category": "ribs",
+            "chapter": "pizzas-grillades",
+            "image": "/images/photographer/_DSC7064.jpg",
+            "isSpicy": true
+          },
+          {
+            "id": "ribs-miel",
+            "name": "Miel et barbecue",
+            "price": 259,
+            "category": "ribs",
+            "chapter": "pizzas-grillades",
+            "image": "/images/photographer/_DSC7063.jpg"
+          }
+        ]
+      },
+      {
+        "id": "plats-marocains",
+        "name": "PLATS MAROCAINS",
+        "chapterId": "pizzas-grillades",
+        "items": [
+          {
+            "id": "couscous-poulet",
+            "name": "Couscous poulet aux légumes",
+            "price": 69,
+            "category": "plats-marocains",
+            "chapter": "pizzas-grillades",
+            "isFridaySpecial": true,
+            "description": "Disponible le vendredi"
+          },
+          {
+            "id": "couscous-viande",
+            "name": "Couscous viande aux légumes",
+            "price": 89,
+            "category": "plats-marocains",
+            "chapter": "pizzas-grillades",
+            "image": "/images/photographer/_DSC7091.jpg",
+            "isFridaySpecial": true,
+            "description": "Disponible le vendredi"
+          },
+          {
+            "id": "tajine-viande-pruneaux",
+            "name": "Tajine de viande aux pruneaux",
+            "price": 89,
+            "category": "plats-marocains",
+            "chapter": "pizzas-grillades",
+            "image": "/images/photographer/_DSC7096.jpg",
+            "tag": "Classique Royal"
+          },
+          {
+            "id": "tajine-poulet-daghmira",
+            "name": "Tajine de poulet daghmira, aux olives & frites",
+            "price": 75,
+            "category": "plats-marocains",
+            "chapter": "pizzas-grillades",
+            "image": "/images/photographer/_DSC7094.jpg"
+          },
+          {
+            "id": "tajine-kefta",
+            "name": "Tajine de kefta aux œufs",
+            "price": 69,
+            "category": "plats-marocains",
+            "chapter": "pizzas-grillades",
+            "image": "/images/photographer/_DSC7106.jpg"
+          }
+        ]
+      }
+    ],
+    "timeSlot": "12h00 — 00h00"
+  },
+  {
+    "id": "boissons",
+    "title": "BOISSONS",
+    "subtitle": "",
+    "categories": [
+      {
+        "id": "cafes",
+        "name": "CAFÉS",
+        "chapterId": "boissons",
+        "items": [
+          {
+            "id": "cafes-cortado",
+            "name": "Cortado",
+            "price": 22,
+            "category": "cafes",
+            "chapter": "boissons"
+          },
+          {
+            "id": "cafes-latte",
+            "name": "Latte",
+            "price": 22,
+            "category": "cafes",
+            "chapter": "boissons"
+          },
+          {
+            "id": "cafes-flat-white",
+            "name": "Flat White",
+            "price": 22,
+            "category": "cafes",
+            "chapter": "boissons"
+          },
+          {
+            "id": "cafes-americano-allonge",
+            "name": "Americano / Allongé",
+            "price": 22,
+            "category": "cafes",
+            "chapter": "boissons"
+          },
+          {
+            "id": "cafes-espresso",
+            "name": "Espresso",
+            "price": 19,
+            "category": "cafes",
+            "chapter": "boissons"
+          },
+          {
+            "id": "cafes-double-espresso",
+            "name": "Double Espresso",
+            "price": 22,
+            "category": "cafes",
+            "chapter": "boissons"
+          },
+          {
+            "id": "cafes-cappuccino",
+            "name": "Cappuccino",
+            "price": 24,
+            "category": "cafes",
+            "chapter": "boissons"
+          },
+          {
+            "id": "cafes-chocolat-chaud",
+            "name": "Chocolat chaud",
+            "price": 24,
+            "category": "cafes",
+            "chapter": "boissons"
+          },
+          {
+            "id": "cafes-verveine-au-lait",
+            "name": "Verveine au lait",
+            "price": 22,
+            "category": "cafes",
+            "chapter": "boissons"
+          }
+        ]
+      },
+      {
+        "id": "thes",
+        "name": "THÉS",
+        "chapterId": "boissons",
+        "items": [
+          {
+            "id": "thes-the-marocain",
+            "name": "Thé marocain",
+            "price": 19,
+            "category": "thes",
+            "chapter": "boissons"
+          },
+          {
+            "id": "thes-the-noir",
+            "name": "Thé noir",
+            "price": 19,
+            "category": "thes",
+            "chapter": "boissons"
+          },
+          {
+            "id": "thes-verveine-nature",
+            "name": "Verveine nature",
+            "price": 19,
+            "category": "thes",
+            "chapter": "boissons"
+          }
+        ]
+      },
+      {
+        "id": "eaux",
+        "name": "EAUX",
+        "chapterId": "boissons",
+        "items": [
+          {
+            "id": "eaux-oulmes-25-cl",
+            "name": "Oulmès — 25 cl",
+            "price": 18,
+            "category": "eaux",
+            "chapter": "boissons"
+          },
+          {
+            "id": "eaux-oulmes-75-cl",
+            "name": "Oulmès — 75 cl",
+            "price": 35,
+            "category": "eaux",
+            "chapter": "boissons"
+          },
+          {
+            "id": "eaux-sidi-ali-50-cl",
+            "name": "Sidi Ali — 50 cl",
+            "price": 15,
+            "category": "eaux",
+            "chapter": "boissons"
+          },
+          {
+            "id": "eaux-sidi-ali-75-cl",
+            "name": "Sidi Ali — 75 cl",
+            "price": 29,
+            "category": "eaux",
+            "chapter": "boissons"
+          }
+        ]
+      },
+      {
+        "id": "jus-frais-base-au-choix",
+        "name": "JUS FRAIS — BASE AU CHOIX",
+        "chapterId": "boissons",
+        "items": [
+          {
+            "id": "jus-frais-base-au-choix-ananas",
+            "name": "Ananas",
+            "price": 45,
+            "category": "jus-frais-base-au-choix",
+            "chapter": "boissons"
+          },
+          {
+            "id": "jus-frais-base-au-choix-mangue",
+            "name": "Mangue",
+            "price": 45,
+            "category": "jus-frais-base-au-choix",
+            "chapter": "boissons"
+          },
+          {
+            "id": "jus-frais-base-au-choix-pomme",
+            "name": "Pomme",
+            "price": 35,
+            "category": "jus-frais-base-au-choix",
+            "chapter": "boissons"
+          },
+          {
+            "id": "jus-frais-base-au-choix-fraise",
+            "name": "Fraise",
+            "price": 39,
+            "category": "jus-frais-base-au-choix",
+            "chapter": "boissons"
+          },
+          {
+            "id": "jus-frais-base-au-choix-orange",
+            "name": "Orange",
+            "price": 22,
+            "category": "jus-frais-base-au-choix",
+            "chapter": "boissons"
+          }
+        ]
+      },
+      {
+        "id": "boissons-fraiches",
+        "name": "BOISSONS FRAÎCHES",
+        "chapterId": "boissons",
+        "items": [
+          {
+            "id": "boissons-fraiches-soda",
+            "name": "Soda",
+            "price": 19,
+            "category": "boissons-fraiches",
+            "chapter": "boissons"
+          },
+          {
+            "id": "boissons-fraiches-oulmes-mojito",
+            "name": "Oulmès mojito",
+            "price": 25,
+            "category": "boissons-fraiches",
+            "chapter": "boissons"
+          },
+          {
+            "id": "boissons-fraiches-oulmes-tropical",
+            "name": "Oulmès tropical",
+            "price": 25,
+            "category": "boissons-fraiches",
+            "chapter": "boissons"
+          },
+          {
+            "id": "boissons-fraiches-red-bull",
+            "name": "Red Bull",
+            "price": 29,
+            "category": "boissons-fraiches",
+            "chapter": "boissons"
+          }
+        ]
+      },
+      {
+        "id": "mojitos",
+        "name": "MOJITOS",
+        "chapterId": "boissons",
+        "items": [
+          {
+            "id": "mojitos-energy",
+            "name": "Energy",
+            "price": 49,
+            "category": "mojitos",
+            "chapter": "boissons"
+          },
+          {
+            "id": "mojitos-passion",
+            "name": "Passion",
+            "price": 39,
+            "category": "mojitos",
+            "chapter": "boissons"
+          },
+          {
+            "id": "mojitos-virgin",
+            "name": "Virgin",
+            "price": 39,
+            "category": "mojitos",
+            "chapter": "boissons"
+          },
+          {
+            "id": "mojitos-fruits-rouges",
+            "name": "Fruits rouges",
+            "price": 39,
+            "category": "mojitos",
+            "chapter": "boissons"
+          }
+        ]
+      },
+      {
+        "id": "mocktails",
+        "name": "MOCKTAILS",
+        "chapterId": "boissons",
+        "items": [
+          {
+            "id": "mocktails-pina-colada",
+            "name": "Piña Colada",
+            "price": 55,
+            "category": "mocktails",
+            "chapter": "boissons",
+            "description": "Ananas, lait de coco et jus d’ananas."
+          },
+          {
+            "id": "mocktails-bora-bora",
+            "name": "Bora Bora",
+            "price": 55,
+            "category": "mocktails",
+            "chapter": "boissons",
+            "description": "Grenadine, ananas et citron."
+          },
+          {
+            "id": "mocktails-the-spritz",
+            "name": "The Spritz",
+            "price": 55,
+            "category": "mocktails",
+            "chapter": "boissons",
+            "description": "Passion, jus d’orange et eau gazeuse."
+          }
+        ]
+      },
+      {
+        "id": "detox",
+        "name": "DETOX",
+        "chapterId": "boissons",
+        "items": [
+          {
+            "id": "detox-citronnade",
+            "name": "Citronnade",
+            "price": 55,
+            "category": "detox",
+            "chapter": "boissons",
+            "description": "Jus de citron et menthe."
+          },
+          {
+            "id": "detox-green-house",
+            "name": "Green House",
+            "price": 55,
+            "category": "detox",
+            "chapter": "boissons",
+            "description": "Gingembre, épinards, concombre et citron."
+          }
+        ]
+      },
+      {
+        "id": "ice-coffee",
+        "name": "ICE COFFEE",
+        "chapterId": "boissons",
+        "items": [
+          {
+            "id": "ice-coffee-ice-latte-vanille-caramel",
+            "name": "Ice Latte vanille & caramel",
+            "price": 29,
+            "category": "ice-coffee",
+            "chapter": "boissons"
+          },
+          {
+            "id": "ice-coffee-ice-spanish-latte",
+            "name": "Ice Spanish Latte",
+            "price": 29,
+            "category": "ice-coffee",
+            "chapter": "boissons"
+          },
+          {
+            "id": "ice-coffee-tonic-shot",
+            "name": "Tonic Shot",
+            "price": 29,
+            "category": "ice-coffee",
+            "chapter": "boissons"
+          }
+        ]
+      },
+      {
+        "id": "ice-tea",
+        "name": "ICE TEA",
+        "chapterId": "boissons",
+        "items": [
+          {
+            "id": "ice-tea-peach",
+            "name": "Peach",
+            "price": 34,
+            "category": "ice-tea",
+            "chapter": "boissons"
+          },
+          {
+            "id": "ice-tea-citron",
+            "name": "Citron",
+            "price": 34,
+            "category": "ice-tea",
+            "chapter": "boissons"
+          },
+          {
+            "id": "ice-tea-fruits-rouges",
+            "name": "Fruits rouges",
+            "price": 34,
+            "category": "ice-tea",
+            "chapter": "boissons"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "douceurs",
+    "title": "DOUCEURS",
+    "subtitle": "",
+    "categories": [
+      {
+        "id": "desserts",
+        "name": "DESSERTS",
+        "chapterId": "douceurs",
+        "items": [
+          {
+            "id": "desserts-cheesecake-citron-oreo-lotus",
+            "name": "Cheesecake (citron, oreo, lotus)",
+            "price": 39,
+            "category": "desserts",
+            "chapter": "douceurs",
+            "image": "/images/photographer/_DSC7117.jpg"
+          },
+          {
+            "id": "desserts-saint-sebastien",
+            "name": "Saint-Sébastien",
+            "price": 49,
+            "category": "desserts",
+            "chapter": "douceurs"
+          },
+          {
+            "id": "desserts-tiramisu-aux-speculoos-lotus",
+            "name": "Tiramisu aux spéculoos Lotus",
+            "price": 49,
+            "category": "desserts",
+            "chapter": "douceurs"
+          },
+          {
+            "id": "desserts-tiramisu-italien",
+            "name": "Tiramisu italien",
+            "price": 45,
+            "category": "desserts",
+            "chapter": "douceurs",
+            "image": "/images/photographer/_DSC7113.jpg"
+          },
+          {
+            "id": "desserts-tiramisu-a-la-pistache",
+            "name": "Tiramisu à la pistache",
+            "price": 55,
+            "category": "desserts",
+            "chapter": "douceurs"
+          },
+          {
+            "id": "desserts-panna-cotta",
+            "name": "Panna cotta",
+            "price": 35,
+            "category": "desserts",
+            "chapter": "douceurs"
+          },
+          {
+            "id": "desserts-creme-brulee",
+            "name": "Crème brûlée",
+            "price": 45,
+            "category": "desserts",
+            "chapter": "douceurs"
+          }
+        ]
+      },
+      {
+        "id": "crepes",
+        "name": "CRÊPES",
+        "chapterId": "douceurs",
+        "items": [
+          {
+            "id": "crepes-crepe-nature-ou-sucre",
+            "name": "Crêpe nature ou sucre",
+            "price": 29,
+            "category": "crepes",
+            "chapter": "douceurs"
+          },
+          {
+            "id": "crepes-crepe-amlou-avec-croquant-damandes",
+            "name": "Crêpe amlou avec croquant d’amandes",
+            "price": 45,
+            "category": "crepes",
+            "chapter": "douceurs"
+          },
+          {
+            "id": "crepes-crepe-lotus",
+            "name": "Crêpe Lotus",
+            "price": 49,
+            "category": "crepes",
+            "chapter": "douceurs"
+          },
+          {
+            "id": "crepes-crepe-nutella",
+            "name": "Crêpe Nutella",
+            "price": 45,
+            "category": "crepes",
+            "chapter": "douceurs"
+          },
+          {
+            "id": "crepes-crepe-nutella-banane",
+            "name": "Crêpe Nutella banane",
+            "price": 49,
+            "category": "crepes",
+            "chapter": "douceurs"
+          },
+          {
+            "id": "crepes-crepe-a-la-pistache",
+            "name": "Crêpe à la pistache",
+            "price": 49,
+            "category": "crepes",
+            "chapter": "douceurs",
+            "description": "Sauce à la pistache, éclats d’amandes, glace à la vanille et chantilly."
+          },
+          {
+            "id": "crepes-pain-perdu-gourmand",
+            "name": "Pain perdu gourmand",
+            "price": 69,
+            "category": "crepes",
+            "chapter": "douceurs",
+            "description": "Banane et boule de glace à la vanille."
+          },
+          {
+            "id": "crepes-crepe-nutella-pistache",
+            "name": "Crêpe Nutella-pistache",
+            "price": 49,
+            "category": "crepes",
+            "chapter": "douceurs",
+            "description": "Nutella, sauce à la pistache, glace à la vanille et chantilly."
+          },
+          {
+            "id": "crepes-crepe-de-saison",
+            "name": "Crêpe de saison",
+            "price": 59,
+            "category": "crepes",
+            "chapter": "douceurs",
+            "description": "Fruits de saison et une boule de glace au choix."
+          }
+        ]
+      },
+      {
+        "id": "gaufres-liegeoises",
+        "name": "GAUFRES LIÉGEOISES",
+        "chapterId": "douceurs",
+        "items": [
+          {
+            "id": "gaufres-liegeoises-gaufre-nature-ou-sucre",
+            "name": "Gaufre nature ou sucre",
+            "price": 29,
+            "category": "gaufres-liegeoises",
+            "chapter": "douceurs"
+          },
+          {
+            "id": "gaufres-liegeoises-gaufre-lotus",
+            "name": "Gaufre Lotus",
+            "price": 49,
+            "category": "gaufres-liegeoises",
+            "chapter": "douceurs"
+          },
+          {
+            "id": "gaufres-liegeoises-gaufre-nutella",
+            "name": "Gaufre Nutella",
+            "price": 45,
+            "category": "gaufres-liegeoises",
+            "chapter": "douceurs"
+          },
+          {
+            "id": "gaufres-liegeoises-gaufre-a-la-pistache",
+            "name": "Gaufre à la pistache",
+            "price": 55,
+            "category": "gaufres-liegeoises",
+            "chapter": "douceurs",
+            "description": "Sauce à la pistache, éclats d’amandes, glace à la vanille et chantilly."
+          },
+          {
+            "id": "gaufres-liegeoises-gaufre-nutella-pistache",
+            "name": "Gaufre Nutella-pistache",
+            "price": 55,
+            "category": "gaufres-liegeoises",
+            "chapter": "douceurs",
+            "description": "Nutella, sauce à la pistache, glace à la vanille et chantilly."
+          }
+        ]
+      },
+      {
+        "id": "glaces",
+        "name": "GLACES",
+        "chapterId": "douceurs",
+        "items": [
+          {
+            "id": "glaces-1-boule-de-glace",
+            "name": "1 boule de glace",
+            "price": 22,
+            "category": "glaces",
+            "chapter": "douceurs",
+            "description": "Parfum au choix"
+          },
+          {
+            "id": "glaces-2-boules-de-glace",
+            "name": "2 boules de glace",
+            "price": 35,
+            "category": "glaces",
+            "chapter": "douceurs",
+            "description": "Parfums au choix"
+          },
+          {
+            "id": "glaces-3-boules-de-glace",
+            "name": "3 boules de glace",
+            "price": 49,
+            "category": "glaces",
+            "chapter": "douceurs",
+            "description": "Parfums au choix"
+          }
+        ],
+        "description": "Parfums disponibles Vanille française - Pistache pure - Noisette - Caramel - Kinder Bueno - Ferrero Rocher - Chocolat - Nougat italien - Yaourt amarena - Fruits des bois - Fraise - Citron - Fruit de la passion - Ananas - Mangue - Tiramisu - Oreo - Café - Banane - Coco - Nougat - Chewing-gum"
+      },
+      {
+        "id": "supplements-sucres",
+        "optionsOnly": true,
+        "name": "SUPPLÉMENTS SUCRÉS",
+        "chapterId": "douceurs",
+        "items": [
+          {
+            "id": "supplements-sucres-nutella",
+            "name": "Nutella",
+            "price": 10,
+            "category": "supplements-sucres",
+            "chapter": "douceurs"
+          },
+          {
+            "id": "supplements-sucres-lotus",
+            "name": "Lotus",
+            "price": 10,
+            "category": "supplements-sucres",
+            "chapter": "douceurs"
+          },
+          {
+            "id": "supplements-sucres-chantilly",
+            "name": "Chantilly",
+            "price": 10,
+            "category": "supplements-sucres",
+            "chapter": "douceurs"
+          }
+        ]
+      }
+    ]
+  }
+]

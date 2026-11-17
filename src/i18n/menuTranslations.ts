@@ -1,3 +1,4 @@
+import { catalogueDescription, catalogueTranslation } from './catalogueTranslations';
 import { MenuChapter, MenuItem } from '../types';
 import { menuChapters, signatureHighlights } from '../data/menuData';
 import { Language } from './types';
@@ -8,21 +9,10 @@ interface ChapterTranslation {
   timeSlot?: string;
 }
 
-interface CategoryTranslation {
-  name: string;
-  description?: string;
-}
-
 interface ItemTranslation {
   name: string;
   description?: string;
   tag?: string;
-}
-
-interface SignatureHighlightTranslation {
-  name: string;
-  category: string;
-  description: string;
 }
 
 type LangKey = 'en' | 'ar' | 'nl';
@@ -92,75 +82,6 @@ const chapterTranslations: Record<LangKey, Record<string, ChapterTranslation>> =
       title: 'PIZZA’S & GRILLGERECHTEN',
       subtitle: 'Houtovenpizza’s, Gourmet Burgers, Edele Vleessoorten & Marokkaanse Klassiekers',
       timeSlot: '12:00 — 00:00',
-    },
-  },
-};
-
-const categoryTranslations: Record<LangKey, Record<string, CategoryTranslation>> = {
-  en: {
-    'petits-dejeuners': { name: 'BREAKFASTS' },
-    'brunches': {
-      name: 'COMPLETE BRUNCHES',
-      description: 'Each brunch is served with a hot drink of your choice, fresh orange juice, a pancake and homemade yogurt.',
-    },
-    'tartines': { name: 'GOURMET TOASTS' },
-    'croques': { name: 'MONARQ CROQUES' },
-    'omelettes': { name: 'PAN-SEARED OMELETTES' },
-    'a-la-carte-pain': { name: 'TRADITIONAL PASTRIES & BREADS' },
-    'entrees-froides-chaudes': { name: 'HOT & COLD STARTERS' },
-    'salades': { name: 'FRESH & REFINED SALADS' },
-    'pates': { name: 'ARTISAN PASTA' },
-    'risottos': { name: 'CREAMY RISOTTOS' },
-    'pizzas': { name: 'WOOD-FIRED PIZZAS' },
-    'burgers': { name: 'GOURMET BURGERS' },
-    'viandes-ribs': { name: 'PRIME CUTS & RIBS' },
-    'plats-marocains': {
-      name: 'TRADITIONAL MOROCCAN DISHES',
-      description: 'Our authentic Moroccan recipes prepared daily with passion.',
-    },
-  },
-  ar: {
-    'petits-dejeuners': { name: 'فطور الصباح' },
-    'brunches': {
-      name: 'وجبات البرنش الكاملة',
-      description: 'يُقدم كل برنش مع مشروب ساخن من اختياركم، عصير برتقال طازج، بانكيك وياغورت منزلي.',
-    },
-    'tartines': { name: 'تارتين غورميه' },
-    'croques': { name: 'كروك مونارك' },
-    'omelettes': { name: 'أومليت طازج' },
-    'a-la-carte-pain': { name: 'معجنات ومخبوزات تقليدية' },
-    'entrees-froides-chaudes': { name: 'مقبلات باردة وساخنة' },
-    'salades': { name: 'سلطات طازجة وراقية' },
-    'pates': { name: 'باستا إيطالية حرفية' },
-    'risottos': { name: 'ريزوتو كريمي' },
-    'pizzas': { name: 'بيتزا مطهوة على الحطب' },
-    'burgers': { name: 'برغر غورميه' },
-    'viandes-ribs': { name: 'لحوم فاخرة وريبز' },
-    'plats-marocains': {
-      name: 'الأطباق المغربية التقليدية',
-      description: 'وصفاتنا المغربية الأصيلة تُحضّر يومياً بكل شغف وإتقان.',
-    },
-  },
-  nl: {
-    'petits-dejeuners': { name: 'ONTBIJTEN' },
-    'brunches': {
-      name: 'COMPLETE BRUNCHES',
-      description: 'Elke brunch wordt geserveerd met een warme drank naar keuze, vers sinaasappelsap, een pancake en huisgemaakte yoghurt.',
-    },
-    'tartines': { name: 'GASTRONOMISCHE TARTINES' },
-    'croques': { name: 'MONARQ CROQUES' },
-    'omelettes': { name: 'GEBAKKEN OMELETTEN' },
-    'a-la-carte-pain': { name: 'TRADITIONELE LEKKERNIJEN' },
-    'entrees-froides-chaudes': { name: 'KOUDE & WARME VOORGERECHTEN' },
-    'salades': { name: 'VERSE & VERFIJNDE SALADES' },
-    'pates': { name: 'AMBACHTELIJKE PASTA' },
-    'risottos': { name: 'ROMIGE RISOTTO’S' },
-    'pizzas': { name: 'HOUTOVENPIZZA’S' },
-    'burgers': { name: 'GOURMET BURGERS' },
-    'viandes-ribs': { name: 'EDELE VLEESSOORTEN & RIBS' },
-    'plats-marocains': {
-      name: 'TRADITIONELE MAROKKAANSE GERECHTEN',
-      description: 'Onze authentieke Marokkaanse recepten, elke dag met passie bereid.',
     },
   },
 };
@@ -1263,221 +1184,30 @@ const itemTranslations: Record<LangKey, Record<string, ItemTranslation>> = {
   },
 };
 
-const signatureHighlightTranslations: Record<LangKey, SignatureHighlightTranslation[]> = {
-  en: [
-    {
-      name: 'Le Monarq (Prestige)',
-      category: 'SIGNATURE BRUNCHES',
-      description: 'Brioche with shrimp, avocado, mango, omelette, golden rosti and pancakes.',
-    },
-    {
-      name: 'Manhattan Style',
-      category: 'COMPLETE BRUNCHES',
-      description: 'Toasted brioche, avocado mousse, poached eggs and velvety hollandaise sauce.',
-    },
-    {
-      name: 'Smoked Salmon Bagel',
-      category: 'COMPLETE BRUNCHES',
-      description: 'Sesame bagel, avocado mousse, smoked salmon, arugula, fresh juice and yogurt.',
-    },
-    {
-      name: 'Moroccan Touch',
-      category: 'COMPLETE BRUNCHES',
-      description: 'Royal platter of msemen, baghrir, harcha, jben, amlou, olives and mint tea.',
-    },
-    {
-      name: 'A Sunday in Paris',
-      category: 'COMPLETE BRUNCHES',
-      description: 'Gourmet brioche, scrambled eggs, smoked bacon, chocolate pancakes and homemade yogurt.',
-    },
-    {
-      name: 'Monarq Shrimp Pasta',
-      category: 'ARTISAN PASTA',
-      description: 'Penne with sautéed shrimp, house signature spicy sauce and fresh basil.',
-    },
-    {
-      name: 'Salmon Tagliatelle',
-      category: 'ARTISAN PASTA',
-      description: 'Fresh tagliatelle, roasted salmon fillet, Parmesan shavings and lime.',
-    },
-    {
-      name: 'Caramelized Beef Ribs',
-      category: 'PRIME CUTS',
-      description: 'Slow-braised beef short ribs glazed with honey and rosemary barbecue sauce.',
-    },
-    {
-      name: 'The Beef Bacon Burger',
-      category: 'GOURMET BURGERS',
-      description: 'Juicy beef patty, melted cheddar, crispy beef bacon and golden fries.',
-    },
-    {
-      name: 'Burrata Salad',
-      category: 'REFINED SALADS',
-      description: 'Creamy burrata, fresh mango, arugula, cherry tomatoes and balsamic reduction.',
-    },
-    {
-      name: 'Carnivore Pizza',
-      category: 'WOOD-FIRED PIZZAS',
-      description: 'Matured wood-fired dough, mozzarella, pepperoni, turkey ham, beef and BBQ sauce.',
-    },
-    {
-      name: 'Beef Tagine with Prunes',
-      category: 'MOROCCAN CLASSICS',
-      description: 'Tender beef slow-simmered with sweet spices, caramelized prunes and toasted almonds.',
-    },
-  ],
-  ar: [
-    {
-      name: 'لو مونارك (بريستيج)',
-      category: 'برنش مونارك الفاخر',
-      description: 'بريوش بالقمرون، أفوكادو، مانجو، أومليت، غاليت ذهبية وبانكيك.',
-    },
-    {
-      name: 'على طريقة مانهاتن',
-      category: 'البرنش الكامل',
-      description: 'بريوش محمص، موس الأفوكادو، بيض بوشيه وصلصة هولنديز ناعمة.',
-    },
-    {
-      name: 'بيغل بالسلمون المدخن',
-      category: 'البرنش الكامل',
-      description: 'بيغل بالسمسم، موس الأفوكادو، سلمون مدخن، جرجير، عصير طازج وياغورت.',
-    },
-    {
-      name: 'اللمسة المغربية',
-      category: 'البرنش الكامل',
-      description: 'طبق ملكي من المسمن، البغرير، الحرشة، الجبن البلدي، أملو، الزيتون وأتاي بالنعناع.',
-    },
-    {
-      name: 'أحدٌ في باريس',
-      category: 'البرنش الكامل',
-      description: 'بريوش غورميه، بيض مخفوق، بيكون مدخن، بانكيك بالشوكولاتة وياغورت منزلي.',
-    },
-    {
-      name: 'باستا مونارك بالقمرون',
-      category: 'باستا إيطالية حرفية',
-      description: 'باستا بيني بالقمرون السوتيه، صلصة مونارك الحارة المميزة وريحان طازج.',
-    },
-    {
-      name: 'تالياتيلي بالسلمون',
-      category: 'باستا إيطالية حرفية',
-      description: 'تالياتيلي طازجة، فيليه سلمون محمر، رقائق البارميزان وليمون أخضر.',
-    },
-    {
-      name: 'ريبز لحم البقر المكرمل',
-      category: 'لحوم استثنائية',
-      description: 'أضلاع لحم البقر المطهوة ببطء والمكرملة بصلصة الباربكيو بالعسل وإكليل الجبل.',
-    },
-    {
-      name: 'برغر بيكون اللحم البقري',
-      category: 'برغر غورميه',
-      description: 'ستيك لحم بقري طري، جبن شيدر ذائب، بيكون بقري مقرمش وبطاطس ذهبية.',
-    },
-    {
-      name: 'سلطة البوراتا',
-      category: 'سلطات راقية',
-      description: 'بوراتا كريمية، مانجو طازج، جرجير، طماطم كرزية وخلاصة البلسميك.',
-    },
-    {
-      name: 'بيتزا كارنيفور',
-      category: 'بيتزا على الحطب',
-      description: 'عجينة مخمرة مطهوة على الحطب، موزاريلا، بيبروني، ديك رومي، لحم مفروم وصلصة باربكيو.',
-    },
-    {
-      name: 'طاجين اللحم بالبرقوق',
-      category: 'أطباق المملكة',
-      description: 'لحم بقري طري مطهو بالتوابل الحلوة، برقوق مكرمل ولوز محمص.',
-    },
-  ],
-  nl: [
-    {
-      name: 'Le Monarq (Prestige)',
-      category: 'SIGNATURE BRUNCHES',
-      description: 'Brioche met garnalen, avocado, mango, omelet, goudbruine rösti en pancakes.',
-    },
-    {
-      name: 'Manhattan Stijl',
-      category: 'COMPLETE BRUNCHES',
-      description: 'Geroosterde brioche, avocadomousse, gepocheerde eieren en romige hollandaisesaus.',
-    },
-    {
-      name: 'Bagel met Gerookte Zalm',
-      category: 'COMPLETE BRUNCHES',
-      description: 'Sesambagel, avocadomousse, gerookte zalm, rucola, vers sap en yoghurt.',
-    },
-    {
-      name: 'Moroccan Touch',
-      category: 'COMPLETE BRUNCHES',
-      description: 'Koninklijk plateau met msemen, baghrir, harcha, jben, amlou, olijven en muntthee.',
-    },
-    {
-      name: 'Een Zondag in Parijs',
-      category: 'COMPLETE BRUNCHES',
-      description: 'Rijkelijk belegde brioche, roerei, gerookte bacon, chocoladepancakes en huisgemaakte yoghurt.',
-    },
-    {
-      name: 'Monarq Garnalenpasta',
-      category: 'AMBACHTELIJKE PASTA',
-      description: 'Penne met gebakken garnalen, huisgemaakte pikante signaturesaus en verse basilicum.',
-    },
-    {
-      name: 'Tagliatelle met Zalm',
-      category: 'AMBACHTELIJKE PASTA',
-      description: 'Verse tagliatelle, geroosterde zalmfilet, Parmezaanse schilfers en limoen.',
-    },
-    {
-      name: 'Gekarameliseerde Runderribben',
-      category: 'EDELE VLEESSOORTEN',
-      description: 'Traag gegaarde runderribben geglaceerd met barbecuesaus van honing en rozemarijn.',
-    },
-    {
-      name: 'De Burger met Runderbacon',
-      category: 'GOURMET BURGERS',
-      description: 'Sappige rundersteak, smeltende cheddar, krokante runderbacon en goudgele frietjes.',
-    },
-    {
-      name: 'Burrata Salade',
-      category: 'VERFIJNDE SALADES',
-      description: 'Romige burrata, verse mango, rucola, kerstomaatjes en balsamicoreductie.',
-    },
-    {
-      name: 'Pizza Carnivore',
-      category: 'HOUTOVENPIZZA’S',
-      description: 'Gerijpt deeg uit de houtoven, mozzarella, pepperoni, kalkoenham, rundvlees en BBQ-saus.',
-    },
-    {
-      name: 'Tajine van Rundvlees met Pruimen',
-      category: 'MAROKKAANSE KLASSIEKERS',
-      description: 'Smeltend mals rundvlees gestoofd met zachte specerijen, gekarameliseerde pruimen en amandelen.',
-    },
-  ],
-};
-
 export function getLocalizedMenuChapters(lang: Language): MenuChapter[] {
   if (lang === 'fr') return menuChapters;
   const chMap = chapterTranslations[lang];
-  const catMap = categoryTranslations[lang];
   const itemMap = itemTranslations[lang];
 
   return menuChapters.map((ch) => {
     const chTrans = chMap[ch.id];
     return {
       ...ch,
-      title: chTrans?.title ?? ch.title,
+      title: catalogueTranslation(ch.title, lang) ?? chTrans?.title ?? ch.title,
       subtitle: chTrans?.subtitle ?? ch.subtitle,
       timeSlot: chTrans?.timeSlot ?? ch.timeSlot,
       categories: ch.categories.map((cat) => {
-        const catTrans = catMap[cat.id];
         return {
           ...cat,
-          name: catTrans?.name ?? cat.name,
-          description: catTrans?.description ?? cat.description,
+          name: catalogueTranslation(cat.name, lang) ?? cat.name,
+          description: catalogueTranslation(cat.description, lang) ?? cat.description,
           items: cat.items.map((item): MenuItem => {
             const itTrans = itemMap[item.id];
             return {
               ...item,
-              name: itTrans?.name ?? item.name,
-              description: itTrans?.description ?? item.description,
-              tag: itTrans?.tag ?? item.tag,
+              name: catalogueTranslation(item.name, lang) ?? itTrans?.name ?? item.name,
+              description: item.description ? catalogueDescription(item.id, lang) ?? catalogueTranslation(item.description, lang) ?? itTrans?.description ?? item.description : undefined,
+              tag: item.tag ? itTrans?.tag ?? item.tag : undefined,
             };
           }),
         };
@@ -1488,15 +1218,10 @@ export function getLocalizedMenuChapters(lang: Language): MenuChapter[] {
 
 export function getLocalizedSignatureHighlights(lang: Language) {
   if (lang === 'fr') return signatureHighlights;
-  const list = signatureHighlightTranslations[lang];
-  return signatureHighlights.map((item, idx) => {
-    const tr = list[idx];
-    if (!tr) return item;
-    return {
-      ...item,
-      name: tr.name,
-      category: tr.category,
-      description: tr.description,
-    };
+  const chapters = getLocalizedMenuChapters(lang);
+  return signatureHighlights.map((item) => {
+    const category = chapters.flatMap((chapter) => chapter.categories).find(({ id }) => id === item.menuCategory)!;
+    const dish = category.items.find(({ id }) => id === item.itemId)!;
+    return { ...item, name: dish.name, category: category.name, description: dish.description ?? '' };
   });
 }

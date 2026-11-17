@@ -1,4 +1,4 @@
-﻿import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Search,
@@ -14,7 +14,8 @@ import {
   UtensilsCrossed,
 } from 'lucide-react';
 import { menuChapters as baseMenuChapters } from '../data/menuData';
-import { MenuItem, CartItem } from '../types';
+import { browseMenuChapters, cartLineKey, lineTotal, menuExtras, restoreCart } from '../lib/menuOrder';
+import { MenuItem, CartItem, MenuExtra } from '../types';
 import { FadeUp, FadeIn } from '../components/Animations';
 import { SectionEyebrow } from '../components/SectionEyebrow';
 import { OrderDrawer } from '../components/digital-menu/OrderDrawer';
@@ -30,7 +31,7 @@ const stripEmojis = (text?: string) =>
   text ? text.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, '').trim() : '';
 
 const SIGNATURE_IDS = new Set<string>(
-  baseMenuChapters.flatMap((ch) =>
+  browseMenuChapters(baseMenuChapters).flatMap((ch) =>
     ch.categories.flatMap((cat) =>
       cat.items
         .filter((item) => {
@@ -53,6 +54,7 @@ const SIGNATURE_IDS = new Set<string>(
 export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClassicMenu }) => {
   const { lang, t } = useLanguage();
   const menuChapters = useMemo(() => getLocalizedMenuChapters(lang), [lang]);
+  const browsableChapters = useMemo(() => browseMenuChapters(menuChapters), [menuChapters]);
   // Search query & active category (Glovo-style scroll-spy)
   const [searchQuery, setSearchQuery] = useState('');
   const [activeSection, setActiveSection] = useState<string>('');
@@ -60,7 +62,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
   const isManualScroll = useRef(false);
 
   // Detail Modal & Order Drawer states
-  const [detailOpened, setDetailOpened] = useState(false);
+  const [editingLine, setEditingLine] = useState<CartItem | null>(null);
   const [detailItem, setDetailItem] = useState<MenuItem | null>(null);
   const [isOrderOpen, setIsOrderOpen] = useState(false);
   const basketObserver = useRef<ResizeObserver | null>(null);
@@ -102,10 +104,10 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
   }, [isMenuOverlayOpen]);
 
   // Cart state with localStorage persistence
-  const [cart, setCart] = useState<CartItem[]>(() => {
+  const [storedCart, setCart] = useState<CartItem[]>(() => {
     try {
       const saved = localStorage.getItem('monarq_digital_cart');
-      return saved ? JSON.parse(saved) : [];
+      return saved ? restoreCart(JSON.parse(saved), menuChapters, lang) : [];
     } catch {
       return [];
     }
@@ -113,16 +115,17 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
 
   useEffect(() => {
     try {
-      localStorage.setItem('monarq_digital_cart', JSON.stringify(cart));
+      localStorage.setItem('monarq_digital_cart', JSON.stringify(storedCart));
     } catch {
       // Storage fallback
     }
-  }, [cart]);
+  }, [storedCart]);
+  const cart = useMemo(() => restoreCart(storedCart, menuChapters, lang), [storedCart, menuChapters, lang]);
 
   // Aggregate all items from all chapters
   const allItems = useMemo(() => {
     const list: MenuItem[] = [];
-    menuChapters.forEach((chapter) => {
+    browsableChapters.forEach((chapter) => {
       chapter.categories.forEach((cat) => {
         cat.items.forEach((item) => {
           list.push({
@@ -134,7 +137,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
       });
     });
     return list;
-  }, [menuChapters]);
+  }, [browsableChapters]);
 
   const isSignature = (item: MenuItem) => SIGNATURE_IDS.has(item.id);
 
@@ -157,7 +160,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
         items: signatures,
       });
     }
-    menuChapters.forEach((ch) => {
+    browsableChapters.forEach((ch) => {
       ch.categories.forEach((cat) => {
         const items = allItems.filter((i) => i.category === cat.id && match(i));
         if (items.length > 0) {
@@ -166,14 +169,9 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
       });
     });
     return list;
-  }, [searchQuery, allItems, menuChapters, t]);
+  }, [searchQuery, allItems, browsableChapters, t]);
 
   const totalMatchingCount = sections.reduce((acc, s) => acc + s.items.length, 0);
-
-  const toTitle = (name: string) => {
-    const t = name.toLowerCase();
-    return t.charAt(0).toUpperCase() + t.slice(1);
-  };
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById('menu-section-' + id);
@@ -230,31 +228,35 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
     barRef.current?.scrollBy({ left: dir * 260, behavior: 'smooth' });
   };
 
-  // Cart helper functions
-  const getItemQuantity = (itemId: string): number => {
-    const found = cart.find((c) => c.item.id === itemId);
-    return found ? found.quantity : 0;
+  const getItemQuantity = (id: string) =>
+    cart.find((line) => cartLineKey(line) === id)?.quantity ?? 0;
+
+  const handleUpdateQuantity = (id: string, quantity: number) => {
+    setCart((previous) => {
+      const line = previous.find((entry) => cartLineKey(entry) === id);
+      if (line) return previous.flatMap((entry) =>
+        entry !== line ? [entry] : quantity > 0 ? [{ ...entry, quantity }] : []);
+      const item = allItems.find((dish) => dish.id === id);
+      return item && quantity > 0 ? [...previous, { item, quantity }] : previous;
+    });
   };
 
-  const handleUpdateQuantity = (itemId: string, newQty: number) => {
-    if (newQty <= 0) {
-      setCart((prev) => prev.filter((c) => c.item.id !== itemId));
-    } else {
-      setCart((prev) => {
-        const index = prev.findIndex((c) => c.item.id === itemId);
-        if (index > -1) {
-          const updated = [...prev];
-          updated[index] = { ...updated[index], quantity: newQty };
-          return updated;
-        } else {
-          const dish = allItems.find((d) => d.id === itemId);
-          if (dish) {
-            return [...prev, { item: dish, quantity: newQty }];
-          }
-          return prev;
-        }
-      });
-    }
+  const saveConfiguration = (quantity: number, extras: MenuExtra[]) => {
+    if (!detailItem) return;
+    const next = { item: detailItem, quantity, extras };
+    const key = cartLineKey(next);
+    setCart((previous) => {
+      const remaining = editingLine
+        ? previous.filter((line) => cartLineKey(line) !== cartLineKey(editingLine))
+        : previous;
+      if (!quantity) return remaining;
+      const existing = remaining.find((line) => cartLineKey(line) === key);
+      return existing
+        ? remaining.map((line) => line === existing ? { ...next, quantity: line.quantity + quantity } : line)
+        : [...remaining, next];
+    });
+    if (editingLine) setIsOrderOpen(true);
+    setDetailItem(null);
   };
 
   const handleClearCart = () => {
@@ -262,7 +264,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
   };
 
   const totalCartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const totalCartPrice = cart.reduce((sum, item) => sum + item.item.price * item.quantity, 0);
+  const totalCartPrice = cart.reduce((sum, item) => sum + lineTotal(item), 0);
 
   return (
     <div data-digital-menu className="bg-monarq-paper min-h-screen text-monarq-ink pt-20 sm:pt-24 [padding-bottom:calc(7rem+env(safe-area-inset-bottom)+var(--menu-basket-height,0px))]">
@@ -352,7 +354,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                   }`}
                 >
                   {s.id === 'signatures' && <Sparkles className="w-3.5 h-3.5 text-monarq-gold" />}
-                  <span>{toTitle(s.name)}</span>
+                  <span>{s.name}</span>
                 </button>
               );
             })}
@@ -427,7 +429,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                       >
                         {/* Top Zone: Dish Info + Clean Unobscured Thumbnail */}
                         <div
-                          onClick={() => { setDetailOpened(true); setDetailItem(item); }}
+                          onClick={() => { setEditingLine(null); setDetailItem(item); }}
                           className="cursor-pointer flex items-start justify-between gap-4"
                         >
                           <div className="flex-1 min-w-0">
@@ -482,7 +484,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                             </span>
                             <button
                               type="button"
-                              onClick={() => { setDetailOpened(true); setDetailItem(item); }}
+                              onClick={() => { setEditingLine(null); setDetailItem(item); }}
                               className="min-h-[44px] py-1 font-sans text-sm tracking-normal text-monarq-ink-muted hover:text-monarq-gold-deep font-semibold transition-colors"
                             >
                               Détails
@@ -613,15 +615,18 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
       </AnimatePresence>
 
       {/* ── Dish Detail Modal ────────────────────────────────────── */}
-      <React.Suspense fallback={null}>{detailOpened && <DishDetailModal
+      <React.Suspense fallback={null}>{detailItem && <DishDetailModal
         item={detailItem}
-        quantity={detailItem ? getItemQuantity(detailItem.id) : 0}
-        onClose={() => setDetailItem(null)}
-        onUpdateQuantity={(newQty) => {
-          if (detailItem) {
-            handleUpdateQuantity(detailItem.id, newQty);
-          }
+        lang={lang}
+        options={menuExtras(detailItem, menuChapters, lang)}
+        initialQuantity={editingLine?.quantity ?? 1}
+        initialExtras={editingLine?.extras ?? []}
+        editing={!!editingLine}
+        onClose={() => {
+          setDetailItem(null);
+          if (editingLine) setIsOrderOpen(true);
         }}
+        onSave={saveConfiguration}
       />}</React.Suspense>
 
       {/* ── Order Drawer / WhatsApp Summary ───────────────────────── */}
@@ -631,6 +636,11 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
         items={cart}
         onUpdateQuantity={handleUpdateQuantity}
         onClearCart={handleClearCart}
+        onEdit={(line) => {
+          setIsOrderOpen(false);
+          setEditingLine(line);
+          setDetailItem(line.item);
+        }}
       />
     </div>
   );

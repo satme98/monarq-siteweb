@@ -1,13 +1,19 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Plus, Minus, Sparkles, Flame, Leaf, Check } from 'lucide-react';
-import { MenuItem } from '../../types';
+import { MenuItem, MenuExtra } from '../../types';
+import { Language } from '../../i18n/types';
+import { lineTotal, extraLabels } from '../../lib/menuOrder';
 
 interface DishDetailModalProps {
-  item: MenuItem | null;
-  quantity: number;
+  item: MenuItem;
+  lang: Language;
+  options: MenuExtra[];
+  initialQuantity: number;
+  initialExtras: MenuExtra[];
+  editing: boolean;
   onClose: () => void;
-  onUpdateQuantity: (quantity: number) => void;
+  onSave: (quantity: number, extras: MenuExtra[]) => void;
 }
 
 const stripEmojis = (text?: string) =>
@@ -15,33 +21,13 @@ const stripEmojis = (text?: string) =>
 
 export const DishDetailModal: React.FC<DishDetailModalProps> = ({
   item,
-  quantity,
-  onClose,
-  onUpdateQuantity,
+  lang, options, initialQuantity, initialExtras, editing, onClose, onSave,
 }) => {
-  if (!item) return null;
-
-  const currentQty = quantity > 0 ? quantity : 1;
+  const [quantity, setQuantity] = React.useState(initialQuantity);
+  const [selected, setSelected] = React.useState(initialExtras.map(({ id }) => id));
+  const extras = options.filter(({ id }) => selected.includes(id));
   const cleanTag = stripEmojis(item.tag);
-
-  const handleIncrement = () => {
-    onUpdateQuantity(quantity === 0 ? 1 : quantity + 1);
-  };
-
-  const handleDecrement = () => {
-    if (quantity <= 1) {
-      onUpdateQuantity(0);
-    } else {
-      onUpdateQuantity(quantity - 1);
-    }
-  };
-
-  const handleAddOrSave = () => {
-    if (quantity === 0) {
-      onUpdateQuantity(1);
-    }
-    onClose();
-  };
+  const labels = extraLabels[lang];
 
   return (
     <AnimatePresence>
@@ -136,14 +122,28 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
                 </span>
               </div>
 
-              {item.description ? (
-                <p className="font-sans text-base text-monarq-ink-soft font-normal leading-relaxed">
-                  {item.description}
-                </p>
-              ) : (
-                <p className="font-sans text-base leading-relaxed text-monarq-ink-muted italic">
-                  Préparé à la commande avec des ingrédients frais et de saison.
-                </p>
+              {item.description && (
+                <p className="font-sans text-base text-monarq-ink-soft leading-relaxed">{item.description}</p>
+              )}
+              {options.length > 0 && (
+                <fieldset className="space-y-1 border-t border-monarq-line pt-2">
+                  <legend className="font-semibold text-monarq-gold-deep">{labels.optional}</legend>
+                  {options.map((extra) => (
+                    <label key={extra.id} className="flex min-h-10 cursor-pointer items-center gap-3 rounded px-2 hover:bg-monarq-paper-dark">
+                      <input
+                        type="checkbox"
+                        className="size-4 accent-monarq-gold-deep"
+                        checked={selected.includes(extra.id)}
+                        onChange={(event) => {
+                          const checked = event.target.checked;
+                          setSelected((ids) => checked ? [...ids, extra.id] : ids.filter((id) => id !== extra.id));
+                        }}
+                      />
+                      <span className="flex-1">{extra.name}</span>
+                      <span className="whitespace-nowrap tabular-nums">+{extra.price} DH</span>
+                    </label>
+                  ))}
+                </fieldset>
               )}
 
               <div className="pt-3 border-t border-monarq-line">
@@ -164,11 +164,11 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
             <div className="flex items-center border border-monarq-line bg-monarq-paper rounded-full p-1 shadow-sm">
               <button
                 type="button"
-                onClick={handleDecrement}
-                disabled={quantity === 0}
+                onClick={() => setQuantity((value) => Math.max(1, value - 1))}
+                disabled={quantity === 1}
                 aria-label="Diminuer la quantité"
                 className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${
-                  quantity === 0
+                  quantity === 1
                     ? 'text-monarq-ink-muted/40 cursor-not-allowed'
                     : 'text-monarq-ink hover:bg-monarq-paper-dark active:scale-95'
                 }`}
@@ -176,11 +176,11 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
                 <Minus className="w-4 h-4" />
               </button>
               <span className="w-7 text-center sm:w-10 font-sans font-bold text-base tabular-nums text-monarq-ink">
-                {currentQty}
+                {quantity}
               </span>
               <button
                 type="button"
-                onClick={handleIncrement}
+                onClick={() => setQuantity((value) => value + 1)}
                 aria-label="Augmenter la quantité"
                 className="w-9 h-9 rounded-full bg-monarq-gold/15 text-monarq-gold-deep hover:bg-monarq-gold/25 active:scale-95 flex items-center justify-center transition-colors"
               >
@@ -191,30 +191,29 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
             {/* Action button */}
             <button
               type="button"
-              onClick={handleAddOrSave}
+              onClick={() => onSave(quantity, extras)}
               className="flex min-w-0 flex-1 flex-wrap items-center justify-between gap-x-2 gap-y-0.5 rounded-full btn-dark px-3 py-3 text-xs font-semibold uppercase tracking-wider sm:px-5"
             >
               <span className="flex items-center gap-1.5">
-                {quantity > 0 ? (
+                {editing ? (
                   <>
                     <Check className="hidden w-4 h-4 text-monarq-gold-light min-[400px]:block" />
-                    <span>Mettre à jour</span>
+                    <span>{labels.save}</span>
                   </>
                 ) : (
-                  <span>Ajouter</span>
+                  <span>{labels.add}</span>
                 )}
               </span>
               <span className="font-sans font-bold text-monarq-gold-light tabular-nums tracking-normal whitespace-nowrap">
-                {item.price * currentQty} DH
+                <span aria-live="polite">{lineTotal({ item, quantity, extras })} DH</span>
               </span>
             </button>
 
-            {quantity > 0 && (
+            {editing && (
               <button
                 type="button"
                 onClick={() => {
-                  onUpdateQuantity(0);
-                  onClose();
+                  onSave(0, extras);
                 }}
                 title="Retirer de la sélection"
                 aria-label="Retirer de la sélection"

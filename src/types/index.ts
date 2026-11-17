@@ -14,13 +14,21 @@ export interface MenuItem {
   chapter: string;
 }
 
+export interface MenuExtra {
+  id: string;
+  name: string;
+  price: number;
+}
+
 export interface CartItem {
+  extras?: MenuExtra[];
   item: MenuItem;
   quantity: number;
   notes?: string;
 }
 
 export interface MenuCategory {
+  optionsOnly?: boolean;
   id: string;
   name: string;
   chapterId: string;
