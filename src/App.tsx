@@ -4,6 +4,12 @@ import { Footer } from './components/Footer';
 import { PageTransition } from './components/Animations';
 import { siteConfig } from './data/siteConfig';
 import { MaintenancePage } from './pages/MaintenancePage';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { keyForPath, pathFor } from './routes';
+import NotFoundPage from './pages/NotFoundPage';
+import { Seo } from './components/Seo';
+import { pageSeo, schemaFor } from './data/seoContent';
+import { useLanguage } from './i18n';
 
 function split<T extends { default: React.ComponentType<any> }>(importPage: () => Promise<T>) {
   let request: Promise<T> | undefined;
@@ -40,36 +46,25 @@ function preloadTab(tab: string) {
   }
 }
 
-const getInitialTab = (): string => {
-  if (typeof window === 'undefined') return 'accueil';
+const legacyTarget = (): string | null => {
   const hash = window.location.hash.toLowerCase();
   const search = window.location.search.toLowerCase();
-  const pathname = window.location.pathname.toLowerCase();
-
-  if (
-    hash.includes('digital-menu') ||
-    hash.includes('menu-digital') ||
-    pathname.includes('digital-menu') ||
-    pathname.includes('menu-digital') ||
-    search.includes('digital-menu') ||
-    search.includes('menu-digital')
-  ) {
-    return 'digital-menu';
-  }
-
-  if (hash === '#menu' || search.includes('tab=menu')) {
-    return 'menu';
-  }
-
-  return 'accueil';
+  if (hash.includes('digital-menu') || hash.includes('menu-digital') || search.includes('digital-menu') || search.includes('menu-digital')) return '/menu-digital';
+  if (hash === '#menu' || search.includes('tab=menu')) return '/menu';
+  return null;
 };
 
 export function App() {
-  const [activeTab, commitTab] = useState<string>('');
+  const { t } = useLanguage();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const activeTab = keyForPath(location.pathname);
+  const isNotFound = !activeTab;
+  const reservationOpened = useRef(false);
   const [pending, setPending] = useState(false);
   const [failedTab, setFailedTab] = useState('');
   const sequence = useRef(0);
-  const reservationOpened = useRef(false);
+
   const setActiveTab = React.useCallback((tab: string) => {
     if (!Object.prototype.hasOwnProperty.call(routes, tab)) return;
     const attempt = ++sequence.current;
@@ -77,14 +72,15 @@ export function App() {
     setFailedTab('');
     routes[tab as Tab].load().then(() => {
       if (attempt !== sequence.current) return;
-      React.startTransition(() => commitTab(tab));
       setPending(false);
+      navigate(pathFor(tab));
     }, () => {
       if (attempt !== sequence.current) return;
       setFailedTab(tab);
       setPending(false);
     });
-  }, []);
+  }, [navigate]);
+
   const openReservation = () => {
     reservationOpened.current = true;
     setIsReservationOpen(true);
@@ -100,41 +96,18 @@ export function App() {
 
   const isMaintenance = Boolean(siteConfig.maintenance?.enabled && !isUnlocked);
 
+  // Legacy QR/hash links (/#digital-menu, /#menu, ?tab=menu) -> real URLs
   useEffect(() => {
-    if (!isMaintenance) setActiveTab(getInitialTab());
-    return () => { sequence.current++; };
-  }, [isMaintenance, setActiveTab]);
+    if (isMaintenance) return;
+    const target = legacyTarget();
+    if (target) navigate(target, { replace: true });
+  }, [isMaintenance, location.hash, location.search, navigate]);
 
-  // Synchronise hash navigation and scroll to top when tab changes
   useLayoutEffect(() => {
-    if (!activeTab) return;
     window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [location.pathname]);
 
-    if (activeTab === 'digital-menu') {
-      if (window.location.hash !== '#digital-menu') {
-        window.history.replaceState(null, '', '#digital-menu');
-      }
-    } else if (activeTab === 'accueil') {
-      if (window.location.hash.includes('digital-menu')) {
-        window.history.replaceState(null, '', window.location.pathname);
-      }
-    }
-  }, [activeTab]);
-
-  // Listen to hash changes (e.g. user clicks a QR link or browser history navigation)
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.toLowerCase();
-      if (hash.includes('digital-menu') || hash.includes('menu-digital')) {
-        setActiveTab('digital-menu');
-      } else if (hash === '#menu') {
-        setActiveTab('menu');
-      }
-    };
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
-
+  useEffect(() => () => { sequence.current++; }, []);
   if (isMaintenance) {
     return <MaintenancePage onUnlock={() => setIsUnlocked(true)} />;
   }
@@ -144,7 +117,7 @@ export function App() {
     <div className="min-h-screen flex flex-col bg-monarq-paper text-monarq-ink relative">
       {/* Navigation Globale */}
       <Navbar
-        activeTab={activeTab || getInitialTab()}
+        activeTab={activeTab}
         preloadTab={preloadTab}
         setActiveTab={setActiveTab}
         onOpenReservation={openReservation}
@@ -152,8 +125,9 @@ export function App() {
 
       {/* Main Content Router with Cinematic Multi-layer Page Transitions */}
       <main className="flex-grow" aria-busy={pending}>
-        {failedTab && <button type="button" className="fixed top-24 right-4 z-50 bg-monarq-paper p-4 shadow-lg" onClick={() => setActiveTab(failedTab)}>Réessayer / Retry</button>}
-        {!activeTab && <div className="min-h-[70vh]" />}
+        {failedTab && <button type="button" className="fixed top-24 right-4 z-50 bg-monarq-paper p-4 shadow-lg" onClick={() => setActiveTab(failedTab)}>{t.common.retryBtn}</button>}
+        {activeTab && pageSeo[activeTab] && <Seo {...pageSeo[activeTab]} path={pathFor(activeTab)} jsonLd={schemaFor(activeTab)} />}
+        {isNotFound && <NotFoundPage />}
         <Suspense fallback={<div className="min-h-[70vh]" />}>
           {activeTab === 'accueil' && (
             <PageTransition pageKey="accueil">

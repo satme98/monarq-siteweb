@@ -1,3 +1,4 @@
+import { pathFor } from '../routes';
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Instagram, MapPin, Phone, Clock, ArrowUpRight, Sparkles, Mail } from 'lucide-react';
@@ -124,7 +125,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-gray-200 hover:text-monarq-gold hover:border-monarq-gold transition-colors duration-300 group"
-                title="Suivez MONARQ sur Instagram"
+                title={t.footer.instagramTitle}
                 whileHover={reduce ? {} : { scale: 1.08 }}
                 whileTap={reduce ? {} : { scale: 0.9 }}
                 transition={SPRING_SNAP}
@@ -136,7 +137,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-gray-200 hover:text-monarq-gold hover:border-monarq-gold transition-colors duration-300 group"
-                title="WhatsApp Direct"
+                title={t.footer.whatsappTitle}
                 whileHover={reduce ? {} : { scale: 1.08 }}
                 whileTap={reduce ? {} : { scale: 0.9 }}
                 transition={SPRING_SNAP}
@@ -148,7 +149,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
               <motion.a
                 href={`tel:${siteConfig.phone}`}
                 className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-gray-200 hover:text-monarq-gold hover:border-monarq-gold transition-colors duration-300 group"
-                title="Appeler le restaurant"
+                title={t.footer.phoneTitle}
                 whileHover={reduce ? {} : { scale: 1.08 }}
                 whileTap={reduce ? {} : { scale: 0.9 }}
                 transition={SPRING_SNAP}
@@ -158,7 +159,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
               <motion.a
                 href={`mailto:${siteConfig.email}`}
                 className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-gray-200 hover:text-monarq-gold hover:border-monarq-gold transition-colors duration-300 group"
-                title="Écrivez-nous par Email"
+                title={t.footer.emailTitle}
                 whileHover={reduce ? {} : { scale: 1.08 }}
                 whileTap={reduce ? {} : { scale: 0.9 }}
                 transition={SPRING_SNAP}
@@ -248,7 +249,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
           <div className="relative rounded-2xl overflow-hidden border border-monarq-gold/35 shadow-luxury bg-white/5">
             <iframe
               src={siteConfig.mapsEmbedUrl}
-              title="Localisation MONARQ Tanger — Google Maps"
+              title={t.footer.mapIframeTitle}
               className="w-full h-56 sm:h-64 md:h-72 block"
               style={{ border: 0 }}
               allowFullScreen
@@ -279,24 +280,48 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, setActiveTab 
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-8">
-            <button
-              onClick={() => { setActiveTab('menu'); }}
+            <a
+              href={pathFor('menu')}
+              onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); setActiveTab('menu'); }}
               className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand whitespace-nowrap"
             >
               {t.nav.menu}
-            </button>
-            <button
-              onClick={() => { setActiveTab('apropos'); }}
+            </a>
+            <a
+              href={pathFor('apropos')}
+              onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); setActiveTab('apropos'); }}
               className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand whitespace-nowrap"
             >
               {t.nav.apropos}
-            </button>
-            <button
-              onClick={() => { setActiveTab('contact'); }}
+            </a>
+            <a
+              href={pathFor('galerie')}
+              onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); setActiveTab('galerie'); }}
+              className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand whitespace-nowrap"
+            >
+              {t.nav.galerie}
+            </a>
+            <a
+              href={pathFor('evenements')}
+              onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); setActiveTab('evenements'); }}
+              className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand whitespace-nowrap"
+            >
+              {t.nav.evenements}
+            </a>
+            <a
+              href={pathFor('atmosphere')}
+              onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); setActiveTab('atmosphere'); }}
+              className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand whitespace-nowrap"
+            >
+              {t.nav.atmosphere}
+            </a>
+            <a
+              href={pathFor('contact')}
+              onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); setActiveTab('contact'); }}
               className="hover:text-monarq-gold transition-colors uppercase tracking-[0.18em] font-medium link-underline-expand whitespace-nowrap"
             >
               {t.nav.contact}
-            </button>
+            </a>
           </div>
         </div>
       </div>

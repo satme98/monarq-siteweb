@@ -4,18 +4,18 @@ import catalogue from './menuCatalogue.json';
 export const menuChapters: MenuChapter[] = catalogue;
 
 const featured = [
-  { itemId: 'le-monarq', image: '/images/photographer/_DSC6976.jpg', objectPosition: 'center 55%' },
-  { itemId: 'facon-manhattan', image: '/images/photographer/_DSC7015.jpg', objectPosition: 'center 55%' },
-  { itemId: 'bagel-au-saumon', image: '/images/photographer/_DSC6992.jpg', objectPosition: 'center 55%' },
-  { itemId: 'moroccan-touch', image: '/images/photographer/_DSC6971-Modifier.jpg', objectPosition: 'center 60%' },
-  { itemId: 'un-dimanche-a-paris', image: '/images/photographer/_DSC7007.jpg', objectPosition: 'center 55%' },
-  { itemId: 'pates-monarq-crevettes', image: '/images/photographer/_DSC7083.jpg', objectPosition: 'center 55%' },
-  { itemId: 'tagliatelle-salmone', image: '/images/photographer/_DSC110.jpg', objectPosition: 'center 50%' },
-  { itemId: 'ribs-miel', image: '/images/photographer/_DSC7063.jpg', objectPosition: 'center 55%' },
-  { itemId: 'burger-bacon', image: '/images/photographer/_DSC7124.jpg', objectPosition: 'center 55%' },
-  { itemId: 'salade-burrata', image: '/images/photographer/_DSC7052.jpg', objectPosition: 'center 55%' },
-  { itemId: 'pizza-carnivore', image: '/images/photographer/_DSC7048.jpg', objectPosition: 'center 50%' },
-  { itemId: 'tajine-viande-pruneaux', image: '/images/photographer/_DSC7096.jpg', objectPosition: 'center 60%' },
+  { itemId: 'le-monarq', image: '/website-images/dishes/_DSC6976.webp', objectPosition: 'center 55%' },
+  { itemId: 'facon-manhattan', image: '/website-images/dishes/_DSC7015.webp', objectPosition: 'center 55%' },
+  { itemId: 'bagel-au-saumon', image: '/website-images/dishes/_DSC6992.webp', objectPosition: 'center 55%' },
+  { itemId: 'moroccan-touch', image: '/website-images/dishes/_DSC6971-Modifier.webp', objectPosition: 'center 60%' },
+  { itemId: 'un-dimanche-a-paris', image: '/website-images/dishes/_DSC7007.webp', objectPosition: 'center 55%' },
+  { itemId: 'pates-monarq-crevettes', image: '/website-images/dishes/_DSC7083.webp', objectPosition: 'center 55%' },
+  { itemId: 'tagliatelle-salmone', image: '/website-images/dishes/_DSC110.webp', objectPosition: 'center 50%' },
+  { itemId: 'ribs-miel', image: '/website-images/dishes/_DSC7063.webp', objectPosition: 'center 55%' },
+  { itemId: 'burger-bacon', image: '/website-images/dishes/_DSC7124.webp', objectPosition: 'center 55%' },
+  { itemId: 'salade-burrata', image: '/website-images/dishes/_DSC7052.webp', objectPosition: 'center 55%' },
+  { itemId: 'pizza-carnivore', image: '/website-images/dishes/_DSC7048.webp', objectPosition: 'center 50%' },
+  { itemId: 'tajine-viande-pruneaux', image: '/website-images/dishes/_DSC7096.webp', objectPosition: 'center 60%' },
 ];
 
 export const signatureHighlights = featured.map((highlight) => {

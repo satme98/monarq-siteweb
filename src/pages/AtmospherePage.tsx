@@ -6,9 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import {
   FadeUp,
-  FadeIn,
   SlideLeft,
-  SlideRight,
   ScaleReveal,
   ImageReveal,
   StaggerGroup,
@@ -18,7 +16,8 @@ import {
 import { SectionEyebrow } from '../components/SectionEyebrow';
 import { siteConfig } from '../data/siteConfig';
 import { DroneVideoPlayer } from '../components/DroneVideoPlayer';
-import { EASE_CINEMATIC, GSAP_EASE_CINEMATIC, DUR, prefersReducedMotion } from '../lib/animation';
+import { useLanguage } from '../i18n';
+import { GSAP_EASE_CINEMATIC, DUR, prefersReducedMotion } from '../lib/animation';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -27,8 +26,9 @@ interface AtmospherePageProps {
   setActiveTab: (tab: string) => void;
 }
 
-export default function AtmospherePage({ onOpenReservation, setActiveTab }: AtmospherePageProps) {
+export default function AtmospherePage({ onOpenReservation }: AtmospherePageProps) {
   const reduce = useReducedMotion();
+  const { lang, t, isRTL } = useLanguage();
 
   // ── GSAP SplitText hero heading ─────────────────────────────────────────────
   const heroHeadingRef = useRef<HTMLHeadingElement>(null);
@@ -36,12 +36,14 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
 
   useEffect(() => {
     if (prefersReducedMotion()) return;
+    if (lang === 'ar') return;
     if (!heroHeadingRef.current) return;
 
+    let cancelled = false;
     const ctx = gsap.context(() => {
       // Wait for fonts before splitting
       document.fonts.ready.then(() => {
-        if (!heroHeadingRef.current) return;
+        if (cancelled || !heroHeadingRef.current) return;
 
         const split = SplitText.create(heroHeadingRef.current, {
           type: 'lines',
@@ -63,17 +65,22 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
       });
     }, heroHeadingRef);
 
-    return () => ctx.revert();
-  }, []);
+    return () => {
+      cancelled = true;
+      ctx.revert();
+    };
+  }, [lang]);
 
   // ── Pull quote word-by-word reveal ──────────────────────────────────────────
   useEffect(() => {
     if (prefersReducedMotion()) return;
+    if (lang === 'ar') return;
     if (!quoteRef.current) return;
 
+    let cancelled = false;
     const ctx = gsap.context(() => {
       document.fonts.ready.then(() => {
-        if (!quoteRef.current) return;
+        if (cancelled || !quoteRef.current) return;
 
         const split = SplitText.create(quoteRef.current, {
           type: 'words',
@@ -99,8 +106,11 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
       });
     }, quoteRef);
 
-    return () => ctx.revert();
-  }, []);
+    return () => {
+      cancelled = true;
+      ctx.revert();
+    };
+  }, [lang]);
 
   return (
     <div className="bg-monarq-paper min-h-screen pt-20 sm:pt-24 pb-14 sm:pb-16">
@@ -108,21 +118,22 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
       {/* 1. HERO OPENING */}
       <section className="bg-marble-pattern py-12 sm:py-16 md:py-20 px-5 sm:px-6 flex flex-col items-center justify-center text-center">
         <FadeUp delay={0.15}>
-          <SectionEyebrow>L'Esprit MONARQ</SectionEyebrow>
+          <SectionEyebrow>{t.atmospherePage.eyebrow}</SectionEyebrow>
         </FadeUp>
 
         {/* SplitText target — GSAP handles reveal, so no motion wrapper */}
         <h1
+          key={lang}
           ref={heroHeadingRef}
           className={`font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-monarq-ink mb-3 sm:mb-4 leading-tight max-w-4xl font-semibold ${
             reduce ? 'opacity-0 animate-[fadeIn_0.4s_0.3s_ease_forwards]' : ''
           }`}
           style={reduce ? { opacity: 0, animation: 'none' } : {}}
         >
-          L'art de recevoir,{' '}
+          {t.atmospherePage.titlePart1}{' '}
           <br />
           <span className="font-editorial italic font-normal text-monarq-gold-deep">
-            l'exigence du goût
+            {t.atmospherePage.titlePart2}
           </span>
         </h1>
 
@@ -139,7 +150,7 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
 
         <FadeUp delay={0.55}>
           <p className="font-sans text-monarq-ink-soft text-sm sm:text-base max-w-2xl mx-auto font-normal leading-relaxed">
-            Un havre gastronomique chic et lumineux au cœur de Tanger, dédié au plaisir des saveurs et du partage.
+            {t.atmospherePage.subtitle}
           </p>
         </FadeUp>
       </section>
@@ -149,19 +160,19 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-16 items-center">
           <div className="lg:col-span-7">
             <SlideLeft>
-              <SectionEyebrow align="left">Notre Histoire</SectionEyebrow>
+              <SectionEyebrow align={isRTL ? 'right' : 'left'}>{t.atmospherePage.historyEyebrow}</SectionEyebrow>
               <TextReveal delay={0.08} duration={DUR.slow}>
                 <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink font-semibold mb-3 sm:mb-4 leading-tight">
-                  Une passion vouée à l'excellence
+                  {t.atmospherePage.historyTitle}
                 </h2>
               </TextReveal>
               <FadeUp delay={0.18}>
                 <div className="font-sans text-monarq-ink-soft text-sm sm:text-base leading-relaxed space-y-3 font-normal">
                   <p>
-                    Né de l'amour de la haute gastronomie et de l'art de recevoir tangérois, MONARQ réinvente l'expérience du café-restaurant contemporain.
+                    {t.atmospherePage.historyP1}
                   </p>
                   <p>
-                    Sous notre verrière baignée de lumière méditerranéenne, nos équipes marient produits nobles, cuissons maîtrisées et service attentionné pour offrir une expérience inoubliable.
+                    {t.atmospherePage.historyP2}
                   </p>
                 </div>
               </FadeUp>
@@ -173,18 +184,18 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
               <ImageReveal delay={0.05} duration={1.0}>
                 <div className="relative aspect-[3/4] rounded-2xl overflow-hidden mt-0 group luxury-card-hover border border-monarq-gold/25">
                   <img
-                    src="/images/staggered-story-1.jpg"
-                    alt="Détail architectural MONARQ"
-                    className="object-cover w-full h-full hover-scale-img"
+                    src="/website-images/interior/staggered-story-1.webp"
+                    alt={`MONARQ ${t.common.city}`}
+                    loading="lazy" decoding="async" className="object-cover w-full h-full hover-scale-img"
                   />
                 </div>
               </ImageReveal>
               <ImageReveal delay={0.25} duration={1.0}>
                 <div className="relative aspect-[3/4] rounded-2xl overflow-hidden mt-10 md:mt-12 group luxury-card-hover border border-monarq-gold/25">
                   <img
-                    src="/images/monarq-lobby-reception.png"
-                    alt="Accueil du restaurant MONARQ Tanger"
-                    className="object-cover w-full h-full hover-scale-img"
+                    src="/website-images/interior/monarq-lobby-reception.webp"
+                    alt={`MONARQ ${t.common.city}`}
+                    loading="lazy" decoding="async" className="object-cover w-full h-full hover-scale-img"
                   />
                 </div>
               </ImageReveal>
@@ -196,18 +207,19 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
       {/* 3. PULL QUOTE — word-by-word reveal + true GSAP parallax */}
       <section className="relative w-full h-[50vh] md:h-[60vh] overflow-hidden">
         <ParallaxImage
-          src="/images/interlude-atmosphere.jpg"
-          alt="L'atmosphère feutrée du Monarq"
+          src="/website-images/interior/interlude-atmosphere.webp"
+          alt={`MONARQ ${t.common.city}`}
           rate={0.28}
           hoverScale={false}
           className="absolute inset-0 w-full h-full"
         />
         <div className="absolute inset-0 bg-monarq-black/48 flex items-center justify-center p-6 text-center backdrop-blur-[1px]">
           <p
+            key={lang}
             ref={quoteRef}
             className="font-editorial italic text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-monarq-paper max-w-3xl leading-snug font-normal"
           >
-            « L'art de sublimer chaque instant. »
+            {t.atmospherePage.pullQuote}
           </p>
         </div>
       </section>
@@ -215,32 +227,16 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
       {/* 4. NOS 3 VALEURS */}
       <section className="py-12 sm:py-16 md:py-20 px-5 sm:px-6 max-w-4xl mx-auto">
         <FadeUp>
-          <SectionEyebrow>Nos Piliers</SectionEyebrow>
+          <SectionEyebrow>{t.atmospherePage.pillarsEyebrow}</SectionEyebrow>
           <TextReveal delay={0.1} duration={DUR.slow}>
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink font-semibold text-center mb-8 sm:mb-10">
-              Nos Engagements
+              {t.atmospherePage.pillarsTitle}
             </h2>
           </TextReveal>
         </FadeUp>
 
         <StaggerGroup className="flex flex-col" staggerDelay={0.1}>
-          {[
-            {
-              num: '01',
-              title: 'Produits Nobles',
-              desc: 'Une sélection rigoureuse d\'ingrédients de première qualité pour des saveurs authentiques.',
-            },
-            {
-              num: '02',
-              title: 'Maîtrise Culinaire',
-              desc: 'Des cuissons précises et des recettes artisanales exécutées avec passion.',
-            },
-            {
-              num: '03',
-              title: 'Hospitalité',
-              desc: 'Un accueil prévenant et chaleureux dans un cadre chic et confortable.',
-            },
-          ].map((value, idx) => (
+          {t.atmospherePage.pillars.map((value, idx) => (
             <React.Fragment key={value.num}>
               {idx !== 0 && <div className="h-[1px] w-full bg-monarq-gold/30 my-5 sm:my-7" />}
               <StaggerItem>
@@ -268,7 +264,7 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
         <section className="relative w-full h-[45vh] sm:h-[55vh] md:h-[65vh] overflow-hidden bg-monarq-black">
           <DroneVideoPlayer
             src={siteConfig.videos.interiorWalkthrough}
-            poster="/images/hero-interior.jpg"
+            poster="/website-images/interior/hero-interior.webp"
             className="w-full h-full"
           />
         </section>
@@ -279,19 +275,19 @@ export default function AtmospherePage({ onOpenReservation, setActiveTab }: Atmo
         <ScaleReveal>
           <TextReveal delay={0.05} duration={DUR.slow}>
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-monarq-ink font-semibold mb-3 sm:mb-4">
-              Rejoignez-nous
+              {t.atmospherePage.closingTitle}
             </h2>
           </TextReveal>
           <FadeUp delay={0.15}>
             <p className="font-sans text-monarq-ink-soft text-sm sm:text-base mb-5 sm:mb-6 max-w-lg mx-auto leading-relaxed font-normal">
-              Réservez votre table et vivez un moment gastronomique d'exception.
+              {t.atmospherePage.closingDesc}
             </p>
             <motion.button
               onClick={onOpenReservation}
               className="btn-gold px-8 sm:px-9 py-3 sm:py-3.5 text-xs uppercase tracking-[0.22em] font-semibold rounded-full shadow-luxury"
               whileTap={reduce ? {} : { scale: 0.96 }}
             >
-              Réserver une table
+              {t.atmospherePage.closingBtn}
             </motion.button>
           </FadeUp>
         </ScaleReveal>

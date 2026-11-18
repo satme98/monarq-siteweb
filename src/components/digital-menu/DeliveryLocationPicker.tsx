@@ -8,6 +8,7 @@ import {
   Loader2,
   ExternalLink,
 } from 'lucide-react';
+import { useLanguage } from '../../i18n';
 
 // Coordinates for MONARQ Tanger (Boulevard Marrakech / Centre Ville, Tanger)
 export const MONARQ_COORDS = {
@@ -55,13 +56,14 @@ export const DeliveryLocationPicker: React.FC<DeliveryLocationPickerProps> = ({
   locationData,
   onChange,
 }) => {
+  const { lang, t } = useLanguage();
   const [isLocating, setIsLocating] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Trigger HTML5 Geolocation
   const handleShareLocation = () => {
     if (!navigator.geolocation) {
-      setErrorMessage("La géolocalisation n'est pas prise en charge par votre navigateur.");
+      setErrorMessage(t.deliveryPicker.geoUnsupported);
       return;
     }
 
@@ -91,7 +93,7 @@ export const DeliveryLocationPicker: React.FC<DeliveryLocationPickerProps> = ({
             `https://nominatim.openstreetmap.org/reverse?format=json&lat=${userLat}&lon=${userLng}&zoom=18&addressdetails=1`,
             {
               headers: {
-                'Accept-Language': 'fr, ar',
+                'Accept-Language': lang,
               },
             }
           );
@@ -100,15 +102,15 @@ export const DeliveryLocationPicker: React.FC<DeliveryLocationPickerProps> = ({
             const addr = data.address || {};
             const road = addr.road || addr.pedestrian || '';
             const suburb = addr.suburb || addr.neighbourhood || addr.city_district || addr.quarter || '';
-            const city = addr.city || addr.town || 'Tanger';
+            const city = addr.city || addr.town || t.common.city;
             const parts = [road, suburb, city].filter(Boolean);
 
-            detectedAddress = parts.length > 0 ? parts.join(', ') : (data.display_name?.split(',').slice(0, 3).join(',') || 'Tanger');
+            detectedAddress = parts.length > 0 ? parts.join(', ') : (data.display_name?.split(',').slice(0, 3).join(',') || t.common.city);
             detectedNeighborhood = suburb || detectedNeighborhood;
           }
         } catch {
           if (!detectedAddress) {
-            detectedAddress = `Position GPS (${userLat.toFixed(4)}, ${userLng.toFixed(4)})`;
+            detectedAddress = `GPS (${userLat.toFixed(4)}, ${userLng.toFixed(4)})`;
           }
         }
 
@@ -128,16 +130,16 @@ export const DeliveryLocationPicker: React.FC<DeliveryLocationPickerProps> = ({
         setIsLocating(false);
         switch (error.code) {
           case error.PERMISSION_DENIED:
-            setErrorMessage("Autorisation GPS refusée. Saisissez votre adresse ci-dessous.");
+            setErrorMessage(t.deliveryPicker.permDenied);
             break;
           case error.POSITION_UNAVAILABLE:
-            setErrorMessage("Signal GPS indisponible. Saisissez votre adresse manuellement.");
+            setErrorMessage(t.deliveryPicker.posUnavailable);
             break;
           case error.TIMEOUT:
-            setErrorMessage("Délai de géolocalisation dépassé. Veuillez réessayer.");
+            setErrorMessage(t.deliveryPicker.timeout);
             break;
           default:
-            setErrorMessage("Impossible de récupérer la position GPS.");
+            setErrorMessage(t.deliveryPicker.genericError);
         }
       },
       {
@@ -162,7 +164,7 @@ export const DeliveryLocationPicker: React.FC<DeliveryLocationPickerProps> = ({
       {/* Section title */}
       <div className="flex items-center gap-1.5 font-sans text-xs uppercase tracking-[0.14em] font-bold text-monarq-ink">
         <MapPin className="w-3.5 h-3.5 text-monarq-gold" />
-        <span>Adresse de livraison</span>
+        <span>{t.deliveryPicker.title}</span>
       </div>
 
       {/* GPS button */}
@@ -179,12 +181,12 @@ export const DeliveryLocationPicker: React.FC<DeliveryLocationPickerProps> = ({
         {isLocating ? (
           <>
             <Loader2 className="w-3.5 h-3.5 animate-spin text-monarq-gold" />
-            <span>Détection en cours...</span>
+            <span>{t.deliveryPicker.locating}</span>
           </>
         ) : (
           <>
             <Navigation className={`w-3.5 h-3.5 ${hasGps ? 'text-monarq-gold-deep' : 'text-monarq-gold'} fill-current`} />
-            <span>Utiliser ma position GPS</span>
+            <span>{t.deliveryPicker.useGpsBtn}</span>
           </>
         )}
       </button>
@@ -214,21 +216,21 @@ export const DeliveryLocationPicker: React.FC<DeliveryLocationPickerProps> = ({
               <div className="flex items-center gap-2 font-sans text-xs font-medium text-emerald-800 bg-emerald-50/80 px-3 py-2 rounded-lg border border-emerald-200/60">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
                 <span>
-                  Livraison disponible · {locationData.distanceKm !== null ? locationData.distanceKm.toString().replace('.', ',') : '0'} km
+                  {t.deliveryPicker.deliveryAvailable} · {locationData.distanceKm !== null ? locationData.distanceKm.toString().replace('.', ',') : '0'} km
                 </span>
               </div>
             ) : (
               <div className="flex items-center gap-2 font-sans text-xs font-medium text-amber-800 bg-amber-50/80 px-3 py-2 rounded-lg border border-amber-200/60">
                 <AlertTriangle className="w-3.5 h-3.5 text-amber-600 flex-shrink-0" />
                 <span>
-                  Hors zone standard · {locationData.distanceKm !== null ? locationData.distanceKm.toString().replace('.', ',') : ''} km
+                  {t.deliveryPicker.outOfZone} · {locationData.distanceKm !== null ? locationData.distanceKm.toString().replace('.', ',') : ''} km
                 </span>
               </div>
             )}
 
             <div className="relative rounded-xl overflow-hidden border border-monarq-line shadow-inner bg-monarq-paper-dark h-24 sm:h-28">
               <iframe
-                title="Carte de livraison"
+                title={t.deliveryPicker.mapTitle}
                 src={mapEmbedUrl}
                 className="w-full h-full border-0 pointer-events-none"
                 loading="lazy"
@@ -256,13 +258,13 @@ export const DeliveryLocationPicker: React.FC<DeliveryLocationPickerProps> = ({
             htmlFor="delivery-address"
             className="block font-sans text-xs uppercase tracking-[0.14em] font-semibold text-monarq-ink mb-1.5"
           >
-            Adresse <span className="text-monarq-gold">*</span>
+            {t.deliveryPicker.addressLabel} <span className="text-monarq-gold">*</span>
           </label>
           <input
             id="delivery-address"
             type="text"
             required
-            placeholder="Rue, avenue, quartier..."
+            placeholder={t.deliveryPicker.addressPlaceholder}
             value={locationData.addressText}
             onChange={(e) =>
               onChange({
@@ -279,12 +281,12 @@ export const DeliveryLocationPicker: React.FC<DeliveryLocationPickerProps> = ({
             htmlFor="delivery-details"
             className="block font-sans text-xs uppercase tracking-[0.14em] font-semibold text-monarq-ink mb-1.5"
           >
-            Complément <span className="text-monarq-ink-muted font-normal lowercase tracking-normal">(optionnel)</span>
+            {t.deliveryPicker.complementLabel} <span className="text-monarq-ink-muted font-normal lowercase tracking-normal">{t.deliveryPicker.optionalLabel}</span>
           </label>
           <input
             id="delivery-details"
             type="text"
-            placeholder="Immeuble, étage, appartement…"
+            placeholder={t.deliveryPicker.complementPlaceholder}
             value={locationData.additionalDetails}
             onChange={(e) =>
               onChange({

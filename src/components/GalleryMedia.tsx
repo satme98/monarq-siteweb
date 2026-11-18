@@ -1,25 +1,29 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { galleryItems, photoDetails } from '../data/galleryData';
 import manifest from '../data/galleryVariants.json';
+import { getLocalizedGalleryItems, getLocalizedPhotoDetails, useLanguage } from '../i18n';
 
 type Variant = { stem: string; width: number; height: number; widths: number[] };
 const variants: Record<string, Variant> = manifest;
 const photo = (id: string) => galleryItems.find(item => item.id === id)!;
 const variantUrl = (variant: Variant, width: number, format: string) =>
-  '/images/gallery-responsive/' + variant.stem + '-' + width + '.' + format;
+  '/website-images/responsive/gallery/' + variant.stem + '-' + width + '.' + format;
 
 export function GalleryPicture({ id, sizes, hero, viewer }: { id: string; sizes: string; hero?: boolean; viewer?: boolean }) {
-  const item = photo(id);
+  const { lang, t } = useLanguage();
+  const localizedItems = useMemo(() => getLocalizedGalleryItems(lang), [lang]);
+  const localizedDetails = useMemo(() => getLocalizedPhotoDetails(lang), [lang]);
+  const item = localizedItems.find(entry => entry.id === id) ?? photo(id);
   const variant = variants[item.image];
-  const detail = photoDetails[id];
+  const detail = localizedDetails[id] ?? photoDetails[id];
   const srcset = (format: string) => variant?.widths.map(width => variantUrl(variant, width, format) + ' ' + width + 'w').join(', ');
   return <picture style={{ '--gal-pos': detail?.position, '--gal-mobile-pos': detail?.mobile } as React.CSSProperties}>
     {variant && <source type="image/avif" srcSet={srcset('avif')} sizes={sizes} />}
     {variant && <source type="image/webp" srcSet={srcset('webp')} sizes={sizes} />}
     <img src={item.image} width={variant?.width} height={variant?.height}
-      alt={detail?.alt ?? item.title + ', MONARQ Tanger'}
+      alt={detail?.alt ?? `${item.title}, MONARQ ${t.common.city}`}
       loading={hero || viewer ? 'eager' : 'lazy'} fetchPriority={hero ? 'high' : undefined} decoding="async" draggable={false} />
   </picture>;
 }
@@ -88,6 +92,9 @@ function ZoomablePhoto({ id, move }: { id: string; move: (step: number) => void 
 }
 
 export function Lightbox({ ids, start, onClose }: { ids: string[]; start: number; onClose: () => void }) {
+  const { lang, t } = useLanguage();
+  const localizedItems = useMemo(() => getLocalizedGalleryItems(lang), [lang]);
+  const localizedPhoto = (photoId: string) => localizedItems.find(entry => entry.id === photoId) ?? photo(photoId);
   const dialog = useRef<HTMLDialogElement>(null);
   const [index, setIndex] = useState(start);
   const move = (step: number) => setIndex(current => (current + step + ids.length) % ids.length);
@@ -123,7 +130,7 @@ export function Lightbox({ ids, start, onClose }: { ids: string[]; start: number
   }, [ids, index]);
 
   return createPortal(
-    <dialog ref={dialog} className="gal-view" aria-label="Photos du MONARQ"
+    <dialog ref={dialog} className="gal-view" aria-label={t.galleryPage.lightboxAria}
       onCancel={event => { event.preventDefault(); onClose(); }}
       onKeyDown={event => {
         if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
@@ -139,14 +146,14 @@ export function Lightbox({ ids, start, onClose }: { ids: string[]; start: number
         }
       }}>
       <div className="gal-view-head">
-        <span className="gal-kicker">Galerie MONARQ</span>
-        <button type="button" autoFocus aria-label="Fermer" onClick={onClose}><X /></button>
+        <span className="gal-kicker">{t.galleryPage.lightboxKicker}</span>
+        <button type="button" autoFocus aria-label={t.galleryPage.closeAria} onClick={onClose}><X /></button>
       </div>
       <ZoomablePhoto key={id} id={id} move={move} />
       <div className="gal-view-foot">
-        <button type="button" aria-label="Photo précédente" onClick={() => move(-1)}><ChevronLeft /></button>
-        <div aria-live="polite"><span>{index + 1} / {ids.length}</span><p>{photo(id).title}</p></div>
-        <button type="button" aria-label="Photo suivante" onClick={() => move(1)}><ChevronRight /></button>
+        <button type="button" aria-label={t.galleryPage.prevPhotoAria} onClick={() => move(-1)}><ChevronLeft className="rtl:rotate-180" /></button>
+        <div aria-live="polite"><span>{index + 1} / {ids.length}</span><p>{localizedPhoto(id).title}</p></div>
+        <button type="button" aria-label={t.galleryPage.nextPhotoAria} onClick={() => move(1)}><ChevronRight className="rtl:rotate-180" /></button>
       </div>
     </dialog>,
     document.body,

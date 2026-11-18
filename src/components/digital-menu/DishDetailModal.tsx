@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Plus, Minus, Sparkles, Flame, Leaf, Check } from 'lucide-react';
 import { MenuItem, MenuExtra } from '../../types';
 import { Language } from '../../i18n/types';
+import { useLanguage } from '../../i18n';
 import { lineTotal, extraLabels } from '../../lib/menuOrder';
 
 interface DishDetailModalProps {
@@ -23,6 +24,7 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
   item,
   lang, options, initialQuantity, initialExtras, editing, onClose, onSave,
 }) => {
+  const { t } = useLanguage();
   const [quantity, setQuantity] = React.useState(initialQuantity);
   const [selected, setSelected] = React.useState(initialExtras.map(({ id }) => id));
   const extras = options.filter(({ id }) => selected.includes(id));
@@ -62,8 +64,8 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                aria-label="Fermer"
-                className="absolute top-3.5 right-3.5 z-20 w-11 h-11 rounded-full bg-monarq-ink/60 hover:bg-monarq-ink text-white backdrop-blur-md flex items-center justify-center transition-colors shadow-md"
+                aria-label={t.dishModal.closeAria}
+                className="absolute top-3.5 end-3.5 z-20 w-11 h-11 rounded-full bg-monarq-ink/60 hover:bg-monarq-ink text-white backdrop-blur-md flex items-center justify-center transition-colors shadow-md"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -81,7 +83,7 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
               ) : (
                 <div className="pt-8 px-6 bg-marble-pattern border-b border-monarq-line pb-4">
                   <span className="font-sans text-[11px] uppercase tracking-[0.22em] text-monarq-gold-deep font-bold block">
-                    MONARQ · Tanger
+                    MONARQ · {t.common.city}
                   </span>
                 </div>
               )}
@@ -101,13 +103,13 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
                   {item.isVegetarian && (
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] uppercase tracking-[0.14em] font-semibold bg-emerald-900/10 text-emerald-800 border border-emerald-800/20">
                       <Leaf className="w-3 h-3" />
-                      Végétarien
+                      {t.dishModal.vegetarian}
                     </span>
                   )}
                   {item.isSpicy && (
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] uppercase tracking-[0.14em] font-semibold bg-red-900/10 text-red-700 border border-red-700/20">
                       <Flame className="w-3 h-3" />
-                      Épicé
+                      {t.dishModal.spicy}
                     </span>
                   )}
                 </div>
@@ -118,7 +120,7 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
                   {item.name}
                 </h3>
                 <span className="font-sans text-lg sm:text-xl font-bold text-monarq-gold-deep tabular-nums whitespace-nowrap flex-shrink-0">
-                  {item.price} DH
+                  {item.price} {t.common.currency}
                 </span>
               </div>
 
@@ -140,7 +142,7 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
                         }}
                       />
                       <span className="flex-1">{extra.name}</span>
-                      <span className="whitespace-nowrap tabular-nums">+{extra.price} DH</span>
+                      <span className="whitespace-nowrap tabular-nums">+{extra.price} {t.common.currency}</span>
                     </label>
                   ))}
                 </fieldset>
@@ -152,7 +154,7 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
                     className="w-1.5 h-1.5 bg-monarq-gold inline-block flex-shrink-0"
                     style={{ transform: 'rotate(45deg)' }}
                   />
-                  <span>Préparation minute · Produits frais</span>
+                  <span>{t.dishModal.prepMinuteBadge}</span>
                 </div>
               </div>
             </div>
@@ -166,7 +168,7 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
                 type="button"
                 onClick={() => setQuantity((value) => Math.max(1, value - 1))}
                 disabled={quantity === 1}
-                aria-label="Diminuer la quantité"
+                aria-label={t.dishModal.decreaseAria}
                 className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${
                   quantity === 1
                     ? 'text-monarq-ink-muted/40 cursor-not-allowed'
@@ -181,7 +183,7 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
               <button
                 type="button"
                 onClick={() => setQuantity((value) => value + 1)}
-                aria-label="Augmenter la quantité"
+                aria-label={t.dishModal.increaseAria}
                 className="w-9 h-9 rounded-full bg-monarq-gold/15 text-monarq-gold-deep hover:bg-monarq-gold/25 active:scale-95 flex items-center justify-center transition-colors"
               >
                 <Plus className="w-4 h-4" />
@@ -205,7 +207,7 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
                 )}
               </span>
               <span className="font-sans font-bold text-monarq-gold-light tabular-nums tracking-normal whitespace-nowrap">
-                <span aria-live="polite">{lineTotal({ item, quantity, extras })} DH</span>
+                <span aria-live="polite">{lineTotal({ item, quantity, extras })} {t.common.currency}</span>
               </span>
             </button>
 
@@ -215,8 +217,8 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
                 onClick={() => {
                   onSave(0, extras);
                 }}
-                title="Retirer de la sélection"
-                aria-label="Retirer de la sélection"
+                title={t.dishModal.removeTitle}
+                aria-label={t.dishModal.removeTitle}
                 className="w-11 h-11 rounded-full border border-monarq-line bg-monarq-paper text-monarq-ink-muted hover:text-red-700 hover:border-red-200 hover:bg-red-50 flex items-center justify-center transition-colors flex-shrink-0"
               >
                 <X className="w-4 h-4" />

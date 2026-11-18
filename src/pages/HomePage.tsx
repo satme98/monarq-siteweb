@@ -160,7 +160,7 @@ function ImmersionSection({ onOpenReservation }: ImmersionSectionProps) {
                   >
                     <video
                       ref={videoRef}
-                      poster="/images/site-responsive/localisation-monarq-poster-768.webp"
+                      poster="/website-images/textures/localisation-monarq-poster.webp"
                       muted
                       loop
                       playsInline
@@ -389,7 +389,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
           {/* Brand name */}
           <TextReveal delay={0.12} duration={DUR.cinematic}>
             <h1 className="font-serif text-[44px] xs:text-[54px] sm:text-6xl md:text-7xl lg:text-[82px] text-white font-semibold leading-[1.0] tracking-tight drop-shadow-[0_3px_20px_rgba(0,0,0,0.85)] mb-1 sm:mb-2">
-              MONARQ
+              MONARQ<span className="sr-only"> — Brunch, Restaurant & Café à Tanger</span>
             </h1>
           </TextReveal>
 
@@ -519,7 +519,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   <ImageReveal delay={0.05} duration={1.1}>
                     <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
                       <SitePicture
-                        src="/images/monarq-lobby-reception.png"
+                        src="/website-images/interior/monarq-lobby-reception.webp"
                         alt="Accueil du restaurant MONARQ Tanger"
                         className="w-full h-64 sm:h-80 md:h-[380px] lg:h-[420px] object-cover hover-scale-img"
                       />
@@ -531,7 +531,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   <ImageReveal delay={0.2} duration={1.0}>
                     <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
                       <SitePicture
-                        src="/images/concept-terrace.jpg"
+                        src="/website-images/interior/concept-terrace.webp"
                         alt="Accueil MONARQ"
                         className="w-full h-64 sm:h-80 md:h-[380px] lg:h-[420px] object-cover hover-scale-img"
                       />
@@ -583,7 +583,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 <ImageReveal direction="right" duration={1.0}>
                   <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
                     <SitePicture
-                      src="/images/moments/img-1050.jpg"
+                      src="/website-images/moments/img-1050.webp"
                       alt={t.home.specialties.moments[0].title}
                       className="w-full h-52 sm:h-60 md:h-72 lg:h-76 object-cover hover-scale-img"
                     />
@@ -640,7 +640,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 <ImageReveal direction="left" duration={1.0}>
                   <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
                     <SitePicture
-                      src="/images/moments/img-1040.jpg"
+                      src="/website-images/moments/img-1040.webp"
                       alt={t.home.specialties.moments[1].title}
                       className="w-full h-52 sm:h-60 md:h-72 lg:h-76 object-cover hover-scale-img"
                     />
@@ -655,7 +655,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                 <ImageReveal direction="right" duration={1.0}>
                   <div className="rounded-2xl overflow-hidden border border-monarq-gold/25 group luxury-card-hover shadow-luxury">
                     <SitePicture
-                      src="/images/moments/img-1020.jpg"
+                      src="/website-images/moments/img-1020.webp"
                       alt={t.home.specialties.moments[2].title}
                       className="w-full h-52 sm:h-60 md:h-72 lg:h-76 object-cover hover-scale-img"
                     />
@@ -694,13 +694,13 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
       <section className="relative py-12 sm:py-16 md:py-20 lg:py-24 bg-monarq-paper border-b border-monarq-line/60 overflow-hidden">
         {/* Decorative sketches — fully inside section bounds, never cropped */}
         <SitePicture
-          src="/images/ornament-waffle.png"
+          src="/website-images/brand/ornament-waffle.webp"
           alt=""
           aria-hidden="true"
           className="hidden lg:block absolute top-6 left-6 w-32 xl:w-40 pointer-events-none select-none z-0 mix-blend-multiply opacity-[0.08] filter grayscale contrast-125 sepia-[0.25]"
         />
         <SitePicture
-          src="/images/ornament-crepes.png"
+          src="/website-images/brand/ornament-crepes.webp"
           alt=""
           aria-hidden="true"
           className="hidden lg:block absolute bottom-6 right-6 w-32 xl:w-40 pointer-events-none select-none z-0 mix-blend-multiply opacity-[0.08] filter grayscale contrast-125 sepia-[0.25]"
@@ -854,10 +854,10 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
           {/* Instagram grid — accordion stagger with ImageReveal */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
             {[
-              '/images/instagram/ig-01.jpg',
-              '/images/instagram/ig-02.jpg',
-              '/images/instagram/ig-03.jpg',
-              '/images/instagram/ig-04.jpg',
+              '/website-images/instagram/ig-01.webp',
+              '/website-images/instagram/ig-02.webp',
+              '/website-images/instagram/ig-03.webp',
+              '/website-images/instagram/ig-04.webp',
             ].map(
               (src, i) => (
                 <ImageReveal key={i} delay={i * 0.07} duration={0.9}>
@@ -869,7 +869,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onOpenReservat
                   >
                     <img
                       src={src}
-                      alt={`MONARQ Tanger Instagram ${i + 1}`}
+                      alt={`MONARQ Tanger Instagram ${i + 1}`} loading="lazy" decoding="async"
                       className="w-full h-full object-cover hover-scale-img"
                     />
                   </a>

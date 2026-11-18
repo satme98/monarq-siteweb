@@ -173,7 +173,7 @@ export const SignatureCarousel: React.FC<SignatureCarouselProps> = ({ onOpenMenu
             role="button"
             tabIndex={0}
             onKeyDown={e => e.key === 'Enter' && onOpenMenu?.()}
-            aria-label={`Voir ${dish.name} dans la carte`}
+            aria-label={`${dish.name} — ${t.menuPage.title}`}
           >
             {/* Photo */}
             <div

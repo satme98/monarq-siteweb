@@ -1,0 +1,15 @@
+# MONARQ Tanger
+
+> Brunch, restaurant et café de spécialité à Tanger (Maroc). Ouvert tous les jours de 09h00 à 00h00.
+
+- Adresse : En face de la boulangerie-pâtisserie La Française, à proximité du Riad Tétouan, Tanger
+- Téléphone / WhatsApp : +212 6 25 50 70 37
+
+## Pages
+- [Accueil](https://monarq.ma/): présentation de MONARQ Tanger
+- [Menu](https://monarq.ma/menu): carte complète (brunchs, pâtes, grillades, desserts), prix en MAD
+- [Galerie](https://monarq.ma/galerie): photos de la salle et des plats
+- [À propos](https://monarq.ma/a-propos): notre histoire
+- [Événements](https://monarq.ma/evenements): privatisation et événements
+- [Atmosphère](https://monarq.ma/atmosphere): architecture et terrasse
+- [Contact](https://monarq.ma/contact): horaires, accès et réservation

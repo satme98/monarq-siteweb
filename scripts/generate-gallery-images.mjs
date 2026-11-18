@@ -2,9 +2,9 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 
 const data = readFileSync('src/data/galleryData.ts', 'utf8');
-const paths = [...new Set([...data.matchAll(/['"](\/images\/[^'"]+)['"]/g)].map(match => match[1]))];
+const paths = [...new Set([...data.matchAll(/['"](\/website-images\/[^'"]+)['"]/g)].map(match => match[1]))];
 const variants = {};
-mkdirSync('public/images/gallery-responsive', { recursive: true });
+mkdirSync('public/website-images/responsive/gallery', { recursive: true });
 for (const source of paths) {
   const input = 'public' + source;
   const [width, height] = execFileSync('ffprobe', [
@@ -20,7 +20,7 @@ for (const source of paths) {
         ? ['-c:v', 'libwebp', '-quality', '80']
         : ['-c:v', 'libaom-av1', '-crf', '34', '-cpu-used', '8', '-pix_fmt', 'yuv420p'];
       execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', input, '-vf', 'scale=' + size + ':-2',
-        '-frames:v', '1', ...encode, 'public/images/gallery-responsive/' + stem + '-' + size + '.' + extension]);
+        '-frames:v', '1', ...encode, 'public/website-images/responsive/gallery/' + stem + '-' + size + '.' + extension]);
     }
   }
 }

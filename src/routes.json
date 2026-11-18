@@ -1,0 +1,58 @@
+[
+  {
+    "key": "accueil",
+    "path": "/",
+    "index": true,
+    "priority": 1.0,
+    "changefreq": "weekly"
+  },
+  {
+    "key": "menu",
+    "path": "/menu",
+    "index": true,
+    "priority": 0.9,
+    "changefreq": "weekly"
+  },
+  {
+    "key": "galerie",
+    "path": "/galerie",
+    "index": true,
+    "priority": 0.7,
+    "changefreq": "monthly"
+  },
+  {
+    "key": "apropos",
+    "path": "/a-propos",
+    "index": true,
+    "priority": 0.6,
+    "changefreq": "monthly"
+  },
+  {
+    "key": "contact",
+    "path": "/contact",
+    "index": true,
+    "priority": 0.8,
+    "changefreq": "yearly"
+  },
+  {
+    "key": "evenements",
+    "path": "/evenements",
+    "index": true,
+    "priority": 0.6,
+    "changefreq": "monthly"
+  },
+  {
+    "key": "atmosphere",
+    "path": "/atmosphere",
+    "index": true,
+    "priority": 0.5,
+    "changefreq": "monthly"
+  },
+  {
+    "key": "digital-menu",
+    "path": "/menu-digital",
+    "index": false,
+    "priority": 0,
+    "changefreq": "weekly"
+  }
+]

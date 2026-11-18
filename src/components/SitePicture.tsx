@@ -8,7 +8,7 @@ export function SitePicture({ src, sizes = '(max-width: 768px) 100vw, 50vw', ...
   const variant = src ? variants[src] : undefined;
   if (!variant) return <img loading="lazy" decoding="async" src={src} {...props} />;
   const srcSet = (format: string) => variant.widths
-    .map(width => `/images/site-responsive/${variant.stem}-${width}.${format} ${width}w`)
+    .map(width => `/website-images/responsive/site/${variant.stem}-${width}.${format} ${width}w`)
     .join(', ');
 
   return (

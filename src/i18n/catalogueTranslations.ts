@@ -139,6 +139,31 @@ Sauce tomate, mozzarella, pepperoni|Tomato sauce, mozzarella, pepperoni|صلصة
 Sauce tomate, mozzarella, viande hachée|Tomato sauce, mozzarella, minced meat|صلصة الطماطم وموزاريلا ولحم مفروم|Tomatensaus, mozzarella, gehakt
 Sauce tomate, mozzarella, thon|Tomato sauce, mozzarella, tuna|صلصة الطماطم وموزاريلا وتونة|Tomatensaus, mozzarella, tonijn
 Sauce tomate, mozzarella, burrata, tomates cerises et basilic.|Tomato sauce, mozzarella, burrata, cherry tomatoes and basil.|صلصة الطماطم وموزاريلا وبوراتا وطماطم كرزية وريحان.|Tomatensaus, mozzarella, burrata, cherrytomaten en basilicum.
+Cortado|Cortado|كورتادو|Cortado
+Latte|Latte|لاتيه|Latte
+Flat White|Flat White|فلات وايت|Flat White
+Espresso|Espresso|إسبريسو|Espresso
+Cappuccino|Cappuccino|كابتشينو|Cappuccino
+Oulmès — 25 cl|Oulmès — 25 cl|أولماس — 25 سل|Oulmès — 25 cl
+Oulmès — 75 cl|Oulmès — 75 cl|أولماس — 75 سل|Oulmès — 75 cl
+Sidi Ali — 50 cl|Sidi Ali — 50 cl|سيدي علي — 50 سل|Sidi Ali — 50 cl
+Sidi Ali — 75 cl|Sidi Ali — 75 cl|سيدي علي — 75 سل|Sidi Ali — 75 cl
+Oulmès mojito|Oulmès Mojito|أولماس موهيتو|Oulmès Mojito
+Oulmès tropical|Oulmès Tropical|أولماس تروبيكال|Oulmès Tropical
+Red Bull|Red Bull|ريد بول|Red Bull
+Energy|Energy|إنرجي|Energy
+Piña Colada|Piña Colada|بينيا كولادا|Piña Colada
+Bora Bora|Bora Bora|بورا بورا|Bora Bora
+The Spritz|The Spritz|ذا سبريتز|The Spritz
+Green House|Green House|غرين هاوس|Green House
+Ice Spanish Latte|Iced Spanish Latte|سبانيش لاتيه مثلج|Ice Spanish Latte
+Tonic Shot|Tonic Shot|تونيك شوت|Tonic Shot
+Panna cotta|Panna cotta|بانا كوتا|Panna cotta
+César|Caesar|سيزر|Caesar
+Niçoise|Niçoise|نيسواز|Niçoise
+Portofino|Portofino|بورتوفينو|Portofino
+Milanais|Milanese|ميلانيز|Milanese
+Baghrir à l’amlou|Baghrir with amlou|بغرير بأملو|Baghrir met amlou
 `.trim();
 
 const translations = new Map(rows.split('\n').map((row) => {

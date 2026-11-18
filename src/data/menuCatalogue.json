@@ -25,7 +25,7 @@
             "chapter": "le-matin",
             "tag": "Spécialité Locale",
             "description": "Œufs au plat, pain complet, jambon de dinde, jben arabe, fromage rouge, huile d’olive, olives, mini-jus d’orange, boisson chaude.",
-            "image": "/images/photographer/_DSC6983.jpg"
+            "image": "/website-images/dishes/_DSC6983.webp"
           },
           {
             "id": "hollandaise",
@@ -33,7 +33,7 @@
             "price": 55,
             "category": "petits-dejeuners",
             "chapter": "le-matin",
-            "image": "/images/photographer/_DSC6977-raw.jpg",
+            "image": "/website-images/dishes/_DSC6977-raw.webp",
             "description": "2 œufs au plat, toast grillé, dinde fumée, fromage edam, mesclun de salade, olives, sauce hollandaise, mini-jus d’orange, boisson chaude."
           },
           {
@@ -57,7 +57,7 @@
             "price": 89,
             "category": "brunches",
             "chapter": "le-matin",
-            "image": "/images/photographer/_DSC6992.jpg",
+            "image": "/website-images/dishes/_DSC6992.webp",
             "description": "Bagel, fromage frais, mousse d’avocat, saumon fumé et roquette. Servi avec une boisson chaude au choix, un jus d’orange, un pancake et un yaourt maison."
           },
           {
@@ -66,7 +66,7 @@
             "price": 89,
             "category": "brunches",
             "chapter": "le-matin",
-            "image": "/images/photographer/_DSC7004-raw.jpg",
+            "image": "/website-images/dishes/_DSC7004-raw.webp",
             "description": "Croissant garni d’œufs brouillés, d’avocat, de bacon de bœuf croustillant ou de saumon fumé, de fromage edam et de roquette. Servi avec une boisson chaude au choix, un jus d’orange, un pancake et un yaourt maison."
           },
           {
@@ -84,7 +84,7 @@
             "price": 89,
             "category": "brunches",
             "chapter": "le-matin",
-            "image": "/images/photographer/_DSC7007.jpg",
+            "image": "/website-images/dishes/_DSC7007.webp",
             "tag": "Favori des Clients",
             "description": "Brioche façon pain perdu, bacon de bœuf fumé, œufs brouillés et poêlée de champignons parfumée à la truffe. Servie avec une boisson chaude au choix, un jus d’orange, un duo de mini-pancakes et un yaourt maison."
           },
@@ -94,7 +94,7 @@
             "price": 89,
             "category": "brunches",
             "chapter": "le-matin",
-            "image": "/images/photographer/_DSC6971-Modifier.jpg",
+            "image": "/website-images/dishes/_DSC6971-Modifier.webp",
             "tag": "Incontournable",
             "description": "Corbeille de pistolets, amlou, olives, trio gourmand de msemen, baghrir et harcha, et œufs au plat au khlii. Servie avec une boisson chaude au choix, un jus d’orange et un yaourt maison."
           },
@@ -104,7 +104,7 @@
             "price": 89,
             "category": "brunches",
             "chapter": "le-matin",
-            "image": "/images/photographer/_DSC6943-raw.jpg",
+            "image": "/website-images/dishes/_DSC6943-raw.webp",
             "description": "Corbeille de pistolets, beurre, confiture, olives rouges et œufs à la tomate et aux poivrons. Servie avec une boisson chaude au choix, un jus d’orange, un duo de mini-viennoiseries et un yaourt maison."
           },
           {
@@ -121,7 +121,7 @@
             "price": 89,
             "category": "brunches",
             "chapter": "le-matin",
-            "image": "/images/photographer/_DSC7015.jpg",
+            "image": "/website-images/dishes/_DSC7015.webp",
             "description": "Brioche, sauce tzatziki, mousse d’avocat, bacon de bœuf ou saumon fumé, œufs pochés, sauce hollandaise et ciboulette. Servi avec une boisson chaude au choix, un jus d’orange, un mini-pancake et un yaourt maison."
           },
           {
@@ -130,7 +130,7 @@
             "price": 99,
             "category": "brunches",
             "chapter": "le-matin",
-            "image": "/images/photographer/_DSC6976.jpg",
+            "image": "/website-images/dishes/_DSC6976.webp",
             "tag": "Signature Prestige",
             "description": "Brioche aux crevettes, avocat, mangue, sauce piquante et oignons, accompagnée d’une omelette, d’une galette de pommes de terre, de fromage emmental, d’un yaourt maison et de pain perdu. Servie avec une boisson chaude au choix et un jus d’orange."
           }
@@ -172,7 +172,7 @@
             "price": 59,
             "category": "tartines",
             "chapter": "carte-du-matin",
-            "image": "/images/photographer/_DSC7028-raw.jpg",
+            "image": "/website-images/dishes/_DSC7028-raw.webp",
             "description": "Tartine aux céréales, fromage blanc, bacon de bœuf, pêche caramélisée, stracciatella, basilic, roquette et sauce balsamique."
           },
           {
@@ -181,7 +181,7 @@
             "price": 69,
             "category": "tartines",
             "chapter": "carte-du-matin",
-            "image": "/images/photographer/_DSC7035.jpg",
+            "image": "/website-images/dishes/_DSC7035.webp",
             "description": "Tartine aux céréales, sauce César, poulet grillé, tomates cerises, copeaux de parmesan et roquette."
           }
         ]
@@ -197,7 +197,7 @@
             "price": 59,
             "category": "croques",
             "chapter": "carte-du-matin",
-            "image": "/images/photographer/_DSC7021.jpg",
+            "image": "/website-images/dishes/_DSC7021.webp",
             "description": "Croque-madame garni d’un œuf au plat, accompagné d’une galette de pommes de terre."
           },
           {
@@ -206,7 +206,7 @@
             "price": 59,
             "category": "croques",
             "chapter": "carte-du-matin",
-            "image": "/images/photographer/_DSC7025.jpg",
+            "image": "/website-images/dishes/_DSC7025.webp",
             "description": "Croque-monsieur enrobé d’une omelette, accompagné d’une galette de pommes de terre."
           }
         ]
@@ -222,7 +222,7 @@
             "price": 25,
             "category": "omelettes",
             "chapter": "carte-du-matin",
-            "image": "/images/generated-menu/omelette-nature.webp"
+            "image": "/website-images/dishes/omelette-nature.webp"
           },
           {
             "id": "omelette-champignons",
@@ -230,7 +230,7 @@
             "price": 40,
             "category": "omelettes",
             "chapter": "carte-du-matin",
-            "image": "/images/generated-menu/omelette-champignons.webp"
+            "image": "/website-images/dishes/omelette-champignons.webp"
           },
           {
             "id": "omelette-fromage",
@@ -238,7 +238,7 @@
             "price": 32,
             "category": "omelettes",
             "chapter": "carte-du-matin",
-            "image": "/images/generated-menu/omelette-fromage.webp"
+            "image": "/website-images/dishes/omelette-fromage.webp"
           },
           {
             "id": "omelette-charcuterie",
@@ -246,7 +246,7 @@
             "price": 39,
             "category": "omelettes",
             "chapter": "carte-du-matin",
-            "image": "/images/generated-menu/omelette-charcuterie.webp"
+            "image": "/website-images/dishes/omelette-charcuterie.webp"
           },
           {
             "id": "omelette-saumon",
@@ -254,7 +254,7 @@
             "price": 45,
             "category": "omelettes",
             "chapter": "carte-du-matin",
-            "image": "/images/generated-menu/omelette-saumon.webp"
+            "image": "/website-images/dishes/omelette-saumon.webp"
           }
         ]
       },
@@ -270,7 +270,7 @@
             "price": 7,
             "category": "a-la-carte-pain",
             "chapter": "carte-du-matin",
-            "image": "/images/generated-menu/pain-grille.webp"
+            "image": "/website-images/dishes/pain-grille.webp"
           },
           {
             "id": "trio-marocain",
@@ -278,7 +278,7 @@
             "price": 10,
             "category": "a-la-carte-pain",
             "chapter": "carte-du-matin",
-            "image": "/images/generated-menu/trio-marocain.webp"
+            "image": "/website-images/dishes/trio-marocain.webp"
           },
           {
             "id": "viennoiserie",
@@ -286,7 +286,7 @@
             "price": 10,
             "category": "a-la-carte-pain",
             "chapter": "carte-du-matin",
-            "image": "/images/generated-menu/viennoiserie.webp"
+            "image": "/website-images/dishes/viennoiserie.webp"
           },
           {
             "id": "baghrir-amlou",
@@ -294,7 +294,7 @@
             "price": 28,
             "category": "a-la-carte-pain",
             "chapter": "carte-du-matin",
-            "image": "/images/generated-menu/baghrir-amlou.webp"
+            "image": "/website-images/dishes/baghrir-amlou.webp"
           }
         ]
       },
@@ -423,7 +423,7 @@
             "price": 89,
             "category": "entrees-froides",
             "chapter": "la-cuisine",
-            "image": "/images/photographer/_DSC7121.jpg"
+            "image": "/website-images/dishes/_DSC7121.webp"
           },
           {
             "id": "carpaccio-burrata",
@@ -445,7 +445,7 @@
             "price": 45,
             "category": "entrees-chaudes",
             "chapter": "la-cuisine",
-            "image": "/images/photographer/_DSC7073.jpg",
+            "image": "/website-images/dishes/_DSC7073.webp",
             "description": "Filets de poulet panés, accompagnés d’une sauce au choix."
           },
           {
@@ -454,7 +454,7 @@
             "price": 55,
             "category": "entrees-chaudes",
             "chapter": "la-cuisine",
-            "image": "/images/photographer/_DSC7084.jpg",
+            "image": "/website-images/dishes/_DSC7084.webp",
             "description": "Crevettes en tempura, sauce aigre-douce pimentée."
           },
           {
@@ -463,7 +463,7 @@
             "price": 55,
             "category": "entrees-chaudes",
             "chapter": "la-cuisine",
-            "image": "/images/photographer/_DSC7085.jpg"
+            "image": "/website-images/dishes/_DSC7085.webp"
           },
           {
             "id": "croquettes-crevettes",
@@ -478,7 +478,7 @@
             "price": 89,
             "category": "entrees-chaudes",
             "chapter": "la-cuisine",
-            "image": "/images/photographer/_DSC7163-raw.jpg"
+            "image": "/website-images/dishes/_DSC7163-raw.webp"
           },
           {
             "id": "trio-burgers",
@@ -486,7 +486,7 @@
             "price": 110,
             "category": "entrees-chaudes",
             "chapter": "la-cuisine",
-            "image": "/images/photographer/_DSC7108.jpg",
+            "image": "/website-images/dishes/_DSC7108.webp",
             "description": "Trois viandes d’exception"
           }
         ]
@@ -518,7 +518,7 @@
             "price": 85,
             "category": "salades",
             "chapter": "la-cuisine",
-            "image": "/images/photographer/_DSC7056.jpg",
+            "image": "/website-images/dishes/_DSC7056.webp",
             "description": "Roquette, avocat, crevettes grillées, tomates cerises et vinaigrette."
           },
           {
@@ -527,7 +527,7 @@
             "price": 95,
             "category": "salades",
             "chapter": "la-cuisine",
-            "image": "/images/photographer/_DSC7052.jpg",
+            "image": "/website-images/dishes/_DSC7052.webp",
             "tag": "Coup de Cœur",
             "isVegetarian": true,
             "description": "Burrata, roquette, tomates cerises, pêche, raisin, segments d’orange et sauce balsamique."
@@ -632,7 +632,7 @@
             "price": 98,
             "category": "pates",
             "chapter": "la-cuisine",
-            "image": "/images/photographer/_DSC7079.jpg",
+            "image": "/website-images/dishes/_DSC7079.webp",
             "description": "Linguine, fruits de mer et sauce blanche (sauce au choix)."
           },
           {
@@ -649,7 +649,7 @@
             "price": 98,
             "category": "pates",
             "chapter": "la-cuisine",
-            "image": "/images/photographer/_DSC7083.jpg",
+            "image": "/website-images/dishes/_DSC7083.webp",
             "tag": "Plat Signature 🌶️",
             "isSpicy": true,
             "description": "Penne aux crevettes, sauce piquante maison."
@@ -703,7 +703,7 @@
             "price": 98,
             "category": "pates",
             "chapter": "la-cuisine",
-            "image": "/images/photographer/_DSC110.jpg",
+            "image": "/website-images/dishes/_DSC110.webp",
             "description": "Tagliatelle, saumon fumé, épinards, sauce à la crème"
           },
           {
@@ -720,7 +720,7 @@
             "price": 79,
             "category": "pates",
             "chapter": "la-cuisine",
-            "image": "/images/photographer/_DSC7196-raw.jpg",
+            "image": "/website-images/dishes/_DSC7196-raw.webp",
             "description": "Lasagnes, sauce bolognaise, béchamel et mozzarella."
           },
           {
@@ -793,7 +793,7 @@
             "category": "pizzas",
             "chapter": "pizzas-grillades",
             "description": "Sauce tomate, mozzarella",
-            "image": "/images/photographer/_DSC7050.jpg",
+            "image": "/website-images/dishes/_DSC7050.webp",
             "isVegetarian": true
           },
           {
@@ -803,7 +803,7 @@
             "category": "pizzas",
             "chapter": "pizzas-grillades",
             "description": "Sauce tomate, mozzarella, pepperoni, jambon de dinde, poulet, viande hachée et sauce barbecue.",
-            "image": "/images/photographer/_DSC7048.jpg"
+            "image": "/website-images/dishes/_DSC7048.webp"
           },
           {
             "id": "pizza-fruits-de-mer",
@@ -820,7 +820,7 @@
             "category": "pizzas",
             "chapter": "pizzas-grillades",
             "description": "Mozzarella, pepperoni, champignons, poivron vert, oignon rouge, olives et viande hachée.",
-            "image": "/images/photographer/_DSC7043.jpg"
+            "image": "/website-images/dishes/_DSC7043.webp"
           },
           {
             "id": "pizza-roasted-potatoes",
@@ -829,7 +829,7 @@
             "category": "pizzas",
             "chapter": "pizzas-grillades",
             "description": "Crème fraîche, mozzarella, pommes de terre, poulet, ail et romarin.",
-            "image": "/images/photographer/_DSC7051.jpg"
+            "image": "/website-images/dishes/_DSC7051.webp"
           },
           {
             "id": "pizza-mexicaine",
@@ -864,7 +864,7 @@
             "category": "pizzas",
             "chapter": "pizzas-grillades",
             "description": "Sauce tomate, mozzarella, champignons, oignons rouges, poivron vert, olives et tomates cerises.",
-            "image": "/images/photographer/_DSC7049.jpg",
+            "image": "/website-images/dishes/_DSC7049.webp",
             "isVegetarian": true
           },
           {
@@ -1043,7 +1043,7 @@
             "price": 119,
             "category": "burgers",
             "chapter": "pizzas-grillades",
-            "image": "/images/photographer/_DSC7124.jpg",
+            "image": "/website-images/dishes/_DSC7124.webp",
             "tag": "Gourmet Max",
             "description": "Bœuf, cheddar, oignons caramélisés au paprika, salade iceberg ciselée, oignons rouges, bacon de bœuf, rondelles de tomate, cornichons et sauce barbecue."
           }
@@ -1060,7 +1060,7 @@
             "price": 219,
             "category": "viandes",
             "chapter": "pizzas-grillades",
-            "image": "/images/highlight-angus.jpg",
+            "image": "/website-images/dishes/highlight-angus.webp",
             "tag": "Signature Viande"
           },
           {
@@ -1069,7 +1069,7 @@
             "price": 229,
             "category": "viandes",
             "chapter": "pizzas-grillades",
-            "image": "/images/photographer/_DSC7178-raw.jpg"
+            "image": "/website-images/dishes/_DSC7178-raw.webp"
           },
           {
             "id": "emince-volaille",
@@ -1092,7 +1092,7 @@
             "price": 259,
             "category": "ribs",
             "chapter": "pizzas-grillades",
-            "image": "/images/photographer/_DSC7064.jpg",
+            "image": "/website-images/dishes/_DSC7064.webp",
             "isSpicy": true
           },
           {
@@ -1101,7 +1101,7 @@
             "price": 259,
             "category": "ribs",
             "chapter": "pizzas-grillades",
-            "image": "/images/photographer/_DSC7063.jpg"
+            "image": "/website-images/dishes/_DSC7063.webp"
           }
         ]
       },
@@ -1125,7 +1125,7 @@
             "price": 89,
             "category": "plats-marocains",
             "chapter": "pizzas-grillades",
-            "image": "/images/photographer/_DSC7091.jpg",
+            "image": "/website-images/dishes/_DSC7091.webp",
             "isFridaySpecial": true,
             "description": "Disponible le vendredi"
           },
@@ -1135,7 +1135,7 @@
             "price": 89,
             "category": "plats-marocains",
             "chapter": "pizzas-grillades",
-            "image": "/images/photographer/_DSC7096.jpg",
+            "image": "/website-images/dishes/_DSC7096.webp",
             "tag": "Classique Royal"
           },
           {
@@ -1144,7 +1144,7 @@
             "price": 75,
             "category": "plats-marocains",
             "chapter": "pizzas-grillades",
-            "image": "/images/photographer/_DSC7094.jpg"
+            "image": "/website-images/dishes/_DSC7094.webp"
           },
           {
             "id": "tajine-kefta",
@@ -1152,7 +1152,7 @@
             "price": 69,
             "category": "plats-marocains",
             "chapter": "pizzas-grillades",
-            "image": "/images/photographer/_DSC7106.jpg"
+            "image": "/website-images/dishes/_DSC7106.webp"
           }
         ]
       }
@@ -1537,7 +1537,7 @@
             "price": 39,
             "category": "desserts",
             "chapter": "douceurs",
-            "image": "/images/photographer/_DSC7117.jpg"
+            "image": "/website-images/dishes/_DSC7117.webp"
           },
           {
             "id": "desserts-saint-sebastien",
@@ -1559,7 +1559,7 @@
             "price": 45,
             "category": "desserts",
             "chapter": "douceurs",
-            "image": "/images/photographer/_DSC7113.jpg"
+            "image": "/website-images/dishes/_DSC7113.webp"
           },
           {
             "id": "desserts-tiramisu-a-la-pistache",

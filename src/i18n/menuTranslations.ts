@@ -39,6 +39,16 @@ const chapterTranslations: Record<LangKey, Record<string, ChapterTranslation>> =
       subtitle: 'Artisan Pizzas, Gourmet Burgers, Prime Cuts & Moroccan Classics',
       timeSlot: '12:00 PM — 12:00 AM',
     },
+    boissons: {
+      title: 'DRINKS',
+      subtitle: 'Specialty Coffees, Moroccan Teas, Fresh Juices, Mocktails & Detox',
+      timeSlot: '09:00 AM — 12:00 AM',
+    },
+    douceurs: {
+      title: 'SWEETS',
+      subtitle: 'Artisanal Desserts, Crêpes, Liège Waffles & Ice Creams',
+      timeSlot: '09:00 AM — 12:00 AM',
+    },
   },
   ar: {
     'le-matin': {
@@ -61,6 +71,16 @@ const chapterTranslations: Record<LangKey, Record<string, ChapterTranslation>> =
       subtitle: 'بيتزا على الحطب، برغر غورميه، لحوم فاخرة وأطباق مغربية أصيلة',
       timeSlot: '12:00 — 00:00',
     },
+    boissons: {
+      title: 'المشروبات',
+      subtitle: 'قهوة مختصة، شاي مغربي، عصائر طازجة، موكتيلات وديتوكس',
+      timeSlot: '09:00 — 00:00',
+    },
+    douceurs: {
+      title: 'الحلويات',
+      subtitle: 'تحليات فاخرة، كريب، وافل لييج ومثلجات حرفية',
+      timeSlot: '09:00 — 00:00',
+    },
   },
   nl: {
     'le-matin': {
@@ -82,6 +102,16 @@ const chapterTranslations: Record<LangKey, Record<string, ChapterTranslation>> =
       title: 'PIZZA’S & GRILLGERECHTEN',
       subtitle: 'Houtovenpizza’s, Gourmet Burgers, Edele Vleessoorten & Marokkaanse Klassiekers',
       timeSlot: '12:00 — 00:00',
+    },
+    boissons: {
+      title: 'DRANKEN',
+      subtitle: 'Specialty Coffee, Marokkaanse Thee, Verse Sappen, Mocktails & Detox',
+      timeSlot: '09:00 — 00:00',
+    },
+    douceurs: {
+      title: 'ZOETIGHEDEN',
+      subtitle: 'Ambachtelijke Desserts, Crêpes, Luikse Wafels & IJs',
+      timeSlot: '09:00 — 00:00',
     },
   },
 };

@@ -3,9 +3,10 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 import { ArrowDown, ArrowUpRight, Expand } from 'lucide-react';
 import { closingPhoto, featuredIds, galleryChapters, galleryItems, heroPhoto, photoDetails } from '../data/galleryData';
 import { GalleryPicture, Lightbox } from '../components/GalleryMedia';
+import { getLocalizedGalleryChapters, getLocalizedGalleryItems, getLocalizedPhotoDetails, useLanguage } from '../i18n';
 import './GalleryPage.css';
 
-type Chapter = typeof galleryChapters[number];
+type Chapter = ReturnType<typeof getLocalizedGalleryChapters>[number];
 type OpenPhoto = (id: string) => void;
 
 function ChapterHeader({ chapter }: { chapter: Chapter }) {
@@ -18,9 +19,10 @@ function ChapterHeader({ chapter }: { chapter: Chapter }) {
 
 function GalleryImage({ id, index, open, sizes }: { id: string; index: number; open: OpenPhoto; sizes: string }) {
   const reduce = useReducedMotion();
-  const details = photoDetails[id];
-  const item = galleryItems.find(photo => photo.id === id)!;
-  return <motion.button type="button" className="gal-tile" aria-label={'Agrandir : ' + item.title}
+  const { lang, t } = useLanguage();
+  const details = getLocalizedPhotoDetails(lang)[id] ?? photoDetails[id];
+  const item = getLocalizedGalleryItems(lang).find(photo => photo.id === id) ?? galleryItems.find(photo => photo.id === id)!;
+  return <motion.button type="button" className="gal-tile" aria-label={t.galleryPage.expandAria + item.title}
     initial={reduce ? false : { opacity: 0, y: 24 }}
     whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.08 }}
     transition={{ duration: reduce ? 0 : 0.7, delay: reduce ? 0 : index * 0.08, ease: 'easeOut' }}
@@ -31,13 +33,16 @@ function GalleryImage({ id, index, open, sizes }: { id: string; index: number; o
 }
 
 function BentoGrid({ chapter, open }: { chapter: Chapter; open: OpenPhoto }) {
-  return <div className="gal-bento" role="group" aria-label="Les plats en images">
+  const { t } = useLanguage();
+  return <div className="gal-bento" role="group" aria-label={t.galleryPage.bentoAria}>
     {chapter.photos.map((id, index) => <GalleryImage key={id} id={id} index={index} open={open}
       sizes={index === 0 ? '(max-width: 767px) 80vw, (max-width: 1320px) 48vw, 620px' : '(max-width: 767px) 80vw, (max-width: 1320px) 24vw, 310px'} />)}
   </div>;
 }
 
 function ChapterNav({ active, go, navRef }: { active: string; go: (id: string) => void; navRef: React.RefObject<HTMLElement> }) {
+  const { lang, t } = useLanguage();
+  const localizedChapters = getLocalizedGalleryChapters(lang);
   const activeLink = useRef<HTMLAnchorElement>(null);
   const reduce = useReducedMotion();
   useLayoutEffect(() => {
@@ -50,8 +55,8 @@ function ChapterNav({ active, go, navRef }: { active: string; go: (id: string) =
     }
   }, [active, navRef, reduce]);
 
-  return <nav ref={navRef} className="gal-nav" aria-label="Chapitres de la galerie">
-    <div>{galleryChapters.map(chapter => <a key={chapter.id} href={'#' + chapter.id}
+  return <nav ref={navRef} className="gal-nav" aria-label={t.galleryPage.navAria}>
+    <div>{localizedChapters.map(chapter => <a key={chapter.id} href={'#' + chapter.id}
       ref={chapter.id === active ? activeLink : undefined}
       aria-current={chapter.id === active ? 'location' : undefined}
       onClick={event => {
@@ -63,6 +68,8 @@ function ChapterNav({ active, go, navRef }: { active: string; go: (id: string) =
 }
 
 function PhotoBand({ id, hero, open, children }: React.PropsWithChildren<{ id: string; hero?: boolean; open: OpenPhoto }>) {
+  const { lang, t } = useLanguage();
+  const localizedItems = getLocalizedGalleryItems(lang);
   const target = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target, offset: ['start end', 'end start'] });
@@ -73,12 +80,15 @@ function PhotoBand({ id, hero, open, children }: React.PropsWithChildren<{ id: s
     </motion.div>
     <div className="gal-band-shade" />
     <button type="button" className="gal-band-open" onClick={() => open(id)}
-      aria-label={'Agrandir : ' + galleryItems.find(photo => photo.id === id)!.title}><Expand size={18} /></button>
+      aria-label={t.galleryPage.expandAria + (localizedItems.find(photo => photo.id === id) ?? galleryItems.find(photo => photo.id === id)!).title}><Expand size={18} /></button>
     {children}
   </section>;
 }
 
 export default function GalleryPage({ onOpenReservation, onViewMenu }: { onOpenReservation: () => void; onViewMenu: () => void }) {
+  const { lang, t } = useLanguage();
+  const localizedChapters = getLocalizedGalleryChapters(lang);
+  const localizedItems = getLocalizedGalleryItems(lang);
   const page = useRef<HTMLDivElement>(null);
   const nav = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
@@ -127,15 +137,15 @@ export default function GalleryPage({ onOpenReservation, onViewMenu }: { onOpenR
   return <div ref={page} className="gal-page">
     <PhotoBand id={heroPhoto} hero open={open}>
       <div className="gal-band-content">
-        <p className="gal-kicker">Galerie</p>
-        <h1>L’UNIVERS MONARQ</h1>
-        <p>Une promenade entre élégance, gourmandise et instants partagés.</p>
+        <p className="gal-kicker">{t.galleryPage.kicker}</p>
+        <h1>{t.galleryPage.title}</h1>
+        <p>{t.galleryPage.subtitle}</p>
       </div>
-      <button className="gal-scroll" onClick={() => go('le-lieu')} aria-label="Découvrir Le Lieu"><ArrowDown size={18} /></button>
+      <button className="gal-scroll" onClick={() => go('le-lieu')} aria-label={t.galleryPage.scrollAria}><ArrowDown size={18} /></button>
     </PhotoBand>
     <ChapterNav active={active} go={go} navRef={nav} />
     <div className="gal-chapters">
-      {galleryChapters.map(chapter => {
+      {localizedChapters.map(chapter => {
         const images = chapter.photos.map((id, index) => <GalleryImage key={id} id={id} index={index} open={open}
           sizes={index === 0 && chapter.id !== 'cafe-douceurs'
             ? '(max-width: 767px) 94vw, (max-width: 1320px) 63vw, 820px'
@@ -146,16 +156,16 @@ export default function GalleryPage({ onOpenReservation, onViewMenu }: { onOpenR
           {chapter.id === 'la-cuisine' ? <BentoGrid chapter={chapter} open={open} /> : <div className="gal-layout">{chapter.id === 'les-brunchs' ? <>{images[0]}<div className="gal-brunch-details">{images.slice(1)}</div></> : images}</div>}
         </section>;
       })}
-      <button className="gal-button gal-all" onClick={() => setViewer({ ids: [...new Set([...featuredIds, ...galleryItems.map(photo => photo.id)])], index: 0 })}>
-        Voir toutes les photos <ArrowUpRight size={16} />
+      <button className="gal-button gal-all" onClick={() => setViewer({ ids: [...new Set([...featuredIds, ...localizedItems.map(photo => photo.id)])], index: 0 })}>
+        {t.galleryPage.viewAllPhotosBtn} <ArrowUpRight size={16} />
       </button>
     </div>
     <PhotoBand id={closingPhoto} open={open}>
       <div className="gal-band-content">
-        <h2>Vivez l’expérience MONARQ</h2>
+        <h2>{t.galleryPage.closingTitle}</h2>
         <div className="gal-actions">
-          <button className="gal-button gal-reserve" onClick={onOpenReservation}>Réserver une table</button>
-          <button className="gal-button gal-menu" onClick={onViewMenu}>Voir la carte</button>
+          <button className="gal-button gal-reserve" onClick={onOpenReservation}>{t.galleryPage.reserveTableBtn}</button>
+          <button className="gal-button gal-menu" onClick={onViewMenu}>{t.galleryPage.viewMenuBtn}</button>
         </div>
       </div>
     </PhotoBand>

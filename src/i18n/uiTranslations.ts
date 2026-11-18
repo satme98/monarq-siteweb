@@ -17,6 +17,7 @@ export const uiTranslations = {
       mute: 'Couper le son',
       unmute: 'Activer le son',
       fullscreen: 'Plein écran',
+      retryBtn: 'Réessayer',
     },
     nav: {
       accueil: 'Accueil',
@@ -24,6 +25,8 @@ export const uiTranslations = {
       galerie: 'Galerie',
       apropos: 'À Propos',
       contact: 'Contact',
+      evenements: 'Événements',
+      atmosphere: 'Atmosphère',
       reserver: 'Réserver',
       commander: 'Commander',
       appeler: 'Appeler',
@@ -49,6 +52,11 @@ export const uiTranslations = {
       reserveTableBtn: 'Réserver une Table',
       directionsMaps: 'Itinéraire Google Maps',
       copyright: 'Tous droits réservés.',
+      instagramTitle: 'Suivez MONARQ sur Instagram',
+      whatsappTitle: 'WhatsApp Direct',
+      phoneTitle: 'Appeler le restaurant',
+      emailTitle: 'Écrivez-nous par Email',
+      mapIframeTitle: 'Localisation MONARQ Tanger — Google Maps',
     },
     home: {
       hero: {
@@ -602,6 +610,13 @@ export const uiTranslations = {
       openingInProgress: 'Ouverture en cours...',
       enterSiteBtn: 'Accéder au site',
     },
+    notFoundPage: {
+      title: 'Page introuvable',
+      description: "La page que vous cherchez n'existe pas ou a été déplacée.",
+      seoTitle: 'Page introuvable | MONARQ Tanger',
+      seoDescription:
+        "Cette page n'existe pas. Retrouvez le menu, la galerie et les informations de contact de MONARQ Tanger.",
+    },
   },
 
   en: {
@@ -620,6 +635,7 @@ export const uiTranslations = {
       mute: 'Mute',
       unmute: 'Unmute',
       fullscreen: 'Fullscreen',
+      retryBtn: 'Retry',
     },
     nav: {
       accueil: 'Home',
@@ -627,6 +643,8 @@ export const uiTranslations = {
       galerie: 'Gallery',
       apropos: 'About',
       contact: 'Contact',
+      evenements: 'Events',
+      atmosphere: 'Atmosphere',
       reserver: 'Book a Table',
       commander: 'Order Online',
       appeler: 'Call',
@@ -652,6 +670,11 @@ export const uiTranslations = {
       reserveTableBtn: 'Book a Table',
       directionsMaps: 'Google Maps Directions',
       copyright: 'All rights reserved.',
+      instagramTitle: 'Follow MONARQ on Instagram',
+      whatsappTitle: 'Direct WhatsApp',
+      phoneTitle: 'Call the restaurant',
+      emailTitle: 'Write to us by Email',
+      mapIframeTitle: 'MONARQ Tangier Location — Google Maps',
     },
     home: {
       hero: {
@@ -1203,6 +1226,13 @@ export const uiTranslations = {
       openingInProgress: 'Opening...',
       enterSiteBtn: 'Enter website',
     },
+    notFoundPage: {
+      title: 'Page Not Found',
+      description: 'The page you are looking for does not exist or has been moved.',
+      seoTitle: 'Page Not Found | MONARQ Tangier',
+      seoDescription:
+        'This page does not exist. Explore the menu, gallery and contact information for MONARQ Tangier.',
+    },
   },
 
   ar: {
@@ -1221,6 +1251,7 @@ export const uiTranslations = {
       mute: 'كتم الصوت',
       unmute: 'تفعيل الصوت',
       fullscreen: 'ملء الشاشة',
+      retryBtn: 'إعادة المحاولة',
     },
     nav: {
       accueil: 'الرئيسية',
@@ -1228,6 +1259,8 @@ export const uiTranslations = {
       galerie: 'المعرض',
       apropos: 'من نحن',
       contact: 'اتصل بنا',
+      evenements: 'الفعاليات',
+      atmosphere: 'الأجواء',
       reserver: 'احجز طاولة',
       commander: 'اطلب الآن',
       appeler: 'اتصال',
@@ -1253,6 +1286,11 @@ export const uiTranslations = {
       reserveTableBtn: 'احجز طاولة',
       directionsMaps: 'الاتجاهات عبر خرائط Google',
       copyright: 'جميع الحقوق محفوظة.',
+      instagramTitle: 'تابعوا مونارك على إنستغرام',
+      whatsappTitle: 'واتساب مباشر',
+      phoneTitle: 'الاتصال بالمطعم',
+      emailTitle: 'راسلونا عبر البريد الإلكتروني',
+      mapIframeTitle: 'موقع مونارك طنجة — خرائط Google',
     },
     home: {
       hero: {
@@ -1804,6 +1842,13 @@ export const uiTranslations = {
       openingInProgress: 'جاري الفتح...',
       enterSiteBtn: 'الدخول إلى الموقع',
     },
+    notFoundPage: {
+      title: 'الصفحة غير موجودة',
+      description: 'الصفحة التي تبحث عنها غير موجودة أو تم نقلها.',
+      seoTitle: 'الصفحة غير موجودة | MONARQ طنجة',
+      seoDescription:
+        'هذه الصفحة غير موجودة. تصفح القائمة والمعرض ومعلومات الاتصال الخاصة بمونارك طنجة.',
+    },
   },
 
   nl: {
@@ -1822,6 +1867,7 @@ export const uiTranslations = {
       mute: 'Geluid dempen',
       unmute: 'Geluid inschakelen',
       fullscreen: 'Volledig scherm',
+      retryBtn: 'Opnieuw proberen',
     },
     nav: {
       accueil: 'Home',
@@ -1829,6 +1875,8 @@ export const uiTranslations = {
       galerie: 'Galerij',
       apropos: 'Over Ons',
       contact: 'Contact',
+      evenements: 'Evenementen',
+      atmosphere: 'Sfeer',
       reserver: 'Reserveren',
       commander: 'Bestellen',
       appeler: 'Bellen',
@@ -1854,6 +1902,11 @@ export const uiTranslations = {
       reserveTableBtn: 'Reserveer een Tafel',
       directionsMaps: 'Google Maps Route',
       copyright: 'Alle rechten voorbehouden.',
+      instagramTitle: 'Volg MONARQ op Instagram',
+      whatsappTitle: 'Directe WhatsApp',
+      phoneTitle: 'Bel het restaurant',
+      emailTitle: 'Schrijf ons per e-mail',
+      mapIframeTitle: 'Locatie MONARQ Tanger — Google Maps',
     },
     home: {
       hero: {
@@ -2405,6 +2458,13 @@ export const uiTranslations = {
       accessGranted: 'Toegang verleend. Website wordt geladen...',
       openingInProgress: 'Bezig met openen...',
       enterSiteBtn: 'Website bekijken',
+    },
+    notFoundPage: {
+      title: 'Pagina niet gevonden',
+      description: 'De pagina die u zoekt bestaat niet of is verplaatst.',
+      seoTitle: 'Pagina niet gevonden | MONARQ Tanger',
+      seoDescription:
+        'Deze pagina bestaat niet. Bekijk het menu, de galerij en de contactgegevens van MONARQ Tanger.',
     },
   },
 } as const;

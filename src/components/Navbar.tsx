@@ -1,3 +1,4 @@
+import { pathFor } from '../routes';
 import React, { useState, useEffect } from 'react';
 import {
   motion,
@@ -150,11 +151,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, preloadTab, setActive
           }}
         >
           {/* Logo */}
-          <motion.button
-            onPointerEnter={() => preloadTab('accueil')}
-            onFocus={() => preloadTab('accueil')}
-            onPointerDown={() => preloadTab('accueil')}
-            onClick={() => handleNavClick('accueil')}
+          <motion.a
+            href={pathFor('accueil')}
+            onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); handleNavClick('accueil'); }}
             className="flex items-center gap-3 text-left focus:outline-none flex-shrink-0"
             style={{ scale: reduce ? 1 : logoScale }}
             whileHover={{ scale: 1.02 }}
@@ -165,7 +164,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, preloadTab, setActive
               alt="MONARQ Tanger"
               className="h-8 sm:h-9 xl:h-11 w-auto"
             />
-          </motion.button>
+          </motion.a>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center flex-shrink-0" role="navigation">
@@ -174,12 +173,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, preloadTab, setActive
               {navItems.map((item) => {
                 const isActive = activeTab === item.id;
                 return (
-                  <button
+                  <a
                     key={item.id}
-                    onPointerEnter={() => preloadTab(item.id)}
-                    onFocus={() => preloadTab(item.id)}
-                    onPointerDown={() => preloadTab(item.id)}
-                    onClick={() => handleNavClick(item.id)}
+                    href={pathFor(item.id)}
+                    onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); handleNavClick(item.id); }}
                     className={`whitespace-nowrap flex-shrink-0 text-[11px] xl:text-[13px] uppercase tracking-[0.11em] xl:tracking-[0.16em] font-semibold transition-colors duration-250 relative py-1.5 focus:outline-none ${
                       isTransparent
                         ? isActive
@@ -204,7 +201,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, preloadTab, setActive
                         }
                       />
                     )}
-                  </button>
+                  </a>
                 );
               })}
             </div>
@@ -245,35 +242,31 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, preloadTab, setActive
               <span>{t.nav.reserver}</span>
             </motion.button>
 
-            <motion.button
-              onPointerEnter={() => preloadTab('digital-menu')}
-              onFocus={() => preloadTab('digital-menu')}
-              onPointerDown={() => preloadTab('digital-menu')}
-              onClick={() => handleNavClick('digital-menu')}
+            <motion.a
+              href={pathFor('digital-menu')}
+              onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); handleNavClick('digital-menu'); }}
               className="whitespace-nowrap flex-shrink-0 flex items-center gap-1.5 xl:gap-2 px-4 xl:px-5 py-2 xl:py-2.5 rounded-full text-[11px] xl:text-xs uppercase tracking-[0.12em] xl:tracking-[0.15em] font-medium btn-gold shadow-sm"
               whileTap={reduce ? {} : { scale: 0.96, y: 0 }}
               transition={SPRING_SNAP}
             >
               <ShoppingBag className="w-3.5 h-3.5 flex-shrink-0" />
               <span>{t.nav.commander}</span>
-            </motion.button>
+            </motion.a>
           </div>
 
           {/* Mobile Actions */}
           <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden flex-shrink-0">
             <LanguageSwitcher isTransparent={isTransparent} variant="mobile-compact" />
 
-            <motion.button
-              onPointerEnter={() => preloadTab('digital-menu')}
-              onFocus={() => preloadTab('digital-menu')}
-              onPointerDown={() => preloadTab('digital-menu')}
-              onClick={() => handleNavClick('digital-menu')}
+            <motion.a
+              href={pathFor('digital-menu')}
+              onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); handleNavClick('digital-menu'); }}
               className="whitespace-nowrap px-3 sm:px-3.5 py-1.5 rounded-full text-[11px] uppercase tracking-wider font-semibold btn-gold shadow-sm"
               whileTap={reduce ? {} : { scale: 0.94 }}
               transition={SPRING_SNAP}
             >
               {t.nav.commander}
-            </motion.button>
+            </motion.a>
 
             <motion.button
               onClick={() => setMobileMenuOpen(true)}
@@ -310,11 +303,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, preloadTab, setActive
               animate={{ opacity: 1 }}
               transition={{ duration: 0.25, delay: 0.3 }}
             >
-              <button
-                onPointerEnter={() => preloadTab('accueil')}
-                onFocus={() => preloadTab('accueil')}
-                onPointerDown={() => preloadTab('accueil')}
-                onClick={() => handleNavClick('accueil')}
+              <a
+                href={pathFor('accueil')}
+                onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); handleNavClick('accueil'); }}
                 className="flex items-center gap-3 text-left focus:outline-none"
               >
                 <img
@@ -322,7 +313,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, preloadTab, setActive
                   alt="MONARQ Tanger"
                   className="h-9 w-auto"
                 />
-              </button>
+              </a>
 
               <div className="flex items-center gap-3">
                 <button
@@ -368,12 +359,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, preloadTab, setActive
               {navItems.map((item, i) => {
                 const isActive = activeTab === item.id;
                 return (
-                  <motion.button
+                  <motion.a
                     key={item.id}
-                    onPointerEnter={() => preloadTab(item.id)}
-                    onFocus={() => preloadTab(item.id)}
-                    onPointerDown={() => preloadTab(item.id)}
-                    onClick={() => handleNavClick(item.id)}
+                    href={pathFor(item.id)}
+                    onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); handleNavClick(item.id); }}
                     className={`flex items-center justify-between px-5 py-3.5 rounded-xl text-left text-sm uppercase tracking-[0.2em] transition-colors duration-200 ${
                       isActive
                         ? 'bg-monarq-gold/25 text-monarq-gold-light font-bold border border-monarq-gold/45'
@@ -393,7 +382,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, preloadTab, setActive
                         layoutId="mobile-active-dot"
                       />
                     )}
-                  </motion.button>
+                  </motion.a>
                 );
               })}
             </div>
@@ -406,16 +395,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, preloadTab, setActive
               transition={{ duration: 0.4, delay: 0.55 }}
             >
               <div className="grid grid-cols-2 gap-2.5">
-                <button
-                  onPointerEnter={() => preloadTab('digital-menu')}
-                  onFocus={() => preloadTab('digital-menu')}
-                  onPointerDown={() => preloadTab('digital-menu')}
-                  onClick={() => handleNavClick('digital-menu')}
+                <a
+                  href={pathFor('digital-menu')}
+                  onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); handleNavClick('digital-menu'); }}
                   className="w-full py-3.5 rounded-xl btn-gold flex items-center justify-center gap-2 text-xs uppercase tracking-[0.18em] font-semibold shadow-luxury"
                 >
                   <ShoppingBag className="w-4 h-4" />
                   <span>{t.nav.commander}</span>
-                </button>
+                </a>
                 <button
                   onClick={() => { setMobileMenuOpen(false); onOpenReservation(); }}
                   className="w-full py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white flex items-center justify-center gap-2 text-xs uppercase tracking-[0.18em] font-semibold"

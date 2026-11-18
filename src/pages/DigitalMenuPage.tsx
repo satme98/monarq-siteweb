@@ -271,36 +271,36 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
       {/* ── Hero ─── */}
       <section className="bg-marble-pattern py-10 sm:py-12 md:py-16 px-5 sm:px-6 flex flex-col items-center justify-center text-center border-b border-monarq-line">
         <FadeUp delay={0.1}>
-          <SectionEyebrow>Commande en Ligne</SectionEyebrow>
+          <SectionEyebrow>{t.digitalMenu.eyebrow}</SectionEyebrow>
         </FadeUp>
         <FadeUp delay={0.2}>
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-monarq-ink font-semibold mb-2.5 leading-tight max-w-3xl">
-            Menu Digital
+            {t.digitalMenu.title}
           </h1>
         </FadeUp>
         <FadeUp delay={0.3}>
           <p className="font-sans text-monarq-ink-soft text-sm sm:text-base max-w-xl mx-auto font-normal leading-relaxed">
-            Sélectionnez vos créations favorites et commandez en livraison ou à emporter directement sur WhatsApp.
+            {t.digitalMenu.subtitle}
           </p>
         </FadeUp>
 
         {/* Search Input & Classic Menu Switch */}
         <FadeUp delay={0.4} className="w-full max-w-xl mt-6 space-y-3">
           <div className="relative flex items-center">
-            <Search className="w-4 h-4 text-monarq-gold-deep absolute left-4 pointer-events-none" />
+            <Search className="w-4 h-4 text-monarq-gold-deep absolute start-4 pointer-events-none" />
             <input
               type="text"
-              placeholder="Rechercher un plat, un ingrédient..."
+              placeholder={t.digitalMenu.searchPlaceholder}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-10 py-3 rounded-full bg-monarq-paper text-monarq-ink placeholder:text-monarq-ink-muted/60 font-sans text-base shadow-luxury border border-monarq-line-strong/60 focus:outline-none focus:border-monarq-gold transition-all"
+              className="w-full ps-11 pe-10 py-3 rounded-full bg-monarq-paper text-monarq-ink placeholder:text-monarq-ink-muted/60 font-sans text-base shadow-luxury border border-monarq-line-strong/60 focus:outline-none focus:border-monarq-gold transition-all"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                aria-label="Effacer la recherche"
-                className="absolute right-3.5 p-1 rounded-full hover:bg-monarq-paper-dark text-monarq-ink-muted transition-colors"
+                aria-label={t.digitalMenu.clearSearchAria}
+                className="absolute end-3.5 p-1 rounded-full hover:bg-monarq-paper-dark text-monarq-ink-muted transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -315,7 +315,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                 className="inline-flex items-center gap-2 font-sans text-xs uppercase tracking-[0.18em] text-monarq-gold-deep hover:text-monarq-ink font-semibold transition-colors"
               >
                 <BookOpen className="w-3.5 h-3.5" />
-                <span>Consulter la carte classique</span>
+                <span>{t.digitalMenu.switchToClassicBtn}</span>
               </button>
             </div>
           )}
@@ -328,7 +328,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
           <button
             type="button"
             onClick={() => scrollBar(-1)}
-            aria-label="Défiler à gauche"
+            aria-label={t.digitalMenu.scrollLeftAria}
             className="hidden md:flex flex-shrink-0 w-8 h-8 rounded-full border border-monarq-line bg-monarq-paper hover:border-monarq-gold text-monarq-ink items-center justify-center transition-colors"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -336,7 +336,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
 
           <nav
             ref={barRef}
-            aria-label="Catégories du menu"
+            aria-label={t.digitalMenu.categoriesAria}
             className="flex items-center gap-2 overflow-x-auto no-scrollbar py-3 flex-1 relative"
           >
             {sections.map((s) => {
@@ -363,7 +363,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
           <button
             type="button"
             onClick={() => scrollBar(1)}
-            aria-label="Défiler à droite"
+            aria-label={t.digitalMenu.scrollRightAria}
             className="hidden md:flex flex-shrink-0 w-8 h-8 rounded-full border border-monarq-line bg-monarq-paper hover:border-monarq-gold text-monarq-ink items-center justify-center transition-colors"
           >
             <ChevronRight className="w-4 h-4" />
@@ -377,17 +377,17 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
           <div className="py-16 text-center flex flex-col items-center justify-center space-y-3 bg-monarq-paper-soft rounded-2xl border border-monarq-line">
             <UtensilsCrossed className="w-8 h-8 text-monarq-gold/60" />
             <h3 className="font-serif text-xl font-bold uppercase tracking-wide text-monarq-ink">
-              Aucun plat trouvé
+              {t.digitalMenu.noDishTitle}
             </h3>
             <p className="font-sans text-xs sm:text-sm text-monarq-ink-soft max-w-sm">
-              Essayez un autre terme de recherche.
+              {t.digitalMenu.noDishDesc}
             </p>
             <button
               type="button"
               onClick={() => setSearchQuery('')}
               className="mt-2 px-6 py-2.5 rounded-full btn-dark text-xs uppercase tracking-[0.18em] font-semibold"
             >
-              Réinitialiser
+              {t.digitalMenu.resetBtn}
             </button>
           </div>
         ) : (
@@ -402,7 +402,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                       <span>{section.name}</span>
                     </h2>
                     <span className="font-sans text-xs uppercase tracking-[0.14em] font-semibold text-monarq-ink-muted tabular-nums flex-shrink-0">
-                      {section.items.length} {section.items.length > 1 ? 'plats' : 'plat'}
+                      {section.items.length} {section.items.length > 1 ? t.digitalMenu.dishPlural : t.digitalMenu.dishSingular}
                     </span>
                   </div>
                   {section.description && (
@@ -440,13 +440,13 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                               {item.isSpicy && (
                                 <span
                                   className="w-2 h-2 rounded-full bg-red-600 inline-block flex-shrink-0"
-                                  title="Épicé"
+                                  title={t.digitalMenu.spicyTitle}
                                 />
                               )}
                               {item.isVegetarian && (
                                 <span
                                   className="w-2 h-2 rounded-full bg-emerald-600 inline-block flex-shrink-0"
-                                  title="Végétarien"
+                                  title={t.digitalMenu.vegetarianTitle}
                                 />
                               )}
                             </div>
@@ -480,14 +480,14 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                         <div className="mt-4 pt-3 border-t border-monarq-line/50 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
                           <div className="flex items-center gap-3">
                             <span className="font-sans text-[1.0625rem] text-monarq-gold-deep font-bold tabular-nums">
-                              {typeof item.price === 'number' ? `${item.price} DH` : item.price}
+                              {typeof item.price === 'number' ? `${item.price} ${t.common.currency}` : item.price}
                             </span>
                             <button
                               type="button"
                               onClick={() => { setEditingLine(null); setDetailItem(item); }}
                               className="min-h-[44px] py-1 font-sans text-sm tracking-normal text-monarq-ink-muted hover:text-monarq-gold-deep font-semibold transition-colors"
                             >
-                              Détails
+                              {t.digitalMenu.detailsBtn}
                             </button>
                           </div>
 
@@ -498,7 +498,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                               className="min-h-[44px] px-4 py-1.5 rounded-full bg-monarq-ink hover:bg-monarq-black active:scale-95 text-monarq-paper font-sans text-sm tracking-normal font-semibold flex items-center gap-1.5 transition-colors shadow-sm"
                             >
                               <Plus className="w-3.5 h-3.5 text-monarq-gold-light" />
-                              <span>Ajouter</span>
+                              <span>{t.digitalMenu.addBtn}</span>
                             </button>
                           ) : (
                             <div className="flex items-center gap-1.5">
@@ -507,7 +507,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                                   type="button"
                                   onClick={() => handleUpdateQuantity(item.id, qty - 1)}
                                   className="size-[44px] rounded-full flex items-center justify-center text-monarq-ink hover:bg-monarq-paper-dark transition-colors"
-                                  aria-label="Diminuer"
+                                  aria-label={t.digitalMenu.decreaseAria}
                                 >
                                   <Minus className="w-3 h-3" />
                                 </button>
@@ -518,7 +518,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                                   type="button"
                                   onClick={() => handleUpdateQuantity(item.id, qty + 1)}
                                   className="size-[44px] rounded-full bg-monarq-gold/20 text-monarq-gold-deep hover:bg-monarq-gold/30 transition-colors flex items-center justify-center"
-                                  aria-label="Augmenter"
+                                  aria-label={t.digitalMenu.increaseAria}
                                 >
                                   <Plus className="w-3 h-3" />
                                 </button>
@@ -527,8 +527,8 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                               <button
                                 type="button"
                                 onClick={() => handleUpdateQuantity(item.id, 0)}
-                                title="Retirer de la sélection"
-                                aria-label={`Retirer ${item.name} de la sélection`}
+                                title={t.digitalMenu.removeTitle}
+                                aria-label={`${t.digitalMenu.removeTitle} — ${item.name}`}
                                 className="size-[44px] rounded-full border border-monarq-line bg-monarq-paper text-monarq-ink-muted hover:text-red-700 hover:border-red-200 hover:bg-red-50 flex items-center justify-center transition-colors shadow-sm"
                               >
                                 <X className="w-3.5 h-3.5" />
@@ -558,7 +558,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
             <span className="block h-px w-8 sm:w-10 bg-monarq-gold/40" />
           </div>
           <p className="font-serif italic text-monarq-ink-soft text-sm sm:text-base text-center leading-relaxed max-w-md font-medium">
-            Tous nos plats sont préparés à la commande avec des produits frais et de saison.
+            {t.digitalMenu.bottomNote}
           </p>
         </div>
       </FadeIn>
@@ -590,12 +590,12 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                   </span>
                 </div>
 
-                <div className="text-left">
+                <div className="text-start">
                   <p className="font-sans font-semibold text-[0.9375rem] tracking-normal text-white leading-tight">
-                    Votre sélection
+                    {t.digitalMenu.yourSelection}
                   </p>
                   <p className="font-sans text-[11px] text-monarq-paper/80">
-                    {totalCartCount} article{totalCartCount > 1 ? 's' : ''}
+                    {totalCartCount} {totalCartCount > 1 ? t.digitalMenu.itemPlural : t.digitalMenu.itemSingular}
                   </p>
                 </div>
               </div>
@@ -603,10 +603,10 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
               {/* Right: Total & Arrow */}
               <div className="flex items-center gap-2.5">
                 <span className="font-sans font-bold text-base text-monarq-gold-light tabular-nums">
-                  {totalCartPrice} DH
+                  {totalCartPrice} {t.common.currency}
                 </span>
                 <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
-                  <ArrowRight className="w-4 h-4 text-white" />
+                  <ArrowRight className="w-4 h-4 text-white rtl:rotate-180" />
                 </div>
               </div>
             </button>

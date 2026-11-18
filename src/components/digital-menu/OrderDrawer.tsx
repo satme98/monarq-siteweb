@@ -37,7 +37,7 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
   onClearCart,
   onEdit,
 }) => {
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
   // Service mode: Delivery or Pick-up
   const [serviceMode, setServiceMode] = useState<'delivery' | 'pickup'>('delivery');
   const [pickupTime, setPickupTime] = useState<string>('asap');
@@ -94,69 +94,71 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
   const totalPrice = items.reduce((sum, item) => sum + lineTotal(item), 0);
 
   const generateWhatsAppMessage = () => {
+    const wa = t.orderDrawer.wa;
     const lines = [
-      'Bonjour MONARQ Tanger,',
+      wa.greeting,
       '',
-      'Je souhaite passer la commande suivante via le Menu Digital :',
+      wa.intro,
       '',
     ];
 
     // Service Mode Details
     if (serviceMode === 'delivery') {
-      lines.push('*Mode : LIVRAISON*');
+      lines.push(wa.modeDelivery);
       if (deliveryData.addressText) {
-        lines.push(`*Adresse :* ${deliveryData.addressText.trim()}`);
+        lines.push(`${wa.address} ${deliveryData.addressText.trim()}`);
       }
       if (deliveryData.additionalDetails) {
-        lines.push(`*Complément :* ${deliveryData.additionalDetails.trim()}`);
+        lines.push(`${wa.complement} ${deliveryData.additionalDetails.trim()}`);
       }
       if (deliveryData.latitude !== null && deliveryData.longitude !== null) {
-        lines.push(`*Position GPS (Google Maps) :* https://maps.google.com/?q=${deliveryData.latitude},${deliveryData.longitude}`);
+        lines.push(`${wa.gps} https://maps.google.com/?q=${deliveryData.latitude},${deliveryData.longitude}`);
         if (deliveryData.distanceKm !== null) {
-          const zoneStatus = deliveryData.isWithinZone ? 'Éligible' : 'Hors zone standard';
-          lines.push(`*Distance estimée :* ~${deliveryData.distanceKm} km (${zoneStatus})`);
+          const zoneStatus = deliveryData.isWithinZone ? wa.eligible : wa.outOfZone;
+          lines.push(`${wa.distance} ~${deliveryData.distanceKm} km (${zoneStatus})`);
         }
       }
     } else {
-      lines.push('*Mode : À EMPORTER*');
+      lines.push(wa.modePickup);
+      const slots = t.orderDrawer.slots;
       const timeLabel =
         pickupTime === 'asap'
-          ? 'Dès que possible (~20 min)'
+          ? slots.asap
           : pickupTime === '30min'
-          ? 'Dans 30 minutes'
+          ? slots['30min']
           : pickupTime === '45min'
-          ? 'Dans 45 minutes'
-          : 'Dans 1 heure';
-      lines.push(`*Heure de retrait :* ${timeLabel}`);
-      lines.push(`*Lieu de retrait :* MONARQ Tanger`);
+          ? slots['45min']
+          : slots['1hour'];
+      lines.push(`${wa.pickupTime} ${timeLabel}`);
+      lines.push(wa.pickupLocation);
     }
 
     lines.push('');
-    lines.push('*Articles :*');
+    lines.push(wa.items);
 
     items.forEach((ci) => {
       const linePrice = lineTotal(ci);
-      lines.push(`- ${ci.quantity}x ${ci.item.name} — ${linePrice} DH`);
-      ci.extras?.forEach((extra) => lines.push(`  + ${extra.name} (+${extra.price} DH)`));
+      lines.push(`- ${ci.quantity}x ${ci.item.name} — ${linePrice} ${t.common.currency}`);
+      ci.extras?.forEach((extra) => lines.push(`  + ${extra.name} (+${extra.price} ${t.common.currency})`));
     });
 
     lines.push('');
-    lines.push(`*Total : ${totalPrice} DH*`);
+    lines.push(`${wa.total} ${totalPrice} ${t.common.currency}*`);
 
     if (customerName.trim()) {
-      lines.push(`*Nom :* ${customerName.trim()}`);
+      lines.push(`${wa.name} ${customerName.trim()}`);
     }
 
     if (customerPhone.trim()) {
-      lines.push(`*Téléphone :* ${customerPhone.trim()}`);
+      lines.push(`${wa.phone} ${customerPhone.trim()}`);
     }
 
     if (notes.trim()) {
-      lines.push(`*Instructions :* ${notes.trim()}`);
+      lines.push(`${wa.instructions} ${notes.trim()}`);
     }
 
     lines.push('');
-    lines.push('Merci de me confirmer la prise en charge de ma commande.');
+    lines.push(wa.thanks);
 
     return lines.join('\n');
   };
@@ -201,10 +203,10 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
               </div>
               <div>
                 <h3 className="font-serif text-xl font-bold uppercase tracking-wide text-monarq-ink leading-tight">
-                  Votre Sélection
+                  {t.orderDrawer.yourSelection}
                 </h3>
                 <p className="font-sans text-xs text-monarq-ink-muted">
-                  {totalItemsCount} {totalItemsCount > 1 ? 'articles' : 'article'}
+                  {totalItemsCount} {totalItemsCount > 1 ? t.orderDrawer.itemPlural : t.orderDrawer.itemSingular}
                 </p>
               </div>
             </div>
@@ -215,16 +217,16 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                   type="button"
                   onClick={onClearCart}
                   className="px-2.5 py-1 text-monarq-ink-muted hover:text-red-700 transition-colors rounded-full hover:bg-red-50 font-sans text-xs flex items-center gap-1"
-                  title="Vider la sélection"
+                  title={t.orderDrawer.clearCartTitle}
                 >
                   <Trash2 className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Vider</span>
+                  <span className="hidden sm:inline">{t.orderDrawer.clearCartLabel}</span>
                 </button>
               )}
               <button
                 type="button"
                 onClick={onClose}
-                aria-label="Fermer"
+                aria-label={t.orderDrawer.closeAria}
                 className="w-8 h-8 rounded-full bg-monarq-paper hover:bg-monarq-paper-dark text-monarq-ink border border-monarq-line flex items-center justify-center transition-colors"
               >
                 <X className="w-4 h-4" />
@@ -240,17 +242,17 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                   <ShoppingBag className="w-6 h-6 opacity-50" />
                 </div>
                 <h4 className="font-serif text-xl text-monarq-ink font-semibold uppercase tracking-wide">
-                  Votre sélection est vide
+                  {t.orderDrawer.emptyTitle}
                 </h4>
                 <p className="font-sans text-xs sm:text-sm text-monarq-ink-soft max-w-xs leading-relaxed">
-                  Parcourez la carte et ajoutez vos plats favoris pour composer votre commande.
+                  {t.orderDrawer.emptyDesc}
                 </p>
                 <button
                   type="button"
                   onClick={onClose}
                   className="mt-2 px-6 py-2.5 rounded-full btn-dark text-xs font-semibold uppercase tracking-[0.18em]"
                 >
-                  Découvrir la carte
+                  {t.orderDrawer.discoverMenuBtn}
                 </button>
               </div>
             ) : submitted ? (
@@ -259,10 +261,10 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                   <MessageCircle className="w-6 h-6" />
                 </div>
                 <h4 className="font-serif text-2xl text-monarq-ink font-bold uppercase tracking-wide">
-                  Votre demande est prête
+                  {t.orderDrawer.readyTitle}
                 </h4>
                 <p className="font-sans text-xs sm:text-sm text-monarq-ink-soft max-w-xs leading-relaxed">
-                  Envoyez votre récapitulatif dans WhatsApp pour finaliser votre commande auprès de notre équipe.
+                  {t.orderDrawer.readyDesc}
                 </p>
                 <div className="pt-3 flex flex-col sm:flex-row gap-2.5 w-full max-w-xs">
                   <a
@@ -271,14 +273,14 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                     rel="noopener noreferrer"
                     className="flex-1 py-2.5 px-4 rounded-full btn-gold text-xs uppercase tracking-[0.16em] font-semibold text-center"
                   >
-                    Ouvrir WhatsApp
+                    {t.orderDrawer.openWhatsappBtn}
                   </a>
                   <button
                     type="button"
                     onClick={() => setSubmitted(false)}
                     className="py-2.5 px-4 rounded-full bg-monarq-paper border border-monarq-line text-xs uppercase tracking-[0.14em] font-semibold text-monarq-ink hover:bg-monarq-paper-soft transition-colors"
                   >
-                    Modifier
+                    {t.orderDrawer.editBtn}
                   </button>
                 </div>
               </div>
@@ -296,7 +298,7 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                     }`}
                   >
                     <Bike className="w-4 h-4 text-monarq-gold" />
-                    <span>Livraison</span>
+                    <span>{t.orderDrawer.deliveryMode}</span>
                   </button>
                   <button
                     type="button"
@@ -308,7 +310,7 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                     }`}
                   >
                     <ShoppingBag className="w-4 h-4 text-monarq-gold" />
-                    <span>À emporter</span>
+                    <span>{t.orderDrawer.pickupMode}</span>
                   </button>
                 </div>
 
@@ -319,13 +321,13 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                       htmlFor="customer-name"
                       className="block font-sans text-xs uppercase tracking-[0.14em] font-semibold text-monarq-ink mb-1.5"
                     >
-                      Nom complet <span className="text-monarq-gold">*</span>
+                      {t.orderDrawer.fullNameLabel} <span className="text-monarq-gold">*</span>
                     </label>
                     <input
                       id="customer-name"
                       type="text"
                       required
-                      placeholder="Votre nom"
+                      placeholder={t.orderDrawer.fullNamePlaceholder}
                       value={customerName}
                       onChange={(e) => setCustomerName(e.target.value)}
                       className="w-full px-3.5 py-2.5 rounded-xl border border-monarq-line bg-monarq-paper text-monarq-ink placeholder:text-monarq-ink-muted/50 font-sans text-xs sm:text-sm focus:outline-none focus:border-monarq-gold transition-all"
@@ -337,13 +339,13 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                       htmlFor="customer-phone"
                       className="block font-sans text-xs uppercase tracking-[0.14em] font-semibold text-monarq-ink mb-1.5"
                     >
-                      Téléphone <span className="text-monarq-gold">*</span>
+                      {t.orderDrawer.phoneLabel} <span className="text-monarq-gold">*</span>
                     </label>
                     <input
                       id="customer-phone"
                       type="tel"
                       required
-                      placeholder="Votre numéro de téléphone (ex: 06...)"
+                      placeholder={t.orderDrawer.phonePlaceholder}
                       value={customerPhone}
                       onChange={(e) => setCustomerPhone(e.target.value)}
                       className="w-full px-3.5 py-2.5 rounded-xl border border-monarq-line bg-monarq-paper text-monarq-ink placeholder:text-monarq-ink-muted/50 font-sans text-xs sm:text-sm focus:outline-none focus:border-monarq-gold transition-all"
@@ -361,23 +363,23 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                   <div className="space-y-2.5 p-3.5 rounded-xl bg-monarq-paper-soft/70 border border-monarq-line">
                     <div className="flex items-center gap-1.5 font-sans text-xs uppercase tracking-[0.14em] font-bold text-monarq-ink">
                       <MapPin className="w-3.5 h-3.5 text-monarq-gold" />
-                      <span>Retrait au restaurant</span>
+                      <span>{t.orderDrawer.pickupAtRestaurant}</span>
                     </div>
                     <p className="font-sans text-xs text-monarq-ink-soft leading-relaxed">
-                      {siteConfig.fullAddress}
+                      {t.common.fullAddress}
                     </p>
 
                     <div className="pt-1">
                       <label className="font-sans text-xs font-semibold text-monarq-ink-soft mb-1.5 flex items-center gap-1.5">
                         <Clock className="w-3.5 h-3.5 text-monarq-gold" />
-                        <span>Créneau de retrait</span>
+                        <span>{t.orderDrawer.pickupTimeSlot}</span>
                       </label>
                       <div className="grid grid-cols-2 gap-1.5 text-xs">
                         {[
-                          { id: 'asap', label: 'Dès que possible (~20 min)' },
-                          { id: '30min', label: 'Dans 30 min' },
-                          { id: '45min', label: 'Dans 45 min' },
-                          { id: '1hour', label: 'Dans 1h' },
+                          { id: 'asap', label: t.orderDrawer.slots.asap },
+                          { id: '30min', label: t.orderDrawer.slots['30min'] },
+                          { id: '45min', label: t.orderDrawer.slots['45min'] },
+                          { id: '1hour', label: t.orderDrawer.slots['1hour'] },
                         ].map((slot) => (
                           <button
                             key={slot.id}
@@ -403,12 +405,12 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                     htmlFor="order-notes"
                     className="block font-sans text-xs uppercase tracking-[0.14em] font-semibold text-monarq-ink mb-1.5"
                   >
-                    Remarques ou instructions <span className="text-monarq-ink-muted font-normal lowercase tracking-normal">(optionnel)</span>
+                    {t.orderDrawer.notesLabel} <span className="text-monarq-ink-muted font-normal lowercase tracking-normal">{t.orderDrawer.optionalLabel}</span>
                   </label>
                   <input
                     id="order-notes"
                     type="text"
-                    placeholder="Précisions sur la préparation ou la livraison…"
+                    placeholder={t.orderDrawer.notesPlaceholder}
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-monarq-line bg-monarq-paper text-monarq-ink placeholder:text-monarq-ink-muted/50 font-sans text-xs sm:text-sm focus:outline-none focus:border-monarq-gold transition-all"
@@ -419,7 +421,7 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                 <div className="space-y-2 pt-1">
                   <div className="flex items-center justify-between">
                     <div className="font-sans text-xs uppercase tracking-[0.16em] font-bold text-monarq-ink">
-                      Articles ({totalItemsCount})
+                      {t.orderDrawer.itemsHeader} ({totalItemsCount})
                     </div>
                     <button
                       type="button"
@@ -427,7 +429,7 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                       className="font-sans text-[11px] uppercase tracking-[0.12em] font-semibold text-monarq-gold-deep hover:text-monarq-ink flex items-center gap-1 transition-colors"
                     >
                       <Plus className="w-3 h-3" />
-                      <span>Ajouter un plat</span>
+                      <span>{t.orderDrawer.addDishBtn}</span>
                     </button>
                   </div>
                   <div className="divide-y divide-monarq-line rounded-xl bg-monarq-paper-soft/50 border border-monarq-line overflow-hidden">
@@ -444,12 +446,12 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                               {cartItem.item.name}
                             </h5>
                             <p className="font-sans text-xs text-monarq-gold-deep font-semibold tabular-nums">
-                              {unitPrice(cartItem)} DH
+                              {unitPrice(cartItem)} {t.common.currency}
                             </p>
                           </div>
 
                           {cartItem.extras?.map((extra) => (
-                            <p key={extra.id} className="text-xs text-monarq-ink-soft">{extra.name} (+{extra.price} DH)</p>
+                            <p key={extra.id} className="text-xs text-monarq-ink-soft">{extra.name} (+{extra.price} {t.common.currency})</p>
                           ))}
                           <button type="button" onClick={() => onEdit(cartItem)} className="text-xs text-monarq-gold-deep underline">
                             {extraLabels[lang].edit}
@@ -462,7 +464,7 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                                 type="button"
                                 onClick={() => onUpdateQuantity(cartLineKey(cartItem), cartItem.quantity - 1)}
                                 className="w-6 h-6 rounded-full flex items-center justify-center text-monarq-ink hover:bg-monarq-paper-dark transition-colors"
-                                aria-label="Diminuer"
+                                aria-label={t.digitalMenu.decreaseAria}
                               >
                                 <Minus className="w-3 h-3" />
                               </button>
@@ -473,21 +475,21 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                                 type="button"
                                 onClick={() => onUpdateQuantity(cartLineKey(cartItem), cartItem.quantity + 1)}
                                 className="w-6 h-6 rounded-full bg-monarq-gold/15 text-monarq-gold-deep hover:bg-monarq-gold/25 transition-colors flex items-center justify-center"
-                                aria-label="Augmenter"
+                                aria-label={t.digitalMenu.increaseAria}
                               >
                                 <Plus className="w-3 h-3" />
                               </button>
                             </div>
 
                             <span className="font-sans font-bold text-xs sm:text-sm text-monarq-ink tabular-nums w-14 text-right">
-                              {itemTotal} DH
+                              {itemTotal} {t.common.currency}
                             </span>
 
                             <button
                               type="button"
                               onClick={() => onUpdateQuantity(cartLineKey(cartItem), 0)}
-                              title="Retirer cet article"
-                              aria-label={`Retirer ${cartItem.item.name}`}
+                              title={t.digitalMenu.removeTitle}
+                              aria-label={`${t.digitalMenu.removeTitle} ${cartItem.item.name}`}
                               className="w-6 h-6 rounded-full text-monarq-ink-muted hover:text-red-700 hover:bg-red-50 flex items-center justify-center transition-colors ml-0.5"
                             >
                               <X className="w-3.5 h-3.5" />
@@ -502,17 +504,17 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                 {/* 5. Step: Price Box */}
                 <div className="pt-3 border-t border-monarq-line space-y-1.5 font-sans text-xs">
                   <div className="flex justify-between items-center text-monarq-ink-soft">
-                    <span>Sous-total</span>
-                    <span className="tabular-nums font-semibold text-monarq-ink">{totalPrice} DH</span>
+                    <span>{t.orderDrawer.subtotal}</span>
+                    <span className="tabular-nums font-semibold text-monarq-ink">{totalPrice} {t.common.currency}</span>
                   </div>
                   <div className="flex justify-between items-center text-monarq-ink-soft">
-                    <span>{serviceMode === 'delivery' ? 'Livraison' : 'Retrait au restaurant'}</span>
-                    <span className="text-monarq-gold-deep font-semibold">Offerte</span>
+                    <span>{serviceMode === 'delivery' ? t.orderDrawer.deliveryFeeLabel : t.orderDrawer.pickupFeeLabel}</span>
+                    <span className="text-monarq-gold-deep font-semibold">{t.orderDrawer.freeLabel}</span>
                   </div>
                   <div className="pt-2 border-t border-monarq-line flex justify-between items-baseline font-bold text-base text-monarq-ink">
-                    <span className="font-serif uppercase tracking-wide text-lg">Total</span>
+                    <span className="font-serif uppercase tracking-wide text-lg">{t.orderDrawer.totalLabel}</span>
                     <span className="font-sans text-monarq-gold-deep tabular-nums text-lg sm:text-xl">
-                      {totalPrice} DH
+                      {totalPrice} {t.common.currency}
                     </span>
                   </div>
                 </div>
@@ -529,7 +531,7 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                 className="w-full py-3.5 px-6 rounded-full btn-gold text-xs uppercase tracking-[0.2em] font-semibold shadow-luxury flex items-center justify-center gap-2.5"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>Commander sur WhatsApp</span>
+                <span>{t.orderDrawer.orderOnWhatsappBtn}</span>
               </button>
             </div>
           )}

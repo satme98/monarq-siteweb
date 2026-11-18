@@ -1,3 +1,4 @@
+import lock from '../lock.json';
 export const siteConfig = {
   name: 'MONARQ',
   brandLine: 'BRUNCH · RESTAURANT · CAFÉ',
@@ -27,23 +28,21 @@ export const siteConfig = {
     { title: "Hospitalité & Confort", description: "Service attentionné, terrasse ensoleillée et ambiance élégante." },
   ],
   logos: {
-    white: '/images/monarq-logo-white-hd.png',
-    dark: '/images/monarq-logo-dark-hd.png',
-    seal: '/images/monarq-seal-hd.png',
-    badgeSeal: '/images/monarq-badge-seal.png',
+    white: '/website-images/brand/monarq-logo-white-hd.webp',
+    dark: '/website-images/brand/monarq-logo-dark-hd.webp',
+    seal: '/website-images/brand/monarq-seal-hd.png',
+    badgeSeal: '/website-images/brand/monarq-badge-seal.webp',
   },
   videos: {
     interiorWalkthrough: 'https://ik.imagekit.io/yascode/data/Video-Localisation-003.mp4',
     droneLocation: '/videos/monarq-drone-location.mp4',
   },
   textures: {
-    marbleGold: '/images/marble-gold-vein.png',
-    marbleGold2: '/images/marble-gold-vein-2.png',
-    marblePaper1: '/images/marble-bg-1.png',
-    marblePaper2: '/images/marble-bg-2.png',
+    marbleGold: '/website-images/textures/marble-gold-vein.webp',
+    marblePaper1: '/website-images/textures/marble-bg-1.webp',
   },
   maintenance: {
-    enabled: true,
+    enabled: lock.locked,
     password: 'monarq123456',
     title: 'Bientôt Disponible',
     subtitle: 'BRUNCH · RESTAURANT · CAFÉ — TANGER',
