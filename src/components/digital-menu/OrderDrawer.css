@@ -1,0 +1,7 @@
+.order-field-label {
+  @apply mb-2 block font-sans text-sm font-semibold text-monarq-ink;
+}
+
+.order-field {
+  @apply min-h-12 w-full rounded-xl border border-monarq-line bg-monarq-paper px-3.5 py-2.5 font-sans text-base text-monarq-ink transition-colors placeholder:text-monarq-ink-muted/70 focus:border-monarq-gold-deep;
+}

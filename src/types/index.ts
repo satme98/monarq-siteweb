@@ -20,7 +20,10 @@ export interface MenuExtra {
   price: number;
 }
 
+export type PastaType = 'Spaghetti' | 'Penne' | 'Tagliatelle' | 'Torsades' | 'Linguine';
+
 export interface CartItem {
+  pastaType?: PastaType;
   extras?: MenuExtra[];
   item: MenuItem;
   quantity: number;

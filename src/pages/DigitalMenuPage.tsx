@@ -4,7 +4,6 @@ import {
   Search,
   X,
   Plus,
-  Minus,
   ShoppingBag,
   Sparkles,
   ArrowRight,
@@ -14,11 +13,12 @@ import {
   UtensilsCrossed,
 } from 'lucide-react';
 import { menuChapters as baseMenuChapters } from '../data/menuData';
-import { browseMenuChapters, cartLineKey, lineTotal, menuExtras, restoreCart } from '../lib/menuOrder';
-import { MenuItem, CartItem, MenuExtra } from '../types';
+import { browseMenuChapters, cartLineKey, lineTotal, needsPastaType, menuExtras, restoreCart } from '../lib/menuOrder';
+import { MenuItem, CartItem, MenuExtra, PastaType } from '../types';
 import { FadeUp, FadeIn } from '../components/Animations';
 import { SectionEyebrow } from '../components/SectionEyebrow';
 import { OrderDrawer } from '../components/digital-menu/OrderDrawer';
+import { QuantityControls } from '../components/digital-menu/QuantityControls';
 import { useLanguage, getLocalizedMenuChapters } from '../i18n';
 
 const DishDetailModal = React.lazy(() => import('../components/digital-menu/DishDetailModal').then(m => ({ default: m.DishDetailModal })));
@@ -241,9 +241,10 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
     });
   };
 
-  const saveConfiguration = (quantity: number, extras: MenuExtra[]) => {
+  const saveConfiguration = (quantity: number, extras: MenuExtra[], pastaType?: PastaType) => {
     if (!detailItem) return;
-    const next = { item: detailItem, quantity, extras };
+    const next = { item: detailItem, quantity, extras, pastaType };
+    if (quantity > 0 && needsPastaType(next)) return;
     const key = cartLineKey(next);
     setCart((previous) => {
       const remaining = editingLine
@@ -262,6 +263,8 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
   const handleClearCart = () => {
     setCart([]);
   };
+
+  const closeOrder = React.useCallback(() => setIsOrderOpen(false), []);
 
   const totalCartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const totalCartPrice = cart.reduce((sum, item) => sum + lineTotal(item), 0);
@@ -501,39 +504,11 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
                               <span>{t.digitalMenu.addBtn}</span>
                             </button>
                           ) : (
-                            <div className="flex items-center gap-1.5">
-                              <div className="flex items-center border border-monarq-gold/60 bg-monarq-paper rounded-full p-0.5 shadow-sm">
-                                <button
-                                  type="button"
-                                  onClick={() => handleUpdateQuantity(item.id, qty - 1)}
-                                  className="size-[44px] rounded-full flex items-center justify-center text-monarq-ink hover:bg-monarq-paper-dark transition-colors"
-                                  aria-label={t.digitalMenu.decreaseAria}
-                                >
-                                  <Minus className="w-3 h-3" />
-                                </button>
-                                <span className="w-7 text-center font-sans font-bold text-xs tabular-nums text-monarq-ink">
-                                  {qty}
-                                </span>
-                                <button
-                                  type="button"
-                                  onClick={() => handleUpdateQuantity(item.id, qty + 1)}
-                                  className="size-[44px] rounded-full bg-monarq-gold/20 text-monarq-gold-deep hover:bg-monarq-gold/30 transition-colors flex items-center justify-center"
-                                  aria-label={t.digitalMenu.increaseAria}
-                                >
-                                  <Plus className="w-3 h-3" />
-                                </button>
-                              </div>
-
-                              <button
-                                type="button"
-                                onClick={() => handleUpdateQuantity(item.id, 0)}
-                                title={t.digitalMenu.removeTitle}
-                                aria-label={`${t.digitalMenu.removeTitle} — ${item.name}`}
-                                className="size-[44px] rounded-full border border-monarq-line bg-monarq-paper text-monarq-ink-muted hover:text-red-700 hover:border-red-200 hover:bg-red-50 flex items-center justify-center transition-colors shadow-sm"
-                              >
-                                <X className="w-3.5 h-3.5" />
-                              </button>
-                            </div>
+                            <QuantityControls
+                              name={item.name}
+                              quantity={qty}
+                              onChange={(quantity) => handleUpdateQuantity(item.id, quantity)}
+                            />
                           )}
                         </div>
                       </div>
@@ -620,6 +595,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
         lang={lang}
         options={menuExtras(detailItem, menuChapters, lang)}
         initialQuantity={editingLine?.quantity ?? 1}
+        initialPastaType={editingLine?.pastaType}
         initialExtras={editingLine?.extras ?? []}
         editing={!!editingLine}
         onClose={() => {
@@ -632,7 +608,7 @@ export const DigitalMenuPage: React.FC<DigitalMenuPageProps> = ({ onSwitchToClas
       {/* ── Order Drawer / WhatsApp Summary ───────────────────────── */}
       <OrderDrawer
         isOpen={isOrderOpen}
-        onClose={() => setIsOrderOpen(false)}
+        onClose={closeOrder}
         items={cart}
         onUpdateQuantity={handleUpdateQuantity}
         onClearCart={handleClearCart}

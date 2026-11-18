@@ -160,10 +160,10 @@ export const DeliveryLocationPicker: React.FC<DeliveryLocationPickerProps> = ({
     : '';
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4 rounded-2xl border border-monarq-line bg-monarq-paper-soft p-4">
       {/* Section title */}
-      <div className="flex items-center gap-1.5 font-sans text-xs uppercase tracking-[0.14em] font-bold text-monarq-ink">
-        <MapPin className="w-3.5 h-3.5 text-monarq-gold" />
+      <div className="flex items-center gap-2 font-sans text-sm font-semibold text-monarq-ink">
+        <MapPin className="size-4 shrink-0 text-monarq-gold-deep" />
         <span>{t.deliveryPicker.title}</span>
       </div>
 
@@ -172,7 +172,7 @@ export const DeliveryLocationPicker: React.FC<DeliveryLocationPickerProps> = ({
         type="button"
         onClick={handleShareLocation}
         disabled={isLocating}
-        className={`w-full py-2.5 px-3.5 rounded-xl flex items-center justify-center gap-2 font-sans text-xs uppercase tracking-[0.14em] font-semibold transition-all shadow-sm active:scale-[0.98] ${
+        className={`flex min-h-11 w-full items-center justify-center gap-2 rounded-xl px-3.5 py-2.5 text-center font-sans text-sm font-semibold shadow-sm transition-colors disabled:opacity-70 ${
           hasGps
             ? 'bg-monarq-paper border border-monarq-gold text-monarq-gold-deep hover:bg-monarq-paper-dark'
             : 'bg-monarq-ink hover:bg-black text-monarq-paper'
@@ -180,12 +180,12 @@ export const DeliveryLocationPicker: React.FC<DeliveryLocationPickerProps> = ({
       >
         {isLocating ? (
           <>
-            <Loader2 className="w-3.5 h-3.5 animate-spin text-monarq-gold" />
+            <Loader2 className="size-4 shrink-0 animate-spin text-monarq-gold-light" />
             <span>{t.deliveryPicker.locating}</span>
           </>
         ) : (
           <>
-            <Navigation className={`w-3.5 h-3.5 ${hasGps ? 'text-monarq-gold-deep' : 'text-monarq-gold'} fill-current`} />
+            <Navigation className={`size-4 shrink-0 fill-current ${hasGps ? 'text-monarq-gold-deep' : 'text-monarq-gold-light'}`} />
             <span>{t.deliveryPicker.useGpsBtn}</span>
           </>
         )}
@@ -232,6 +232,7 @@ export const DeliveryLocationPicker: React.FC<DeliveryLocationPickerProps> = ({
               <iframe
                 title={t.deliveryPicker.mapTitle}
                 src={mapEmbedUrl}
+                tabIndex={-1}
                 className="w-full h-full border-0 pointer-events-none"
                 loading="lazy"
               />
@@ -252,11 +253,11 @@ export const DeliveryLocationPicker: React.FC<DeliveryLocationPickerProps> = ({
       </AnimatePresence>
 
       {/* Simplified Address Inputs: Adresse + Complément (optionnel) */}
-      <div className="space-y-2.5">
+      <div className="space-y-4">
         <div>
           <label
             htmlFor="delivery-address"
-            className="block font-sans text-xs uppercase tracking-[0.14em] font-semibold text-monarq-ink mb-1.5"
+            className="order-field-label"
           >
             {t.deliveryPicker.addressLabel} <span className="text-monarq-gold">*</span>
           </label>
@@ -272,14 +273,14 @@ export const DeliveryLocationPicker: React.FC<DeliveryLocationPickerProps> = ({
                 addressText: e.target.value,
               })
             }
-            className="w-full px-3.5 py-2.5 rounded-xl border border-monarq-line bg-monarq-paper text-monarq-ink placeholder:text-monarq-ink-muted/50 font-sans text-xs sm:text-sm focus:outline-none focus:border-monarq-gold transition-all"
+            className="order-field"
           />
         </div>
 
         <div>
           <label
             htmlFor="delivery-details"
-            className="block font-sans text-xs uppercase tracking-[0.14em] font-semibold text-monarq-ink mb-1.5"
+            className="order-field-label"
           >
             {t.deliveryPicker.complementLabel} <span className="text-monarq-ink-muted font-normal lowercase tracking-normal">{t.deliveryPicker.optionalLabel}</span>
           </label>
@@ -294,7 +295,7 @@ export const DeliveryLocationPicker: React.FC<DeliveryLocationPickerProps> = ({
                 additionalDetails: e.target.value,
               })
             }
-            className="w-full px-3.5 py-2.5 rounded-xl border border-monarq-line bg-monarq-paper text-monarq-ink placeholder:text-monarq-ink-muted/50 font-sans text-xs sm:text-sm focus:outline-none focus:border-monarq-gold transition-all"
+            className="order-field"
           />
         </div>
       </div>

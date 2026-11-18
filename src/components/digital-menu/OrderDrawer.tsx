@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X,
   Trash2,
   Plus,
-  Minus,
   MessageCircle,
   ShoppingBag,
   Bike,
   Clock,
   MapPin,
 } from 'lucide-react';
-import { cartLineKey, lineTotal, unitPrice, extraLabels } from '../../lib/menuOrder';
+import { cartLineKey, lineTotal, unitPrice, extraLabels, needsPastaType, pastaLabels } from '../../lib/menuOrder';
 import { useLanguage } from '../../i18n';
 import { CartItem } from '../../types';
 import { siteConfig } from '../../data/siteConfig';
@@ -19,6 +18,8 @@ import {
   DeliveryLocationPicker,
   DeliveryLocationData,
 } from './DeliveryLocationPicker';
+import { QuantityControls } from './QuantityControls';
+import './OrderDrawer.css';
 
 interface OrderDrawerProps {
   isOpen: boolean;
@@ -38,6 +39,8 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
   onEdit,
 }) => {
   const { lang, t } = useLanguage();
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   // Service mode: Delivery or Pick-up
   const [serviceMode, setServiceMode] = useState<'delivery' | 'pickup'>('delivery');
   const [pickupTime, setPickupTime] = useState<string>('asap');
@@ -90,6 +93,57 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
     if (isOpen) setSubmitted(false);
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const overlay = overlayRef.current;
+    const dialog = dialogRef.current;
+    if (!overlay || !dialog) return;
+
+    const previousFocus = document.activeElement;
+    dialog.focus({ preventScroll: true });
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        onClose();
+      }
+      if (event.key !== 'Tab') return;
+
+      const controls = dialog.querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled), a[href]');
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      const active = document.activeElement;
+      const outsideControls = active === dialog || !dialog.contains(active);
+
+      if (outsideControls || active === (event.shiftKey ? first : last)) {
+        event.preventDefault();
+        (event.shiftKey ? last : first)?.focus();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+
+    // Mobile browsers may overlay the keyboard without resizing the layout viewport.
+    const viewport = window.visualViewport;
+    const fitViewport = () => {
+      const fit = viewport && viewport.scale === 1;
+      overlay.style.height = fit ? `${viewport.height}px` : '';
+      overlay.style.top = fit ? `${viewport.offsetTop}px` : '';
+    };
+    fitViewport();
+    viewport?.addEventListener('resize', fitViewport);
+    viewport?.addEventListener('scroll', fitViewport);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      viewport?.removeEventListener('resize', fitViewport);
+      viewport?.removeEventListener('scroll', fitViewport);
+      if (previousFocus instanceof HTMLElement && previousFocus.isConnected) {
+        previousFocus.focus({ preventScroll: true });
+      }
+    };
+  }, [isOpen, onClose]);
+
   const totalItemsCount = items.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = items.reduce((sum, item) => sum + lineTotal(item), 0);
 
@@ -139,6 +193,7 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
     items.forEach((ci) => {
       const linePrice = lineTotal(ci);
       lines.push(`- ${ci.quantity}x ${ci.item.name} — ${linePrice} ${t.common.currency}`);
+      if (ci.pastaType) lines.push(`  • ${ci.pastaType}`);
       ci.extras?.forEach((extra) => lines.push(`  + ${extra.name} (+${extra.price} ${t.common.currency})`));
     });
 
@@ -167,8 +222,11 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
   const rawMessage = generateWhatsAppMessage();
   const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(rawMessage)}`;
 
+  const missingPastaType = items.some(needsPastaType);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (missingPastaType) return;
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     setSubmitted(true);
   };
@@ -177,9 +235,10 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+      <div ref={overlayRef} className="fixed inset-x-0 top-0 z-50 flex h-dvh items-end justify-center pt-[env(safe-area-inset-top)] sm:items-center sm:p-6">
         {/* Backdrop */}
         <motion.div
+          aria-hidden="true"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -189,35 +248,41 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
 
         {/* Drawer container */}
         <motion.div
+          ref={dialogRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="order-drawer-title"
+          tabIndex={-1}
           initial={{ y: '100%' }}
           animate={{ y: 0 }}
           exit={{ y: '100%' }}
           transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-          className="relative z-10 w-full max-w-lg bg-monarq-paper rounded-t-2xl sm:rounded-2xl shadow-luxury-xl border border-monarq-line overflow-hidden max-h-[92vh] flex flex-col text-monarq-ink"
+          className="relative z-10 flex w-full max-w-screen-sm max-h-full flex-col overflow-hidden rounded-t-2xl border border-monarq-line bg-monarq-paper text-monarq-ink shadow-luxury-xl focus:outline-none sm:rounded-2xl"
         >
           {/* Header */}
-          <div className="px-5 py-4 border-b border-monarq-line bg-marble-pattern flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-monarq-gold/15 border border-monarq-gold/30 text-monarq-gold-deep flex items-center justify-center">
+          <div className="flex shrink-0 items-center justify-between gap-2 border-b border-monarq-line bg-marble-pattern px-4 py-3 sm:px-6 sm:py-4">
+            <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+              <div className="flex size-9 shrink-0 items-center justify-center rounded-full border border-monarq-gold/30 bg-monarq-gold/15 text-monarq-gold-deep">
                 <ShoppingBag className="w-4 h-4" />
               </div>
-              <div>
-                <h3 className="font-serif text-xl font-bold uppercase tracking-wide text-monarq-ink leading-tight">
+              <div className="min-w-0">
+                <h3 id="order-drawer-title" className="break-words font-serif text-xl font-bold uppercase leading-tight tracking-wide sm:text-2xl">
                   {t.orderDrawer.yourSelection}
                 </h3>
-                <p className="font-sans text-xs text-monarq-ink-muted">
+                <p className="font-sans text-sm text-monarq-ink-muted">
                   {totalItemsCount} {totalItemsCount > 1 ? t.orderDrawer.itemPlural : t.orderDrawer.itemSingular}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex shrink-0 items-center gap-1 sm:gap-2">
               {items.length > 0 && (
                 <button
                   type="button"
                   onClick={onClearCart}
-                  className="px-2.5 py-1 text-monarq-ink-muted hover:text-red-700 transition-colors rounded-full hover:bg-red-50 font-sans text-xs flex items-center gap-1"
+                  className="flex min-h-11 min-w-11 items-center justify-center gap-1 rounded-full px-2.5 font-sans text-sm text-monarq-ink-muted transition-colors hover:bg-red-50 hover:text-red-700"
                   title={t.orderDrawer.clearCartTitle}
+                  aria-label={t.orderDrawer.clearCartTitle}
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   <span className="hidden sm:inline">{t.orderDrawer.clearCartLabel}</span>
@@ -227,7 +292,7 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                 type="button"
                 onClick={onClose}
                 aria-label={t.orderDrawer.closeAria}
-                className="w-8 h-8 rounded-full bg-monarq-paper hover:bg-monarq-paper-dark text-monarq-ink border border-monarq-line flex items-center justify-center transition-colors"
+                className="flex size-11 items-center justify-center rounded-full border border-monarq-line bg-monarq-paper transition-colors hover:bg-monarq-paper-dark"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -235,7 +300,7 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
           </div>
 
           {/* Body */}
-          <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4">
+          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-4 sm:px-6 sm:py-6">
             {items.length === 0 ? (
               <div className="py-12 text-center flex flex-col items-center justify-center space-y-3">
                 <div className="w-14 h-14 rounded-full bg-monarq-paper-soft border border-monarq-line flex items-center justify-center text-monarq-gold">
@@ -285,41 +350,112 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                 </div>
               </div>
             ) : (
-              <form id="whatsapp-order-form" onSubmit={handleSubmit} className="space-y-4">
-                {/* 1. Fulfillment Mode Selector: Livraison / À emporter */}
-                <div className="grid grid-cols-2 gap-2 p-1 bg-monarq-paper-soft rounded-xl border border-monarq-line">
+              <form id="whatsapp-order-form" onSubmit={handleSubmit} className="space-y-6">
+                <section aria-labelledby="order-items-title" className="space-y-3">
+                  <div className="flex flex-wrap items-center justify-between gap-x-3">
+                    <h4 id="order-items-title" className="font-sans text-sm font-semibold text-monarq-ink">
+                      {t.orderDrawer.itemsHeader} ({totalItemsCount})
+                    </h4>
+                    <button
+                      type="button"
+                      onClick={onClose}
+                      className="flex min-h-11 items-center gap-1.5 rounded-lg font-sans text-sm font-semibold text-monarq-gold-deep transition-colors hover:text-monarq-ink"
+                    >
+                      <Plus className="size-4 shrink-0" />
+                      <span>{t.orderDrawer.addDishBtn}</span>
+                    </button>
+                  </div>
+                  <ul className="space-y-3">
+                    {items.map((cartItem) => {
+                      const { item, quantity, pastaType, extras } = cartItem;
+                      const lineKey = cartLineKey(cartItem);
+
+                      return (
+                        <li key={lineKey} className="rounded-2xl border border-monarq-line bg-monarq-paper-soft p-3 shadow-sm min-[375px]:p-4">
+                          <div className="flex items-start gap-3">
+                            <div className="min-w-0 flex-1">
+                              <h5 className="break-words font-sans text-base font-semibold leading-snug sm:text-lg">
+                                {item.name}
+                              </h5>
+                              <div className="flex flex-wrap items-center gap-x-3 font-sans text-sm text-monarq-gold-deep">
+                                <bdi className="whitespace-nowrap font-semibold tabular-nums">{unitPrice(cartItem)} {t.common.currency}</bdi>
+                                <button
+                                  type="button"
+                                  onClick={() => onEdit(cartItem)}
+                                  className="min-h-11 rounded-lg font-semibold underline decoration-monarq-gold/60 underline-offset-4 transition-colors hover:text-monarq-ink"
+                                >
+                                  {extraLabels[lang].edit}
+                                </button>
+                              </div>
+                              <div className="space-y-0.5 break-words font-sans text-sm text-monarq-ink-soft">
+                                {pastaType && <p>{pastaType}</p>}
+                                {needsPastaType(cartItem) && (
+                                  <p className="font-semibold text-monarq-gold-deep">{pastaLabels[lang].missing}</p>
+                                )}
+                                {extras?.map((extra) => (
+                                  <p key={extra.id}>{extra.name} <bdi className="whitespace-nowrap">(+{extra.price} {t.common.currency})</bdi></p>
+                                ))}
+                              </div>
+                            </div>
+                            {item.image && (
+                              <img
+                                src={item.image}
+                                alt=""
+                                loading="lazy"
+                                className="size-14 shrink-0 rounded-xl border border-monarq-line bg-monarq-paper-dark object-cover sm:size-16"
+                              />
+                            )}
+                          </div>
+                          <div className="mt-2.5 flex flex-wrap items-center justify-between gap-x-2 gap-y-1.5 border-t border-monarq-line pt-2.5">
+                            <QuantityControls
+                              name={item.name}
+                              quantity={quantity}
+                              onChange={(nextQuantity) => onUpdateQuantity(lineKey, nextQuantity)}
+                            />
+                            <bdi className="ms-auto whitespace-nowrap font-sans text-base font-bold tabular-nums">
+                              {lineTotal(cartItem)} {t.common.currency}
+                            </bdi>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </section>
+
+                <div className="grid grid-cols-2 gap-1.5 rounded-xl border border-monarq-line bg-monarq-paper-soft p-1">
                   <button
                     type="button"
                     onClick={() => setServiceMode('delivery')}
-                    className={`py-2.5 px-3 rounded-lg flex items-center justify-center gap-2 font-sans text-xs uppercase tracking-[0.14em] font-semibold transition-all ${
+                    aria-pressed={serviceMode === 'delivery'}
+                    className={`flex min-h-11 min-w-0 flex-wrap items-center justify-center gap-x-2 rounded-lg px-2 py-2 text-center font-sans text-sm font-semibold transition-colors ${
                       serviceMode === 'delivery'
                         ? 'bg-monarq-ink text-monarq-paper shadow-sm'
                         : 'text-monarq-ink-soft hover:text-monarq-ink'
                     }`}
                   >
-                    <Bike className="w-4 h-4 text-monarq-gold" />
+                    <Bike className={`size-4 shrink-0 ${serviceMode === 'delivery' ? 'text-monarq-gold-light' : 'text-monarq-gold-deep'}`} />
                     <span>{t.orderDrawer.deliveryMode}</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => setServiceMode('pickup')}
-                    className={`py-2.5 px-3 rounded-lg flex items-center justify-center gap-2 font-sans text-xs uppercase tracking-[0.14em] font-semibold transition-all ${
+                    aria-pressed={serviceMode === 'pickup'}
+                    className={`flex min-h-11 min-w-0 flex-wrap items-center justify-center gap-x-2 rounded-lg px-2 py-2 text-center font-sans text-sm font-semibold transition-colors ${
                       serviceMode === 'pickup'
                         ? 'bg-monarq-ink text-monarq-paper shadow-sm'
                         : 'text-monarq-ink-soft hover:text-monarq-ink'
                     }`}
                   >
-                    <ShoppingBag className="w-4 h-4 text-monarq-gold" />
+                    <ShoppingBag className={`size-4 shrink-0 ${serviceMode === 'pickup' ? 'text-monarq-gold-light' : 'text-monarq-gold-deep'}`} />
                     <span>{t.orderDrawer.pickupMode}</span>
                   </button>
                 </div>
 
-                {/* 2. Step: Customer Name & Phone */}
-                <div className="space-y-3 pt-1">
+                <div className="grid gap-4 sm:grid-cols-2">
                   <div>
                     <label
                       htmlFor="customer-name"
-                      className="block font-sans text-xs uppercase tracking-[0.14em] font-semibold text-monarq-ink mb-1.5"
+                      className="order-field-label"
                     >
                       {t.orderDrawer.fullNameLabel} <span className="text-monarq-gold">*</span>
                     </label>
@@ -330,14 +466,14 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                       placeholder={t.orderDrawer.fullNamePlaceholder}
                       value={customerName}
                       onChange={(e) => setCustomerName(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-monarq-line bg-monarq-paper text-monarq-ink placeholder:text-monarq-ink-muted/50 font-sans text-xs sm:text-sm focus:outline-none focus:border-monarq-gold transition-all"
+                      className="order-field"
                     />
                   </div>
 
                   <div>
                     <label
                       htmlFor="customer-phone"
-                      className="block font-sans text-xs uppercase tracking-[0.14em] font-semibold text-monarq-ink mb-1.5"
+                      className="order-field-label"
                     >
                       {t.orderDrawer.phoneLabel} <span className="text-monarq-gold">*</span>
                     </label>
@@ -348,33 +484,32 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                       placeholder={t.orderDrawer.phonePlaceholder}
                       value={customerPhone}
                       onChange={(e) => setCustomerPhone(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-monarq-line bg-monarq-paper text-monarq-ink placeholder:text-monarq-ink-muted/50 font-sans text-xs sm:text-sm focus:outline-none focus:border-monarq-gold transition-all"
+                      className="order-field"
                     />
                   </div>
                 </div>
 
-                {/* 3. Step: Delivery Location or Pick-up Details */}
                 {serviceMode === 'delivery' ? (
                   <DeliveryLocationPicker
                     locationData={deliveryData}
                     onChange={setDeliveryData}
                   />
                 ) : (
-                  <div className="space-y-2.5 p-3.5 rounded-xl bg-monarq-paper-soft/70 border border-monarq-line">
-                    <div className="flex items-center gap-1.5 font-sans text-xs uppercase tracking-[0.14em] font-bold text-monarq-ink">
+                  <div className="space-y-3 rounded-2xl border border-monarq-line bg-monarq-paper-soft p-4">
+                    <div className="flex items-center gap-2 font-sans text-sm font-semibold text-monarq-ink">
                       <MapPin className="w-3.5 h-3.5 text-monarq-gold" />
                       <span>{t.orderDrawer.pickupAtRestaurant}</span>
                     </div>
-                    <p className="font-sans text-xs text-monarq-ink-soft leading-relaxed">
+                    <p className="font-sans text-sm leading-relaxed text-monarq-ink-soft">
                       {t.common.fullAddress}
                     </p>
 
                     <div className="pt-1">
-                      <label className="font-sans text-xs font-semibold text-monarq-ink-soft mb-1.5 flex items-center gap-1.5">
+                      <p className="mb-2 flex items-center gap-2 font-sans text-sm font-semibold text-monarq-ink-soft">
                         <Clock className="w-3.5 h-3.5 text-monarq-gold" />
                         <span>{t.orderDrawer.pickupTimeSlot}</span>
-                      </label>
-                      <div className="grid grid-cols-2 gap-1.5 text-xs">
+                      </p>
+                      <div className="grid grid-cols-2 gap-2">
                         {[
                           { id: 'asap', label: t.orderDrawer.slots.asap },
                           { id: '30min', label: t.orderDrawer.slots['30min'] },
@@ -385,7 +520,8 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                             key={slot.id}
                             type="button"
                             onClick={() => setPickupTime(slot.id)}
-                            className={`py-2 px-2.5 rounded-lg border text-center font-sans text-xs transition-all ${
+                            aria-pressed={pickupTime === slot.id}
+                            className={`min-h-11 rounded-lg border px-2.5 py-2 text-center font-sans text-sm transition-colors ${
                               pickupTime === slot.id
                                 ? 'bg-monarq-ink text-white border-monarq-ink font-semibold'
                                 : 'bg-monarq-paper border-monarq-line text-monarq-ink-soft hover:bg-monarq-paper-dark'
@@ -399,11 +535,10 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                   </div>
                 )}
 
-                {/* 4. Step: Notes */}
-                <div className="pt-1">
+                <div>
                   <label
                     htmlFor="order-notes"
-                    className="block font-sans text-xs uppercase tracking-[0.14em] font-semibold text-monarq-ink mb-1.5"
+                    className="order-field-label"
                   >
                     {t.orderDrawer.notesLabel} <span className="text-monarq-ink-muted font-normal lowercase tracking-normal">{t.orderDrawer.optionalLabel}</span>
                   </label>
@@ -413,109 +548,25 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
                     placeholder={t.orderDrawer.notesPlaceholder}
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-monarq-line bg-monarq-paper text-monarq-ink placeholder:text-monarq-ink-muted/50 font-sans text-xs sm:text-sm focus:outline-none focus:border-monarq-gold transition-all"
+                    className="order-field"
                   />
                 </div>
 
-                {/* 5. Step: Articles list */}
-                <div className="space-y-2 pt-1">
-                  <div className="flex items-center justify-between">
-                    <div className="font-sans text-xs uppercase tracking-[0.16em] font-bold text-monarq-ink">
-                      {t.orderDrawer.itemsHeader} ({totalItemsCount})
-                    </div>
-                    <button
-                      type="button"
-                      onClick={onClose}
-                      className="font-sans text-[11px] uppercase tracking-[0.12em] font-semibold text-monarq-gold-deep hover:text-monarq-ink flex items-center gap-1 transition-colors"
-                    >
-                      <Plus className="w-3 h-3" />
-                      <span>{t.orderDrawer.addDishBtn}</span>
-                    </button>
-                  </div>
-                  <div className="divide-y divide-monarq-line rounded-xl bg-monarq-paper-soft/50 border border-monarq-line overflow-hidden">
-                    {items.map((cartItem) => {
-                      const itemTotal = lineTotal(cartItem);
-                      return (
-                        <div
-                          key={cartLineKey(cartItem)}
-                          className="p-3 flex items-center justify-between gap-2.5"
-                        >
-                          {/* Product name & unit price */}
-                          <div className="flex-1 min-w-0">
-                            <h5 className="font-serif font-bold text-base text-monarq-ink uppercase tracking-wide truncate">
-                              {cartItem.item.name}
-                            </h5>
-                            <p className="font-sans text-xs text-monarq-gold-deep font-semibold tabular-nums">
-                              {unitPrice(cartItem)} {t.common.currency}
-                            </p>
-                          </div>
-
-                          {cartItem.extras?.map((extra) => (
-                            <p key={extra.id} className="text-xs text-monarq-ink-soft">{extra.name} (+{extra.price} {t.common.currency})</p>
-                          ))}
-                          <button type="button" onClick={() => onEdit(cartItem)} className="text-xs text-monarq-gold-deep underline">
-                            {extraLabels[lang].edit}
-                          </button>
-
-                          {/* Quantity stepper + total + remove X */}
-                          <div className="flex items-center gap-2 flex-shrink-0">
-                            <div className="flex items-center border border-monarq-line bg-monarq-paper rounded-full p-0.5">
-                              <button
-                                type="button"
-                                onClick={() => onUpdateQuantity(cartLineKey(cartItem), cartItem.quantity - 1)}
-                                className="w-6 h-6 rounded-full flex items-center justify-center text-monarq-ink hover:bg-monarq-paper-dark transition-colors"
-                                aria-label={t.digitalMenu.decreaseAria}
-                              >
-                                <Minus className="w-3 h-3" />
-                              </button>
-                              <span className="w-6 text-center font-sans font-bold text-xs tabular-nums">
-                                {cartItem.quantity}
-                              </span>
-                              <button
-                                type="button"
-                                onClick={() => onUpdateQuantity(cartLineKey(cartItem), cartItem.quantity + 1)}
-                                className="w-6 h-6 rounded-full bg-monarq-gold/15 text-monarq-gold-deep hover:bg-monarq-gold/25 transition-colors flex items-center justify-center"
-                                aria-label={t.digitalMenu.increaseAria}
-                              >
-                                <Plus className="w-3 h-3" />
-                              </button>
-                            </div>
-
-                            <span className="font-sans font-bold text-xs sm:text-sm text-monarq-ink tabular-nums w-14 text-right">
-                              {itemTotal} {t.common.currency}
-                            </span>
-
-                            <button
-                              type="button"
-                              onClick={() => onUpdateQuantity(cartLineKey(cartItem), 0)}
-                              title={t.digitalMenu.removeTitle}
-                              aria-label={`${t.digitalMenu.removeTitle} ${cartItem.item.name}`}
-                              className="w-6 h-6 rounded-full text-monarq-ink-muted hover:text-red-700 hover:bg-red-50 flex items-center justify-center transition-colors ml-0.5"
-                            >
-                              <X className="w-3.5 h-3.5" />
-                            </button>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* 5. Step: Price Box */}
-                <div className="pt-3 border-t border-monarq-line space-y-1.5 font-sans text-xs">
-                  <div className="flex justify-between items-center text-monarq-ink-soft">
+                {/* Price summary */}
+                <div className="space-y-2 border-t border-monarq-line pt-4 font-sans text-sm">
+                  <div className="flex items-center justify-between gap-3 text-monarq-ink-soft">
                     <span>{t.orderDrawer.subtotal}</span>
-                    <span className="tabular-nums font-semibold text-monarq-ink">{totalPrice} {t.common.currency}</span>
+                    <bdi className="whitespace-nowrap font-semibold tabular-nums text-monarq-ink">{totalPrice} {t.common.currency}</bdi>
                   </div>
-                  <div className="flex justify-between items-center text-monarq-ink-soft">
+                  <div className="flex items-center justify-between gap-3 text-monarq-ink-soft">
                     <span>{serviceMode === 'delivery' ? t.orderDrawer.deliveryFeeLabel : t.orderDrawer.pickupFeeLabel}</span>
                     <span className="text-monarq-gold-deep font-semibold">{t.orderDrawer.freeLabel}</span>
                   </div>
-                  <div className="pt-2 border-t border-monarq-line flex justify-between items-baseline font-bold text-base text-monarq-ink">
-                    <span className="font-serif uppercase tracking-wide text-lg">{t.orderDrawer.totalLabel}</span>
-                    <span className="font-sans text-monarq-gold-deep tabular-nums text-lg sm:text-xl">
+                  <div className="flex items-baseline justify-between gap-3 border-t border-monarq-line pt-3 font-bold">
+                    <span className="font-serif text-xl uppercase tracking-wide">{t.orderDrawer.totalLabel}</span>
+                    <bdi className="whitespace-nowrap font-sans text-xl tabular-nums text-monarq-gold-deep sm:text-2xl">
                       {totalPrice} {t.common.currency}
-                    </span>
+                    </bdi>
                   </div>
                 </div>
               </form>
@@ -524,14 +575,15 @@ export const OrderDrawer: React.FC<OrderDrawerProps> = ({
 
           {/* Footer Sticky Action Button */}
           {items.length > 0 && !submitted && (
-            <div className="p-4 bg-monarq-paper-soft border-t border-monarq-line">
+            <div className="shrink-0 border-t border-monarq-line bg-monarq-paper-soft px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 sm:px-6">
               <button
                 type="submit"
                 form="whatsapp-order-form"
-                className="w-full py-3.5 px-6 rounded-full btn-gold text-xs uppercase tracking-[0.2em] font-semibold shadow-luxury flex items-center justify-center gap-2.5"
+                disabled={missingPastaType}
+                className="btn-gold flex min-h-12 w-full items-center justify-center gap-2.5 rounded-full px-4 py-2.5 text-center font-sans text-sm shadow-luxury disabled:cursor-not-allowed disabled:opacity-50"
               >
-                <MessageCircle className="w-4 h-4" />
-                <span>{t.orderDrawer.orderOnWhatsappBtn}</span>
+                <MessageCircle className="size-4 shrink-0" />
+                <span className="whitespace-normal font-semibold tracking-normal">{t.orderDrawer.orderOnWhatsappBtn}</span>
               </button>
             </div>
           )}

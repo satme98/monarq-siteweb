@@ -1,5 +1,18 @@
-import { MenuChapter, MenuExtra, MenuItem, CartItem } from '../types';
+import { MenuChapter, MenuExtra, MenuItem, CartItem, PastaType } from '../types';
 import { Language } from '../i18n/types';
+
+export const pastaTypes: readonly PastaType[] = ['Spaghetti', 'Penne', 'Tagliatelle', 'Torsades', 'Linguine'];
+
+export const pastaLabels = {
+  fr: { required: 'Type de pâtes (obligatoire)', missing: 'Choisissez un type de pâtes pour ce plat.' },
+  en: { required: 'Pasta type (required)', missing: 'Choose a pasta type for this dish.' },
+  ar: { required: 'نوع المعكرونة (إجباري)', missing: 'اختر نوع المعكرونة لهذا الطبق.' },
+  nl: { required: 'Pastasoort (verplicht)', missing: 'Kies een pastasoort voor dit gerecht.' },
+};
+
+export function needsPastaType({ item, pastaType }: CartItem): boolean {
+  return item.category === 'pates' && !pastaType;
+}
 
 export const extraLabels = {
   fr: { optional: 'Suppléments facultatifs', add: 'Ajouter', save: 'Mettre à jour', edit: 'Modifier' },
@@ -17,15 +30,20 @@ export function browseMenuChapters(chapters: MenuChapter[]): MenuChapter[] {
 
 const categoriesByGroup = {
   'accompagnements-supplements': ['petits-dejeuners', 'brunches', 'tartines', 'croques', 'omelettes'],
-  'supplements-sales': ['entrees-froides', 'entrees-chaudes', 'salades', 'pates', 'risottos', 'burgers', 'viandes', 'ribs', 'plats-marocains'],
+  'supplements-sales': ['entrees-froides', 'entrees-chaudes', 'salades', 'risottos', 'burgers', 'viandes', 'ribs', 'plats-marocains'],
   'supplements-pizzas': ['pizzas'],
   'supplements-sucres': ['desserts', 'crepes', 'gaufres-liegeoises', 'glaces'],
 };
 
 export function menuExtras(item: MenuItem, chapters: MenuChapter[], lang: Language): MenuExtra[] {
+  const categories = chapters.flatMap(({ categories }) => categories);
+  if (item.category === 'pates') {
+    const soda = categories.find(({ id }) => id === 'boissons-fraiches')?.items
+      .find(({ id }) => id === 'boissons-fraiches-soda');
+    return soda ? [{ id: soda.id, name: soda.name, price: soda.price }] : [];
+  }
   const group = Object.entries(categoriesByGroup).find(([, categories]) => categories.includes(item.category))?.[0];
   if (!group) return [];
-  const categories = chapters.flatMap(({ categories }) => categories);
   const extras = (categories.find(({ id }) => id === group)?.items ?? []).map(({ id, name, price }) => ({ id, name, price }));
   if (group !== 'accompagnements-supplements') return extras;
   const breakfast = categories.find(({ id }) => id === 'a-la-carte-pain')?.items ?? [];
@@ -39,8 +57,8 @@ export function menuExtras(item: MenuItem, chapters: MenuChapter[], lang: Langua
   ];
 }
 
-export function cartLineKey({ item, extras = [] }: CartItem): string {
-  return [item.id, ...extras.map(({ id }) => id).sort()].join(':');
+export function cartLineKey({ item, pastaType, extras = [] }: CartItem): string {
+  return [item.id, ...(pastaType ? [pastaType] : []), ...extras.map(({ id }) => id).sort()].join(':');
 }
 
 export function unitPrice({ item, extras = [] }: CartItem): number {
@@ -62,7 +80,8 @@ export function restoreCart(raw: unknown, chapters: MenuChapter[], lang: Languag
     const ids = new Set(Array.isArray(saved.extras) ? saved.extras.map((extra: unknown) =>
       (extra as { id?: string } | null)?.id) : []);
     const extras = menuExtras(item, chapters, lang).filter(({ id }) => ids.has(id));
-    const line = { item, extras, quantity: saved.quantity };
+    const pastaType = item.category === 'pates' ? pastaTypes.find((type) => type === saved.pastaType) : undefined;
+    const line = { item, extras, pastaType, quantity: saved.quantity };
     const key = cartLineKey(line);
     const existing = restored.get(key);
     if (existing) existing.quantity += line.quantity;

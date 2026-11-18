@@ -1,31 +1,37 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Plus, Minus, Sparkles, Flame, Leaf, Check } from 'lucide-react';
-import { MenuItem, MenuExtra } from '../../types';
+import { MenuItem, MenuExtra, PastaType } from '../../types';
 import { Language } from '../../i18n/types';
 import { useLanguage } from '../../i18n';
-import { lineTotal, extraLabels } from '../../lib/menuOrder';
+import { lineTotal, extraLabels, needsPastaType, pastaLabels, pastaTypes } from '../../lib/menuOrder';
 
 interface DishDetailModalProps {
   item: MenuItem;
   lang: Language;
   options: MenuExtra[];
   initialQuantity: number;
+  initialPastaType?: PastaType;
   initialExtras: MenuExtra[];
   editing: boolean;
   onClose: () => void;
-  onSave: (quantity: number, extras: MenuExtra[]) => void;
+  onSave: (quantity: number, extras: MenuExtra[], pastaType?: PastaType) => void;
 }
 
 const stripEmojis = (text?: string) =>
   text ? text.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, '').trim() : '';
 
+const choiceSurface =
+  'min-h-11 border border-monarq-line bg-monarq-white/80 transition-colors group-hover:border-monarq-gold/60 peer-checked:border-monarq-gold/70 peer-checked:bg-monarq-paper-soft peer-focus-visible:ring-2 peer-focus-visible:ring-monarq-gold-deep peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-monarq-paper';
+
 export const DishDetailModal: React.FC<DishDetailModalProps> = ({
   item,
-  lang, options, initialQuantity, initialExtras, editing, onClose, onSave,
+  lang, options, initialQuantity, initialPastaType, initialExtras, editing, onClose, onSave,
 }) => {
   const { t } = useLanguage();
   const [quantity, setQuantity] = React.useState(initialQuantity);
+  const [pastaType, setPastaType] = React.useState(initialPastaType);
+  const missingPastaType = needsPastaType({ item, quantity, pastaType });
   const [selected, setSelected] = React.useState(initialExtras.map(({ id }) => id));
   const extras = options.filter(({ id }) => selected.includes(id));
   const cleanTag = stripEmojis(item.tag);
@@ -127,25 +133,62 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
               {item.description && (
                 <p className="font-sans text-base text-monarq-ink-soft leading-relaxed">{item.description}</p>
               )}
-              {options.length > 0 && (
-                <fieldset className="space-y-1 border-t border-monarq-line pt-2">
-                  <legend className="font-semibold text-monarq-gold-deep">{labels.optional}</legend>
-                  {options.map((extra) => (
-                    <label key={extra.id} className="flex min-h-10 cursor-pointer items-center gap-3 rounded px-2 hover:bg-monarq-paper-dark">
-                      <input
-                        type="checkbox"
-                        className="size-4 accent-monarq-gold-deep"
-                        checked={selected.includes(extra.id)}
-                        onChange={(event) => {
-                          const checked = event.target.checked;
-                          setSelected((ids) => checked ? [...ids, extra.id] : ids.filter((id) => id !== extra.id));
-                        }}
-                      />
-                      <span className="flex-1">{extra.name}</span>
-                      <span className="whitespace-nowrap tabular-nums">+{extra.price} {t.common.currency}</span>
-                    </label>
-                  ))}
+              {item.category === 'pates' && (
+                <fieldset className="min-w-0">
+                  <legend className="mb-2.5 font-sans text-sm font-semibold text-monarq-ink">{pastaLabels[lang].required}</legend>
+                  <div className="grid grid-cols-2 gap-2 min-[460px]:grid-cols-3">
+                    {pastaTypes.map((type) => (
+                      <label key={type} className="group block min-w-0 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="pasta-type"
+                          value={type}
+                          className="peer sr-only"
+                          checked={pastaType === type}
+                          onChange={() => setPastaType(type)}
+                          required
+                        />
+                        <span className={`flex h-full items-center gap-2 rounded-full px-3 py-2 font-sans text-sm font-semibold ${choiceSurface}`}>
+                          <span aria-hidden="true" className="grid size-4 shrink-0 place-items-center rounded-full border border-monarq-line-strong group-has-[:checked]:border-monarq-gold-deep">
+                            <span className="size-2 rounded-full bg-monarq-gold-deep opacity-0 group-has-[:checked]:opacity-100" />
+                          </span>
+                          <span className="min-w-0 break-words">{type}</span>
+                        </span>
+                      </label>
+                    ))}
+                  </div>
                 </fieldset>
+              )}
+              {options.length > 0 && (
+                <div className="border-t border-monarq-line pt-4">
+                  <fieldset className="min-w-0">
+                    <legend className="mb-2.5 font-sans text-sm font-semibold text-monarq-ink">{labels.optional}</legend>
+                    <div className="space-y-2">
+                      {options.map((extra) => (
+                        <label key={extra.id} className="group block cursor-pointer">
+                          <input
+                            type="checkbox"
+                            className="peer sr-only"
+                            checked={selected.includes(extra.id)}
+                            onChange={(event) => {
+                              const checked = event.target.checked;
+                              setSelected((ids) => checked ? [...ids, extra.id] : ids.filter((id) => id !== extra.id));
+                            }}
+                          />
+                          <span className={`flex items-center gap-2.5 rounded-xl px-3 py-2 font-sans text-sm ${choiceSurface}`}>
+                            <span aria-hidden="true" className="grid size-5 shrink-0 place-items-center rounded-md border border-monarq-line-strong group-has-[:checked]:border-monarq-gold-deep group-has-[:checked]:bg-monarq-gold-deep">
+                              <Check className="size-3.5 text-white opacity-0 group-has-[:checked]:opacity-100" strokeWidth={2.5} />
+                            </span>
+                            <span className="min-w-0 flex-1 break-words font-medium">{extra.name}</span>
+                            <bdi className="shrink-0 whitespace-nowrap rounded-full bg-monarq-paper-dark px-2 py-1 text-xs font-semibold tabular-nums text-monarq-gold-deep">
+                              +{extra.price} {t.common.currency}
+                            </bdi>
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  </fieldset>
+                </div>
               )}
 
               <div className="pt-3 border-t border-monarq-line">
@@ -193,7 +236,8 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
             {/* Action button */}
             <button
               type="button"
-              onClick={() => onSave(quantity, extras)}
+              disabled={missingPastaType}
+              onClick={() => onSave(quantity, extras, pastaType)}
               className="flex min-w-0 flex-1 flex-wrap items-center justify-between gap-x-2 gap-y-0.5 rounded-full btn-dark px-3 py-3 text-xs font-semibold uppercase tracking-wider sm:px-5"
             >
               <span className="flex items-center gap-1.5">
