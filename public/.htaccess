@@ -1,0 +1,11 @@
+# Serve MONARQ's public page URLs on direct requests and refreshes.
+RewriteEngine On
+
+# Use prerendered HTML when the full build includes it.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+RewriteRule ^(menu|galerie|a-propos|contact|evenements|atmosphere|menu-digital)/?$ $1/index.html [L]
+
+# Static builds without prerendered pages use the React entry point.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(menu|galerie|a-propos|contact|evenements|atmosphere|menu-digital)/?$ index.html [L]
