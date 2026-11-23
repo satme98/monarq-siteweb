@@ -1,11 +1,31 @@
-# Serve MONARQ's public page URLs on direct requests and refreshes.
-RewriteEngine On
+# Serve MONARQ's SPA and prerendered pages on direct requests and refreshes.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
 
-# Use prerendered HTML when the full build includes it.
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
-RewriteRule ^(menu|galerie|a-propos|contact|evenements|atmosphere|menu-digital)/?$ $1/index.html [L]
+  # Let existing static files pass through directly.
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^ - [L]
 
-# Static builds without prerendered pages use the React entry point.
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(menu|galerie|a-propos|contact|evenements|atmosphere|menu-digital)/?$ index.html [L]
+  # Serve route-specific HTML (e.g. /menu-digital -> /menu-digital/index.html)
+  # without forcing a trailing-slash redirect.
+  RewriteCond %{REQUEST_FILENAME}/index.html -f
+  RewriteRule ^(.*?[^/])/*$ /$1/index.html [L]
+
+  # Never rewrite missing static assets to HTML; let them return a real 404.
+  RewriteRule ^(assets|website-images|videos|fonts)/ - [L]
+  RewriteRule \.(?:js|mjs|css|map|json|xml|txt|svg|png|jpe?g|webp|avif|gif|ico|woff2?|ttf|otf|mp4|mov|webm|pdf)$ - [L,NC]
+
+  # SPA fallback for all other routes (handled by React Router, including NotFoundPage).
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ /index.html [L]
+</IfModule>
+
+ErrorDocument 404 /404.html
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>

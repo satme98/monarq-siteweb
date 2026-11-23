@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:fast": "tsc && vite build",
-    "build": "tsc && vite build && node scripts/apply-lock.mjs && node scripts/prerender.mjs && node scripts/generate-sitemap.mjs && node scripts/seo-check.mjs",
+    "build:fast": "tsc && vite build && node scripts/generate-route-shells.mjs",
+    "build": "tsc && vite build && node scripts/apply-lock.mjs && node scripts/generate-route-shells.mjs && node scripts/prerender.mjs && node scripts/generate-sitemap.mjs && node scripts/seo-check.mjs",
     "start": "node server.mjs",
     "preview": "vite preview"
   },

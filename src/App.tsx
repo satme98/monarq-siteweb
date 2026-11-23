@@ -46,6 +46,75 @@ function preloadTab(tab: string) {
   }
 }
 
+const CHUNK_LOAD_ERROR_RE = /ChunkLoadError|Loading chunk|Failed to fetch dynamically imported module|Importing a module script failed|error loading dynamically imported module/i;
+const CHUNK_RELOAD_KEY = 'monarq_chunk_reload';
+
+interface RouteErrorBoundaryProps {
+  resetKey: string;
+  retryLabel: string;
+  children: React.ReactNode;
+}
+
+interface RouteErrorBoundaryState {
+  hasError: boolean;
+}
+
+class RouteErrorBoundary extends React.Component<RouteErrorBoundaryProps, RouteErrorBoundaryState> {
+  state: RouteErrorBoundaryState = { hasError: false };
+
+  static getDerivedStateFromError(): RouteErrorBoundaryState {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error) {
+    if (CHUNK_LOAD_ERROR_RE.test(error?.message || '')) {
+      try {
+        const lastAttempt = sessionStorage.getItem(CHUNK_RELOAD_KEY);
+        if (lastAttempt !== this.props.resetKey) {
+          sessionStorage.setItem(CHUNK_RELOAD_KEY, this.props.resetKey);
+          window.location.reload();
+        }
+      } catch {
+        // Storage unavailable
+      }
+    }
+  }
+
+  componentDidUpdate(prevProps: RouteErrorBoundaryProps) {
+    if (prevProps.resetKey !== this.props.resetKey && this.state.hasError) {
+      this.setState({ hasError: false });
+    }
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-[70vh] flex flex-col items-center justify-center px-6 pt-32 pb-20 text-center">
+          <button
+            type="button"
+            className="px-6 py-3 rounded-full btn-gold text-xs uppercase tracking-[0.18em] font-semibold shadow-sm"
+            onClick={() => window.location.reload()}
+          >
+            {this.props.retryLabel}
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+function ChunkLoadedMarker({ path }: { path: string }) {
+  useEffect(() => {
+    try {
+      sessionStorage.removeItem(CHUNK_RELOAD_KEY);
+    } catch {
+      // Storage unavailable
+    }
+  }, [path]);
+  return null;
+}
+
 const legacyTarget = (): string | null => {
   const hash = window.location.hash.toLowerCase();
   const search = window.location.search.toLowerCase();
@@ -100,8 +169,19 @@ export function App() {
   useEffect(() => {
     if (isMaintenance) return;
     const target = legacyTarget();
-    if (target) navigate(target, { replace: true });
-  }, [isMaintenance, location.hash, location.search, navigate]);
+    if (target && (location.pathname !== target || location.hash || location.search)) {
+      navigate(target, { replace: true });
+    }
+  }, [isMaintenance, location.pathname, location.hash, location.search, navigate]);
+
+  // Canonicalize trailing slashes, /index.html, or mixed-case paths to route.path
+  useEffect(() => {
+    if (isMaintenance || !activeTab) return;
+    const canonical = pathFor(activeTab);
+    if (location.pathname !== canonical) {
+      navigate(`${canonical}${location.search}${location.hash}`, { replace: true });
+    }
+  }, [isMaintenance, activeTab, location.pathname, location.search, location.hash, navigate]);
 
   useLayoutEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -128,7 +208,9 @@ export function App() {
         {failedTab && <button type="button" className="fixed top-24 right-4 z-50 bg-monarq-paper p-4 shadow-lg" onClick={() => setActiveTab(failedTab)}>{t.common.retryBtn}</button>}
         {activeTab && pageSeo[activeTab] && <Seo {...pageSeo[activeTab]} path={pathFor(activeTab)} jsonLd={schemaFor(activeTab)} />}
         {isNotFound && <NotFoundPage />}
-        <Suspense fallback={<div className="min-h-[70vh]" />}>
+        <RouteErrorBoundary resetKey={location.pathname} retryLabel={t.common.retryBtn}>
+          <Suspense fallback={<div className="min-h-[70vh]" />}>
+            <ChunkLoadedMarker path={location.pathname} />
           {activeTab === 'accueil' && (
             <PageTransition pageKey="accueil">
               <HomePage.Component
@@ -186,7 +268,8 @@ export function App() {
               />
             </PageTransition>
           )}
-        </Suspense>
+          </Suspense>
+        </RouteErrorBoundary>
       </main>
 
       {/* Modal de Réservation */}

@@ -6,8 +6,27 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(__dirname, 'dist');
+const INDEX_FILE = path.join(DIST, 'index.html');
+const NOT_FOUND_FILE = path.join(DIST, '404.html');
 const CANONICAL_HOST = 'monarq.ma';
 const LOCKED = fs.existsSync(path.join(DIST, '.locked'));
+const STATIC_ASSET_RE = /^\/(?:assets|website-images|videos|fonts)(?:\/|$)|\.(?:js|mjs|css|map|json|xml|txt|svg|png|jpe?g|webp|avif|gif|ico|woff2?|ttf|otf|mp4|mov|webm|pdf)$/i;
+
+function normalizeRoutePath(pathname) {
+  const collapsed = (pathname || '/').replace(/\/{2,}/g, '/');
+  const withoutIndex = collapsed.replace(/\/index\.html$/i, '') || '/';
+  const clean = withoutIndex.length > 1 ? withoutIndex.replace(/\/+$/, '') : withoutIndex;
+  return clean.toLowerCase();
+}
+
+let knownRoutes = new Set(['/']);
+try {
+  const routesJson = JSON.parse(fs.readFileSync(path.join(__dirname, 'src', 'routes.json'), 'utf8'));
+  knownRoutes = new Set(routesJson.map((r) => normalizeRoutePath(r.path)));
+} catch {
+  // Fallback when only dist/ and server.mjs are deployed
+}
+
 const app = express();
 
 app.disable('x-powered-by');
@@ -24,7 +43,8 @@ app.use((req, res, next) => {
   // Strip trailing slash (301)
   if (req.path.length > 1 && req.path.endsWith('/')) {
     const q = req.originalUrl.slice(req.path.length);
-    return res.redirect(301, req.path.replace(/\/+$/, '') + q);
+    const target = req.path.replace(/\/+$/, '') || '/';
+    return res.redirect(301, target + q);
   }
   res.set({
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
@@ -39,12 +59,28 @@ app.use('/assets', express.static(path.join(DIST, 'assets'), { immutable: true, 
 app.use(express.static(DIST, { maxAge: '7d', index: false, redirect: false }));
 
 app.use((req, res) => {
-  if (LOCKED) return res.set('Cache-Control', 'no-cache').sendFile(path.join(DIST, 'index.html'));
-  const file = path.join(DIST, req.path, 'index.html');
-  if (file.startsWith(DIST) && fs.existsSync(file)) {
-    return res.set('Cache-Control', 'no-cache').sendFile(file);
+  if (STATIC_ASSET_RE.test(req.path)) {
+    return res.status(404).end();
   }
-  res.status(404).set('Cache-Control', 'no-cache').sendFile(path.join(DIST, '404.html'));
+  const cleanPath = normalizeRoutePath(req.path);
+  const safePath = cleanPath.startsWith('/') ? cleanPath : '/' + cleanPath;
+  const routeFile = safePath === '/'
+    ? INDEX_FILE
+    : path.resolve(DIST, '.' + safePath, 'index.html');
+  const isSafeRouteFile = routeFile === INDEX_FILE || routeFile.startsWith(DIST + path.sep);
+  const hasRouteFile = isSafeRouteFile && fs.existsSync(routeFile);
+
+  if (LOCKED) {
+    return res.set('Cache-Control', 'no-cache').sendFile(hasRouteFile ? routeFile : INDEX_FILE);
+  }
+  if (hasRouteFile) {
+    return res.set('Cache-Control', 'no-cache').sendFile(routeFile);
+  }
+  if (knownRoutes.has(safePath)) {
+    return res.set('Cache-Control', 'no-cache').sendFile(INDEX_FILE);
+  }
+  const notFoundTarget = fs.existsSync(NOT_FOUND_FILE) ? NOT_FOUND_FILE : INDEX_FILE;
+  res.status(404).set('Cache-Control', 'no-cache').sendFile(notFoundTarget);
 });
 
 const port = process.env.PORT || 3000;
